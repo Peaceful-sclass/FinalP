@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<bean name="logAop" class="com.wv.root.common.aop.LogAop"></bean>
+	
+	<aop:config>									<!-- dao에 속하는 모든 메서드에 aop 적용. -->
+		<aop:pointcut expression="execution(public * com.wv.root.model.dao.*Dao*.*(..))" id="daoPoint"></aop:pointcut><!-- .*은 모든 하위메서드를 뜻함. -->
+		<aop:aspect id="logAop" ref="logAop">
+			<aop:before method="before" pointcut-ref="daoPoint"></aop:before>
+			<aop:after method="after" pointcut-ref="daoPoint"></aop:after>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="daoPoint"></aop:after-throwing>
+		</aop:aspect>
+		
+	</aop:config>
+</beans>
