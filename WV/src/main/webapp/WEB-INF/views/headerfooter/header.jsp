@@ -52,6 +52,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-rs-food">
 					<ul class="navbar-nav ml-auto">
+					     
 						<li class="nav-item active"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
@@ -69,7 +70,8 @@
 				</div>
 			</div>
 		</nav>
-		<span style="z-index: 105; position: fixed; right: 50px;">LOGIN</span>
+		<span style="z-index: 105; position: fixed; right: 20px;"><a href="registerform.do">회원가입</a></span>
+		<span style="z-index: 105; position: fixed; right: 90px;"><a href="login.do">로그인</a></span>
 	</header>
 	<!-- End header -->
 	
