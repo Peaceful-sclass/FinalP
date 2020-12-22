@@ -15,6 +15,6 @@
 	<br />
 	<h3><a href="test.do">transaction test</a></h3>
 	<br />
-	<a href="registerform.do">registerform</a>
+	<a href="registerform.do">register</a>
 </body>
 </html>
