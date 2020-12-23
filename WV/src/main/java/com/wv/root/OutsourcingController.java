@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class ComunityController {
-	private static final Logger logger = LoggerFactory.getLogger(ComunityController.class);
+public class OutsourcingController {
+	private static final Logger logger = LoggerFactory.getLogger(OutsourcingController.class);
 	
 	
-	@RequestMapping(value = "comunity.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = "outsourcing.do", method = RequestMethod.GET)
+	public String outMain(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -27,7 +27,7 @@ public class ComunityController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "comunity";
+		return "outsourcing";
 	}
 
 	@RequestMapping(value = "sidemenuex.do", method = RequestMethod.GET)
