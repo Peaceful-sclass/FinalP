@@ -30,7 +30,7 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@RequestMapping("/loginform.do")
 	public String loginform() {
 		logger.info("[LOGINFORM]");
-		return "mvclogin";
+		return "login";       //리턴할 jsp이름 login
 	}
 	
 	@RequestMapping(value="/ajaxlogin.do", method=RequestMethod.POST)
@@ -59,7 +59,7 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@RequestMapping("/registerform.do")
 	public String memberInsertForm() {
-		return "mvcregister";
+		return "register";    //리턴할jsp파일이름 register
 	}
 	
 	@RequestMapping("/register.do")
