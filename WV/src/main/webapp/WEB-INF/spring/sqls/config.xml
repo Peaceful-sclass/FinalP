@@ -8,13 +8,21 @@
 	
 	<typeAliases> <!-- data운반할 객체타입 설정. 간단히 적기 위해 별칭 지정. -->
 		<typeAlias type="com.wv.root.model.dto.MemberDto" alias="memberDto"></typeAlias>
+
+		<typeAlias type="com.wv.root.model.dto.ComunityDto" alias="comunityDto"></typeAlias>
+		<typeAlias type="com.wv.root.model.dto.ComCommentDto" alias="comcommentDto"></typeAlias>
+		<typeAlias type="com.wv.root.model.dto.OutsourcingDto" alias="outsourcingDto"></typeAlias>
+		<typeAlias type="com.wv.root.model.dto.OutexDto" alias="outexDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ShareBoardDto" alias="shareboardDto"></typeAlias>
+
 		<!-- <typeAlias type="com.wv.root.model.dto.MemberDto" alias="member2Dto"></typeAlias> -->
 	</typeAliases>
 
 	<mappers> <!-- 실제 sql query가 작성될 장소 맵핑. src/main/resources -->
 		<mapper resource="/mybatis/home-mapper.xml"></mapper>
 		<mapper resource="/mybatis/member-mapper.xml"></mapper>
+		<mapper resource="/mybatis/comunity-mapper.xml"></mapper>
+		<mapper resource="/mybatis/outsourcing-mapper.xml"></mapper>
 		<mapper resource="/mybatis/shareboard-mapper.xml"></mapper>
 <!-- 		<mapper resource="/mybatis/board-mapper.xml"></mapper> 추가. -->
 	</mappers>
