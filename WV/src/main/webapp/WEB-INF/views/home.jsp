@@ -35,6 +35,15 @@
 <br />
 <br />
 
+<!-- 아래부분은 게시판테스트로 나중에 삭제!! -->
+<hr>
+아래는 테스트부분 나중에 삭제<br>
+<a href="shareBoardwriteView.do">파일게시판글작성test</a>
+<br>
+<a href="shareBoardList.do">게시판 리스트</a>
+
+<!-- 요기까지 -->
+
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>
