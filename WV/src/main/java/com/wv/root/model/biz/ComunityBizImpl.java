@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wv.root.model.dao.ComunityDao;
 import com.wv.root.model.dao.ComunityDaoimpl;
 import com.wv.root.model.dto.ComCommentDto;
 import com.wv.root.model.dto.ComunityDto;
@@ -13,7 +14,7 @@ import com.wv.root.model.dto.ComunityDto;
 public class ComunityBizImpl implements ComunityBiz {
 	
 	@Autowired
-	private ComunityDaoimpl comdao;
+	private ComunityDao comdao;
 
 	
 	
