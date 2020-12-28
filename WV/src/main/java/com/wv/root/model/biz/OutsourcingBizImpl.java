@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wv.root.model.dao.OutsourcingDao;
 import com.wv.root.model.dao.OutsourcingDaoImpl;
 import com.wv.root.model.dto.OutexDto;
 import com.wv.root.model.dto.OutsourcingDto;
@@ -14,7 +15,7 @@ public class OutsourcingBizImpl implements OutsourcingBiz {
 	
 	
 	@Autowired
-	private OutsourcingDaoImpl outdao;
+	private OutsourcingDao outdao;
 
 	
 	@Override
