@@ -21,7 +21,7 @@ public class ComunityDaoimpl implements ComunityDao {
 	public List<ComunityDto> selectAll(String category) {
 		List<ComunityDto> list = null;
 		try {
-			list = session.selectList(namespace+"comunityall");
+			list = session.selectList(NameSpace+"comunityall");
 		} catch (Exception e) {
 			System.out.println("글목록 불러오기 실패");
 			e.printStackTrace();
@@ -33,7 +33,7 @@ public class ComunityDaoimpl implements ComunityDao {
 	public ComunityDto selectOne(int cno) {
 		ComunityDto comdto = null;
 		try {
-			comdto = session.selectOne(namespace+"comunityone", cno);
+			comdto = session.selectOne(NameSpace+"comunityone", cno);
 		} catch (Exception e) {
 			System.out.println("글 불러오기 실패");
 			e.printStackTrace();
