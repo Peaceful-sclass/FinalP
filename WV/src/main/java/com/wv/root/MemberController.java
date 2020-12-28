@@ -56,7 +56,7 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 		
 		return map;
 	}
-	
+	///
 	@RequestMapping("/registerform.do")
 	public String memberInsertForm() {
 		return "register";    //리턴할jsp파일이름 register
