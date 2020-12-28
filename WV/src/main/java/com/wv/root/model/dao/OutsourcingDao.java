@@ -7,6 +7,8 @@ import com.wv.root.model.dto.OutsourcingDto;
 
 public interface OutsourcingDao {
 	
+	String NameSpace = "wvout.";
+	
 	List<OutsourcingDto> outselectAll();
 	OutsourcingDto outselectOne(int outno);
 	int outInsert(OutsourcingDto estdto);

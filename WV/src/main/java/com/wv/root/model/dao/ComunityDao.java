@@ -7,7 +7,7 @@ import com.wv.root.model.dto.ComunityDto;
 
 public interface ComunityDao {
 	
-	String namespace = "wvcomunity.";
+	String NameSpace = "wvcomunity.";
 	
 	List<ComunityDto> selectAll(String category);
 	ComunityDto selectOne(int cno);
