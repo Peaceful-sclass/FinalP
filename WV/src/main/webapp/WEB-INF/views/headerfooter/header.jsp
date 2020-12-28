@@ -69,7 +69,7 @@
 					</ul>
 				</div>
 			</div>
-		</nav>
+		</nav>                                                              
 		<span style="z-index: 105; position: fixed; right: 20px;"><a href="registerform.do">회원가입</a></span>
 		<span style="z-index: 105; position: fixed; right: 90px;"><a href="login.do">로그인</a></span>
 	</header>

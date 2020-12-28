@@ -27,7 +27,7 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	BCryptPasswordEncoder passwordEncoder;
 	
 	
-	@RequestMapping("/loginform.do")
+	@RequestMapping("/login.do")  //사이트주소값(이거때문에틀림
 	public String loginform() {
 		logger.info("[LOGINFORM]");
 		return "login";       //리턴할 jsp이름 login
@@ -36,7 +36,7 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@RequestMapping(value="/ajaxlogin.do", method=RequestMethod.POST)
 	public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberDto dto){
 		/*
-		 * @RequestBody : 응답시 java객체를 response객체에 binding
+		 * @ResponseBody : 응답시 java객체를 response객체에 binding
 		 * @RequestBody : 요청시 request객체로 넘어오는 데이터를 java 객체로
 		 */
 		
@@ -45,7 +45,7 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 		MemberDto res =biz.login(dto);
 		boolean check = false;
 		if(res!= null) {
-			if(passwordEncoder.matches(dto.getMemberpw(), res.getMemberpw())){
+			if(passwordEncoder.matches(dto.getMemberpw(), res.getMemberpw())){ //비번같은지
 			session.setAttribute("login", res);
 		    check=true;
 			}
@@ -62,19 +62,18 @@ private Logger logger = LoggerFactory.getLogger(MemberController.class);
 		return "register";    //리턴할jsp파일이름 register
 	}
 	
-	@RequestMapping("/register.do")
-	public String memberInsert(MemberDto dto) {
+	@RequestMapping(value="/register.do", method=RequestMethod.POST)
+	public String memberInsert(HttpSession session, @RequestBody MemberDto dto) {
 		int res = 0;
-		
 		System.out.println(dto.getMemberpw());
 		dto.setMemberpw(passwordEncoder.encode(dto.getMemberpw()));
 		System.out.println(dto.getMemberpw());
-		
 		res = biz.insert(dto);             //biz로보내기
+		
 		if(res>0) {
-			return "redirect:loginform.do";
+			return "redirect:loginform.do";     //회원가입되었으면 로그인페이지
 		}else {
-			return "redirect:registerform.do";    
+			return "redirect:registerform.do";   //안되었으면 회원가입페이지 
 		}
 	}
 }
