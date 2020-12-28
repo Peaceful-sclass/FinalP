@@ -6,18 +6,24 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.wv.root.model.biz.ComunityBiz;
+
 @Controller
 public class ComunityController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(ComunityController.class);
 	
+	@Autowired
+	private ComunityBiz combiz;
 	
-	@RequestMapping(value = "comunity.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = "comunity.do", method = RequestMethod.POST)
+	public String comunityMain(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -30,8 +36,8 @@ public class ComunityController {
 		return "comunity";
 	}
 
-	@RequestMapping(value = "sidemenuex.do", method = RequestMethod.GET)
-	public String sidemenuex(Locale locale, Model model) {
+	@RequestMapping(value = "comsidemenu.do", method = RequestMethod.POST)
+	public String comsidemenu(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -41,7 +47,7 @@ public class ComunityController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "sidemenuex";
+		return "comsidemenu";
 	}
 	
 }

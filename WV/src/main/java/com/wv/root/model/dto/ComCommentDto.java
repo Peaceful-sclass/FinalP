@@ -2,7 +2,7 @@ package com.wv.root.model.dto;
 
 import java.util.Date;
 
-public class ComuCommentDto {
+public class ComCommentDto {
 	private int comucommentno;
 	private String comment;
 	private Date regdate;
@@ -12,13 +12,13 @@ public class ComuCommentDto {
 	
 	
 	
-	public ComuCommentDto() {
+	public ComCommentDto() {
 		super();
 	}
 
 
 
-	public ComuCommentDto(int comucommentno, String comment, Date regdate, int cno, int memberno, String memberid) {
+	public ComCommentDto(int comucommentno, String comment, Date regdate, int cno, int memberno, String memberid) {
 		super();
 		this.comucommentno = comucommentno;
 		this.comment = comment;

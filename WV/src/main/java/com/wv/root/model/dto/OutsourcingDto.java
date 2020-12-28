@@ -13,9 +13,19 @@ public class OutsourcingDto {
 	private String teamname;
 	private String memberid;
 	
+	private String outestContent;	//의뢰성립용1
+	private String outestFile;		//의뢰성립용2
+	
 	
 	public OutsourcingDto() {
 		super();
+	}
+	
+
+	public OutsourcingDto(String outestContent, String outestFile) {
+		super();
+		this.outestContent = outestContent;
+		this.outestFile = outestFile;
 	}
 
 
@@ -111,14 +121,41 @@ public class OutsourcingDto {
 	public void setMemberid(String memberid) {
 		this.memberid = memberid;
 	}
+	
+	
+
+	public String getOutestContent() {
+		return outestContent;
+	}
+
+
+
+	public void setOutestContent(String outestContent) {
+		this.outestContent = outestContent;
+	}
+
+
+
+	public String getOutestFile() {
+		return outestFile;
+	}
+
+
+
+	public void setOutestFile(String outestFile) {
+		this.outestFile = outestFile;
+	}
+
 
 
 	@Override
 	public String toString() {
 		return "OutsourcingDto [outno=" + outno + ", title=" + title + ", content=" + content + ", conclusion="
 				+ conclusion + ", regdate=" + regdate + ", teamno=" + teamno + ", teamname=" + teamname + ", memberid="
-				+ memberid + "]";
+				+ memberid + ", outestContent=" + outestContent + ", outestFile=" + outestFile + "]";
 	}
+	
+	
 	
 	
 

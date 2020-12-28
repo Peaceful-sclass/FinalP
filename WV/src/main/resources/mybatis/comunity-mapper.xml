@@ -6,7 +6,7 @@
   
 <mapper namespace="wvcomunity">
 	
-	<select id="comunityAll" parameterType="comunityDto" resultType="comunityDto">
+	<select id="comunityall" parameterType="comunityDto" resultType="comunityDto">
 		select *
 		from comunity
 		<choose>
@@ -22,13 +22,75 @@
 		</choose>;
 	</select>
 	
-	<select id="comunityOne1" parameterType="int" resultType="comunityDto">
-		select category, title, content, regdate, m.memberid
+	<select id="comunityone" parameterType="int" resultType="comunityDto">
+		select cno, category, title, content, regdate, m.memberid
 		from comunity c join member m
 		where m.memberno = c.memberno
 		and cno = #{cno}
 
 	</select>
+	
+	<insert id="cominsert" parameterType="comunityDto">
+		insert into comunity
+		values(comunityseq.nextval, #{category}, #{title}, #{content}, sysdate, #{memberno})
+	
+	</insert>
+	
+	<update id="comupdate" parameterType="comunityDto">
+		update comunity set (#{category}, #{title}, #{content})
+		where cno = #{cno}
+	</update>
+	
+	<delete id="comdelete" parameterType="int">
+		delete from comunity where cno = #{cno}
+	</delete>
+	
+	
+	<!-- comment start /////////////////////////////////////////// -->
+	<select id="comcmtselect" parameterType="comcommentDto">
+		select comcmtno, groupno, grpno, comcomment, regdate, cno, m.memberid
+		from comcomment c join member m	on c.cno = m.cno 
+		where cno = #{cno} and groupno = #{groupno}
+		order by grpno
+	</select>
+	
+	<insert id="comcmtinsert" parameterType="comcommentDto">
+		insert into comcomment
+		values(comcmtseq.nextval, comcmtgroupseq.nextval, 1, #{comcomment},sysdate, #{cno}, #{memberno})
+	</insert>
+	
+	<update id="comcmtupdate" parameterType="comcommentDto">
+		update comcomment 
+				set(comcomment = #{comcomment}, regdate = sysdate)
+				where comcmtno = #{comcmtno}
+	</update>
+	
+	<delete id="comcmtdelete" parameterType="int">
+		delete from comcomment where comcmtno = #{comcmtno}
+	</delete>
+	
+	<insert id="comcmtanswer" parameterType="comcommentDto">
+		insert into comcomment
+		values(comcmtseq.nextval, 
+		(select comcmtgroupno from comcomment where comcmtno = #{comcmtno}),
+		(select comcmtgrpno from comcomment where comcmtno = #{comcmtno})+1,
+		 #{comcomment},sysdate, #{cno}, #{memberno})
+	</insert>
+	
+	<update id="comcmtbeforeanswer" parameterType="comcommentDto">
+	<!-- update시 dto필요내용 - comcmtn,grpno,comcomment -->
+		update comcomment 
+		set(comcmtgrpno = #{comcmtgrpno}+1 )
+		where comcmtgroupno = (select comcmtgroupno from comcomment where comcmtno = #{comcmtno})
+		and comcmtgrpno > (select comcmtgrpno from comcomment where comcmtno = #{comcmtno})
+		<!-- 대소비교문법 <![CDATA[<=]]> -->
+	</update>
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

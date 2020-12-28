@@ -9,17 +9,7 @@
 	<select id="outAll" parameterType="outsourcingDto" resultType="outsourcingDto">
 		select *
 		from outsourcing
-		<choose>
-			<when test="category == '전체'">
-				where category = '전체'
-			</when>
-			<when test="category == '자유게시판'">
-				where category = '자유게시판'
-			</when>
-			<otherwise>
-				where category = 'Q&amp;A'
-			</otherwise>
-		</choose>;
+
 	</select>
 	
 	<select id="outsourcingOne1" parameterType="int" resultType="outsourcingDto">

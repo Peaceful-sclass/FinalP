@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="css/style.css">    
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- toastr CSS : 알림(alert) 대체 -->
+    <link rel="stylesheet" href="css/toastr.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
 
@@ -102,6 +104,7 @@
 	<script src="js/baguetteBox.min.js"></script>
 	<script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
+    <script src="js/toastr.min.js"></script>
     <script src="js/custom.js"></script>
 </body>
 </html>
