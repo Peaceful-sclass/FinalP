@@ -11,9 +11,15 @@
 			
 		$(".cancel_btn").on("click", function(){
 			event.preventDefault();
-			location.href = "shareBoardList.do";
+			location.href = "shareBoardDetail.do?bno=${dto.bno}"
+				   + "&page=${scri.page}"
+				   + "&perPageNum=${scri.perPageNum}"
+				   + "&searchType=${scri.searchType}"
+				   + "&keyword=${scri.keyword}";
 		})
 	})
+	
+	
 	
 </script>
 <body>

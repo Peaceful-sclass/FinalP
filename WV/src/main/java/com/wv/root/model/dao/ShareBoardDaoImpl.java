@@ -1,12 +1,14 @@
 package com.wv.root.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.ShareBoardDto;
+import com.wv.root.model.util.SearchCriteria;
 
 @Repository
 public class ShareBoardDaoImpl implements ShareBoardDao{
@@ -25,11 +27,17 @@ public class ShareBoardDaoImpl implements ShareBoardDao{
 	}
 
 	@Override
-	public List<ShareBoardDto> list(int team_no) {
+	public List<ShareBoardDto> list(SearchCriteria scri) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(NAMESPACE+"list",team_no);
+		return sqlSession.selectList(NAMESPACE+"listPage",scri);
 	}
 
+	@Override
+	public int listCount(SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+"listCount",scri);
+	}
+	
 	@Override
 	public ShareBoardDto selectOne(int bno) {
 		// TODO Auto-generated method stub
@@ -53,5 +61,12 @@ public class ShareBoardDaoImpl implements ShareBoardDao{
 		res = sqlSession.delete(NAMESPACE+"delete",bno);
 		return res;
 	}
+
+	@Override
+	public void insertFile(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(NAMESPACE+"insertFile", map);
+	}
+
 
 }

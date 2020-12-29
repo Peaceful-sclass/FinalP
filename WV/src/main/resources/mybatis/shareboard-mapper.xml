@@ -6,15 +6,48 @@
   
 <mapper namespace="shareBoard">
 
-	<insert id="insert" parameterType="shareboardDto">
+	<insert id="insert" parameterType="shareboardDto" useGeneratedKeys="true" keyProperty="bno">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			SELECT SHAREBOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO SHAREBOARD(BNO, TEAM_NO, TITLE, CONTENT, WRITER)
-			VALUES(SHAREBOARD_SEQ.NEXTVAL, #{team_no}, #{title}, #{content}, #{writer})
+			VALUES(#{bno}, #{team_no}, #{title}, #{content}, #{writer})
 	</insert>
 	
-	<select id="list" resultType="shareboardDto" parameterType="int">
-		SELECT BNO, TITLE, WRITER, REGDATE FROM SHAREBOARD WHERE TEAM_NO= #{team_no} 
+	<select id="listPage" resultType="shareboardDto" parameterType="com.wv.root.model.util.SearchCriteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        REGDATE
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               REGDATE, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM SHAREBOARD WHERE TEAM_NO=#{team_no}
+		         	<include refid="search"></include>
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY BNO DESC
 	</select>
+	
+	<select id="listCount" parameterType="com.wv.root.model.util.SearchCriteria" resultType="int">	
+		SELECT COUNT(BNO) FROM SHAREBOARD WHERE TEAM_NO=#{team_no} 
+		<include refid="search"></include>
+		AND BNO>0  
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
 	
 	<select id="selectOne" resultType="shareboardDto" parameterType="int">
 		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE FROM SHAREBOARD WHERE BNO = #{bno}
@@ -27,5 +60,10 @@
 	<delete id="delete" parameterType="int">
 		DELETE FROM SHAREBOARD WHERE BNO=#{bno}
 	</delete>
+	
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO SB_FILE(FILE_NO, BNO, ORG_FILE_NAME, STORED_FILE_NAME, FILE_SIZE)
+		VALUES(SB_FILE_SEQ.NEXTVAL,#{BNO},#{ORG_FILE_NAME},#{STORED_FILE_NAME},#{FILE_SIZE})
+	</insert>
 
 </mapper>
