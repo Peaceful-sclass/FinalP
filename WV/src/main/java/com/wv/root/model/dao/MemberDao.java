@@ -3,8 +3,11 @@ package com.wv.root.model.dao;
 import com.wv.root.model.dto.MemberDto;
 
 public interface MemberDao {
-	   String NAMESPACE ="mymember.";
 	   
-	   public MemberDto login(MemberDto dto);
-	   public int insert(MemberDto dto);
-	}
+
+	// 회원가입
+	public void register(MemberDto dto) throws Exception;
+	
+	//로그인
+	public MemberDto login(MemberDto dto) throws Exception;
+}

@@ -5,13 +5,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="wvmember">
-	
+    	<!-- 회원가입 -->
+   <insert id="register" parameterType="memberDto">
+        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{memberid}, #{memberpw},#{membername})
+   </insert>	 
+
+	<!-- 로그인 -->
 	<select id="login" parameterType="memberDto" resultType="memberDto">
-		select memberno, memberid, memberpw, membername
-		from mymember
-		where memberid = #{memberid} <!-- and memberpw = #{memberpw} -->
+		SELECT memberno, memberid, memberpw, membername
+		FROM mymember
+		WHERE memberid = #{memberid} 
+	    AND memberpw = #{memberpw} 
 	</select>
 	
-	
+
 	
 </mapper>
