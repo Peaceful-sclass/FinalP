@@ -1,6 +1,7 @@
 package com.wv.root.model.biz;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dao.MemberDao;
@@ -9,16 +10,18 @@ import com.wv.root.model.dto.MemberDto;
 @Service
 public class MemberBizImpl implements MemberBiz{
     
-	@Autowired
-	private MemberDao dao;
-	
+	@Inject
+	MemberDao dao;
+
 	@Override
-	public MemberDto login(MemberDto dto) {
-		return dao.login(dto);
+	public void register(MemberDto dto) throws Exception {
+		dao.register(dto);
 	}
 
 	@Override
-	public int insert(MemberDto dto) {
-		return dao.insert(dto);
+	public MemberDto login(MemberDto dto) throws Exception {
+		return dao.login(dto);
 	}
+	
+
 }

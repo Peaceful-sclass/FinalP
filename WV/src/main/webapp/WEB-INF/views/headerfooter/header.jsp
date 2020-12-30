@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
 <%	request.setCharacterEncoding("UTF-8"); %>
 <% 	response.setContentType("text/html; charset=UTF-8"); %>
@@ -9,7 +10,14 @@
 <head>
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
+    
+    <!-- css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
@@ -40,14 +48,21 @@
     <![endif]-->
 
 </head>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#logoutBtn").on("click", function(){
+			location.href="member/logout";
+		})
+		
+	})
+</script>
 <body>
 	<!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
 				<a class="navbar-brand" href="index.html">
-					<img src="images/fake.png" alt="" />
+					<img src="images/we.png" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
 				  <span class="navbar-toggler-icon"></span>
@@ -69,11 +84,39 @@
 
 						<li class="nav-item"><a class="nav-link" href="contact.html">모임장소</a></li>
 					</ul>
+					<form name='homeForm' method="post" action="/member/login">
+		     		
+		<c:if test="${member == null}">
+			<div>
+				<label for="userId"></label>
+				<input type="text" id="userId" name="userId">
+			</div>
+			<div>
+				<label for="userPass"></label>
+				<input type="password" id="userPass" name="userPass">
+			</div>
+			<div>
+				<span><a href="login.do"><button type="submit">로그인</button></a></span>
+				<span><a href="register.do"><button type="button">회원가입</button></a></span>
+				
+			</div>
+		</c:if>
+		<c:if test="${member != null }">
+			<div>
+				<p>${member.userId}님 환영 합니다.</p>
+				<button id="logoutBtn" type="button">로그아웃</button>
+			</div>
+		</c:if>
+		<c:if test="${msg == false}">
+			<p style="color: red;">로그인 실패! 아이디와 비밀번호 확인해주세요.</p>
+		</c:if>
+	</form>
 				</div>
 			</div>
 		</nav>
-		<span style="z-index: 105; position: fixed; right: 20px;"><a href="registerform.do">회원가입</a></span>
-		<span style="z-index: 105; position: fixed; right: 90px;"><a href="login.do">로그인</a></span>
+		
+
+
 	</header>
 	<!-- End header -->
 	

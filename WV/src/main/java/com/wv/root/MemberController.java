@@ -1,80 +1,63 @@
 package com.wv.root;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.MemberBiz;
 import com.wv.root.model.dto.MemberDto;
 
 @Controller
 public class MemberController {
-private Logger logger = LoggerFactory.getLogger(MemberController.class);
+private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+@Inject
+MemberBiz biz;
+
+// 회원가입 get
+@RequestMapping(value = "/register.do", method = RequestMethod.GET)
+public void getRegister() throws Exception {
+	logger.info("get register");
+}
+
+// 회원가입 post
+@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+public String postRegister(MemberDto dto) throws Exception {
+	logger.info("post register");
 	
-	@Autowired
-	private MemberBiz biz;
+	biz.register(dto);
 	
-	BCryptPasswordEncoder passwordEncoder;
+	return null;
+}
+
+@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	logger.info("post login");
 	
+	HttpSession session = req.getSession();
+	MemberDto login = biz.login(vo);
 	
-	@RequestMapping("/loginform.do")
-	public String loginform() {
-		logger.info("[LOGINFORM]");
-		return "login";       //리턴할 jsp이름 login
+	if(login == null) {
+		session.setAttribute("member", null);
+		rttr.addFlashAttribute("msg", false);
+	}else {
+		session.setAttribute("member", login);
 	}
 	
-	@RequestMapping(value="/ajaxlogin.do", method=RequestMethod.POST)
-	public Map<String, Boolean> ajaxLogin(HttpSession session, @RequestBody MemberDto dto){
-		/*
-		 * @RequestBody : 응답시 java객체를 response객체에 binding
-		 * @RequestBody : 요청시 request객체로 넘어오는 데이터를 java 객체로
-		 */
-		
-		logger.info("[LOGIN]");
-		
-		MemberDto res =biz.login(dto);
-		boolean check = false;
-		if(res!= null) {
-			if(passwordEncoder.matches(dto.getMemberpw(), res.getMemberpw())){
-			session.setAttribute("login", res);
-		    check=true;
-			}
-		}
-		
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("check", check);
-		
-		return map;
-	}
+	return "redirect:/";
+}
+
+@RequestMapping(value = "/logout", method = RequestMethod.GET)
+public String logout(HttpSession session) throws Exception{
 	
-	@RequestMapping("/registerform.do")
-	public String memberInsertForm() {
-		return "register";    //리턴할jsp파일이름 register
-	}
+	session.invalidate();
 	
-	@RequestMapping("/register.do")
-	public String memberInsert(MemberDto dto) {
-		int res = 0;
-		
-		System.out.println(dto.getMemberpw());
-		dto.setMemberpw(passwordEncoder.encode(dto.getMemberpw()));
-		System.out.println(dto.getMemberpw());
-		
-		res = biz.insert(dto);             //biz로보내기
-		if(res>0) {
-			return "redirect:loginform.do";
-		}else {
-			return "redirect:registerform.do";    
-		}
-	}
+	return "redirect:/";
+}
 }
