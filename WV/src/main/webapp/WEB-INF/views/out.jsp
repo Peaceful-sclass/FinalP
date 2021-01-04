@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
      <!-- Site Metas -->
-    <title>comunity</title>  
+    <title>out</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -42,7 +42,7 @@
 				</div>
 				
 				<div class="col-9">
-					커뮤니티
+					test
 				</div>
 			</div>
 			

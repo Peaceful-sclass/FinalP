@@ -6,10 +6,9 @@
   
 <mapper namespace="wvout">
 	
-	<select id="outall" parameterType="outsourcingDto" resultType="outsourcingDto">
+ 	<select id="outall" parameterType="outsourcingDto" resultType="outsourcingDto">
 		select *
 		from outsourcing
-
 	</select>
 	
 	<select id="outone" parameterType="int" resultType="outsourcingDto">
@@ -17,7 +16,6 @@
 		from outsourcing o join member m
 		where o.memberno = m.memberno
 		and outno = #{outno}
-
 	</select>
 	
 	<insert id="outinsert" parameterType="outsourcingDto">
@@ -27,7 +25,7 @@
 	
 	<update id="outupdate" parameterType="outsourcingDto">
 		update outsourcing
-		set (title = #{title}, content = #{}) where outno = #{outno}
+		set (title = #{title}, content = #{content}) where outno = #{outno}
 	</update>
 	
 	<delete id="outdelete" parameterType="int">
@@ -71,7 +69,7 @@
 	
 	<!-- est start -->
 	
-	<resultMap type="outsourcingDto" id="estselmap">
+ 	<resultMap type="outsourcingDto" id="estselmap">
 		<result property="outno" column="outestno"></result>
 		<result property="outestContent" column="outestcontent"></result>
 		<result property="outestFile" column="outestfile"></result>

@@ -57,16 +57,8 @@
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">의뢰</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="123.jsp">의뢰보기</a>
-								<a class="dropdown-item" href="456.jsp">신청현황</a>
-								<a class="dropdown-item" href="123.jsp">ex3</a>
-							</div>
-						</li>
-
+						<li class="nav-item"><a class="nav-link" href="comunity.do">커뮤니티</a></li>
+						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
 						<li class="nav-item"><a class="nav-link" href="contact.html">모임장소</a></li>
 					</ul>
 				</div>

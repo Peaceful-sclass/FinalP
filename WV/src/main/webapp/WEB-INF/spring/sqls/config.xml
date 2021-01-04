@@ -8,7 +8,6 @@
 	
 	<typeAliases> <!-- data운반할 객체타입 설정. 간단히 적기 위해 별칭 지정. -->
 		<typeAlias type="com.wv.root.model.dto.MemberDto" alias="memberDto"></typeAlias>
-
 		<typeAlias type="com.wv.root.model.dto.ComunityDto" alias="comunityDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ComCommentDto" alias="comcommentDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.OutsourcingDto" alias="outsourcingDto"></typeAlias>

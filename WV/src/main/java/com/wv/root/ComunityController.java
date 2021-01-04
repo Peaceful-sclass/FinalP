@@ -22,7 +22,7 @@ public class ComunityController {
 	@Autowired
 	private ComunityBiz combiz;
 	
-	@RequestMapping(value = "comunity.do", method = RequestMethod.POST)
+	@RequestMapping(value = "comunity.do", method = RequestMethod.GET)
 	public String comunityMain(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
