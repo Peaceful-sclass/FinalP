@@ -6,6 +6,7 @@ import com.wv.root.model.dto.MemberDto;
 
 @Service
 public interface MemberBiz {
-	public MemberDto login(MemberDto dto);
-    public int insert(MemberDto dto);
+	public void register(MemberDto dto) throws Exception;
+	
+	public MemberDto login(MemberDto dto) throws Exception;
 }
