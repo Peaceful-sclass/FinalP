@@ -73,6 +73,7 @@ CREATE TABLE OutSourcing (
 	CATEGORY	varchar2(20)		NOT NULL,
 	TITLE		varchar2(155)		NOT NULL,
 	CONTENT		varchar2(4000)		NOT NULL,
+	price		number		not null,
 	Conclusion	varchar2(5)	default 'false' not null,
 	TEAMNO		number		NOT NULL,
 	REGDATE		date		NOT NULL

@@ -11,11 +11,11 @@ public interface OutsourcingDao {
 	
 	List<OutsourcingDto> outselectAll();
 	OutsourcingDto outselectOne(int outno);
-	int outInsert(OutsourcingDto estdto);
-	int outUpdate(OutsourcingDto estdto);
+	int outInsert(OutsourcingDto outdto);
+	int outUpdate(OutsourcingDto outdto);
 	int outDelete(int outno);
 	
-	List<OutexDto> exselectAll();
+	List<OutexDto> exselectAll(int memberno);
 	OutexDto exselectOne(int outexno);
 	int exInsert(OutexDto exdto);
 	int exUpdate(OutexDto exdto);

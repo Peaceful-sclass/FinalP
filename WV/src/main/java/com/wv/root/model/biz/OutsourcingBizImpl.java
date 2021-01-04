@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dao.OutsourcingDao;
-import com.wv.root.model.dao.OutsourcingDaoImpl;
 import com.wv.root.model.dto.OutexDto;
 import com.wv.root.model.dto.OutsourcingDto;
 
@@ -20,32 +19,32 @@ public class OutsourcingBizImpl implements OutsourcingBiz {
 	
 	@Override
 	public List<OutsourcingDto> outselectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return outdao.outselectAll();
 	}
 
 	@Override
 	public OutsourcingDto outselectOne(int outno) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return outdao.outselectOne(outno);
 	}
 
 	@Override
 	public int outInsert(OutsourcingDto estdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return outdao.outInsert(estdto);
 	}
 
 	@Override
 	public int outUpdate(OutsourcingDto estdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return outdao.outUpdate(estdto);
 	}
 
 	@Override
 	public int outDelete(int outno) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return outdao.outDelete(outno);
 	}
 	
 //------------------------------------------------------------------------------	

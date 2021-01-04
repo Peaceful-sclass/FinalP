@@ -13,10 +13,10 @@ public interface ComunityBiz {
 	int comUpdate(ComunityDto comdto);
 	int comDelete(int cno);
 	
-	List<ComCommentDto> cmtselectAll();
+	List<ComCommentDto> cmtselectAll(int comcmtno);
 	int cmtInsert(ComCommentDto comcmtdto);
 	int cmtUpdate(ComCommentDto comcmtdto);
-	int cmtDelete(int comcommentno);
+	int cmtDelete(int comcmtno);
 	
 	
 	

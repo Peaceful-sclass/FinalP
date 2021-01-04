@@ -55,7 +55,7 @@
 				<div class="collapse navbar-collapse" id="navbars-rs-food">
 					<ul class="navbar-nav ml-auto">
 					     
-						<li class="nav-item active"><a class="nav-link" href="home.do">홈</a></li>
+						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
 						<li class="nav-item dropdown">

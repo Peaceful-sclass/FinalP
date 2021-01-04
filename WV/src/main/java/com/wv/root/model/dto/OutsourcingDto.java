@@ -22,8 +22,9 @@ public class OutsourcingDto {
 	}
 	
 
-	public OutsourcingDto(String outestContent, String outestFile) {
+	public OutsourcingDto(int outno, String outestContent, String outestFile) {
 		super();
+		this.outno = outno;
 		this.outestContent = outestContent;
 		this.outestFile = outestFile;
 	}

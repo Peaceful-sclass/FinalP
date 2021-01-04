@@ -58,14 +58,30 @@ public class ComunityDaoimpl implements ComunityDao {
 
 	@Override
 	public int comUpdate(ComunityDto comdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		
+		try {
+			res = session.update("comupdate", comdto);
+		} catch (Exception e) {
+			System.out.println("글수정 실패");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public int comDelete(int cno) {
-		// TODO Auto-generated method stub
-		return 0;
+	int res = 0;
+		
+		try {
+			res = session.delete("comdelete", cno);
+		} catch (Exception e) {
+			System.out.println("글삭제 실패");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 	
 	
@@ -74,27 +90,53 @@ public class ComunityDaoimpl implements ComunityDao {
 	
 
 	@Override
-	public List<ComCommentDto> cmtselectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ComCommentDto> cmtselectAll(int comcmtno) {
+		List<ComCommentDto> cmtlist = null;
+		try {
+			cmtlist = session.selectList("comcmtselect", comcmtno);
+		} catch (Exception e) {
+			System.out.println("댓글 가져오기 실패");
+			e.printStackTrace();
+		}
+		
+		return cmtlist;
 	}
 
 	@Override
 	public int cmtInsert(ComCommentDto comcmtdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		try {
+			res = session.insert("comcmtinsert", comcmtdto);
+		} catch (Exception e) {
+			System.out.println("댓글쓰기 실패");
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public int cmtUpdate(ComCommentDto comcmtdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		try {
+			res = session.update("comcmtupdate", comcmtdto);
+		} catch (Exception e) {
+			System.out.println("댓글수정 실패");
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
-	public int cmtDelete(int comcommentno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int cmtDelete(int comcmtno) {
+		int res = 0;
+		try {
+			res = session.delete("comcmtdelete", comcmtno);
+		} catch (Exception e) {
+			System.out.println("댓글삭제 실패");
+			e.printStackTrace();
+		}
+		return res;
+		
 	}
 	
 	
