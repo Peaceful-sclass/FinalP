@@ -44,18 +44,18 @@
 	</script>
 	<body>
 		<section id="container">
-			<form action="/member/register" method="post">
+			<form action="register.do" method="post">
 				<div class="form-group has-feedback">
-					<label class="control-label" for="userId">아이디</label>
-					<input class="form-control" type="text" id="userId" name="userId" />
+					<label class="control-label" for="memberid">아이디</label> <!-- for는 member-mapper부분 -->
+					<input class="form-control" type="text" id="userId" name="memberid" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
 				</div>
 				<div class="form-group has-feedback">
-					<label class="control-label" for="userPass">패스워드</label>
-					<input class="form-control" type="password" id="userPass" name="userPass" />
+					<label class="control-label" for="memberpw">패스워드</label>
+					<input class="form-control" type="password" id="userPass" name="memberpw" />
 				</div>
 				<div class="form-group has-feedback">
-					<label class="control-label" for="userName">성명</label>
-					<input class="form-control" type="text" id="userName" name="userName" />
+					<label class="control-label" for="membername">성명</label>
+					<input class="form-control" type="text" id="userName" name="membername" />
 				</div>
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원가입</button>
