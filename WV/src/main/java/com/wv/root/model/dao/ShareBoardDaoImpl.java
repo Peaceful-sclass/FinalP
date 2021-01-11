@@ -68,5 +68,31 @@ public class ShareBoardDaoImpl implements ShareBoardDao{
 		sqlSession.insert(NAMESPACE+"insertFile", map);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectFileList(int bno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(NAMESPACE+"selectFileList", bno);
+	}
+
+	@Override
+	public Map<String, Object> selectFileInfo(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+"selectFileInfo", map);
+	}
+
+	@Override
+	public void updateFile(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.update(NAMESPACE+"updateFile", map);
+		
+	}
+
+	@Override
+	public void SBViews(int bno) {
+		// TODO Auto-generated method stub
+		sqlSession.update(NAMESPACE+"SBViews", bno);
+	}
+
 
 }

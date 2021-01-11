@@ -37,7 +37,7 @@
 	
 	
 	<!-- transaction -->
-	<tx:annotation-driven/>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<context:annotation-config/>
 	

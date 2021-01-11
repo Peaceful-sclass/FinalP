@@ -30,6 +30,18 @@ public interface ShareBoardDao {
 	//첨부파일 업로드
 	public void insertFile(Map<String, Object> map);
 	
+	//첨부파일 조회
+	public List<Map<String, Object>> selectFileList(int bno);
+	
+	//첨부파일 다운
+	public Map<String, Object> selectFileInfo(Map<String, Object> map);
+	
+	//첨부파일 수정
+	public void updateFile(Map<String, Object> map);
+	
+	//조회수
+	public void SBViews(int bno);
+	
 	
 
 }

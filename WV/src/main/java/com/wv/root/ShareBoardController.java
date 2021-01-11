@@ -1,8 +1,13 @@
 package com.wv.root;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -68,6 +74,9 @@ public class ShareBoardController {
 		List<SBCommentDto> commentList = commentBiz.comment(dto.getBno());
 		model.addAttribute("commentList", commentList);
 		
+		List<Map<String, Object>> fileList = biz.selectFileList(dto.getBno());
+		model.addAttribute("file", fileList);
+		
 		return "shareBoardDetail";
 	}
 	
@@ -111,15 +120,19 @@ public class ShareBoardController {
 		model.addAttribute("dto", biz.selectOne(dto.getBno()));
 		model.addAttribute("scri", scri);
 		
+		List<Map<String, Object>> fileList = biz.selectFileList(dto.getBno());
+		model.addAttribute("file", fileList);
+		
 		return "shareBoardupdateView";
 	}
 	
 	//게시판 수정
 	@RequestMapping(value = "shareBoardupdate.do",method = RequestMethod.POST)
-	public String update(ShareBoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) {
+	public String update(ShareBoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr,
+			@RequestParam(value="fileNoDel[]") String[] files, @RequestParam(value = "fileNameDel[]") String[] fileNames, MultipartHttpServletRequest mpRequest) {
 		logger.info("update");
 		
-		int res = biz.update(dto);
+		int res = biz.update(dto, files, fileNames, mpRequest);
 		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
@@ -191,6 +204,24 @@ public class ShareBoardController {
 		rttr.addAttribute("keyword", scri.getKeyword());
 		
 		return "redirect:shareBoardDetail.do";
+	}
+	
+	//첨부파일 다운
+	@RequestMapping(value = "SBFileDown.do")
+	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws IOException {
+		Map<String, Object> resultMap = biz.selectFileInfo(map);
+		String storedFileName = (String) resultMap.get("STORED_FILE_NAME");
+		String originalFileName = (String)resultMap.get("ORG_FILE_NAME");
+		
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\mp\\file\\"+storedFileName));
+		
+		response.setContentType("application/octet-stream");
+		response.setContentLength(fileByte.length);
+		response.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(originalFileName, "UTF-8")+"\";");
+		response.getOutputStream().write(fileByte);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+		
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.wv.root.model.biz;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -19,8 +19,13 @@ public interface ShareBoardBiz {
 	
 	public ShareBoardDto selectOne(int bno);
 	
-	public int update(ShareBoardDto dto);
+	public int update(ShareBoardDto dto, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest);
 	
 	public int delete(int bno);
+	
+	public List<Map<String, Object>> selectFileList(int bno);
+	
+	public Map<String, Object> selectFileInfo(Map<String, Object> map);
+	
 
 }
