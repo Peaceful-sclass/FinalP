@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="SBCommentMapper">
+
+	<select id="comment" resultType="SBCommentDto" parameterType="int">
+		SELECT RNO, CONTENT, WRITER, REGDATE FROM SBCOMMENT WHERE BNO = #{bno}
+	</select>
+	
+	<insert id="writeComment" parameterType="SBCommentDto">
+		INSERT INTO SBCOMMENT(BNO, RNO, CONTENT, WRITER)
+		VALUES(#{bno}, SBCOMMENT_SEQ.NEXTVAL, #{content}, #{writer})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="SBCommentDto">
+		DELETE FROM SBCOMMENT WHERE RNO= #{rno}
+	</delete>
+	
+	<select id="selectComment" resultType="SBCommentDto">
+		SELECT BNO,RNO,CONTENT,WRITER,REGDATE FROM SBCOMMNET WHERE RNO=#{rno}
+	</select>
+</mapper>
