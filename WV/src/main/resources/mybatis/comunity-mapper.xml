@@ -6,20 +6,64 @@
   
 <mapper namespace="wvcomunity">
 	
-	<select id="comunityall" parameterType="comunityDto" resultType="comunityDto">
-		select *
-		from comunity
+	<select id="comunitycount" parameterType="cpDto" resultType="int">
+		select count(*) from comunity 
 		<choose>
 			<when test="category == '전체'">
-				where category = '전체'
+			
 			</when>
-			<when test="category == '자유게시판'">
-				where category = '자유게시판'
+			<when test="category == '자유'">
+				group by category
+				having category = '자유'
 			</when>
 			<otherwise>
-				where category = 'Q&amp;A'
+				group by category
+				having category = 'Q&amp;A'
 			</otherwise>
-		</choose>;
+		</choose>
+	</select>
+<!-- 	<select id="comunitycount" resultType="comunityDto">
+		select * from comunity
+		<choose>
+			<when test="category == '전체'">
+				order by regdate desc
+			</when>
+			<when test="category == '자유'">
+				where category = '자유' order by regdate desc
+			</when>
+			<otherwise>
+				where category = 'Q&amp;A' order by regdate desc
+			</otherwise>
+		</choose>
+	</select> -->
+	
+	<select id="comunityall" parameterType="cpDto" resultType="comunityDto">
+		select rnum, cm.*
+ 		<choose>
+			<when test="category == '전체'">
+				from (
+					select row_number() over (order by regdate desc ) rnum, c.*
+					from comunity c
+					) cm
+				where rnum between (#{currentPage}*#{dataPerPage})-(#{dataPerPage}-1) and (#{currentPage}*#{dataPerPage}) 
+			</when>
+			<when test="category == '자유'">
+				from (
+					select row_number() over (order by regdate desc ) rnum, c.*
+					from comunity c where category = '자유'
+					) cm
+				where rnum between (#{currentPage}*#{dataPerPage})-(#{dataPerPage}-1) and (#{currentPage}*#{dataPerPage}) 
+				
+			</when>
+			<otherwise>
+				from (
+					select row_number() over (order by regdate desc ) rnum, c.*
+					from comunity c where category = 'Q&amp;A'
+					) cm
+				where rnum between (#{currentPage}*#{dataPerPage})-(#{dataPerPage}-1) and (#{currentPage}*#{dataPerPage}) 
+				
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="comunityone" parameterType="int" resultType="comunityDto">

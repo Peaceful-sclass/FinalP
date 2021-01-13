@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dao.ComunityDao;
-import com.wv.root.model.dao.ComunityDaoimpl;
 import com.wv.root.model.dto.ComCommentDto;
 import com.wv.root.model.dto.ComunityDto;
+import com.wv.root.model.dto.CpDto;
 
 @Service
 public class ComunityBizImpl implements ComunityBiz {
@@ -19,33 +19,32 @@ public class ComunityBizImpl implements ComunityBiz {
 	
 	
 	@Override
-	public List<ComunityDto> selectAll(String category) {
-		// TODO Auto-generated method stub
-		return comdao.selectAll(category);
+	public List<ComunityDto> selectAll(CpDto oldcpdto) {
+			return comdao.selectAll(oldcpdto);
+	}
+	@Override
+	public int countList(CpDto oldcpdto) {
+		return comdao.countList(oldcpdto);
 	}
 
 	@Override
 	public ComunityDto selectOne(int cno) {
-		// TODO Auto-generated method stub
 		return comdao.selectOne(cno);
 	}
 
 	@Override
 	public int comInsert(ComunityDto comdto) {
-		// TODO Auto-generated method stub
 		return comdao.comInsert(comdto);
 	}
 
 	@Override
 	public int comUpdate(ComunityDto comdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return comdao.comUpdate(comdto);
 	}
 
 	@Override
 	public int comDelete(int cno) {
-		// TODO Auto-generated method stub
-		return 0;
+		return comdao.comDelete(cno);
 	}
 
 	
@@ -53,28 +52,24 @@ public class ComunityBizImpl implements ComunityBiz {
 	
 	
 	@Override
-	public List<ComCommentDto> cmtselectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ComCommentDto> cmtselectAll(int comcmtno) {
+		return comdao.cmtselectAll(comcmtno);
 	}
 
 
 	@Override
 	public int cmtInsert(ComCommentDto comcmtdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return comdao.cmtInsert(comcmtdto);
 	}
 
 	@Override
 	public int cmtUpdate(ComCommentDto comcmtdto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return comdao.cmtUpdate(comcmtdto);
 	}
 
 	@Override
-	public int cmtDelete(int comcommentno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int cmtDelete(int comcmtno) {
+		return comdao.cmtDelete(comcmtno);
 	}
 	
 

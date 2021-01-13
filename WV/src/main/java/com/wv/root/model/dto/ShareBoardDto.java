@@ -9,6 +9,7 @@ public class ShareBoardDto {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private int views;
 	public ShareBoardDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -57,6 +58,12 @@ public class ShareBoardDto {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	public int getViews() {
+		return views;
+	}
+	public void setViews(int views) {
+		this.views = views;
 	}
 	
 	

@@ -20,22 +20,23 @@ private static final Logger logger = LoggerFactory.getLogger(MemberController.cl
 @Inject
 MemberBiz biz;
 
-// 회원가입 get
+// 회원가입 get 회원가입폼으로 이동할때
 @RequestMapping(value = "/register.do", method = RequestMethod.GET)
 public void getRegister() throws Exception {
 	logger.info("get register");
 }
 
-// 회원가입 post
+// 회원가입 post 회원가입 버튼눌렀을때
 @RequestMapping(value = "/register.do", method = RequestMethod.POST)
 public String postRegister(MemberDto dto) throws Exception {
 	logger.info("post register");
 	
 	biz.register(dto);
 	
-	return null;
+	return "home";
 }
 
+//로그인
 @RequestMapping(value = "/login.do", method = RequestMethod.POST)
 public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 	logger.info("post login");
