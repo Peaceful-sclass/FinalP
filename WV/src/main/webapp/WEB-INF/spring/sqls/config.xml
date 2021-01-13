@@ -10,6 +10,7 @@
 		<typeAlias type="com.wv.root.model.dto.MemberDto" alias="memberDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ComunityDto" alias="comunityDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ComCommentDto" alias="comcommentDto"></typeAlias>
+		<typeAlias type="com.wv.root.model.dto.CpDto" alias="cpDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.OutsourcingDto" alias="outsourcingDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.OutexDto" alias="outexDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ShareBoardDto" alias="shareboardDto"></typeAlias>

@@ -9,6 +9,7 @@ public class OutsourcingDto {
 	private String content;
 	private boolean conclusion;	//의뢰체결여부
 	private Date regdate;
+	private int views;
 	private int teamno;
 	private String teamname;
 	private String memberid;
@@ -30,17 +31,32 @@ public class OutsourcingDto {
 	}
 
 
-	public OutsourcingDto(int outno, String title, String content, boolean conclusion, Date regdate, int teamno,
-			String teamname, String memberid) {
+
+	public OutsourcingDto(int outno, String title, String content, boolean conclusion, Date regdate, int views,
+			int teamno, String teamname, String memberid, String outestContent, String outestFile) {
 		super();
 		this.outno = outno;
 		this.title = title;
 		this.content = content;
 		this.conclusion = conclusion;
 		this.regdate = regdate;
+		this.views = views;
 		this.teamno = teamno;
 		this.teamname = teamname;
 		this.memberid = memberid;
+		this.outestContent = outestContent;
+		this.outestFile = outestFile;
+	}
+
+	
+
+	public int getViews() {
+		return views;
+	}
+
+
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 

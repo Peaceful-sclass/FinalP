@@ -8,6 +8,7 @@ public class ComunityDto {
 	private String title;
 	private String content;
 	private Date regdate;
+	private int views;
 	private int memberno;
 	private String memberid;
 	
@@ -17,7 +18,8 @@ public class ComunityDto {
 	}
 
 
-	public ComunityDto(int cno, String category, String title, String content, Date regdate, int memberno,
+
+	public ComunityDto(int cno, String category, String title, String content, Date regdate, int views, int memberno,
 			String memberid) {
 		super();
 		this.cno = cno;
@@ -25,9 +27,24 @@ public class ComunityDto {
 		this.title = title;
 		this.content = content;
 		this.regdate = regdate;
+		this.views = views;
 		this.memberno = memberno;
 		this.memberid = memberid;
 	}
+
+
+	
+
+	public int getViews() {
+		return views;
+	}
+
+
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
 
 
 	public int getCno() {

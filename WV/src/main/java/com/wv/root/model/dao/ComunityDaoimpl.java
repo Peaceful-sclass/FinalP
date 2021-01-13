@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.ComCommentDto;
 import com.wv.root.model.dto.ComunityDto;
+import com.wv.root.model.dto.CpDto;
 
 @Repository
 public class ComunityDaoimpl implements ComunityDao {
@@ -18,15 +19,38 @@ public class ComunityDaoimpl implements ComunityDao {
 	
 	
 	@Override
-	public List<ComunityDto> selectAll(String category) {
+	public List<ComunityDto> selectAll(CpDto oldcpdto) {
 		List<ComunityDto> list = null;
 		try {
-			list = session.selectList(NameSpace+"comunityall");
+//			int count = session.selectList(NameSpace+"comunitycount", oldcpdto).size();
+//			System.out.println("count :"+count);
+//			System.out.println("comunitycount :"+session.selectList(NameSpace+"comunitycount", oldcpdto));
+//			oldcpdto.cpdtoChg(count, oldcpdto.getCurrentPage()); 
+//			System.out.println("oldcpdto :"+oldcpdto);
+			list = session.selectList(NameSpace+"comunityall", oldcpdto); // 현재페이지의 글목록을 추출 
+			System.out.println("list :"+list);
+			
 		} catch (Exception e) {
 			System.out.println("글목록 불러오기 실패");
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	@Override
+	public int countList(CpDto oldcpdto) {
+		int count = 0;
+		try {
+			System.out.println("oldcpdto :"+oldcpdto);
+//			count = session.selectList(NameSpace+"comunitycount", oldcpdto).size();
+			count = session.selectOne(NameSpace+"comunitycount", oldcpdto);
+			System.out.println("count : " + count);//현재 카테고리의 총데이터수를 파악한 후 그에 맞는 페이지정보를 dto에 갱신
+		} catch (Exception e) {
+			System.out.println("query fail.....");
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 
 	@Override

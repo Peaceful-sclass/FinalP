@@ -27,6 +27,7 @@ CREATE TABLE Comunity (
 	CATEGORY	varchar2(20)		NOT NULL,
 	TITLE		varchar2(255)		NOT NULL,
 	CONTENT		varchar2(4000)		NULL,
+	views		number		NULL,
 	REGDATE		date		NOT NULL,
 	MEMBERNO	number		NOT NULL
 );
@@ -76,15 +77,16 @@ CREATE TABLE OutSourcing (
 	price		number		not null,
 	Conclusion	varchar2(5)	default 'false' not null,
 	TEAMNO		number		NOT NULL,
-	REGDATE		date		NOT NULL
+	REGDATE		date		NOT NULL,
+	views		number		NULL
 );
 
 ALTER TABLE OutSourcing ADD CONSTRAINT PK_OUTSOURCING PRIMARY KEY (OUTNO);
 --팀테이블 만들어지고 실행해주기.	
 ALTER TABLE OutSourcing ADD CONSTRAINT FK_Team_TO_OutSourcing_1 FOREIGN KEY (TEAMNO) REFERENCES Team(TEAMNO);
 
-insert into outsourcing(outno, category, title, content, teamno, regdate) values(1,'자유', '제목테스트', '내용테스트',  1, sysdate);
-insert into outsourcing values(2,'자유', '제목테스트2', '내용테스트2', 'false', 1, sysdate);
+insert into outsourcing(outno, category, title, content, teamno, regdate) values(1,'자유', '제목테스트', '내용테스트',  1, sysdate, 0);
+insert into outsourcing values(2,'자유', '제목테스트2', '내용테스트2', 'false', 1, sysdate, 0);
 select * from OUTSOURCING;
 delete from outsourcing;
 

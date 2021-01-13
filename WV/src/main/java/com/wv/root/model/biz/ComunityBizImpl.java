@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.wv.root.model.dao.ComunityDao;
 import com.wv.root.model.dto.ComCommentDto;
 import com.wv.root.model.dto.ComunityDto;
+import com.wv.root.model.dto.CpDto;
 
 @Service
 public class ComunityBizImpl implements ComunityBiz {
@@ -18,8 +19,12 @@ public class ComunityBizImpl implements ComunityBiz {
 	
 	
 	@Override
-	public List<ComunityDto> selectAll(String category) {
-		return comdao.selectAll(category);
+	public List<ComunityDto> selectAll(CpDto oldcpdto) {
+			return comdao.selectAll(oldcpdto);
+	}
+	@Override
+	public int countList(CpDto oldcpdto) {
+		return comdao.countList(oldcpdto);
 	}
 
 	@Override
