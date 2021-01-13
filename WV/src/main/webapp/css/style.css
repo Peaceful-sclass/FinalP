@@ -19,7 +19,7 @@
 
 body {
     color: #666666;
-    font-size: 15px;
+    /* font-size : 15px 지움 */
     font-family: 'Rubik', sans-serif;
     line-height: 1.80857;
 }
@@ -688,7 +688,7 @@ button:focus{
 .footer-area p.lead a:hover{
 	color: #d65106;
 }
-/* footer영역 링크 글자 색 */
+/* footerìì­ ë§í¬ ê¸ì ì */
 .footer-area p a{
 	font-size: 18px;
     color: #504a4a;
@@ -753,7 +753,7 @@ button:focus{
 	border-radius: 4px;
 }
 
-/* footer 배경색 */
+/* footer ë°°ê²½ì */
 .copyright{
 	margin-top: 20px;
 	position: relative;

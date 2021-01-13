@@ -38,7 +38,7 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="css/responsive.css">
     <!-- toastr CSS : 알림(alert) 대체 -->
-    <link rel="stylesheet" href="css/toastr.css" />
+    <link rel="stylesheet" href="css/toastr.min.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
 
@@ -46,7 +46,14 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	<script type="text/javascript">
+		function tab_click(param){
+			if(param=='comunity'){
+				location.href = "comunity.do?category=전체&currentPage=1";
+			}
+		};
+		
+	</script>		
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -70,18 +77,10 @@
 				<div class="collapse navbar-collapse" id="navbars-rs-food">
 					<ul class="navbar-nav ml-auto">
 					     
-						<li class="nav-item active"><a class="nav-link" href="home.do">홈</a></li>
+						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">의뢰</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="123.jsp">의뢰보기</a>
-								<a class="dropdown-item" href="456.jsp">신청현황</a>
-								<a class="dropdown-item" href="123.jsp">ex3</a>
-							</div>
-						</li>
-
+						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
+						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
 						<li class="nav-item"><a class="nav-link" href="contact.html">모임장소</a></li>
 					</ul>
 					<form name='homeForm' method="post" action="/member/login">
@@ -120,6 +119,7 @@
 	</header>
 	<!-- End header -->
 	
+
 
 	
 

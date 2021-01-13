@@ -4,19 +4,21 @@ import java.util.List;
 
 import com.wv.root.model.dto.ComCommentDto;
 import com.wv.root.model.dto.ComunityDto;
+import com.wv.root.model.dto.CpDto;
 
 public interface ComunityBiz {
 	
-	List<ComunityDto> selectAll(String category);
+	List<ComunityDto> selectAll(CpDto oldcpdto);
+	int countList(CpDto oldcpdto);
 	ComunityDto selectOne(int cno);
 	int comInsert(ComunityDto comdto);
 	int comUpdate(ComunityDto comdto);
 	int comDelete(int cno);
 	
-	List<ComCommentDto> cmtselectAll();
+	List<ComCommentDto> cmtselectAll(int comcmtno);
 	int cmtInsert(ComCommentDto comcmtdto);
 	int cmtUpdate(ComCommentDto comcmtdto);
-	int cmtDelete(int comcommentno);
+	int cmtDelete(int comcmtno);
 	
 	
 	

@@ -1,0 +1,45 @@
+
+
+/* comunity title외 모든 정렬용 */
+.cm-txt-center{ 
+    text-align: center;
+}
+.cm-title{
+    text-align: unset;
+}
+th {
+    text-align: center!important;
+
+}
+.pagelink{
+    position: relative;
+    min-width: 17px;
+    margin: 0 6px;
+    font-size: 1.0rem;
+    color: grey;
+    text-decoration: none;
+}
+.test1css{
+    font-size: 20px;
+    color:darkorange;
+    text-decoration: none;
+}
+.bt-write{
+    min-width: 46px;
+    height: 23px;
+    margin-right: 10px;
+    padding: 0 12px;
+    font-size: 13px;
+    line-height: 16px;
+    
+    display: inline-block;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+    
+    background: darkorange;
+    color: white;
+    float: right;
+}

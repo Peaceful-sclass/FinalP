@@ -3,8 +3,10 @@ package com.wv.root.model.dto;
 import java.util.Date;
 
 public class OutexDto {
-	private int outexno;
-	private boolean applied;	//신청승인여부. (할일:의뢰테이블의 체결과 외래키로 연결해야한다)
+	private int outexno;	//신청번호
+	private int outno;		//의뢰번호
+	private String title;
+	private boolean applied;	//신청승인여부.
 	private String comment;
 	private Date regdate;
 	private int memberno;
@@ -14,6 +16,36 @@ public class OutexDto {
 	public OutexDto() {
 		super();
 	}
+	
+	
+	
+	public OutexDto(int outexno, int outno, String title, boolean applied, String comment, Date regdate, int memberno,
+			String memberid) {
+		super();
+		this.outexno = outexno;
+		this.outno = outno;
+		this.title = title;
+		this.applied = applied;
+		this.comment = comment;
+		this.regdate = regdate;
+		this.memberno = memberno;
+		this.memberid = memberid;
+	}
+
+
+
+	public OutexDto(int outexno, int outno, boolean applied, String comment, Date regdate, int memberno,
+			String memberid) {
+		super();
+		this.outexno = outexno;
+		this.outno = outno;
+		this.applied = applied;
+		this.comment = comment;
+		this.regdate = regdate;
+		this.memberno = memberno;
+		this.memberid = memberid;
+	}
+
 
 
 	public OutexDto(int outexno, boolean applied, String comment, Date regdate, int memberno, String memberid) {
@@ -34,6 +66,26 @@ public class OutexDto {
 
 	public void setOutexno(int outexno) {
 		this.outexno = outexno;
+	}
+
+
+	public int getOutno() {
+		return outno;
+	}
+
+
+	public void setOutno(int outno) {
+		this.outno = outno;
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 
@@ -87,11 +139,19 @@ public class OutexDto {
 	}
 
 
+
+	
 	@Override
 	public String toString() {
-		return "OutexDto [outexno=" + outexno + ", applied=" + applied + ", comment=" + comment + ", regdate=" + regdate
-				+ ", memberno=" + memberno + ", memberid=" + memberid + "]";
+		return "OutexDto [outexno=" + outexno + ", outno=" + outno + ", title=" + title + ", applied=" + applied
+				+ ", comment=" + comment + ", regdate=" + regdate + ", memberno=" + memberno + ", memberid=" + memberid
+				+ "]";
 	}
+
+
+
+
+
 	
 	
 	

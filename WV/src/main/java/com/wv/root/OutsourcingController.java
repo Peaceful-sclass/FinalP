@@ -23,7 +23,7 @@ public class OutsourcingController {
 	private OutsourcingBiz outbiz;
 	
 	
-	@RequestMapping(value = "outsourcing.do", method = RequestMethod.GET)
+	@RequestMapping(value = "out.do", method = RequestMethod.GET)
 	public String outMain(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -34,21 +34,9 @@ public class OutsourcingController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "outsourcing";
+		return "out";
 	}
 
-	@RequestMapping(value = "sidemenuex.do", method = RequestMethod.GET)
-	public String sidemenuex(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
-		return "sidemenuex";
-	}
 	
 }
