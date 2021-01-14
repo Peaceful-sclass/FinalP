@@ -6,22 +6,30 @@
   
 <mapper namespace="wvcomunity">
 	
-	<select id="comunitycount" parameterType="cpDto" resultType="int">
+	<!-- 게시물수확인 -->
+	<select id="comunitycount" parameterType="hashmap" resultType="int">
 		select count(*) from comunity 
 		<choose>
-			<when test="category == '전체'">
-			
+			<when test="cpdto.category == '전체'">
+				<where><include refid="search"></include></where>
 			</when>
-			<when test="category == '자유'">
-				group by category
-				having category = '자유'
+			<when test="cpdto.category == '자유'">
+				where category = '자유'
+				<include refid="search"></include>
+<!-- 				<choose>
+					<when test="search.searchsel == 'subject'">and title like '%'||#{search.word}||'%'</when>
+					<when test="search.searchsel == 'subjectcontent'">and title like '%#{search.word}%'</when>
+					<otherwise>and title like '%'||#{search.word}||'%'</otherwise>
+				</choose> -->
 			</when>
 			<otherwise>
-				group by category
-				having category = 'Q&amp;A'
+				where category = 'Q&amp;A'
+				<include refid="search"></include>
 			</otherwise>
 		</choose>
 	</select>
+
+	
 <!-- 	<select id="comunitycount" resultType="comunityDto">
 		select * from comunity
 		<choose>
@@ -37,34 +45,47 @@
 		</choose>
 	</select> -->
 	
-	<select id="comunityall" parameterType="cpDto" resultType="comunityDto">
+	<!-- 게시물 조회 -->
+	<select id="comunityall" parameterType="hashmap" resultType="comunityDto">
 		select rnum, cm.*
- 		<choose>
-			<when test="category == '전체'">
 				from (
 					select row_number() over (order by regdate desc ) rnum, c.*
 					from comunity c
+ 		<choose>
+			<when test="cpdto.category == '전체'">
+					<where><include refid="search"></include></where>
 					) cm
-				where rnum between (#{currentPage}*#{dataPerPage})-(#{dataPerPage}-1) and (#{currentPage}*#{dataPerPage}) 
+				where rnum between (#{cpdto.currentPage}*#{cpdto.dataPerPage})-(#{cpdto.dataPerPage}-1) and (#{cpdto.currentPage}*#{cpdto.dataPerPage}) 
 			</when>
-			<when test="category == '자유'">
-				from (
-					select row_number() over (order by regdate desc ) rnum, c.*
-					from comunity c where category = '자유'
+			<when test="cpdto.category == '자유'">
+					where category = '자유'
+					<include refid="search"></include>
 					) cm
-				where rnum between (#{currentPage}*#{dataPerPage})-(#{dataPerPage}-1) and (#{currentPage}*#{dataPerPage}) 
-				
+				where rnum between (#{cpdto.currentPage}*#{cpdto.dataPerPage})-(#{cpdto.dataPerPage}-1) and (#{cpdto.currentPage}*#{cpdto.dataPerPage})				
 			</when>
 			<otherwise>
-				from (
-					select row_number() over (order by regdate desc ) rnum, c.*
-					from comunity c where category = 'Q&amp;A'
+					where category = 'Q&amp;A'
+					<include refid="search"></include>
 					) cm
-				where rnum between (#{currentPage}*#{dataPerPage})-(#{dataPerPage}-1) and (#{currentPage}*#{dataPerPage}) 
-				
+				where rnum between (#{cpdto.currentPage}*#{cpdto.dataPerPage})-(#{cpdto.dataPerPage}-1) and (#{cpdto.currentPage}*#{cpdto.dataPerPage})				
 			</otherwise>
 		</choose>
 	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="search.searchsel == 'subject'">
+				and title like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
+			</when>
+			<when test="search.searchsel == 'subjectcontent'">
+				and title like '%'|| #{search.word, jdbcType=VARCHAR} ||'%' 
+				and content like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
+			</when>
+			<when test="search.searchsel == 'writer'">
+				and memberid like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
+			</when>
+		</choose>
+	</sql>
 	
 	<select id="comunityone" parameterType="int" resultType="comunityDto">
 		select cno, category, title, content, regdate, m.memberid
