@@ -53,11 +53,11 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#logoutBtn").on("click", function(){
-			location.href="member/logout";
+		$("#outBtn").on("click", function(){
+			location.href="/logout.do";
 		})
 		
-	})
+	});
 </script>
 <body>
 	<!-- Start header -->
@@ -100,7 +100,7 @@
 		<c:if test="${member != null }">
 			<div>
 				<p>${member.memberid}님 환영 합니다.</p>
-				<button id="logoutBtn" type="button">로그아웃</button>
+				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
 		<c:if test="${msg == false}">
@@ -117,8 +117,8 @@
 	
 
 	<!-- Modal -->
-    <div class="modal fade" id="placeModal" role="dialog">
-        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
+    <div class="modal fade" id="placeModal" role="dia">
+        <div class="modal-dia" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
             <div class="modal-content">
                 <div class="modal-header">
                  	<h4 id="modal-title" class="modal-title"></h4>                	
