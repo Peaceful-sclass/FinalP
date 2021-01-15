@@ -39,4 +39,10 @@ public class MemberDto {
 	public void setMembername(String membername) {
 		this.membername = membername;
 	}
+	@Override
+	public String toString() {
+		return "MemberDto [memberno=" + memberno + ", memberid=" + memberid + ", memberpw=" + memberpw + ", membername="
+				+ membername + "]";
+	}
+	
 }

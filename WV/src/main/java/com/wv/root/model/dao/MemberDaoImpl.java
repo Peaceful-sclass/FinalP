@@ -1,40 +1,28 @@
 package com.wv.root.model.dao;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.MemberDto;
 
 @Repository
-public class MemberDaoImpl implements MemberDao{
-     
-    @Autowired
-	private SqlSessionTemplate sqlSession;
+public class MemberDaoImpl implements MemberDao {
 	
-	@Override
-	public MemberDto login(MemberDto dto) {
-		MemberDto res = null;
-		System.out.println(dto.getMemberid());
-		try {
-			res= sqlSession.selectOne(NAMESPACE+"login",dto);
-		} catch (Exception e) {
-			System.out.println("[error]: login");
-		    e.printStackTrace();
-		}
-		
-		return res;
+	@Inject SqlSession sql;
+	// 회원가입
+
+	public void register(MemberDto dto) throws Exception {
+		sql.insert("register", dto);
 	}
 
 	@Override
-	public int insert(MemberDto dto) {
-		int res = 0;
-		try {
-			res =sqlSession.insert(NAMESPACE+"insert",dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return res;
+	public MemberDto login(MemberDto dto) throws Exception {
+		return sql.selectOne("login", dto);
 	}
-  
 }
+
+
+  
+

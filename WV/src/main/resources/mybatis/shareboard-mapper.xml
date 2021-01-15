@@ -6,26 +6,99 @@
   
 <mapper namespace="shareBoard">
 
-	<insert id="insert" parameterType="shareboardDto">
+	<!-- 게시판 글쓰기 -->
+	<insert id="insert" parameterType="shareboardDto" useGeneratedKeys="true" keyProperty="bno">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			SELECT SHAREBOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO SHAREBOARD(BNO, TEAM_NO, TITLE, CONTENT, WRITER)
-			VALUES(SHAREBOARD_SEQ.NEXTVAL, #{team_no}, #{title}, #{content}, #{writer})
+			VALUES(#{bno}, #{team_no}, #{title}, #{content}, #{writer})
 	</insert>
 	
-	<select id="list" resultType="shareboardDto" parameterType="int">
-		SELECT BNO, TITLE, WRITER, REGDATE FROM SHAREBOARD WHERE TEAM_NO= #{team_no} 
+	<!-- 게시판 전체 조회 -->
+	<select id="listPage" resultType="shareboardDto" parameterType="com.wv.root.model.util.SearchCriteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        REGDATE,
+		        VIEWS
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               REGDATE,
+		               VIEWS,
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM SHAREBOARD WHERE TEAM_NO=#{team_no}
+		         	<include refid="search"></include>
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY BNO DESC
 	</select>
 	
+	<!-- 게시판번호 -->
+	<select id="listCount" parameterType="com.wv.root.model.util.SearchCriteria" resultType="int">	
+		SELECT COUNT(BNO) FROM SHAREBOARD WHERE TEAM_NO=#{team_no} 
+		<include refid="search"></include>
+		AND BNO>0  
+	</select>
+	
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	
+	<!-- 게시물 한개 선택 -->
 	<select id="selectOne" resultType="shareboardDto" parameterType="int">
 		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE FROM SHAREBOARD WHERE BNO = #{bno}
 	</select>
 	
+	<!-- 게시물 수정 -->
 	<update id="update" parameterType="shareboardDto">
 		UPDATE SHAREBOARD SET TITLE=#{title},CONTENT=#{content} WHERE BNO=#{bno}
 	</update>
 	
+	<!-- 게시물 삭제 -->
+	<delete id="delete2" parameterType="int">
+		DELETE FROM SBCOMMENT WHERE BNO=#{bno}
+	</delete>
 	<delete id="delete" parameterType="int">
 		DELETE FROM SHAREBOARD WHERE BNO=#{bno}
 	</delete>
+	
+	<!-- 파일 추가 -->
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO SB_FILE(FILE_NO, BNO, ORG_FILE_NAME, STORED_FILE_NAME, FILE_SIZE)
+		VALUES(SB_FILE_SEQ.NEXTVAL,#{BNO},#{ORG_FILE_NAME},#{STORED_FILE_NAME},#{FILE_SIZE})
+	</insert>
+	
+	<!-- 게시물 파일 리스트 -->
+	<select id="selectFileList" parameterType="int" resultType="hashMap">
+		SELECT FILE_NO, ORG_FILE_NAME, ROUND(FILE_SIZE/1024,1) AS FILE_SIZE FROM SB_FILE
+		WHERE BNO = #{BNO} AND DEL_GB = 'N'
+		ORDER BY FILE_NO ASC
+	</select>
+	
+	<!-- 게시물에 첨부된 파일 -->
+	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+		SELECT STORED_FILE_NAME, ORG_FILE_NAME FROM SB_FILE WHERE FILE_NO = #{FILE_NO}
+	</select>
+	
+	<!--  -->
+	<update id="updateFile" parameterType="hashMap">
+		UPDATE SB_FILE SET DEL_GB = 'Y' WHERE FILE_NO = #{FILE_NO}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="SBViews" parameterType="int">
+		UPDATE SHAREBOARD SET VIEWS = VIEWS+1 WHERE BNO = #{bno}
+	</update>
 
 </mapper>
