@@ -80,7 +80,7 @@
 						<li class="nav-item"><a class="nav-link" id="place">모임장소</a></li>
 					</ul>
 		
-		<!-- 로그인 -->
+		<!-- 로그인// -->
 		<form name='homeForm' method="post" action="login.do">
 		<c:if test="${member == null}">
 			<div>
