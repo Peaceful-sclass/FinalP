@@ -1,5 +1,8 @@
 package com.wv.root.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +25,18 @@ public class PlaceDaoImpl implements PlaceDao{
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	@Override
+	public List<PlaceDto> placeSelect() {
+		List<PlaceDto> list = new ArrayList<PlaceDto>();
+		try {
+			list = sqlSession.selectList(NAMESPACE+"selectList");
+		} catch (Exception e) {
+			System.out.println("[error]: selectList");
+			e.printStackTrace();
+		}		
+		return list;
 	}
 
 }

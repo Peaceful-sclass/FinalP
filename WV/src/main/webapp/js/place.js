@@ -1,24 +1,40 @@
 
-            $("#place").click(function() {
-                $("#placeModal").modal();
+			function placemodalshow(){
+				$("#placeModal").modal({backdrop: 'static', keyboard: false});
                 $("#modal-title").text("모임장소")
-                $("#placeinsertform").show();
                 $("#placeinsert").hide();
-				$(".map_wrap").hide();                
-            });
- 
-            $("#close").click(function() {
-                $("#exampleModal").modal("hide");
-				$("#placeinsertform").show();
-				$("#placeinsert").hide();
 				$(".map_wrap").hide();
-            });
+				$("#placeinsertform").show();
+				$("#placeListAll").show();
+				$("#placeform").hide();
+			}
+			$('#placeModal').on('show.bs.modal', function (e) {
+				$.ajax({
+					type:"post",
+					url:"placeselect.do",
+					success:function(result){
+						var htmlcode = "";
+						if(result.length<1){
+							htmlcode += '등록된 글이 없습니다.';
+						}else{
+							$(result).each(function(){
+								htmlcode += '<div>'+this.ptitle+'</div><hr>';
+							});
+						}
+						$("#placeListAll").html(htmlcode);
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			});
             $("#placeinsertform").click(function() {
                 $("#modal-title").text("모임장소글쓰기");
-                $("button").remove("#placeinsertform");
-                $("#placeinsertform").hide();
-                $("#placeinsert").show();
+				$("#placeinsertform").hide();
+				$("#placeListAll").hide();
+                $("#placeinsert").show();				
                 $(".map_wrap").show();
+				$("#placeform").show();
                 relayout();
 				searchPlaces();
             });    
@@ -49,6 +65,7 @@
 					success:function(msg){
 						if(msg.check==true){
 							alert("등록성공");
+							placemodalshow();
 						}else{
 							alert("등록실패!");
 						}

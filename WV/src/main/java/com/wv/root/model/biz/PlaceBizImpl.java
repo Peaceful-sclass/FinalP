@@ -1,5 +1,7 @@
 package com.wv.root.model.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class PlaceBizImpl implements PlaceBiz{
 	@Override
 	public int insert(PlaceDto dto) {
 		return dao.insert(dto);
+	}
+
+	@Override
+	public List<PlaceDto> placeSelect() {		
+		return dao.placeSelect();
 	}
 
 }
