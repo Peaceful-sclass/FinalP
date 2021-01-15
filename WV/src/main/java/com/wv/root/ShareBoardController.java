@@ -2,7 +2,6 @@ package com.wv.root;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
@@ -153,6 +152,7 @@ public class ShareBoardController {
 	@RequestMapping(value = "shareBoardDelete.do",method = RequestMethod.POST)
 	public String delete(ShareBoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) {
 		logger.info("delete");
+		
 		
 		int res = biz.delete(dto.getBno());
 		
