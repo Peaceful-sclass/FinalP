@@ -47,7 +47,7 @@
 					contentType:"application/json",
 					dataType:"json",
 					success:function(msg){
-						if(msg==true){
+						if(msg.check==true){
 							alert("등록성공");
 						}else{
 							alert("등록실패!");
