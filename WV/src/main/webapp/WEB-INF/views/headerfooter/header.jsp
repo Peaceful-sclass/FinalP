@@ -77,7 +77,7 @@
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
-						<li class="nav-item"><a class="nav-link" id="place">모임장소</a></li>
+						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
 					</ul>
 					<form name='homeForm' method="post" action="/member/login">
 		     		
@@ -117,13 +117,15 @@
 
 	<!-- Modal -->
     <div class="modal fade" id="placeModal" role="dialog">
-        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
+        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 100%;">
             <div class="modal-content">
                 <div class="modal-header">
-                 	<h4 id="modal-title" class="modal-title"></h4>                	
-                    <button type="button" class="close" id="close" data-dismiss="modal">x</button>                  
+                 	<h4 id="modal-title" class="modal-title"></h4>                 	             	
+                    <button type="button" class="close" data-dismiss="modal">x</button>                  
                 </div>
                 <div class="modal-body">
+                	<div id="placeListAll">
+                	</div>
 					<div class="map_wrap">
 					    <div id="map" style="width:100%; height:100%; position:relative;overflow:hidden;"></div>					
 					    <div id="menu_wrap" class="bg_white">
@@ -131,16 +133,16 @@
 					            <div>
 					                <form onsubmit="searchPlaces(); return false;">
 					                    	검색 : <input type="text" value="서울역" id="keyword" size="15"> 
-					                    <button type="submit">검색하기</button> 
+					                    <button type="submit">검색하기</button>
 					                </form>
 					            </div>
 					        </div>
 					        <hr>
 					        <ul id="placesList"></ul>
 					        <div id="pagination"></div>
-					    </div>
-					    <div style="display:inline-block">
-					        <form>
+					    </div>					    
+					</div>
+					<div id="placeform" style="display: inline-block">
 					        	<table>
 					       			<tr>
 					       				<th>장소이름 </th>
@@ -169,14 +171,12 @@
 					        	</table>
 					        	<input type="hidden" name="lat" id="lat" value="">
 					        	<input type="hidden" name="lng" id="lng" value="">
-					        </form>
 					    </div>
-					</div>
                 </div>
                 <div class="modal-footer" id="modal-footer">
-                	<button type='button' class='placeinsertform' id='placeinsertform'>모임장소글쓰기</button>
-                	<button type='button' class='placeinsertform' id='placeinsert' onclick="placesubmit()">글작성</button>
-                	<button type='button' id='close' data-dismiss='modal'>Close</button>
+                	<button type='button' id='placeinsertform'>모임장소글쓰기</button>
+                	<button type='button' id='placeinsert' onclick="placesubmit()">글작성</button>
+                	<button type='button' data-dismiss='modal'>Close</button>
                 </div>
             </div>
         </div>

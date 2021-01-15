@@ -6,6 +6,6 @@ public interface ContestDao {
 
 	String NAMESPACE = "contest.";
 	
-	int insert(ContestDto dto);
+	public int insert(ContestDto dto);
 	
 }
