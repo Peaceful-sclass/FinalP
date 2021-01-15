@@ -5,8 +5,8 @@
 </style>
 <ul>
 	<li>
-		<c:if test="${member != null}"><a href="/member/logout">로그아웃</a></c:if>
-		<c:if test="${member == null}"><a href="/">로그인</a></c:if>
+		<c:if test="${member != null}"><a href="/logout.do">로그아웃</a></c:if>
+		<c:if test="${member == null}"><a href="/login.do">로그인</a></c:if>
 	</li>
 	<li>
 		<c:if test="${member != null}">
