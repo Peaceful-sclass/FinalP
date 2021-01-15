@@ -26,9 +26,12 @@
 	<link rel="stylesheet" href="css/comunity.css">
 	<script src="js/comunity.js"></script>
  	<script type="text/javascript">
- 	window.onload = function(){ //카테고리 자동선택
+ 	window.onload = function(){ //카테고리/검색 자동선택
 	    let seltag = document.getElementsByName("category")[0];
 	    seltag.value = "${cpdto.category}";
+	    let seltag2 = document.getElementsByName("searchselect")[0];
+	    seltag2.value = "${schdto.searchsel}";
+	    console.log("seltag2.value: "+seltag2.value)
  	}
 	</script>
 </head>
@@ -47,7 +50,7 @@
 				<div class="col-2 offset-md-1" style="margin-bottom: 1rem;">
 					<form action="comunity.do" method="get" name="selectform1">
 						<input type="hidden" name="currentPage" value="1">
-						<select name="category" id="" onchange="cmpageChange(this.form);">
+						<select name="category" onchange="cmpageChange(this.form);">
 							<option value="전체">전체</option>
 							<option value="자유">자유</option>
 							<option value="Q&A">Q&A</option>
@@ -75,7 +78,7 @@
 						  </thead>
 						  <tbody>
 							<c:if test="${empty list }">
-								<p>글이 없습니다.</p>
+								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
 						  	<c:forEach var="dto" items="${list}">
@@ -93,7 +96,17 @@
 						  </tbody>
 						  <tfoot>
 						    <tr>
-						      <td colspan="12">
+						      <td colspan="3">
+							      
+							      	<select name="searchselect" id="" >
+							      		<option value="subject">제목</option>
+							      		<option value="subjectcontent">제목+내용</option>
+							      		<option value="writer">작성자</option>
+									</select>
+									<input type="text" class="a-search-input" name="word" value="${cpdto.search.word }">  
+							      	<input type="button" class="bt-search" value="검색" onclick="cmpageChange(this);" />
+						      </td>
+						      <td colspan="9">
 						      	<input type="button" class="bt-write" value="글쓰기" />
 						      </td>
 						    </tr>
@@ -105,12 +118,14 @@
 				<div class="col-1">
 				</div>
 			</div>
+			<!-- <form action="comunity.do" name="searchform"></form> -->
 			
 			<div class="row justify-content-center">
 				<div>
 					<form action="comunity.do" method="get" name="cmpagechange">
 						<input type="hidden" name="category" value="${cpdto.category }" />
 						<input type="hidden" name="currentPage" value="${cpdto.currentPage}" />
+						<input type="hidden" name="searchsel" value="${schdto.searchsel}" />
 						<!-- paging 필요변수 준비 -->
 						<c:set var="first" value="${cpdto.first }"></c:set>
 						<c:set var="last" value="${cpdto.last }"></c:set>

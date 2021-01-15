@@ -1,6 +1,8 @@
 package com.wv.root.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,15 @@ public class ComunityDaoimpl implements ComunityDao {
 	@Autowired
 	SqlSessionTemplate session;
 
-	
-	
 	@Override
-	public List<ComunityDto> selectAll(CpDto oldcpdto) {
+	public List<ComunityDto> selectAll(CpDto cpdto) {
 		List<ComunityDto> list = null;
 		try {
-//			int count = session.selectList(NameSpace+"comunitycount", oldcpdto).size();
-//			System.out.println("count :"+count);
-//			System.out.println("comunitycount :"+session.selectList(NameSpace+"comunitycount", oldcpdto));
-//			oldcpdto.cpdtoChg(count, oldcpdto.getCurrentPage()); 
-//			System.out.println("oldcpdto :"+oldcpdto);
-			list = session.selectList(NameSpace+"comunityall", oldcpdto); // 현재페이지의 글목록을 추출 
+			Map<String, Object> dto = new HashMap<String, Object>();
+			dto.put("cpdto", cpdto);
+			dto.put("search",cpdto.getSearch());
+			System.out.println("Map dto : "+ dto);
+			list = session.selectList(NameSpace+"comunityall", dto); // 현재페이지의 글목록을 추출 
 			System.out.println("list :"+list);
 			
 		} catch (Exception e) {
@@ -38,12 +37,15 @@ public class ComunityDaoimpl implements ComunityDao {
 	}
 	
 	@Override
-	public int countList(CpDto oldcpdto) {
+	public int countList(CpDto cpdto) {
 		int count = 0;
+		Map<String, Object> dto = new HashMap<String, Object>();
+		dto.put("cpdto", cpdto);
+		dto.put("search",cpdto.getSearch());
 		try {
-			System.out.println("oldcpdto :"+oldcpdto);
+			System.out.println("oldcpdto :"+cpdto);
 //			count = session.selectList(NameSpace+"comunitycount", oldcpdto).size();
-			count = session.selectOne(NameSpace+"comunitycount", oldcpdto);
+			count = session.selectOne(NameSpace+"comunitycount", dto);
 			System.out.println("count : " + count);//현재 카테고리의 총데이터수를 파악한 후 그에 맞는 페이지정보를 dto에 갱신
 		} catch (Exception e) {
 			System.out.println("query fail.....");

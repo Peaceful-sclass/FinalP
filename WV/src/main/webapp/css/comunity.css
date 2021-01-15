@@ -43,3 +43,25 @@ th {
     color: white;
     float: right;
 }
+.bt-search{
+    min-width: 46px;
+    height: 23px;
+    margin-right: 10px;
+    padding: 0 12px;
+    font-size: 13px;
+    line-height: 16px;
+    
+    display: inline-block;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    
+    background: darkorange;
+    color: white;
+}
+.a-search-input{
+	width: 150px;
+	height: 23px;
+	border-radius: 3px;
+}
