@@ -1,5 +1,7 @@
 package com.wv.root.model.biz;
 
-public interface ContestBiz {
+import com.wv.root.model.dto.ContestDto;
 
+public interface ContestBiz {
+	public int insert(ContestDto dto);
 }

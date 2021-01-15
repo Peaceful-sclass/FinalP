@@ -14,8 +14,9 @@
 		<typeAlias type="com.wv.root.model.dto.OutsourcingDto" alias="outsourcingDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.OutexDto" alias="outexDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ShareBoardDto" alias="shareboardDto"></typeAlias>
+		<typeAlias type="com.wv.root.model.dto.ContestDto" alias="contestDto"></typeAlias>
+		<typeAlias type="com.wv.root.model.dto.PlaceDto" alias="placeDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.SBCommentDto" alias="SBCommentDto"/>
-
 		<!-- <typeAlias type="com.wv.root.model.dto.MemberDto" alias="member2Dto"></typeAlias> -->
 	</typeAliases>
 
@@ -25,6 +26,8 @@
 		<mapper resource="/mybatis/comunity-mapper.xml"></mapper>
 		<mapper resource="/mybatis/outsourcing-mapper.xml"></mapper>
 		<mapper resource="/mybatis/shareboard-mapper.xml"></mapper>
+		<mapper resource="/mybatis/contest-mapper.xml"></mapper>
+		<mapper resource="/mybatis/place-mapper.xml"></mapper>
 		<mapper resource="/mybatis/SBComment-mapper.xml"></mapper>
 <!-- 		<mapper resource="/mybatis/board-mapper.xml"></mapper> 추가. -->
 	</mappers>

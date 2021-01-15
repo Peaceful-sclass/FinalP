@@ -1,5 +1,7 @@
 package com.wv.root.model.biz;
 
-public interface PlaceBiz {
+import com.wv.root.model.dto.PlaceDto;
 
+public interface PlaceBiz {
+	public int insert(PlaceDto dto);
 }
