@@ -16,8 +16,7 @@ public class MemberDaoImpl implements MemberDao {
 	public void register(MemberDto dto) throws Exception {
 		sql.insert("register", dto);
 	}
-    
-	//로그인
+
 	@Override
 	public MemberDto login(MemberDto dto) throws Exception {
 		return sql.selectOne("login", dto);

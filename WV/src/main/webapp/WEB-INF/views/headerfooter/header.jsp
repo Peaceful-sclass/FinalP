@@ -79,26 +79,26 @@
 						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
 						<li class="nav-item"><a class="nav-link" id="place">모임장소</a></li>
 					</ul>
-		
-		<!-- 로그인 -->			
-		<form name='homeForm' method="post" action="login.do">
+					<form name='homeForm' method="post" action="/member/login">
+		     		
 		<c:if test="${member == null}">
 			<div>
-				<label for="memberid"></label>       <!-- for는 member-mapper값 -->
-				<input type="text" id="userId" name="memberid">    <!-- id는 script name은 member-mapper -->
+				<label for="userId"></label>
+				<input type="text" id="userId" name="userId">
 			</div>
 			<div>
-				<label for="memberpw"></label>
-				<input type="password" id="userPass" name="memberpw">
+				<label for="userPass"></label>
+				<input type="password" id="userPass" name="userPass">
 			</div>
 			<div>
 				<span><a href="login.do"><button type="submit">로그인</button></a></span>
 				<span><a href="register.do"><button type="button">회원가입</button></a></span>
+				
 			</div>
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-				<p>${member.memberid}님 환영 합니다.</p>  <!-- ${아이디.member-mapper} -->
+				<p>${member.userId}님 환영 합니다.</p>
 				<button id="logoutBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
