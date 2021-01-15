@@ -53,11 +53,11 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#logoutBtn").on("click", function(){
-			location.href="member/logout";
+		$("#outBtn").on("click", function(){
+			location.href="/logout.do";
 		})
 		
-	})
+	});
 </script>
 <body>
 	<!-- Start header -->
@@ -79,16 +79,17 @@
 						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
 						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
 					</ul>
-					<form name='homeForm' method="post" action="/member/login">
-		     		
+		
+		<!-- 로그인// -->
+		<form name='homeForm' method="post" action="login.do">
 		<c:if test="${member == null}">
 			<div>
-				<label for="userId"></label>
-				<input type="text" id="userId" name="userId">
+				<label for="memberid"></label>
+				<input type="text" id="userId" name="memberid">
 			</div>
 			<div>
-				<label for="userPass"></label>
-				<input type="password" id="userPass" name="userPass">
+				<label for="memberpw"></label>
+				<input type="password" id="userPass" name="memberpw">
 			</div>
 			<div>
 				<span><a href="login.do"><button type="submit">로그인</button></a></span>
@@ -98,8 +99,8 @@
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-				<p>${member.userId}님 환영 합니다.</p>
-				<button id="logoutBtn" type="button">로그아웃</button>
+				<p>${member.memberid}님 환영 합니다.</p>
+				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
 		<c:if test="${msg == false}">
@@ -116,8 +117,8 @@
 	
 
 	<!-- Modal -->
-    <div class="modal fade" id="placeModal" role="dialog">
-        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 100%;">
+    <div class="modal fade" id="placeModal" role="dia">
+        <div class="modal-dia" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
             <div class="modal-content">
                 <div class="modal-header">
                  	<h4 id="modal-title" class="modal-title"></h4>                 	             	

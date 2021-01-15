@@ -54,7 +54,7 @@ public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rtt
 	return "redirect:/";
 }
 
-@RequestMapping(value = "/logout", method = RequestMethod.GET)
+@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 public String logout(HttpSession session) throws Exception{
 	
 	session.invalidate();
