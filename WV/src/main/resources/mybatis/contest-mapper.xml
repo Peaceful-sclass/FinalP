@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contest">
+	<insert id="insert" parameterType="ContestDto">
+		INSERT INTO CONTEST
+		VALUES(CONTESTSEQ.NEXTVAL, #{contestname}, #{contestagent}, #{contestsupervision}, #{contesupport}, #{contestfield}, #{contesttarget}, #{contestcompany}, #{contestreward}, #{conteststart}, #{contestend}, #{contestcontent}, #{contestposter}, #{contestsvaefilename}, #{contestorifilename}, #{contestpage}, #{contestperson}, #{contestphone}, #{contestemail}, #{memberno})
+	</insert>	
+</mapper>

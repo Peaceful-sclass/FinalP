@@ -75,7 +75,72 @@
 	</header>
 	<!-- End header -->
 	
-
+	<!-- Modal -->
+    <div class="modal fade" id="placeModal" role="dialog">
+        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                 	<h4 id="modal-title" class="modal-title"></h4>                	
+                    <button type="button" class="close" id="close" data-dismiss="modal">x</button>                  
+                </div>
+                <div class="modal-body">
+					<div class="map_wrap">
+					    <div id="map" style="width:100%; height:100%; position:relative;overflow:hidden;"></div>					
+					    <div id="menu_wrap" class="bg_white">
+					        <div class="option">
+					            <div>
+					                <form onsubmit="searchPlaces(); return false;">
+					                    	검색 : <input type="text" value="서울역" id="keyword" size="15"> 
+					                    <button type="submit">검색하기</button> 
+					                </form>
+					            </div>
+					        </div>
+					        <hr>
+					        <ul id="placesList"></ul>
+					        <div id="pagination"></div>
+					    </div>
+					    <div style="display:inline-block">
+					        <form>
+					        	<table>
+					       			<tr>
+					       				<th>장소이름 </th>
+					       				<td><input type="text" name="ptitle" id="ptitle"></td>
+					       			</tr>
+					       			<tr>
+					       				<th>모임장소소개</th>
+					       				<td><textarea id="pcontent"></textarea></td>
+					       			</tr>
+					       			<tr>
+					       				<th>구비사항 </th>
+					       				<td></td>
+					       			</tr>
+									<tr>
+					       				<th>콘센트여부</th>
+					       				<td><input type="radio" name="soket" value="Y">있음 <input type="radio" name="soket" value="N">없음</td>
+					       			</tr>
+					       			<tr>
+					       				<th>컴퓨터 사용가능 여부</th>
+					       				<td><input type="radio" name="com" value="Y">사용가능 <input type="radio" name="com" value="N">사용불가</td>
+					       			</tr>
+					       			<tr>
+					       				<th>수용 가능 인원</th>
+					       				<td><input type="radio" name="people" value="max4">2~4인 <input type="radio" name="people" value="max8">5~8인 <input type="radio" name="people" value="max">8인이상</td>
+					       			</tr>
+					        	</table>
+					        	<input type="hidden" name="lat" id="lat" value="">
+					        	<input type="hidden" name="lng" id="lng" value="">
+					        </form>
+					    </div>
+					</div>
+                </div>
+                <div class="modal-footer" id="modal-footer">
+                	<button type='button' class='placeinsertform' id='placeinsertform'>모임장소글쓰기</button>
+                	<button type='button' class='placeinsertform' id='placeinsert' onclick="placesubmit()">글작성</button>
+                	<button type='button' id='close' data-dismiss='modal'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 	
 
 	
@@ -103,5 +168,7 @@
 	<script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1056e51774c015f0b972ae144cc7411f&libraries=services"></script>
+    <script src="js/place.js"></script>
 </body>
 </html>
