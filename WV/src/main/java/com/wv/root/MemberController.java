@@ -51,14 +51,14 @@ public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rtt
 		session.setAttribute("member", login);
 	}
 	
-	return "redirect:/";
+	return "home";
 }
-
-@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//로그아웃
+@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 public String logout(HttpSession session) throws Exception{
 	
 	session.invalidate();
 	
-	return "redirect:/";
+	return "home";
 }
 }
