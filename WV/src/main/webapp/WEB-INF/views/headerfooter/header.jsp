@@ -75,7 +75,7 @@
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">모임장소</a></li>
+						<li class="nav-item"><a class="nav-link" id="place">모임장소</a></li>
 					</ul>
 					<form name='homeForm' method="post" action="/member/login">
 		     		
