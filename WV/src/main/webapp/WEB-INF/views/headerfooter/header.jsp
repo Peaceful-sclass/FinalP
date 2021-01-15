@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="css/toastr.min.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
+    <!-- place CSS -->
+    <link rel="stylesheet" href="css/place.css">
     
 	<script src="js/jquery-3.2.1.min.js"></script>
     <!--[if lt IE 9]>
