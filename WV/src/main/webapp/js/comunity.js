@@ -93,3 +93,17 @@ let searchWord = () => {
     $(form).append(ip1).append(ip2);
     // form.submit();
 };
+
+
+
+
+///////////////write
+
+let cmwrite = () => {
+	
+}
+
+
+
+
+

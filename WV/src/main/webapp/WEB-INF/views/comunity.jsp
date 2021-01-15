@@ -42,6 +42,19 @@
 	<div class="menu-box">
 		<div class="container">
 			<div class="row">
+				본문 상단
+			</div>
+			<div class="row">
+				본문 중단
+			</div>
+			<div class="row">
+				본문 하단
+			</div>
+
+		</div>
+
+		<div class="container">
+			<div class="row">
 				<div id="test1" style="display: none; border: 1px solid gray;">
 					
 				</div>
@@ -107,7 +120,7 @@
 							      	<input type="button" class="bt-search" value="검색" onclick="cmpageChange(this);" />
 						      </td>
 						      <td colspan="9">
-						      	<input type="button" class="bt-write" value="글쓰기" />
+						      	<input type="button" class="bt-write" value="글쓰기" onclick="cmwrite();"/>
 						      </td>
 						    </tr>
 						  	
