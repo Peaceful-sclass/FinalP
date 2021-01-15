@@ -66,6 +66,9 @@
 	</update>
 	
 	<!-- 게시물 삭제 -->
+	<delete id="delete2" parameterType="int">
+		DELETE FROM SBCOMMENT WHERE BNO=#{bno}
+	</delete>
 	<delete id="delete" parameterType="int">
 		DELETE FROM SHAREBOARD WHERE BNO=#{bno}
 	</delete>

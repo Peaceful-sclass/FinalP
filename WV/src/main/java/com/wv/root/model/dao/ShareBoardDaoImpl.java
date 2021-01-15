@@ -57,7 +57,7 @@ public class ShareBoardDaoImpl implements ShareBoardDao{
 	public int delete(int bno) {
 		// TODO Auto-generated method stub
 		int res = 0;
-		
+		sqlSession.delete(NAMESPACE+"delete2", bno);
 		res = sqlSession.delete(NAMESPACE+"delete",bno);
 		return res;
 	}
