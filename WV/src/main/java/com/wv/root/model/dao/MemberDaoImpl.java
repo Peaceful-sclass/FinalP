@@ -14,12 +14,12 @@ public class MemberDaoImpl implements MemberDao {
 	// 회원가입
 
 	public void register(MemberDto dto) throws Exception {
-		sql.insert("member-mapper.register", dto);
+		sql.insert("register", dto);
 	}
 
 	@Override
 	public MemberDto login(MemberDto dto) throws Exception {
-		return sql.selectOne("member-mapper.login", dto);
+		return sql.selectOne("login", dto);
 	}
 }
 
