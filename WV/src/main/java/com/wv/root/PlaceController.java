@@ -1,6 +1,7 @@
 package com.wv.root;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -27,9 +28,6 @@ public class PlaceController {
 	@ResponseBody
 	public Map<String, Boolean> placeInsert(@RequestBody PlaceDto dto) {
 		dto.setMemberno(1);
-		System.out.println("소켓"+dto.getSoket());
-		System.out.println("컴퓨터"+dto.getCom());
-		System.out.println("피플"+dto.getPeople());
 		int res = biz.insert(dto);
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		if(res>0) {
@@ -39,5 +37,11 @@ public class PlaceController {
 			map.put("check", false);
 			return map;
 		}
+	}
+	
+	@RequestMapping(value="/placeselect.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<PlaceDto> select() {
+		return biz.placeSelect();
 	}
 }
