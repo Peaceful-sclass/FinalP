@@ -1,48 +1,86 @@
 package com.wv.root.model.dto;
 
+import java.util.Date;
+
 public class MemberDto {
-	private int memberno;
-    private String memberid;
-    private String memberpw;
-    private String membername;
+	private int member_no;
+    private String member_id;
+    private String member_pw;
+    private String member_email;
+    private String member_grade;
+    private Date member_regdate;
+    private String member_is;            //sql이랑 mapper에 추가해야댐
+    private String member_photo;         //sql이랑 mapper에 추가해야댐
 	public MemberDto() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public MemberDto(int memberno, String memberid, String memberpw, String membername) {
+	public MemberDto(int member_no, String member_id, String member_pw, String member_email, String member_grade,
+			Date regdate, String is, String member_photo) {
 		super();
-		this.memberno = memberno;
-		this.memberid = memberid;
-		this.memberpw = memberpw;
-		this.membername = membername;
+		this.member_no = member_no;
+		this.member_id = member_id;
+		this.member_pw = member_pw;
+		this.member_email = member_email;
+		this.member_grade = member_grade;
+		this.member_regdate = regdate;
+		this.member_is = is;
+		this.member_photo = member_photo;
 	}
-	public int getMemberno() {
-		return memberno;
+	public int getMember_no() {
+		return member_no;
 	}
-	public void setMemberno(int memberno) {
-		this.memberno = memberno;
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
 	}
-	public String getMemberid() {
-		return memberid;
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setMemberid(String memberid) {
-		this.memberid = memberid;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-	public String getMemberpw() {
-		return memberpw;
+	public String getMember_pw() {
+		return member_pw;
 	}
-	public void setMemberpw(String memberpw) {
-		this.memberpw = memberpw;
+	public void setMember_pw(String member_pw) {
+		this.member_pw = member_pw;
 	}
-	public String getMembername() {
-		return membername;
+	public String getMember_email() {
+		return member_email;
 	}
-	public void setMembername(String membername) {
-		this.membername = membername;
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	public String getMember_grade() {
+		return member_grade;
+	}
+	public void setMember_grade(String member_grade) {
+		this.member_grade = member_grade;
+	}
+	public Date getRegdate() {
+		return member_regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.member_regdate = regdate;
+	}
+	public String getIs() {
+		return member_is;
+	}
+	public void setIs(String is) {
+		this.member_is = is;
+	}
+	public String getMember_photo() {
+		return member_photo;
+	}
+	public void setMember_photo(String member_photo) {
+		this.member_photo = member_photo;
 	}
 	@Override
 	public String toString() {
-		return "MemberDto [memberno=" + memberno + ", memberid=" + memberid + ", memberpw=" + memberpw + ", membername="
-				+ membername + "]";
+		return "MemberDto [member_no=" + member_no + ", member_id=" + member_id + ", member_pw=" + member_pw
+				+ ", member_email=" + member_email + ", member_grade=" + member_grade + ", regdate=" + member_regdate + ", is="
+				+ member_is + ", member_photo=" + member_photo + "]";
 	}
-	
+     
+    
 }

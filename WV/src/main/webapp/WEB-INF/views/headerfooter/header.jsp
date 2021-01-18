@@ -84,12 +84,12 @@
 		<form name='homeForm' method="post" action="login.do">
 		<c:if test="${member == null}">
 			<div>
-				<label for="memberid"></label>
-				<input type="text" id="userId" name="memberid">
+				<label for="member_id"></label>
+				<input type="text" id="userId" name="member_id">
 			</div>
 			<div>
-				<label for="memberpw"></label>
-				<input type="password" id="userPass" name="memberpw">
+				<label for="member_pw"></label>
+				<input type="password" id="userPass" name="member_pw">
 			</div>
 			<div>
 				<span><a href="login.do"><button type="submit">로그인</button></a></span>
@@ -99,7 +99,7 @@
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-				<p>${member.memberid}님 환영 합니다.</p>
+				<p>${member.member_id}님 환영 합니다.</p>
 				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>

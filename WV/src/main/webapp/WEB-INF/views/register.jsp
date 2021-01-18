@@ -31,14 +31,15 @@
 					$("#userPass").focus();
 					return false;
 				}
-				if($("#userName").val()==""){
-					alert("성명을 입력해주세요.");
-					$("#userName").focus();
+				if($("#userEmail").val()==""){
+					alert("이메일을 입력해주세요.");
+					$("#userEmail").focus();
 					return false;
 				}
 			});
 			
-				
+			
+		
 			
 		})
 	</script>
@@ -46,17 +47,24 @@
 		<section id="container">
 			<form action="register.do" method="post">
 				<div class="form-group has-feedback">
-					<label class="control-label" for="memberid">아이디</label> <!-- for는 member-mapper부분 -->
-					<input class="form-control" type="text" id="userId" name="memberid" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
+					<input class="form-control" type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
 				</div>
 				<div class="form-group has-feedback">
-					<label class="control-label" for="memberpw">패스워드</label>
-					<input class="form-control" type="password" id="userPass" name="memberpw" />
+					<label class="control-label" for="member_pw">패스워드</label>
+					<input class="form-control" type="password" id="userPass" name="member_pw" />
 				</div>
 				<div class="form-group has-feedback">
-					<label class="control-label" for="membername">성명</label>
-					<input class="form-control" type="text" id="userName" name="membername" />
+					<label class="control-label" for="member_email">이메일</label>
+					<input class="form-control" type="text" id="userEmail" name="member_email" />
 				</div>
+				<div class="form-group has-feedback">
+					<label class="control-label" for="member_grade">회원등급</label>
+					<select class="form-control" id="userGrade" name="member_grade">
+				           <option>일반회원</option>
+				    </select>
+				</div>	
+												
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원가입</button>
 					<button class="cencle btn btn-danger" type="button">취소</button>
