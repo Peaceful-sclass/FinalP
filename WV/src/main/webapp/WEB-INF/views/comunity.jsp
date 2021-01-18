@@ -42,13 +42,20 @@
 	<div class="menu-box">
 		<div class="container">
 			<div class="row">
-				본문 상단
+				<!-- 본문 상단 -->
 			</div>
 			<div class="row">
-				본문 중단
+				<div class="col-1"></div>
+				
+				<div class="col-10 dv-border">
+					
+					
+				</div>
+				
+				<div class="col-1"></div>
 			</div>
 			<div class="row">
-				본문 하단
+				<!-- 본문 하단 -->
 			</div>
 
 		</div>
