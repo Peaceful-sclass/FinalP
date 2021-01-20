@@ -8,12 +8,12 @@ function selectcategory(select){ //안씀..
     return false;
 };
 
-let titleClick = function(){ //테이블폼 제출용
+/*let titleClick = function(){ //테이블폼 제출용
     //let form = document.tableform1;
     //form.action;
 	let form = document.getElementsByName("tableform1")[0];
     form.submit();
-};
+};*/
 
 let cmpageChange = function(param){ 
     if(param.getAttribute("name") == "selectform1"){//category 폼 단독 전달용

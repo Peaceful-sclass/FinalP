@@ -15,6 +15,7 @@ CREATE TABLE MYMEMBER(
 );
 
 INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, 'admin','1','admin@admin.com','관리자',sysdate);
+INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, 'jm','2','jm@admin.com','관리자',sysdate);
 
 SELECT*FROM MYMEMBER;
 
