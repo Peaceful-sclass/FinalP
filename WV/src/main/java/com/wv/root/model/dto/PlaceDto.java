@@ -9,13 +9,14 @@ public class PlaceDto {
     private String soket; 
     private String com; 
     private String people; 
+    private int plike; 
     private int memberno;
 	public PlaceDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public PlaceDto(int pno, double lng, double lat, String ptitle, String pcontent, String soket, String com,
-			String people, int memberno) {
+			String people, int plike, int memberno) {
 		super();
 		this.pno = pno;
 		this.lng = lng;
@@ -25,6 +26,7 @@ public class PlaceDto {
 		this.soket = soket;
 		this.com = com;
 		this.people = people;
+		this.plike = plike;
 		this.memberno = memberno;
 	}
 	public int getPno() {
@@ -75,12 +77,20 @@ public class PlaceDto {
 	public void setPeople(String people) {
 		this.people = people;
 	}
+	public int getPlike() {
+		return plike;
+	}
+	public void setPlike(int plike) {
+		this.plike = plike;
+	}
 	public int getMemberno() {
 		return memberno;
 	}
 	public void setMemberno(int memberno) {
 		this.memberno = memberno;
 	}
+	
+	
     
     
 }

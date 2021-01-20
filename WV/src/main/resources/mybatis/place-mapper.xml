@@ -12,17 +12,32 @@
 		<result property="soket" column="SOKET" />
 		<result property="com" column="COM" />
 		<result property="people" column="PEOPLE" />
+		<result property="plike" column="PLIKE" />
 		<result property="memberno" column="MEMBERNO" />
 	</resultMap>
 	
 	<insert id="insert" parameterType="placeDto">
 		INSERT INTO PLACE
-		VALUES(PLACESEQ.NEXTVAL, #{lng}, #{lat}, #{ptitle}, #{pcontent}, #{soket}, #{com}, #{people}, #{memberno})
+		VALUES(PLACESEQ.NEXTVAL, #{lng}, #{lat}, #{ptitle}, #{pcontent}, #{soket}, #{com}, #{people}, #{plike}, #{memberno})
 	</insert>
 	
 	<select id="selectList" resultMap="placeMap" >
-		SELECT PNO, LNG, LAT, PTITLE, PCONTENT, SOKET, COM, PEOPLE, MEMBERNO 
+		SELECT PNO, LNG, LAT, PTITLE, PCONTENT, SOKET, COM, PEOPLE, PLIKE, MEMBERNO 
 		FROM PLACE
-		ORDER BY PNO DESC
+		ORDER BY PLIKE DESC
 	</select>
+	
+	<select id="detail" parameterType="int" resultType="placeDto">
+		SELECT PNO, LNG, LAT, PTITLE, PCONTENT, SOKET, COM, PEOPLE, PLIKE, MEMBERNO 
+		FROM PLACE
+		WHERE PNO = #{pno}
+	</select>
+	
+	<update id="likeup" parameterType="int">
+		UPDATE PLACE SET PLIKE = PLIKE + 1 WHERE PNO = #{pno}
+	</update>
+	
+	<update id="likedown" parameterType="int">
+		UPDATE PLACE SET PLIKE = PLIKE - 1 WHERE PNO = #{pno}
+	</update>
 </mapper>
