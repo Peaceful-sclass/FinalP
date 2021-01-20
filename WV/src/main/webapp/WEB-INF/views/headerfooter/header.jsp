@@ -55,6 +55,7 @@
 	$(document).ready(function(){
 		$("#outBtn").on("click", function(){
 			location.href="logout.do";
+
 		})
 		
 	});

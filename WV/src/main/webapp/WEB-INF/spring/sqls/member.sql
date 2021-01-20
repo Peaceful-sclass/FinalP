@@ -17,7 +17,7 @@ SELECT *FROM MYBOARD ORDER BY MYNO DESC;
 ----------------------------------------------------------
 --회원가입--
 DROP SEQUENCE MEMBERSEQ;
-DROP TABLE MYMEMBER;
+DROP TABLE MYMEMBER cascade constraints;
 
 CREATE SEQUENCE MEMBERSEQ;
 CREATE TABLE MYMEMBER(

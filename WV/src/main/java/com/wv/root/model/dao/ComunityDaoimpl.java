@@ -72,6 +72,7 @@ public class ComunityDaoimpl implements ComunityDao {
 		int res = 0;
 		
 		try {
+			System.out.println("[comInsert:dto] "+comdto);
 			res = session.insert("cominsert", comdto);
 			
 		} catch (Exception e) {

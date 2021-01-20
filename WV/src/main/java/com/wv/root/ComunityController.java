@@ -2,8 +2,10 @@ package com.wv.root;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.ComunityBiz;
 import com.wv.root.model.dto.ComunityDto;
@@ -27,24 +32,6 @@ public class ComunityController {
 	@Autowired
 	private ComunityBiz combiz;
 	
-//	@RequestMapping(value= "comunity1.do", method=RequestMethod.GET)
-//	public String cmPageChange(Model model, CpDto oldcpdto, @ModelAttribute("schdto") CpDto.Search schdto) {
-//		logger.info("[comunity main]");						//초기에 category, currentpage포함
-//		List<ComunityDto> list = null;
-//		CpDto cpdto = null;
-//		
-//		cpdto = new CpDto(combiz.countList(oldcpdto), oldcpdto.getCurrentPage());
-//		cpdto.setCategory(oldcpdto.getCategory());
-//		
-//		list = combiz.selectAll(cpdto);
-//		System.out.println(list.size());
-//		System.out.println(cpdto);
-//		
-//		model.addAttribute("cpdto", cpdto);
-//		model.addAttribute("list", list);
-//		
-//		return "comunity";
-//	}
 	
 	@RequestMapping(value = "comunity.do", method = RequestMethod.GET)
 	public String comunityMain(Model model, CpDto dto, @ModelAttribute("schdto") Search schdto) {
@@ -65,6 +52,39 @@ public class ComunityController {
 		return "comunity";
 	}
 	
+	@RequestMapping(value = "cmwriteform.do", method = RequestMethod.GET)
+	public String cmwriteForm() {
+		logger.info("[comunity Write form]");
+		
+		return "comunitywrite";
+	}
+	
+	@RequestMapping(value = "cmwrite.do", method = RequestMethod.GET)
+	public String cmwrite(Model model, ComunityDto dto, RedirectAttributes reat) {
+		logger.info("[comunity Write]");
+		int res = combiz.comInsert(dto);
+		
+		
+		if(res > 0) {
+			reat.addAttribute("category", "전체"); //get과 동일방식
+//			reat.addFlashAttribute("category", "전체"); //session에 잠시 담고 redirect끝나면 소멸
+			return "redirect:comunity.do";
+		} else {
+			reat.addAttribute("category", "전체");
+			reat.addAttribute("result", "false");
+			return "redirect:comunity.do";
+		}
+	}
+	
+	@RequestMapping(value = "cmdetail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cmDetail(Model model, @RequestBody ComunityDto dto) {
+		logger.info("[comunity Detail]");
+		ComunityDto res = combiz.selectOne(dto.getCno());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("dto", res);
+		return map;
+	}
 	
 
 	@RequestMapping(value = "comsidemenu.do", method = RequestMethod.POST)

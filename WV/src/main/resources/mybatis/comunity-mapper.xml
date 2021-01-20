@@ -49,8 +49,8 @@
 	<select id="comunityall" parameterType="hashmap" resultType="comunityDto">
 		select rnum, cm.*
 				from (
-					select row_number() over (order by regdate desc ) rnum, c.*
-					from comunity c
+					select row_number() over (order by regdate desc ) rnum, c.*,m.member_id
+					from comunity c join mymember m on c.member_no=m.member_no
  		<choose>
 			<when test="cpdto.category == '전체'">
 					<where><include refid="search"></include></where>
@@ -82,27 +82,27 @@
 				and content like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
 			</when>
 			<when test="search.searchsel == 'writer'">
-				and memberid like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
+				and member_id like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
 			</when>
 		</choose>
 	</sql>
 	
 	<select id="comunityone" parameterType="int" resultType="comunityDto">
-		select cno, category, title, content, regdate, m.memberid
-		from comunity c join member m
-		where m.memberno = c.memberno
+		select cno, category, title, content, regdate, m.member_id
+		from comunity c join mymember m
+		where m.member_no = c.member_no
 		and cno = #{cno}
 
 	</select>
 	
 	<insert id="cominsert" parameterType="comunityDto">
 		insert into comunity
-		values(comunityseq.nextval, #{category}, #{title}, #{content}, sysdate, #{memberno})
+		values(comunityseq.nextval, #{category}, #{title}, 0, sysdate, #{member_no}, #{content} )
 	
 	</insert>
 	
 	<update id="comupdate" parameterType="comunityDto">
-		update comunity set (#{category}, #{title}, #{content})
+		update comunity set (category = #{category}, title = #{title}, content = #{content})
 		where cno = #{cno}
 	</update>
 	
@@ -113,7 +113,7 @@
 	
 	<!-- comment start /////////////////////////////////////////// -->
 	<select id="comcmtselect" parameterType="comcommentDto">
-		select comcmtno, groupno, grpno, comcomment, regdate, cno, m.memberid
+		select comcmtno, groupno, grpno, comcomment, regdate, cno, m.member_id
 		from comcomment c join member m	on c.cno = m.cno 
 		where cno = #{cno} and groupno = #{groupno}
 		order by grpno
@@ -121,7 +121,7 @@
 	
 	<insert id="comcmtinsert" parameterType="comcommentDto">
 		insert into comcomment
-		values(comcmtseq.nextval, comcmtgroupseq.nextval, 1, #{comcomment},sysdate, #{cno}, #{memberno})
+		values(comcmtseq.nextval, comcmtgroupseq.nextval, 1, #{comcomment},sysdate, #{cno}, #{member_no})
 	</insert>
 	
 	<update id="comcmtupdate" parameterType="comcommentDto">
@@ -139,7 +139,7 @@
 		values(comcmtseq.nextval, 
 		(select comcmtgroupno from comcomment where comcmtno = #{comcmtno}),
 		(select comcmtgrpno from comcomment where comcmtno = #{comcmtno})+1,
-		 #{comcomment},sysdate, #{cno}, #{memberno})
+		 #{comcomment},sysdate, #{cno}, #{member_no})
 	</insert>
 	
 	<update id="comcmtbeforeanswer" parameterType="comcommentDto">
