@@ -54,7 +54,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#outBtn").on("click", function(){
-			location.href="/logout.do";
+			location.href="/root/logout.do";
 		})
 		
 	});

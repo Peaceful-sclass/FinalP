@@ -26,13 +26,30 @@
 	<link rel="stylesheet" href="css/comunity.css">
 	<script src="js/comunity.js"></script>
  	<script type="text/javascript">
- 	window.onload = function(){ //카테고리/검색 자동선택
+ 	window.onload = function(){ 
+ 	    console.log("test comunity.js");
+ 	    let currentPage = document.getElementsByName("currentPage")[1].value;
+ 	    console.log("test currentPage : "+currentPage);
+ 	    let selectedPage = document.getElementsByName(currentPage)[0]; //atag임
+ 	    console.log("test selectedPage : "+selectedPage);
+ 	    selectedPage.classList.add('test1css');
+ 	    
+ 	 	//카테고리/검색 자동선택
 	    let seltag = document.getElementsByName("category")[0];
 	    seltag.value = "${cpdto.category}";
 	    let seltag2 = document.getElementsByName("searchselect")[0];
 	    seltag2.value = "${schdto.searchsel}";
 	    console.log("seltag2.value: "+seltag2.value)
  	}
+ 	
+ 	let cmwriteform = (no) => {
+ 		if(no != null && no != "" && no != undefined){ //로긴전 기초검증
+ 			location.href='cmwriteform.do';
+ 		} else{
+ 			toastr.error("글쓰기 전에 로그인을 해주세요.", "로그인 필요!", {timeOut: 5000});
+ 		}
+ 	}
+ 	
 	</script>
 </head>
 
@@ -40,26 +57,47 @@
 <jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 	<!-- Start -->
 	<div class="menu-box">
-		<div class="container">
+		<!-- Detail container Start -->
+		<div class="container" id="dv-ct">
 			<div class="row">
-				<!-- 본문 상단 -->
+				<!-- 본문 상단 내용 -->
 			</div>
+			<!-- 본문 중단 시작 -->
 			<div class="row">
 				<div class="col-1"></div>
 				
 				<div class="col-10 dv-border">
-					
-					
+					<!-- 제목 -->
+					<div class="dv-header">
+						<div class="dv-subject2">
+							<span>작성자</span> |
+							<span>날짜</span> |
+							<span>조회수</span>
+						</div>
+						<h1 class="dv-subject">제목 테스트~!!!!!</h1>
+					</div>
+					<!-- 내용 -->
+					<div class="dv-middle">
+						<div class="dv-content">
+							내용 test~
+						</div>
+						<!-- <textarea class="dv-textarea" name="dv-content-ta" cols="300" rows="900"></textarea> -->
+					</div>
 				</div>
 				
 				<div class="col-1"></div>
 			</div>
 			<div class="row">
-				<!-- 본문 하단 -->
+				<!-- 본문 하단 내용 -->
 			</div>
-
 		</div>
-
+		<!-- Detail container End -->
+		
+		
+		<div><br></div>
+		
+		
+		<!-- 목록 시작!!! -->
 		<div class="container">
 			<div class="row">
 				<div id="test1" style="display: none; border: 1px solid gray;">
@@ -105,8 +143,8 @@
 							    <tr>
 							      <th scope="row" class="cm-txt-center">${dto.cno} </th>
 							      <td class="cm-txt-center">${dto.category}</td>
-							      <td class="cm-title"><a href="#" name="cno" value="${dto.cno}" onclick="titleClick(); return false;">${dto.title}</a></td>
-							      <td class="cm-txt-center">${dto.memberid}관리자</td>
+							      <td class="cm-title"><a href="#" name="cno" value="${dto.cno}" onclick="titleClick(this); return false;">${dto.title}</a></td>
+							      <td class="cm-txt-center">${dto.member_id}</td>
 							      <td class="cm-txt-center"><fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd" /></td>
 							      <td class="cm-txt-center">${dto.views}</td>
 							    </tr>
@@ -127,7 +165,7 @@
 							      	<input type="button" class="bt-search" value="검색" onclick="cmpageChange(this);" />
 						      </td>
 						      <td colspan="9">
-						      	<input type="button" class="bt-write" value="글쓰기" onclick="cmwrite();"/>
+						      	<input type="button" class="bt-write" value="글쓰기" onclick="cmwriteform('${member.member_no}');"/>
 						      </td>
 						    </tr>
 						  	
@@ -172,9 +210,9 @@
 				</div>
 			</div><!-- paging row end -->
 			
-		</div> <!-- container end -->
+		</div> <!-- 목록 container end -->
 	</div>
-	<!-- End -->
+	<!-- MenuBox End -->
 	
 	
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>

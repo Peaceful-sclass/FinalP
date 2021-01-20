@@ -1,10 +1,5 @@
 window.addEventListener("load", function() {
-    console.log("test comunity.js");
-    let currentPage = document.getElementsByName("currentPage")[1].value;
-    console.log("test currentPage : "+currentPage);
-    let selectedPage = document.getElementsByName(currentPage)[0]; //atag임
-    console.log("test selectedPage : "+selectedPage);
-    selectedPage.classList.add('test1css');
+
 
 }, false) ;
 
@@ -70,7 +65,7 @@ let searchWord = () => {
     ip1.setAttribute("name","select");
     ip1.setAttribute("value", selval);
     
-    let ip2 = ip.cloneNode();	//검색 단어
+    let ip2 = ip.cloneNode();	//검색 단어 -- 현재 사용하는 것 이거 하나
 	ip2.setAttribute("type","hidden");
     ip2.setAttribute("name","word");
     ip2.setAttribute("value", wordval);
@@ -96,12 +91,108 @@ let searchWord = () => {
 
 
 
-
-///////////////write
+///////////////writeform
+var quill = new Quill('#editor-container', {
+    modules: {
+      formula: true,
+      syntax: true,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: '내용을 입력해 주세요.',
+    theme: 'snow'
+});
 
 let cmwrite = () => {
+	let chkno = document.getElementById("memberno").value;
+	if(chkno != null && chkno != "" && chkno != undefined ){
+		console.log("chkno: "+chkno);
+	} else{
+		toastr.error("글쓰기 전에 로그인을 해주세요.", "로그인 필요!", {timeOut: 5000});
+		return false;
+	}
+	
+    let cmd = window.location.pathname;
+    if(cmd === "/root/cmwriteform.do"){		//cm글쓰기폼
+        toastr.info("", cmd, {timeOut: 5000});
+
+		let form = document.createElement("form");
+		form.action = "cmwrite.do";
+		form.method = "get";
+		let input = document.createElement("input");
+		input.type = "hidden";
+		input.name = "content";
+		let content = quill.root.innerHTML;
+	    input.value= content;
+		
+		//제목
+		form.append(input);
+		let title = document.querySelector(".dv-subject");
+		console.log("title :"+title.value);
+		$(form).append($('<input/>', {type: 'hidden', name: 'title', value:$(title).val() }));
+		//카테고리,회원
+		let category = document.querySelector("select[name=category]").value;
+		console.log("category: "+category);
+		$('#category').val(category); //테스트...
+		$(form).append($('#memberid')).append($('#memberno')).append($('#category'));
+		
+		//검증절차
+		document.body.appendChild(form);
+		
+		if(title.value == null || title.value == "" || title.value == undefined){
+			toastr.warning("제목을 입력해주세요.", "제목 필요!", {timeOut: 5000});
+			title.focus();
+			return false;
+		} else if(category == null || category == "" || category == undefined){
+			toastr.warning("카테고리를 선택해주세요.", "카테고리 필요!", {timeOut: 5000});
+			document.querySelector("select[name=category]").focus();
+	        return false;
+		}
+		form.submit();
+        return false;
+				
+        
+    } else if(cmd === "/root/cmmodify.do"){ //cm글수정폼
+        
+    }
+	
+	
+	
 	
 }
+
+
+
+// 목록 글 Detail view
+
+let titleClick = (param)=> {
+	$.ajax({
+		type: "post",
+		url: "cmdetail.do",
+		data: JSON.stringify({cno:param.value}),
+		contentType: "application/json",
+		dataType: json,
+		beforeSend: function(){
+            $("#dv-ct").removeClass('dv-toggle');
+            $("td a").removeClass("cm-bold"); //모든 td밑 a tag의 클래스삭제
+		},
+		success: function(rt){ //제목,내용,시간,조회수,작성자
+			$(".dv-subject").val(rt.dto.title);
+			$(".dv-subject2").val(rt.dto.member_id);
+			$(".dv-subject2").val(rt.dto.regdate);
+			$(".dv-subject2").val(rt.dto.view);
+			$(".dv-content").html(rt.dto.content);
+        },
+        complete: function(){
+            // $("#dv-ct").addClass('dv-toggle');
+            $("param").addClass("cm-bold");
+        },
+        error: function(){
+            toastr("내용 로드에 실패했습니다.", "글읽기 실패", {timeOut: 5000});
+        }
+	});
+}
+
+
 
 
 

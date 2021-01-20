@@ -2,19 +2,21 @@
 ------------------------------------------------------------
 --임시회원
 DROP SEQUENCE MEMBERSEQ;
-DROP TABLE MEMBER CASCADE CONSTRAINTS;
+DROP TABLE myMEMBER CASCADE CONSTRAINTS;
 
 CREATE SEQUENCE MEMBERSEQ;
-CREATE TABLE MEMBER(
-     MEMBERNO NUMBER PRIMARY KEY,
-     MEMBERID VARCHAR2(1000) NOT NULL,
-     MEMBERPW VARCHAR2(1000) NOT NULL,
-     MEMBERNAME VARCHAR2(1000) NOT NULL
+CREATE TABLE MYMEMBER(
+     MEMBER_NO NUMBER PRIMARY KEY,
+     MEMBER_ID VARCHAR2(1000) NOT NULL,
+     MEMBER_PW VARCHAR2(1000) NOT NULL,
+     MEMBER_EMAIL VARCHAR2(1000) NOT NULL,
+     MEMBER_GRADE VARCHAR2(30) NOT NULL,
+     MEMBER_REGDATE DATE DEFAULT SYSDATE
 );
 
-INSERT INTO MEMBER VALUES(MEMBERSEQ.NEXTVAL, 'admin','1234','관리자');
+INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, 'admin','1','admin@admin.com','관리자',sysdate);
 
-SELECT*FROM MEMBER;
+SELECT*FROM MYMEMBER;
 
 ----------------------------------------------------------------------------------------
 --커뮤니티
@@ -29,13 +31,13 @@ CREATE TABLE Comunity (
 	CONTENT		varchar2(4000)		NULL,
 	views		number		NULL,
 	REGDATE		date		NOT NULL,
-	MEMBERNO	number		NOT NULL
+	MEMBER_NO	number		NOT NULL
 );
 
 ALTER TABLE Comunity ADD CONSTRAINT PK_COMUNITY PRIMARY KEY (CNO);
-ALTER TABLE Comunity ADD CONSTRAINT FK_Member_TO_Comunity_1 FOREIGN KEY (MEMBERNO) REFERENCES Member(MEMBERNO);
-
-select * from comunity;
+ALTER TABLE Comunity drop CONSTRAINT FK_Member_TO_Comunity_1;
+ALTER TABLE Comunity ADD CONSTRAINT FK_Member_TO_Comunity_1 FOREIGN KEY (MEMBER_NO) REFERENCES myMember(MEMBER_NO);
+select * from comunity order by regdate desc;
 
 ------------------------------------------------------------------------------
 --커뮤니티 댓글
@@ -52,12 +54,12 @@ CREATE TABLE ComComment (
 	ComCOMMENT			varchar2(2000)		NOT NULL,
 	REGDATE			date		NOT NULL,
 	CNO				number		NOT NULL,
-	MEMBERNO		number		NOT NULL
+	member_no		number		NOT NULL
 );
 
 ALTER TABLE ComComment ADD CONSTRAINT PK_ComComment PRIMARY KEY (ComCmtNO);
 ALTER TABLE ComComment ADD CONSTRAINT FK_Comunity_TO_ComComment_1 FOREIGN KEY (CNO) REFERENCES Comunity (CNO);
-ALTER TABLE ComComment ADD CONSTRAINT FK_Member_TO_ComComment_1 FOREIGN KEY (MEMBERNO) REFERENCES Member (MEMBERNO);
+ALTER TABLE ComComment ADD CONSTRAINT FK_Member_TO_ComComment_1 FOREIGN KEY (member_no) REFERENCES Member (member_no);
 
 
 
@@ -101,12 +103,12 @@ CREATE TABLE Outex(
 	APPLIED		varchar2(5)	default 'false' not null,
 	outexCOMMENT		varchar2(4000),
 	OUTNO		number		NOT NULL,
-	MEMBERNO	number		NOT NULL
+	member_no	number		NOT NULL
 );
 
 ALTER TABLE Outex ADD CONSTRAINT PK_OUTEX PRIMARY KEY (OUTEXNO);
 ALTER TABLE Outex ADD CONSTRAINT FK_OutSourcing_TO_Outex_1 FOREIGN KEY (OUTNO) REFERENCES OutSourcing(OUTNO);
-ALTER TABLE Outex ADD CONSTRAINT FK_Member_TO_Outex_1 FOREIGN KEY (MEMBERNO) REFERENCES Member (MEMBERNO);
+ALTER TABLE Outex ADD CONSTRAINT FK_Member_TO_Outex_1 FOREIGN KEY (member_no) REFERENCES Member (member_no);
 
 
 ---------------------------------------------------------------------------------------
