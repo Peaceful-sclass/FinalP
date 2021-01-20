@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="like">
+	<select id="likecheck" parameterType="place_likeDto" resultType="place_likeDto">
+		SELECT LNO, PNO, MEMBERNO, LIKECHECK
+		FROM PLACE_LIKE
+		WHERE PNO = #{pno}
+		AND MEMBERNO = #{memberno}
+	</select>
+	
+	<insert id="likeinsert" parameterType="placeDto">
+		INSERT INTO PLACE_LIKE
+		VALUES(LIKESEQ.NEXTVAL, #{pno}, #{memberno}, #{likecheck})
+	</insert>
+	
+	<update id="likecancel" parameterType="place_likeDto">
+		UPDATE PLACE_LIKE 
+		SET LIKECHECK = 0 
+		WHERE PNO = #{pno}
+		AND MEMBERNO = #{memberno} 
+	</update>
+	
+	<update id="likeupdate" parameterType="place_likeDto">
+		UPDATE PLACE_LIKE 
+		SET LIKECHECK = 1 
+		WHERE PNO = #{pno}
+		AND MEMBERNO = #{memberno} 
+	</update>
+</mapper>
