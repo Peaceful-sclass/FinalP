@@ -1,27 +1,176 @@
 
-            $("#place").click(function() {
-                $("#placeModal").modal();
+			function placemodalshow(){
+				$("#placeModal").modal({backdrop: 'static', keyboard: false});
                 $("#modal-title").text("모임장소")
-                $("#placeinsertform").show();
                 $("#placeinsert").hide();
-				$(".map_wrap").hide();                
-            });
- 
-            $("#close").click(function() {
-                $("#exampleModal").modal("hide");
-				$("#placeinsertform").show();
-				$("#placeinsert").hide();
 				$(".map_wrap").hide();
-            });
+				$("#placeinsertform").show();
+				$("#placeListAll").show();
+				$("#placeDetail").hide();
+				$("#placeform").hide();
+				$("#allListShow").hide();
+				placeListAjax();				
+			}
+			function placeListAjax() {
+				$.ajax({
+					type:"post",
+					url:"placeselect.do",
+					success:function(result){
+						console.log("실행");
+						var htmlcode = "";
+						if(result.length<1){
+							htmlcode += '등록된 글이 없습니다.';
+						}else{
+							$(result).each(function(){
+								htmlcode += '<div><a onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'</div><hr>';
+							});
+						}
+						$("#placeListAll").html(htmlcode);
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			function placeDetailAjax(pno){
+				var memberno = 1;
+				$.ajax({
+					type:"post",
+					url:"placedetail.do?pno="+pno,
+					success:function(dto){
+						console.log("디테일");
+						$("#placeListAll").hide();
+						$("#placeDetail").show();
+						$("#allListShow").show();
+						$("#modal-title").text(dto.ptitle);
+						var likecheck = likecheckAjax(pno, memberno);
+						console.log(likecheck);
+						var htmlcode = "";
+						htmlcode += '구비사항<br><div>콘센트여부: '+dto.soket+' 컴퓨터 사용가능 여부: '+dto.com+' 수용 가능 인원: '+dto.people+'</div>';	
+						htmlcode += '<div>장소소개 : '+dto.pcontent+'</div><div>위치</div>';	
+						htmlcode += '<div id="detailmap" style="width:100%;height:350px;"></div>';
+						if(likecheck==1){
+							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/like-img.png" onclick="likeCancel('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
+						}else if(likecheck==0){
+							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/not-like.png" onclick="likeupdate('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
+						}else if(likecheck==2){
+							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/not-like.png" onclick="likeinsert('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
+						}
+							
+						htmlcode += '<div id="comment-head"><span id="comments-count"></span> Comments(s) </div><hr>';	
+						$("#placeDetail").html(htmlcode);
+						detailmapload(dto.lat, dto.lng, dto.ptitle);
+						
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			function likeCancel(pno){
+				var memberno = 1;
+				var likeval= {"pno" : pno, "memberno" : memberno};
+				var img = $("#likeimg");
+				var plike = Number($("#plike").text());
+				console.log(plike);
+				$.ajax({
+					type:"post",					
+					url:"likecancel.do",
+					data:JSON.stringify(likeval),
+					contentType:"application/json",
+					dataType:"json",
+					success:function(res){
+						if(res>0){
+							img.attr('src','images/not-like.png');
+							img.attr('onclick','likeupdate('+pno+');');
+							$("#plike").text(plike-1);
+						}
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			function likeupdate(pno){
+				var memberno = 1;
+				var likeval= {"pno" : pno, "memberno" : memberno};
+				var img = $("#likeimg");
+				var plike = Number($("#plike").text());
+				$.ajax({
+					type:"post",					
+					url:"likeupdate.do",
+					data:JSON.stringify(likeval),
+					contentType:"application/json",
+					dataType:"json",
+					success:function(res){
+						if(res>0){
+							img.attr('src','images/like-img.png');
+							img.attr('onclick','likeCancel('+pno+');');
+							$("#plike").text(plike+1);
+						}						
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			function likeinsert(pno){
+				var memberno = 1;
+				var likeval= {"pno" : pno, "memberno" : memberno};
+				var img = $("#likeimg");
+				var plike = Number($("#plike").text());
+				$.ajax({
+					type:"post",					
+					url:"likeinsert.do",
+					data:JSON.stringify(likeval),
+					contentType:"application/json",
+					dataType:"json",
+					success:function(msg){
+						if(msg.check==true){
+							img.attr('src','images/like-img.png');
+							img.attr('onclick','likeCancel('+pno+');');
+							$("#plike").text(plike+1);
+						}else{
+							alert("좋아요실패!");
+						}
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
             $("#placeinsertform").click(function() {
                 $("#modal-title").text("모임장소글쓰기");
-                $("button").remove("#placeinsertform");
-                $("#placeinsertform").hide();
-                $("#placeinsert").show();
+				$("#placeinsertform").hide();
+				$("#placeListAll").hide();
+                $("#placeinsert").show();				
                 $(".map_wrap").show();
+				$("#placeform").show();
+				$("#placeDetail").hide();
+				$("#allListShow").show();
                 relayout();
 				searchPlaces();
-            });    
+            });
+			function likecheckAjax(pno, memberno){
+				console.log("체크");
+				var likeval= {"pno" : pno, "memberno" : memberno};
+				var res;
+				$.ajax({
+					type:"post",					
+					url:"likecheck.do",
+					data:JSON.stringify(likeval),
+					contentType:"application/json",
+					dataType:"json",
+					async: false,
+					success:function(check){
+						res = check;
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+				return res;
+			}    
 			function placeselect(){				
 				var lat = $("#markerlat").val();
 				var lng = $("#markerlng").val();
@@ -30,6 +179,17 @@
 				$("input[name=lng]").val(lng);
 				$("input[name=ptitle]").val(title);
 				alert("선택되었습니다.");				
+			}
+			function allListShow(){
+                $("#modal-title").text("모임장소")
+                $("#placeinsert").hide();
+				$(".map_wrap").hide();
+				$("#placeinsertform").show();
+				placeListAjax();
+				$("#placeListAll").show();
+				$("#placeDetail").hide();
+				$("#placeform").hide();	
+				$("#allListShow").hide();
 			}
     		function placesubmit(){
 				var ptitle=$("#ptitle").val();
@@ -49,6 +209,7 @@
 					success:function(msg){
 						if(msg.check==true){
 							alert("등록성공");
+							placemodalshow();
 						}else{
 							alert("등록실패!");
 						}
@@ -285,3 +446,35 @@
 		    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
 		    map.relayout();
 		}
+		function detailmapload(lat, lng, ptitle){
+			//디테일페이지맵
+			var mapContainer2 = document.getElementById('detailmap'),  
+	    		mapOption2 = { 
+	        		center: new kakao.maps.LatLng(lat, lng), 
+	        		level: 4 
+	    	};
+			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
+	
+			var markerPosition2  = new kakao.maps.LatLng(lat, lng); 
+			
+			var marker2 = new kakao.maps.Marker({
+			    position: markerPosition2
+			});
+
+			marker2.setMap(map2);
+			
+			var content2 = '<div class="customoverlay">' +
+			    '  <a href="https://map.kakao.com/link/to/'+ptitle+','+lat+','+lng+'" target="_blank">' +
+			    '    <span class="title">'+ptitle+'</span>' +
+			    '  </a>' +
+			    '</div>';
+			
+			var position2 = new kakao.maps.LatLng(lat, lng);
+
+			var customOverlay = new kakao.maps.CustomOverlay({
+			    map: map2,
+			    position: position2,
+			    content: content2 
+			});
+		};
+		
