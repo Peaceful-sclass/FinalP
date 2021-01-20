@@ -54,7 +54,8 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#outBtn").on("click", function(){
-			location.href="/logout.do";
+			location.href="logout.do";
+
 		})
 		
 	});
@@ -84,12 +85,12 @@
 		<form name='homeForm' method="post" action="login.do">
 		<c:if test="${member == null}">
 			<div>
-				<label for="memberid"></label>
-				<input type="text" id="userId" name="memberid">
+				<label for="member_id"></label>
+				<input type="text" id="userId" name="member_id">
 			</div>
 			<div>
-				<label for="memberpw"></label>
-				<input type="password" id="userPass" name="memberpw">
+				<label for="member_pw"></label>
+				<input type="password" id="userPass" name="member_pw">
 			</div>
 			<div>
 				<span><a href="login.do"><button type="submit">로그인</button></a></span>
@@ -99,7 +100,7 @@
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-				<p>${member.memberid}님 환영 합니다.</p>
+				<p>${member.member_id}님 환영 합니다.</p>
 				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
@@ -116,9 +117,9 @@
 	<!-- End header -->
 	
 
-	<!-- Modal -->
+	<!-- 모임장소 Modal -->
     <div class="modal fade" id="placeModal" role="dia">
-        <div class="modal-dia" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
+        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
             <div class="modal-content">
                 <div class="modal-header">
                  	<h4 id="modal-title" class="modal-title"></h4>                 	             	
@@ -126,6 +127,8 @@
                 </div>
                 <div class="modal-body">
                 	<div id="placeListAll">
+                	</div>
+                	<div id="placeDetail">
                 	</div>
 					<div class="map_wrap">
 					    <div id="map" style="width:100%; height:100%; position:relative;overflow:hidden;"></div>					
@@ -143,7 +146,7 @@
 					        <div id="pagination"></div>
 					    </div>					    
 					</div>
-					<div id="placeform" style="display: inline-block">
+					<div id="placeform" style="float: right">
 					        	<table>
 					       			<tr>
 					       				<th>장소이름 </th>
@@ -159,15 +162,15 @@
 					       			</tr>
 									<tr>
 					       				<th>콘센트여부</th>
-					       				<td><input type="radio" name="soket" value="Y">있음 <input type="radio" name="soket" value="N">없음</td>
+					       				<td><input type="radio" name="soket" value="있음">있음 <input type="radio" name="soket" value="없음">없음</td>
 					       			</tr>
 					       			<tr>
 					       				<th>컴퓨터 사용가능 여부</th>
-					       				<td><input type="radio" name="com" value="Y">사용가능 <input type="radio" name="com" value="N">사용불가</td>
+					       				<td><input type="radio" name="com" value="사용가능">사용가능 <input type="radio" name="com" value="사용불가">사용불가</td>
 					       			</tr>
 					       			<tr>
 					       				<th>수용 가능 인원</th>
-					       				<td><input type="radio" name="people" value="max4">2~4인 <input type="radio" name="people" value="max8">5~8인 <input type="radio" name="people" value="max">8인이상</td>
+					       				<td><input type="radio" name="people" value="2~4인">2~4인 <input type="radio" name="people" value="5~8인">5~8인 <input type="radio" name="people" value="8인이상">8인이상</td>
 					       			</tr>
 					        	</table>
 					        	<input type="hidden" name="lat" id="lat" value="">
@@ -176,6 +179,7 @@
                 </div>
                 <div class="modal-footer" id="modal-footer">
                 	<button type='button' id='placeinsertform'>모임장소글쓰기</button>
+                	<button type='button' id="allListShow" onclick='allListShow();'>목록으로</button>
                 	<button type='button' id='placeinsert' onclick="placesubmit()">글작성</button>
                 	<button type='button' data-dismiss='modal'>Close</button>
                 </div>

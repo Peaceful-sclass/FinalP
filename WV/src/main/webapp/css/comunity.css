@@ -7,6 +7,9 @@
 .cm-title{
     text-align: unset;
 }
+.cm-bold{
+    font-weight: bold;
+}
 th {
     text-align: center!important;
 
@@ -19,7 +22,7 @@ th {
     color: grey;
     text-decoration: none;
 }
-.test1css{
+.test1css{ /* paging a tag color */
     font-size: 20px;
     color:darkorange;
     text-decoration: none;
@@ -65,3 +68,64 @@ th {
 	height: 23px;
 	border-radius: 3px;
 }
+
+
+/* detail view CSS */
+.dv-border{
+    border: 1px solid rgba(239, 204, 135, 0.7);
+    border-radius: 3px;
+}
+.dv-toggle{
+    display: none;
+}
+.dv-header{
+    border-bottom: 1px dashed  rgba(239, 204, 135, 0.7);
+    margin: 0 10px;
+}
+.dv-subject{
+    /* padding: 20px 0 15px 5px; */
+    margin: 20px 0 9px 15px;
+    text-align: left;
+    line-height: 22px;
+    font-weight: bold;
+    background-color: white!important;
+    /*width: 100%;*/
+    display: inline-block;
+}
+.dv-subject2{
+    /* padding: 20px 0 15px 5px; */
+    margin: 29px 0 9px 15px;
+    text-align: left;
+	font-size: 12px;
+	color: grey;
+    line-height: 22px;
+    background-color: white!important;
+    float: right;
+    display: inline;
+}
+.dv-middle{
+	padding: 0px 0 30px 0;
+}
+.dv-content{
+	width: 85%;
+	text-align: left;
+    margin: 15px auto;
+}
+.dv-textarea{
+    display: none;
+}
+.dv-writeform{
+	width: 100%;
+	text-align: left;
+    margin: 0 auto;
+    /*border: 1px solid rgba(239, 204, 135, 0.7);*/
+}
+.dv-foot{
+    width: 25%;
+    float: right;
+    padding: 0 0 9px 0;
+}
+.dv-category{
+    margin: 5px 10px;
+}
+	

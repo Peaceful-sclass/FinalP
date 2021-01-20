@@ -7,15 +7,17 @@
 <mapper namespace="wvmember">
     	<!-- 회원가입 -->
    <insert id="register" parameterType="memberDto">
-        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{memberid}, #{memberpw},#{membername})
+        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_email}, #{member_grade}, SYSDATE)
+
+
    </insert>	 
 
 	<!-- 로그인 -->
 	<select id="login" parameterType="memberDto" resultType="memberDto">
-		SELECT MEMBERNO, MEMBERID, MEMBERPW, MEMBERNAME
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_EMAIL
         FROM MYMEMBER
-		WHERE MEMBERID = #{memberid} 
-	    AND MEMBERPW = #{memberpw} 
+		WHERE MEMBER_ID = #{member_id} 
+	    AND MEMBER_PW = #{member_pw} 
 	</select>
 	
 
