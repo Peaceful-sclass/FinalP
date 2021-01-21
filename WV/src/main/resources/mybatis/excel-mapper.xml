@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Excel">
+	<resultMap type="ExcelDto" id="ExcelMap">
+		<result property="excelNo" column="EXCELNO"/>
+		<result property="teamNo" column="TEAMNO"/>
+		<result property="rowNo" column="ROWNO"/>
+		<result property="colA" column="ACOL"/>
+		<result property="colB" column="BCOL"/>
+		<result property="colC" column="CCOL"/>
+		<result property="colD" column="DCOL"/>
+		<result property="colE" column="ECOL"/>
+		<result property="colF" column="FCOL"/>
+		<result property="colG" column="GCOL"/>
+		<result property="colH" column="HCOL"/>
+		<result property="colI" column="ICOL"/>
+		<result property="colJ" column="JCOL"/>
+	</resultMap>
+
+
+  	<select id="selectRow" resultMap="ExcelMap">
+		SELECT EXCELNO, TEAMNO, ROWNO, ACOL, BCOL, CCOL, DCOL, ECOL, FCOL, GCOL, HCOL, ICOL, JCOL
+		FROM EXCELDOCUMENT
+		WHERE TEAMNO = #{teamno} ORDER BY ROWNO
+	</select>
+  	
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>
