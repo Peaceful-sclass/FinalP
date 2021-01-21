@@ -88,10 +88,10 @@
 	</sql>
 	
 	<select id="comunityone" parameterType="int" resultType="comunityDto">
-		select cno, category, title, content, regdate, m.member_id
+		select c.cno cno, c.category category, c.title title, c.content content, c.regdate regdate, m.member_id member_id, c.views views
 		from comunity c join mymember m
-		where m.member_no = c.member_no
-		and cno = #{cno}
+		on m.member_no = c.member_no
+		where cno = #{cno}
 
 	</select>
 	

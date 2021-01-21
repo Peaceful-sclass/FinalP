@@ -67,7 +67,7 @@ public class ComunityController {
 		
 		if(res > 0) {
 			reat.addAttribute("category", "전체"); //get과 동일방식
-//			reat.addFlashAttribute("category", "전체"); //session에 잠시 담고 redirect끝나면 소멸
+			reat.addFlashAttribute("result", "true"); //session에 잠시 담고 redirect끝나면 소멸
 			return "redirect:comunity.do";
 		} else {
 			reat.addAttribute("category", "전체");
@@ -80,9 +80,11 @@ public class ComunityController {
 	@ResponseBody
 	public Map<String, Object> cmDetail(Model model, @RequestBody ComunityDto dto) {
 		logger.info("[comunity Detail]");
+		System.out.println("dto.getCno: "+dto.getCno());
 		ComunityDto res = combiz.selectOne(dto.getCno());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("dto", res);
+		System.out.println("[comunity Detail] : "+map.get("dto") );
 		return map;
 	}
 	

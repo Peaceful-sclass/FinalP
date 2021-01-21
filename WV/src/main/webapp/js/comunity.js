@@ -1,6 +1,7 @@
 window.addEventListener("load", function() {
 
 
+
 }, false) ;
 
 function selectcategory(select){ //안씀..
@@ -92,15 +93,7 @@ let searchWord = () => {
 
 
 ///////////////writeform
-var quill = new Quill('#editor-container', {
-    modules: {
-      formula: true,
-      syntax: true,
-      toolbar: '#toolbar-container'
-    },
-    placeholder: '내용을 입력해 주세요.',
-    theme: 'snow'
-});
+
 
 let cmwrite = () => {
 	let chkno = document.getElementById("memberno").value;
@@ -132,7 +125,7 @@ let cmwrite = () => {
 		//카테고리,회원
 		let category = document.querySelector("select[name=category]").value;
 		console.log("category: "+category);
-		$('#category').val(category); //테스트...
+		$('#category').val(category); //input tag value 변경
 		$(form).append($('#memberid')).append($('#memberno')).append($('#category'));
 		
 		//검증절차
@@ -164,27 +157,30 @@ let cmwrite = () => {
 
 // 목록 글 Detail view
 
-let titleClick = (param)=> {
+function titleClick(param) {
+	console.log("param.dataset: "+param.dataset['no']);
 	$.ajax({
 		type: "post",
 		url: "cmdetail.do",
-		data: JSON.stringify({cno:param.value}),
+		data: JSON.stringify({cno:param.dataset['no']}),
 		contentType: "application/json",
-		dataType: json,
+		dataType: "json",
 		beforeSend: function(){
             $("#dv-ct").removeClass('dv-toggle');
-            $("td a").removeClass("cm-bold"); //모든 td밑 a tag의 클래스삭제
+            $("tbody tr").removeClass("cm-selected cm-bold");
+			document.documentElement.scrollTop = 0;
 		},
 		success: function(rt){ //제목,내용,시간,조회수,작성자
-			$(".dv-subject").val(rt.dto.title);
-			$(".dv-subject2").val(rt.dto.member_id);
-			$(".dv-subject2").val(rt.dto.regdate);
-			$(".dv-subject2").val(rt.dto.view);
+			$(".dv-subject").text(rt.dto.title);
+			$(".dv-subject2").children().eq(0).text(rt.dto.member_id);
+			$(".dv-subject2").children().eq(1).text(rt.dto.regdate);
+			$(".dv-subject2").children().eq(2).text(rt.dto.views);
 			$(".dv-content").html(rt.dto.content);
         },
         complete: function(){
-            // $("#dv-ct").addClass('dv-toggle');
-            $("param").addClass("cm-bold");
+            //$(param).addClass("cm-bold");
+            let sel = param.parentNode.parentNode;
+			sel.classList.add("cm-selected","cm-bold");
         },
         error: function(){
             toastr("내용 로드에 실패했습니다.", "글읽기 실패", {timeOut: 5000});

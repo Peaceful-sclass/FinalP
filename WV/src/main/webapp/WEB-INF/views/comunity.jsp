@@ -17,13 +17,13 @@
    
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
      <!-- Site Metas -->
     <title>comunity</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link rel="stylesheet" href="css/comunity.css">
+    <link rel="stylesheet" href="css/comunity.css">
 	<script src="js/comunity.js"></script>
  	<script type="text/javascript">
  	window.onload = function(){ 
@@ -34,12 +34,21 @@
  	    console.log("test selectedPage : "+selectedPage);
  	    selectedPage.classList.add('test1css');
  	    
+ 	    //글성공실패시
+ 	    let result = "${result}";
+ 	    console.log("result: "+result);
+ 	    if(result === true){
+ 	    	toastr.info("성공","글작성",{timeOut:5000});
+ 	    } else if(result === false){
+ 	    	toastr.error("실패","글작성",{timeOut:5000});
+ 	    }
+ 	    
  	 	//카테고리/검색 자동선택
-	    let seltag = document.getElementsByName("category")[0];
-	    seltag.value = "${cpdto.category}";
-	    let seltag2 = document.getElementsByName("searchselect")[0];
-	    seltag2.value = "${schdto.searchsel}";
-	    console.log("seltag2.value: "+seltag2.value)
+	    let categorySelectTag = document.getElementsByName("category")[0];
+	    categorySelectTag.value = "${cpdto.category}";
+	    let searchSelectTag = document.getElementsByName("searchselect")[0];
+	    searchSelectTag.value = "${schdto.searchsel}";
+	    console.log("searchSelectTag.value: "+searchSelectTag.value)
  	}
  	
  	let cmwriteform = (no) => {
@@ -58,7 +67,7 @@
 	<!-- Start -->
 	<div class="menu-box">
 		<!-- Detail container Start -->
-		<div class="container" id="dv-ct">
+		<div class="container dv-toggle" id="dv-ct">
 			<div class="row">
 				<!-- 본문 상단 내용 -->
 			</div>
@@ -78,9 +87,7 @@
 					</div>
 					<!-- 내용 -->
 					<div class="dv-middle">
-						<div class="dv-content">
-							내용 test~
-						</div>
+						<div class="dv-content ql-editor"></div>
 						<!-- <textarea class="dv-textarea" name="dv-content-ta" cols="300" rows="900"></textarea> -->
 					</div>
 				</div>
@@ -143,7 +150,7 @@
 							    <tr>
 							      <th scope="row" class="cm-txt-center">${dto.cno} </th>
 							      <td class="cm-txt-center">${dto.category}</td>
-							      <td class="cm-title"><a href="#" name="cno" value="${dto.cno}" onclick="titleClick(this); return false;">${dto.title}</a></td>
+							      <td class="cm-title"><a href="#" name="cno" value="${dto.cno}" data-no="${dto.cno}" onclick="titleClick(this); return false;">${dto.title}</a></td>
 							      <td class="cm-txt-center">${dto.member_id}</td>
 							      <td class="cm-txt-center"><fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd" /></td>
 							      <td class="cm-txt-center">${dto.views}</td>
@@ -213,7 +220,7 @@
 		</div> <!-- 목록 container end -->
 	</div>
 	<!-- MenuBox End -->
-	
+
 	
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>

@@ -10,6 +10,9 @@
 .cm-bold{
     font-weight: bold;
 }
+.cm-selected{
+	background-color: rgba(255,99,71,0.5)!important;
+}
 th {
     text-align: center!important;
 
