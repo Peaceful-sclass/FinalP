@@ -61,4 +61,22 @@ public String logout(HttpSession session) throws Exception{
 	
 	return "redirect:/";
 }
+
+//수정
+@RequestMapping(value="/memberUpdateView", method = RequestMethod.GET)
+public String registerUpdateView() throws Exception{
+	
+	return "memberUpdateView";
+}
+
+//수정버튼 눌렀을때
+@RequestMapping(value="memberUpdate", method = RequestMethod.POST)
+public String registerUpdate(MemberDto dto, HttpSession session) throws Exception{
+	
+	biz.memberUpdate(dto);
+	
+	session.invalidate();
+	
+	return "redirect:/";
+}
 }

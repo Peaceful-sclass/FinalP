@@ -8,8 +8,6 @@
     	<!-- 회원가입 -->
    <insert id="register" parameterType="memberDto">
         INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_email}, #{member_grade}, SYSDATE)
-
-
    </insert>	 
 
 	<!-- 로그인 -->
@@ -20,6 +18,12 @@
 	    AND MEMBER_PW = #{member_pw} 
 	</select>
 	
-
+	<!-- 회원정보 수정 -->
+    <update id="memberUpdate">
+      UPDATE MYMEMBER SET
+      MEMBER_PW = #{member_pw},
+      MEMBER_EMAIL = #{member_email}
+      WHERE MEMBER_ID = #{member_id}
+    </update>  
 	
 </mapper>
