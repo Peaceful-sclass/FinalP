@@ -63,7 +63,7 @@
 		})
 		
 		$("#memberUpdateBtn").on("click", function(){
-			location.href="memberUpdateView";
+			location.href="test.do";
 		})                 
 	});
 </script>
@@ -100,10 +100,10 @@
 				<input type="password" id="userPass" name="member_pw">
 			</div>
 			<div>
-				<!--  <span><a href="login.do"><button type="submit">로그인</button></a></span>
-				      <span><a href="register.do"><button type="button">회원가입</button></a></span>  //스크립트기능 설정해줘서 밑에꺼로가능-->
-				<button type="submit">로그인</button>
-				<button id="registerBtn" type="button">회원가입</button>
+				  <span><a href="login.do"><button type="submit">로그인</button></a></span>
+				      <span><a href="register.do"><button type="button">회원가입</button></a></span>  
+				<!--<button type="submit">로그인</button>
+				<button id="registerBtn" type="button">회원가입</button>-->
 				
 			</div>
 		</c:if>
@@ -111,6 +111,8 @@
 			<div>
 				<p>${member.member_id}님 환영 합니다.</p>
 				<button id="memberUpdateBtn" type="button">회원정보수정</button>
+				<!-- function빼고 해보기 
+				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
 				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>

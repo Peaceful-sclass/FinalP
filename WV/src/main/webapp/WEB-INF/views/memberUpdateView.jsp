@@ -39,7 +39,7 @@
 	</script>
 	<body>
 		<section id="container">
-			<form action="memberUpdate" method="post">
+			<form action="memberUpdate.do" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label>
 					<input class="form-control" type="text" id="userId" name="member_id" value="${member.member_id}" readonly="readonly"/>

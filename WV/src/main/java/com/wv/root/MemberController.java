@@ -63,14 +63,14 @@ public String logout(HttpSession session) throws Exception{
 }
 
 //수정
-@RequestMapping(value="/memberUpdateView", method = RequestMethod.GET)
+@RequestMapping(value="test.do", method = RequestMethod.GET)
 public String registerUpdateView() throws Exception{
 	
 	return "memberUpdateView";
 }
 
 //수정버튼 눌렀을때
-@RequestMapping(value="memberUpdate", method = RequestMethod.POST)
+@RequestMapping(value="memberUpdate.do", method = RequestMethod.POST)
 public String registerUpdate(MemberDto dto, HttpSession session) throws Exception{
 	
 	biz.memberUpdate(dto);
