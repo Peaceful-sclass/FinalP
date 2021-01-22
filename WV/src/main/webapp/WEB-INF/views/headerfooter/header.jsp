@@ -150,7 +150,7 @@
 					        <div class="option">
 					            <div>
 					                <form onsubmit="searchPlaces(); return false;">
-					                    	검색 : <input type="text" value="서울역" id="keyword" size="15"> 
+					                    	검색 : <input type="text" value="KH정보교육원" id="keyword" size="15"> 
 					                    <button type="submit">검색하기</button>
 					                </form>
 					            </div>
@@ -190,6 +190,19 @@
 					        	<input type="hidden" name="lat" id="lat" value="">
 					        	<input type="hidden" name="lng" id="lng" value="">
 					    </div>
+					    <div id="commentinsertdiv" style="padding-top: 10px; display:none;">
+							<div class="row">
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="3" id="placecomment" placeholder="댓글을 입력해 주세요"></textarea>
+								</div>
+								<div class="col-sm-2">
+									<button type="button" class="btn btn-sm btn-primary" id="Pcommentsubmit" style="width: 80%; margin-top: 10px"> 저 장 </button>
+								</div>
+							</div>
+						</div>
+						<div id="pcomments" class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px; display:none;">
+							<div id="pcommentsList"></div>							
+						</div>
                 </div>
                 <div class="modal-footer" id="modal-footer">
                 	<button type='button' id='placeinsertform'>모임장소글쓰기</button>

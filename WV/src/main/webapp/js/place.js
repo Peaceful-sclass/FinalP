@@ -1,4 +1,19 @@
-
+			//모달 바디부분 길어질시 스크롤 가능하게
+			$(document).ready(function () {
+   				 $('head').append('<style type="text/css">.modal .modal-body {max-height: ' + ($('body').height() * .8) + 'px;overflow-y: auto;}.modal-open .modal{overflow-y: hidden !important;}</style>');
+			});
+			
+			$('#placeModal').on('hidden.bs.modal', function () {
+        	//모달이 닫힐때 부모창 스크롤 방지해제
+				$('body').css("overflow", "scroll");
+			});
+ 
+			$('#placeModal').on('show.bs.modal', function () {
+       		// 모달이 열릴때 부모창 스크롤 방지
+				$('body').css("overflow", "hidden");
+			});
+			
+			//네비바 모임장소 클릭시 실행
 			function placemodalshow(){
 				$("#placeModal").modal({backdrop: 'static', keyboard: false});
                 $("#modal-title").text("모임장소")
@@ -9,8 +24,11 @@
 				$("#placeDetail").hide();
 				$("#placeform").hide();
 				$("#allListShow").hide();
+				$("#commentinsertdiv").hide();
+				$("#pcomments").hide();
 				placeListAjax();				
 			}
+			//모임장소 목록 가져오기
 			function placeListAjax() {
 				$.ajax({
 					type:"post",
@@ -32,6 +50,7 @@
 					}
 				});
 			}
+			//모임장소 글 디테일 함수
 			function placeDetailAjax(pno){
 				var memberno = 1;
 				$.ajax({
@@ -42,13 +61,16 @@
 						$("#placeListAll").hide();
 						$("#placeDetail").show();
 						$("#allListShow").show();
+						$("#commentinsertdiv").show();
+						$("#pcomments").show();
 						$("#modal-title").text(dto.ptitle);
+						$("#Pcommentsubmit").attr('onclick','Pcommentinsert('+pno+');')
 						var likecheck = likecheckAjax(pno, memberno);
-						console.log(likecheck);
+						placecommentAjax(pno);
 						var htmlcode = "";
 						htmlcode += '구비사항<br><div>콘센트여부: '+dto.soket+' 컴퓨터 사용가능 여부: '+dto.com+' 수용 가능 인원: '+dto.people+'</div>';	
 						htmlcode += '<div>장소소개 : '+dto.pcontent+'</div><div>위치</div>';	
-						htmlcode += '<div id="detailmap" style="width:100%;height:350px;"></div>';
+						htmlcode += '<div id="detailmap" style="width:95%;height:400px;margin: auto;"></div>';
 						if(likecheck==1){
 							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/like-img.png" onclick="likeCancel('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
 						}else if(likecheck==0){
@@ -57,7 +79,7 @@
 							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/not-like.png" onclick="likeinsert('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
 						}
 							
-						htmlcode += '<div id="comment-head"><span id="comments-count"></span> Comments(s) </div><hr>';	
+						htmlcode += '<div id="comment-head"><span id="comments-count"></span> Comment(s) </div><hr>';	
 						$("#placeDetail").html(htmlcode);
 						detailmapload(dto.lat, dto.lng, dto.ptitle);
 						
@@ -67,6 +89,7 @@
 					}
 				});
 			}
+			//모임장소 디테일 페이지에서 좋아요 누른글 취소시 실행될 함수
 			function likeCancel(pno){
 				var memberno = 1;
 				var likeval= {"pno" : pno, "memberno" : memberno};
@@ -91,6 +114,7 @@
 					}
 				});
 			}
+			//좋아요 취소 후 다시 좋아요시 실행될 함수
 			function likeupdate(pno){
 				var memberno = 1;
 				var likeval= {"pno" : pno, "memberno" : memberno};
@@ -114,6 +138,7 @@
 					}
 				});
 			}
+			//좋아요를 맨 처음 누를시 실행될 함수
 			function likeinsert(pno){
 				var memberno = 1;
 				var likeval= {"pno" : pno, "memberno" : memberno};
@@ -126,7 +151,7 @@
 					contentType:"application/json",
 					dataType:"json",
 					success:function(msg){
-						if(msg.check==true){
+						if(msg.insert==true){
 							img.attr('src','images/like-img.png');
 							img.attr('onclick','likeCancel('+pno+');');
 							$("#plike").text(plike+1);
@@ -139,6 +164,7 @@
 					}
 				});
 			}
+			//모임 장소 글쓰기 버튼 클릭시 실행
             $("#placeinsertform").click(function() {
                 $("#modal-title").text("모임장소글쓰기");
 				$("#placeinsertform").hide();
@@ -148,9 +174,12 @@
 				$("#placeform").show();
 				$("#placeDetail").hide();
 				$("#allListShow").show();
+				$("#commentinsertdiv").hide();
+				$("#pcomments").hide();
                 relayout();
 				searchPlaces();
             });
+			//디테일 함수 실행시 좋아요 체크 함수
 			function likecheckAjax(pno, memberno){
 				console.log("체크");
 				var likeval= {"pno" : pno, "memberno" : memberno};
@@ -170,7 +199,8 @@
 					}
 				});
 				return res;
-			}    
+			}
+			//글쓸때 맵에서 장소 선택시 실행될 함수    
 			function placeselect(){				
 				var lat = $("#markerlat").val();
 				var lng = $("#markerlng").val();
@@ -180,6 +210,7 @@
 				$("input[name=ptitle]").val(title);
 				alert("선택되었습니다.");				
 			}
+			//목록으로 클릭시 실행
 			function allListShow(){
                 $("#modal-title").text("모임장소")
                 $("#placeinsert").hide();
@@ -190,7 +221,10 @@
 				$("#placeDetail").hide();
 				$("#placeform").hide();	
 				$("#allListShow").hide();
+				$("#commentinsertdiv").hide();
+				$("#pcomments").hide();
 			}
+			//글등록 함수
     		function placesubmit(){
 				var ptitle=$("#ptitle").val();
 				var pcontent=$("#pcontent").val();
@@ -207,8 +241,8 @@
 					contentType:"application/json",
 					dataType:"json",
 					success:function(msg){
-						if(msg.check==true){
-							alert("등록성공");
+						if(msg.insert==true){
+							alert("등록되었습니다.");
 							placemodalshow();
 						}else{
 							alert("등록실패!");
@@ -219,7 +253,137 @@
 					}
 				});
 			}
-
+			//댓글 불러오기
+			function placecommentAjax(pno){				
+				$.ajax({
+					type:"post",
+					url:"pcommentlist.do?pno="+pno,
+					success:function(result){
+						var htmlcode = "";
+						if(result.length<1){
+							htmlcode += '등록된 댓글이 없습니다.';
+						}else{
+							$("#comments-count").text(result.length);	
+							$(result).each(function(){
+								htmlcode += '<div class="media text-muted pt-3" id="pcs'+this.pcno+'">';
+								htmlcode += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+								htmlcode += '<span class="d-block">';			
+				                htmlcode += '<strong class="text-gray-dark">' +this.pcwriter+ '</strong>';			
+				                htmlcode += '<span style="padding-left: 7px; font-size: 9pt">';			
+				                htmlcode += '<a href="javascript:void(0)" onclick="editPcomment(' +this.pcno+ ', \'' +this.pcwriter+ '\', \'' +this.pccontent+ '\', \'' +this.pno+ '\', \'' +this.memberno+ '\' )" style="padding-right:5px">수정</a>';			
+				                htmlcode += '<a href="javascript:void(0)" onclick="deletePcomment('+this.pcno+','+this.pno+','+this.memberno+')" >삭제</a>';			
+				                htmlcode += '</span>';			
+				                htmlcode += '</span>';			
+				                htmlcode += this.pccontent;			
+				                htmlcode += '</p>';			
+				                htmlcode += '</div>';
+							});
+						}
+						$("#pcommentsList").html(htmlcode);
+					},					
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			//댓글 수정 함수
+			function editPcomment(pcno,pcwriter,pccontent,pno,memberno){
+				/* 댓글 작성자와 세션 회원 비교
+				
+				
+				*/
+				var htmlcode = "";
+				htmlcode += '<div class="media text-muted pt-3" id="pcs'+pcno+'">';
+				htmlcode += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+				htmlcode += '<span class="d-block">';
+				htmlcode += '<strong class="text-gray-dark">' +pcwriter+ '</strong>';
+				htmlcode += '<span style="padding-left: 7px; font-size: 9pt">';
+				htmlcode += '<a href="javascript:void(0)" onclick="updatePcomment('+pcno+','+pno+')" style="padding-right:5px">저장</a>';
+				htmlcode += '<a href="javascript:void(0)" onClick="placecommentAjax('+pno+');">취소<a>';
+				htmlcode += '</span>';			
+				htmlcode += '</span>';
+				htmlcode += '<textarea name="editContent" id="editPcontent" class="form-control" rows="3">';
+				htmlcode += pccontent;
+				htmlcode += '</textarea>';
+				htmlcode += '</p>';			
+				htmlcode += '</div>';
+				
+				$('#pcs' + pcno).replaceWith(htmlcode);
+				$('#pcs' + pcno + ' #editPcontent').focus();
+			}
+			//댓글 삭제 함수
+			function deletePcomment(pcno, pno, memberno){
+				/* 댓글 작성자와 세션 회원 비교
+				
+				
+				*/
+				if(confirm("정말로 삭제 하시겠습니까?")){
+					$.ajax({
+						type:"post",
+						url:"deletePcomment.do?pcno="+pcno,
+						success:function(res){
+							if(res>0){
+								placecommentAjax(pno);
+							}else{
+								alert("삭제실패!");
+							}
+						},
+						error:function(){
+							alert("통신실패");
+						}
+					});
+				}else{
+					return;
+				}				
+			}
+			//댓글 수정 저장
+			function updatePcomment(pcno, pno){
+				var editPcontent = $("#editPcontent").val();
+				var pcommentVal = {"pcno" : pcno, "pccontent" : editPcontent}
+				$.ajax({
+					type:"post",
+					url:"updatePcomment.do",
+					data:JSON.stringify(pcommentVal),
+					contentType:"application/json",
+					dataType:"json",
+					success:function(msg){
+						if(msg.insert==true){
+							placecommentAjax(pno);
+						}else{
+							alert("등록실패!");
+						}
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			//댓글 등록 함수
+			function Pcommentinsert(pno){
+				var placecomment = $("#placecomment").val();
+				var memberno = 1;
+				var pcwriter = "admin";
+				var pcommentVal = {"pno" : pno, "pccontent" : placecomment, "pcwriter" : pcwriter, "memberno" : memberno};
+				$.ajax({
+					type:"post",
+					url:"Pcommentinsert.do",
+					data:JSON.stringify(pcommentVal),
+					contentType:"application/json",
+					dataType:"json",
+					success:function(msg){
+						if(msg.insert==true){
+							alert("등록성공");
+							$("#placecomment").val("");
+						}else{
+							alert("등록실패!");
+						}
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			// 이부분 부터 카카오 맵 함수
 			// 마커를 담을 배열입니다
 			var markers = [];
 	
@@ -433,12 +597,13 @@
 		        el.removeChild (el.lastChild);
 		    }
 		}
+		//모달창 생성시 지도가 깨지므로 다시 사이징 해준다
 		function resizeMap() {
 		    var mapContainer = document.getElementById('map');
 		    mapContainer.style.width = '100%';
 		    mapContainer.style.height = '100%'; 
 		}
-
+		//지도 사이즈 변경시 실행
 		function relayout() {    
 		    
 		    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
@@ -446,31 +611,33 @@
 		    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
 		    map.relayout();
 		}
+		//여기부터 디테일 페이지 전용 맵함수들
 		function detailmapload(lat, lng, ptitle){
-			//디테일페이지맵
+			//디테일페이지맵 옵션
 			var mapContainer2 = document.getElementById('detailmap'),  
 	    		mapOption2 = { 
 	        		center: new kakao.maps.LatLng(lat, lng), 
 	        		level: 4 
 	    	};
+			//디테일 페이지 맵생성
 			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
-	
+			//저장된 장소의 위도 경도
 			var markerPosition2  = new kakao.maps.LatLng(lat, lng); 
-			
+			//저장된 위도 경도로 마커 생성
 			var marker2 = new kakao.maps.Marker({
 			    position: markerPosition2
 			});
-
+			//만든 마커 디테일맵에 추가
 			marker2.setMap(map2);
-			
+			//커스텀오버레이에 들어갈 내용(장소이름 위치 클릭시 길찾기 링크) 
 			var content2 = '<div class="customoverlay">' +
 			    '  <a href="https://map.kakao.com/link/to/'+ptitle+','+lat+','+lng+'" target="_blank">' +
 			    '    <span class="title">'+ptitle+'</span>' +
 			    '  </a>' +
 			    '</div>';
-			
+			//커스텀 오버레이가 생성될 위치
 			var position2 = new kakao.maps.LatLng(lat, lng);
-
+			//커스텀 오버레이 생성
 			var customOverlay = new kakao.maps.CustomOverlay({
 			    map: map2,
 			    position: position2,

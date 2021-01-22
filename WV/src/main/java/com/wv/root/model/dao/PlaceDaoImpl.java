@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.PlaceDto;
+import com.wv.root.model.dto.Place_commentDto;
 import com.wv.root.model.dto.Place_likeDto;
 
 @Repository
@@ -125,6 +126,54 @@ public class PlaceDaoImpl implements PlaceDao{
 			res = sqlSession.update(NAMESPACE2+"likeupdate", dto);
 		} catch (Exception e) {
 			System.out.println("[error]: likeupdate");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int commentinsert(Place_commentDto dto) {
+		int res = 0;
+		try {
+			res = sqlSession.insert(NAMESPACE3+"insert", dto);
+		} catch (Exception e) {
+			System.out.println("[error]: commentinsert");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public List<Place_commentDto> pcommentlist(int pno) {
+		 List<Place_commentDto> list = new ArrayList<Place_commentDto>();
+		try {
+			list = sqlSession.selectList(NAMESPACE3+"pcommentlist", pno);
+		} catch (Exception e) {
+			System.out.println("[error]: pcommentlist");
+			e.printStackTrace();
+		}
+		return list;	
+	}
+
+	@Override
+	public int commentupdate(Place_commentDto dto) {
+		int res = 0;
+		try {
+			res = sqlSession.insert(NAMESPACE3+"update", dto);
+		} catch (Exception e) {
+			System.out.println("[error]: commentupdate");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int commentdelete(int pcno) {
+		int res = 0;
+		try {
+			res = sqlSession.insert(NAMESPACE3+"delete", pcno);
+		} catch (Exception e) {
+			System.out.println("[error]: commentdelete");
 			e.printStackTrace();
 		}
 		return res;

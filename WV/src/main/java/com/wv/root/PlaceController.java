@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wv.root.model.biz.PlaceBiz;
 import com.wv.root.model.dto.PlaceDto;
 import com.wv.root.model.dto.Place_likeDto;
+import com.wv.root.model.dto.Place_commentDto;
 
 @Controller
 public class PlaceController {
@@ -35,10 +36,10 @@ public class PlaceController {
 		int res = biz.insert(dto);
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		if(res>0) {
-			map.put("check", true);
+			map.put("insert", true);
 			return map;
 		}else {
-			map.put("check", false);
+			map.put("insert", false);
 			return map;
 		}
 	}
@@ -68,10 +69,10 @@ public class PlaceController {
 		int res = biz.likeinsert(dto);
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		if(res>0) {
-			map.put("check", true);
+			map.put("insert", true);
 			return map;
 		}else {
-			map.put("check", false);
+			map.put("insert", false);
 			return map;
 		}	
 	}
@@ -87,4 +88,45 @@ public class PlaceController {
 	public int likeupdate(@RequestBody Place_likeDto dto) {
 		return biz.likeupdate(dto);		
 	}
+	
+	@RequestMapping(value="/Pcommentinsert.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> commentinsert(@RequestBody Place_commentDto dto) {
+		int res = biz.commentinsert(dto);
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		if(res>0) {
+			map.put("insert", true);
+			return map;
+		}else {
+			map.put("insert", false);
+			return map;
+		}
+	}
+	
+	@RequestMapping(value="/pcommentlist.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Place_commentDto> pcommentlist(int pno) {
+		return biz.pcommentlist(pno);
+	}
+	
+	@RequestMapping(value="/updatePcomment.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> updatePcomment(@RequestBody Place_commentDto dto) {
+		int res = biz.commentupdate(dto);
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		if(res>0) {
+			map.put("insert", true);
+			return map;
+		}else {
+			map.put("insert", false);
+			return map;
+		}
+	}
+	
+	@RequestMapping(value="/deletePcomment.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int deletePcomment(int pcno) {
+		return biz.commentdelete(pcno);		
+	}
+	
 }
