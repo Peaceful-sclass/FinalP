@@ -65,7 +65,11 @@
 		
 		$("#memberUpdateBtn").on("click", function(){
 			location.href="test.do";
-		})                 
+		})    
+		
+		$("#memberDeleteBtn").on("click", function(){
+			location.href="dest.do";
+		})  
 	});
 </script>
 <body>
@@ -115,6 +119,7 @@
 				<button id="memberUpdateBtn" type="button">회원정보수정</button>
 				<!-- function빼고 해보기 
 				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
+				<button id="memberDeleteBtn" type="button">회원탈퇴</button>
 				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>

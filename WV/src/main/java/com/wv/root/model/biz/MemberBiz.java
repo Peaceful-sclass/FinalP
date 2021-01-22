@@ -11,4 +11,6 @@ public interface MemberBiz {
 	public MemberDto login(MemberDto dto) throws Exception;
 	
 	public void memberUpdate(MemberDto dto) throws Exception;
+	
+	public void memberDelete(MemberDto dto) throws Exception;
 }

@@ -29,6 +29,14 @@ public class MemberDaoImpl implements MemberDao {
 		    // 아이디가 memberUpdate인 쿼리에 피라미터들을 넣어준다.
 		sql.update("memberUpdate", dto);
 	}
+
+	@Override
+	public void memberDelete(MemberDto dto) throws Exception {
+             // MemberDto에 담긴 값들을 보내줍니다.
+		     // xml에서 memberMapper.memberDelete에 보시면
+		     // #{userId}, #{userPass}에 피라미터값이 매칭이 된다.
+		     sql.delete("memberDelete", dto);
+	}
 }
 
 

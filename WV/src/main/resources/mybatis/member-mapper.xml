@@ -26,4 +26,10 @@
       WHERE MEMBER_ID = #{member_id}
     </update>  
 	
+	<!-- 회원탈퇴 --> 
+	<delete id="memberDelete">
+	        DELETE FROM MYMEMBER
+	        WHERE MEMBER_ID = #{member_id}
+	          AND MEMBER_PW = #{member_pw}
+	</delete>
 </mapper>
