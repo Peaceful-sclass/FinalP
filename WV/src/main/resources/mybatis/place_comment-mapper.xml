@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="place_comment">
+	<resultMap type="place_commentDto" id="pcommentMap">
+		<result property="pcno" column="PCNO" />
+		<result property="pno" column="PNO" />
+		<result property="pccontent" column="PCCONTENT" />
+		<result property="pcwriter" column="PCWRITER" />
+		<result property="memberno" column="MEMBERNO" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="place_commentDto">
+		INSERT INTO PLACE_COMMENT
+		VALUES(PCOMMENTSEQ.NEXTVAL, #{pno}, #{pccontent} , #{pcwriter}, #{memberno})
+	</insert>
+	
+	<select id="pcommentlist" parameterType="int" resultMap="pcommentMap">
+		SELECT PCNO, PNO, PCCONTENT, PCWRITER, MEMBERNO
+		FROM PLACE_COMMENT
+		WHERE PNO = #{pno}
+		ORDER BY PCNO DESC
+	</select>
+	
+	<update id="update" parameterType="place_commentDto">
+		UPDATE PLACE_COMMENT 
+		SET PCCONTENT = #{pccontent} 
+		WHERE PCNO = #{pcno}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM PLACE_COMMENT
+		WHERE PCNO = #{pcno}
+	</delete>
+</mapper>  
+  

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dao.PlaceDao;
 import com.wv.root.model.dto.PlaceDto;
+import com.wv.root.model.dto.Place_commentDto;
 import com.wv.root.model.dto.Place_likeDto;
 
 @Service
@@ -60,6 +61,26 @@ public class PlaceBizImpl implements PlaceBiz{
 			dao.likeup(dto.getPno());
 		}
 		return res;
+	}
+
+	@Override
+	public int commentinsert(Place_commentDto dto) {
+		return dao.commentinsert(dto);
+	}
+
+	@Override
+	public List<Place_commentDto> pcommentlist(int pno) {
+		return dao.pcommentlist(pno);
+	}
+
+	@Override
+	public int commentupdate(Place_commentDto dto) {
+		return dao.commentupdate(dto);
+	}
+
+	@Override
+	public int commentdelete(int pcno) {
+		return dao.commentdelete(pcno);
 	}
 
 }
