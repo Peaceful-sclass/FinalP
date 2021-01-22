@@ -52,7 +52,7 @@
 			}
 			//모임장소 글 디테일 함수
 			function placeDetailAjax(pno){
-				var memberno = 1;
+				var memberno = $("#pmemberno").val();
 				$.ajax({
 					type:"post",
 					url:"placedetail.do?pno="+pno,
@@ -91,11 +91,10 @@
 			}
 			//모임장소 디테일 페이지에서 좋아요 누른글 취소시 실행될 함수
 			function likeCancel(pno){
-				var memberno = 1;
+				var memberno = $("#pmemberno").val();;
 				var likeval= {"pno" : pno, "memberno" : memberno};
 				var img = $("#likeimg");
 				var plike = Number($("#plike").text());
-				console.log(plike);
 				$.ajax({
 					type:"post",					
 					url:"likecancel.do",
@@ -116,7 +115,7 @@
 			}
 			//좋아요 취소 후 다시 좋아요시 실행될 함수
 			function likeupdate(pno){
-				var memberno = 1;
+				var memberno = $("#pmemberno").val();
 				var likeval= {"pno" : pno, "memberno" : memberno};
 				var img = $("#likeimg");
 				var plike = Number($("#plike").text());
@@ -140,65 +139,80 @@
 			}
 			//좋아요를 맨 처음 누를시 실행될 함수
 			function likeinsert(pno){
-				var memberno = 1;
-				var likeval= {"pno" : pno, "memberno" : memberno};
-				var img = $("#likeimg");
-				var plike = Number($("#plike").text());
-				$.ajax({
-					type:"post",					
-					url:"likeinsert.do",
-					data:JSON.stringify(likeval),
-					contentType:"application/json",
-					dataType:"json",
-					success:function(msg){
-						if(msg.insert==true){
-							img.attr('src','images/like-img.png');
-							img.attr('onclick','likeCancel('+pno+');');
-							$("#plike").text(plike+1);
-						}else{
-							alert("좋아요실패!");
+				var memberno = $("#pmemberno").val();
+				if(!memberno){
+					alert("로그인후 가능합니다.");
+				}else{
+					var likeval= {"pno" : pno, "memberno" : memberno};
+					var img = $("#likeimg");
+					var plike = Number($("#plike").text());
+					$.ajax({
+						type:"post",					
+						url:"likeinsert.do",
+						data:JSON.stringify(likeval),
+						contentType:"application/json",
+						dataType:"json",
+						success:function(msg){
+							if(msg.insert==true){
+								img.attr('src','images/like-img.png');
+								img.attr('onclick','likeCancel('+pno+');');
+								$("#plike").text(plike+1);
+							}else{
+								alert("좋아요실패!");
+							}
+						},
+						error:function(){
+							alert("통신실패");
 						}
-					},
-					error:function(){
-						alert("통신실패");
-					}
-				});
+					});
+				}
 			}
 			//모임 장소 글쓰기 버튼 클릭시 실행
             $("#placeinsertform").click(function() {
-                $("#modal-title").text("모임장소글쓰기");
-				$("#placeinsertform").hide();
-				$("#placeListAll").hide();
-                $("#placeinsert").show();				
-                $(".map_wrap").show();
-				$("#placeform").show();
-				$("#placeDetail").hide();
-				$("#allListShow").show();
-				$("#commentinsertdiv").hide();
-				$("#pcomments").hide();
-                relayout();
-				searchPlaces();
+				var memberno = $("#pmemberno").val();
+				console.log(memberno);
+				if(!memberno){
+					alert("로그인후 이용가능합니다.");
+				}else{
+					$("#modal-title").text("모임장소글쓰기");
+					$("#placeinsertform").hide();
+					$("#placeListAll").hide();
+	                $("#placeinsert").show();				
+	                $(".map_wrap").show();
+					$("#placeform").show();
+					$("#placeDetail").hide();
+					$("#allListShow").show();
+					$("#commentinsertdiv").hide();
+					$("#pcomments").hide();
+	                relayout();
+					searchPlaces();	
+				}                
             });
 			//디테일 함수 실행시 좋아요 체크 함수
 			function likecheckAjax(pno, memberno){
-				console.log("체크");
-				var likeval= {"pno" : pno, "memberno" : memberno};
-				var res;
-				$.ajax({
-					type:"post",					
-					url:"likecheck.do",
-					data:JSON.stringify(likeval),
-					contentType:"application/json",
-					dataType:"json",
-					async: false,
-					success:function(check){
-						res = check;
-					},
-					error:function(){
-						alert("통신실패");
-					}
-				});
-				return res;
+				if(!memberno){
+					console.log("로그인안했주")
+					return 2;
+				}else{
+					var likeval= {"pno" : pno, "memberno" : memberno};
+					var res;
+					$.ajax({
+						type:"post",					
+						url:"likecheck.do",
+						data:JSON.stringify(likeval),
+						contentType:"application/json",
+						dataType:"json",
+						async: false,
+						success:function(check){
+							res = check;
+						},
+						error:function(){
+							alert("통신실패");
+						}
+					});
+					return res;
+				}		
+				
 			}
 			//글쓸때 맵에서 장소 선택시 실행될 함수    
 			function placeselect(){				
@@ -233,7 +247,8 @@
 				var people=$("input[name=people]:checked").val();
 				var lat=$("#lat").val();
 				var lng=$("#lng").val();
-				var placeVal = {"ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng};
+				var memberno = $("#pmemberno").val();
+				var placeVal = {"ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng, "memberno" : memberno};
 				$.ajax({
 					type:"post",
 					url:"placeinsert.do",
@@ -254,7 +269,7 @@
 				});
 			}
 			//댓글 불러오기
-			function placecommentAjax(pno){				
+			function placecommentAjax(pno){
 				$.ajax({
 					type:"post",
 					url:"pcommentlist.do?pno="+pno,
@@ -262,6 +277,7 @@
 						var htmlcode = "";
 						if(result.length<1){
 							htmlcode += '등록된 댓글이 없습니다.';
+							$("#comments-count").text(result.length);
 						}else{
 							$("#comments-count").text(result.length);	
 							$(result).each(function(){
@@ -288,52 +304,55 @@
 			}
 			//댓글 수정 함수
 			function editPcomment(pcno,pcwriter,pccontent,pno,memberno){
-				/* 댓글 작성자와 세션 회원 비교
+				var pmemberno = $("#pmemberno").val();
+				if(pmemberno != memberno){
+					alert("작성자만 수정할수있습니다.");
+				}else{
+					var htmlcode = "";
+					htmlcode += '<div class="media text-muted pt-3" id="pcs'+pcno+'">';
+					htmlcode += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+					htmlcode += '<span class="d-block">';
+					htmlcode += '<strong class="text-gray-dark">' +pcwriter+ '</strong>';
+					htmlcode += '<span style="padding-left: 7px; font-size: 9pt">';
+					htmlcode += '<a href="javascript:void(0)" onclick="updatePcomment('+pcno+','+pno+')" style="padding-right:5px">저장</a>';
+					htmlcode += '<a href="javascript:void(0)" onClick="placecommentAjax('+pno+');">취소<a>';
+					htmlcode += '</span>';			
+					htmlcode += '</span>';
+					htmlcode += '<textarea name="editContent" id="editPcontent" class="form-control" rows="3">';
+					htmlcode += pccontent;
+					htmlcode += '</textarea>';
+					htmlcode += '</p>';			
+					htmlcode += '</div>';
+					
+					$('#pcs' + pcno).replaceWith(htmlcode);
+					$('#pcs' + pcno + ' #editPcontent').focus();
+				}
 				
-				
-				*/
-				var htmlcode = "";
-				htmlcode += '<div class="media text-muted pt-3" id="pcs'+pcno+'">';
-				htmlcode += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
-				htmlcode += '<span class="d-block">';
-				htmlcode += '<strong class="text-gray-dark">' +pcwriter+ '</strong>';
-				htmlcode += '<span style="padding-left: 7px; font-size: 9pt">';
-				htmlcode += '<a href="javascript:void(0)" onclick="updatePcomment('+pcno+','+pno+')" style="padding-right:5px">저장</a>';
-				htmlcode += '<a href="javascript:void(0)" onClick="placecommentAjax('+pno+');">취소<a>';
-				htmlcode += '</span>';			
-				htmlcode += '</span>';
-				htmlcode += '<textarea name="editContent" id="editPcontent" class="form-control" rows="3">';
-				htmlcode += pccontent;
-				htmlcode += '</textarea>';
-				htmlcode += '</p>';			
-				htmlcode += '</div>';
-				
-				$('#pcs' + pcno).replaceWith(htmlcode);
-				$('#pcs' + pcno + ' #editPcontent').focus();
 			}
 			//댓글 삭제 함수
 			function deletePcomment(pcno, pno, memberno){
-				/* 댓글 작성자와 세션 회원 비교
-				
-				
-				*/
-				if(confirm("정말로 삭제 하시겠습니까?")){
-					$.ajax({
-						type:"post",
-						url:"deletePcomment.do?pcno="+pcno,
-						success:function(res){
-							if(res>0){
-								placecommentAjax(pno);
-							}else{
-								alert("삭제실패!");
-							}
-						},
-						error:function(){
-							alert("통신실패");
-						}
-					});
+				var pmemberno = $("#pmemberno").val();
+				if(pmemberno != memberno){
+					alert("작성자만 삭제할수있습니다.");
 				}else{
-					return;
+					if(confirm("정말로 삭제 하시겠습니까?")){
+						$.ajax({
+							type:"post",
+							url:"deletePcomment.do?pcno="+pcno,
+							success:function(res){
+								if(res>0){
+									placecommentAjax(pno);
+								}else{
+									alert("삭제실패!");
+								}
+							},
+							error:function(){
+								alert("통신실패");
+							}
+						});
+					}else{
+						return;
+					}
 				}				
 			}
 			//댓글 수정 저장
@@ -360,28 +379,36 @@
 			}
 			//댓글 등록 함수
 			function Pcommentinsert(pno){
-				var placecomment = $("#placecomment").val();
-				var memberno = 1;
-				var pcwriter = "admin";
-				var pcommentVal = {"pno" : pno, "pccontent" : placecomment, "pcwriter" : pcwriter, "memberno" : memberno};
-				$.ajax({
-					type:"post",
-					url:"Pcommentinsert.do",
-					data:JSON.stringify(pcommentVal),
-					contentType:"application/json",
-					dataType:"json",
-					success:function(msg){
-						if(msg.insert==true){
-							alert("등록성공");
-							$("#placecomment").val("");
-						}else{
-							alert("등록실패!");
+				var memberno = $("#pmemberno").val();
+				var memberid = $("#pmemberid").val();
+				if(!memberno){
+					alert("로그인 후 등록 가능합니다.");
+					$("#placecomment").val("");
+				}else{
+					var placecomment = $("#placecomment").val();
+					var pcwriter = "admin";
+					var pcommentVal = {"pno" : pno, "pccontent" : placecomment, "pcwriter" : memberid, "memberno" : memberno};
+					$.ajax({
+						type:"post",
+						url:"Pcommentinsert.do",
+						data:JSON.stringify(pcommentVal),
+						contentType:"application/json",
+						dataType:"json",
+						success:function(msg){
+							if(msg.insert==true){
+								alert("등록성공");
+								$("#placecomment").val("");
+								placecommentAjax(pno);
+							}else{
+								alert("등록실패!");
+							}
+						},
+						error:function(){
+							alert("통신실패");
 						}
-					},
-					error:function(){
-						alert("통신실패");
-					}
-				});
+					});
+				}
+				
 			}
 			// 이부분 부터 카카오 맵 함수
 			// 마커를 담을 배열입니다

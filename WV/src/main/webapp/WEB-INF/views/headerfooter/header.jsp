@@ -208,6 +208,8 @@
 						<div id="pcomments" class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px; display:none;">
 							<div id="pcommentsList"></div>							
 						</div>
+						<input type="hidden" id="pmemberno" value="${member.member_no}">
+						<input type="hidden" id="pmemberid" value="${member.member_id}">
                 </div>
                 <div class="modal-footer" id="modal-footer">
                 	<button type='button' id='placeinsertform'>모임장소글쓰기</button>
