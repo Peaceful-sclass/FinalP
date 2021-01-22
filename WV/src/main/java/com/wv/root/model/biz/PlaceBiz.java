@@ -18,4 +18,6 @@ public interface PlaceBiz {
 	public List<Place_commentDto> pcommentlist(int pno);
 	public int commentupdate(Place_commentDto dto);
 	public int commentdelete(int pcno);
+	public int deletePlace(int pno);
+	public int updatePlace(PlaceDto dto);
 }

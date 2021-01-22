@@ -83,4 +83,14 @@ public class PlaceBizImpl implements PlaceBiz{
 		return dao.commentdelete(pcno);
 	}
 
+	@Override
+	public int deletePlace(int pno) {
+		return dao.deletePlace(pno);
+	}
+
+	@Override
+	public int updatePlace(PlaceDto dto) {
+		return dao.updatePlace(dto);
+	}
+
 }

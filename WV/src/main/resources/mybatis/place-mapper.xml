@@ -40,4 +40,14 @@
 	<update id="likedown" parameterType="int">
 		UPDATE PLACE SET PLIKE = PLIKE - 1 WHERE PNO = #{pno}
 	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM PLACE WHERE PNO = #{pno}
+	</delete>
+	
+	<update id="update" parameterType="placeDto">
+		UPDATE PLACE
+		SET LNG = #{lng}, LAT = #{lat}, PTITLE = #{ptitle}, PCONTENT = #{pcontent}, SOKET = #{soket}, COM = #{com}, PEOPLE = #{people}
+		WHERE PNO = #{pno}
+	</update>
 </mapper>

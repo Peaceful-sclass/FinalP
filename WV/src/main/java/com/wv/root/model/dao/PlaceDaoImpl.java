@@ -159,7 +159,7 @@ public class PlaceDaoImpl implements PlaceDao{
 	public int commentupdate(Place_commentDto dto) {
 		int res = 0;
 		try {
-			res = sqlSession.insert(NAMESPACE3+"update", dto);
+			res = sqlSession.update(NAMESPACE3+"update", dto);
 		} catch (Exception e) {
 			System.out.println("[error]: commentupdate");
 			e.printStackTrace();
@@ -171,9 +171,33 @@ public class PlaceDaoImpl implements PlaceDao{
 	public int commentdelete(int pcno) {
 		int res = 0;
 		try {
-			res = sqlSession.insert(NAMESPACE3+"delete", pcno);
+			res = sqlSession.delete(NAMESPACE3+"delete", pcno);
 		} catch (Exception e) {
 			System.out.println("[error]: commentdelete");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int deletePlace(int pno) { 
+	int res = 0;
+		try {
+			res = sqlSession.insert(NAMESPACE+"delete", pno);
+		} catch (Exception e) {
+			System.out.println("[error]: deletePlace");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int updatePlace(PlaceDto dto) {
+		int res = 0;
+		try {
+			res = sqlSession.update(NAMESPACE+"update", dto);
+		} catch (Exception e) {
+			System.out.println("[error]: updatePlace");
 			e.printStackTrace();
 		}
 		return res;
