@@ -29,6 +29,11 @@ public class MemberBizImpl implements MemberBiz{
 		//받은 DTO를 DAO로 보내준다.
 		dao.memberUpdate(dto);
 	}
+
+	@Override
+	public void memberDelete(MemberDto dto) throws Exception {
+         dao.memberDelete(dto);        
+	}
 	
 
 }

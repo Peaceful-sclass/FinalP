@@ -79,4 +79,32 @@ public String registerUpdate(MemberDto dto, HttpSession session) throws Exceptio
 	
 	return "redirect:/";
 }
+
+// 회원 탈퇴 get
+@RequestMapping(value="dest.do", method = RequestMethod.GET)
+public String memberDeleteView() throws Exception{
+	
+	return "memberDeleteView";
+}
+
+// 회원 탈퇴 post
+@RequestMapping(value="memberDelete.do", method = RequestMethod.POST)
+public String memberDelete(MemberDto dto, HttpSession session, RedirectAttributes rttr) throws Exception{
+	
+	// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+	MemberDto member = (MemberDto) session.getAttribute("member");
+	// 세션에있는 비밀번호
+	String sessionPass = member.getMember_pw();
+	// vo로 들어오는 비밀번호
+	String voPass = dto.getMember_pw();
+	
+	if(!(sessionPass.equals(voPass))) {
+		rttr.addFlashAttribute("msg", false);
+		return "redirect:memberDeleteView";
+	}
+	biz.memberDelete(dto);
+	session.invalidate();
+	return "redirect:/";
+}
+
 }
