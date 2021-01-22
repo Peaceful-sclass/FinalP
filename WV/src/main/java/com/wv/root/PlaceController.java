@@ -42,6 +42,19 @@ public class PlaceController {
 			return map;
 		}
 	}
+	//모임장소글 삭제
+	@RequestMapping(value="/deletePlace.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int deletePlace(int pno) {
+		return biz.deletePlace(pno);
+	}
+	//모임장소글 수정
+	@RequestMapping(value="/updatePlace.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int updatePlace(@RequestBody PlaceDto dto) {
+		System.out.println("zjsxm"+dto.getLat());
+		return biz.updatePlace(dto);
+	}
 	//모임장소글 목록
 	@RequestMapping(value="/placeselect.do", method=RequestMethod.POST)
 	@ResponseBody

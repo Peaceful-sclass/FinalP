@@ -16,6 +16,8 @@
 			//네비바 모임장소 클릭시 실행
 			function placemodalshow(){
 				$("#placeModal").modal({backdrop: 'static', keyboard: false});
+				$("#keyword").val("KH정보교육원");
+				$("#placeformup").hide();
                 $("#modal-title").text("모임장소")
                 $("#placeinsert").hide();
 				$(".map_wrap").hide();
@@ -26,6 +28,9 @@
 				$("#allListShow").hide();
 				$("#commentinsertdiv").hide();
 				$("#pcomments").hide();
+				$("#pdbutton").remove();
+				$("#pubutton").remove();
+				placeformreset();
 				placeListAjax();				
 			}
 			//모임장소 목록 가져오기
@@ -69,7 +74,7 @@
 						placecommentAjax(pno);
 						var htmlcode = "";
 						htmlcode += '구비사항<br><div>콘센트여부: '+dto.soket+' 컴퓨터 사용가능 여부: '+dto.com+' 수용 가능 인원: '+dto.people+'</div>';	
-						htmlcode += '<div>장소소개 : '+dto.pcontent+'</div><div>위치</div>';	
+						htmlcode += '<div>장소소개 : <span id="pct">'+dto.pcontent+'</sapn></div><div>위치</div>';	
 						htmlcode += '<div id="detailmap" style="width:95%;height:400px;margin: auto;"></div>';
 						if(likecheck==1){
 							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/like-img.png" onclick="likeCancel('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
@@ -82,7 +87,109 @@
 						htmlcode += '<div id="comment-head"><span id="comments-count"></span> Comment(s) </div><hr>';	
 						$("#placeDetail").html(htmlcode);
 						detailmapload(dto.lat, dto.lng, dto.ptitle);
-						
+						if(dto.memberno==memberno){
+							$("#modal-footer").append("<button type='button' id='pdbutton' onclick='deleteAjax("+pno+")'>글삭제</button>");	
+							$("#modal-footer").append("<button type='button' id='pubutton' onclick='updatepform("+pno+","+dto.lat+","+dto.lng+")'>글수정</button>");	
+						}						
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			//모임장소 글수정폼
+			function updatepform(pno, lat, lng){
+				var keyword = $("#modal-title").text();
+				var pcontent = $("#pct").text();
+				console.log("tnwjdvha");
+				var htmlcode = "";
+				htmlcode += '<table>';
+				htmlcode += '<tr>';
+				htmlcode += '<th>장소이름 </th>';
+				htmlcode += '<td><input type="text" id="putitle" value="'+keyword+'"></td>';					       				
+				htmlcode += '</tr>';					       				
+				htmlcode += '<tr>';					       				
+				htmlcode += '<th>모임장소소개</th>';
+				htmlcode += '<td><textarea id="pucontent">';
+				htmlcode += pcontent;
+				htmlcode += '</textarea></td>';
+				htmlcode += '</tr>';
+				htmlcode += '<tr>';
+				htmlcode += '<th>구비사항 </th>';
+				htmlcode += '<td></td>';
+				htmlcode += '</tr>';
+				htmlcode += '<tr>';
+				htmlcode += '<th>콘센트여부</th>';
+				htmlcode += '<td><input type="radio" name="psoket" value="있음">있음 <input type="radio" name="psoket" value="없음">없음</td>';
+				htmlcode += '</tr>';
+				htmlcode += '<tr>';
+				htmlcode += '<tr>';
+				htmlcode += '<th>컴퓨터 사용가능 여부</th>';
+				htmlcode += '<td><input type="radio" name="pcom" value="사용가능">사용가능 <input type="radio" name="pcom" value="사용불가">사용불가</td>';
+				htmlcode += '</tr>';
+				htmlcode += '<tr>';
+				htmlcode += '<th>수용 가능 인원</th>';
+				htmlcode += '<td><input type="radio" name="ppeople" value="2~4인">2~4인 <input type="radio" name="ppeople" value="5~8인">5~8인 <input type="radio" name="ppeople" value="8인이상">8인이상</td>';
+				htmlcode += '</tr>';
+				htmlcode += '</table>';
+				htmlcode += '<input type="hidden" id="plat" value="'+lat+'">';
+				htmlcode += '<input type="hidden" id="plng" value="'+lng+'">';
+				$("#placeformup").html(htmlcode);
+				$("#placeListAll").hide();
+				$("#pubutton").attr('onclick','updateAjax('+pno+');');
+				$("#pubutton").text("수정완료");
+				$("#placeinsertform").hide();				
+	            $(".map_wrap").show();
+	            $("#placeformup").show();
+				$("#placeDetail").hide();
+				$("#commentinsertdiv").hide();
+				$("#pcomments").hide();
+				$("#pdbutton").remove();
+				$("#keyword").val(keyword);
+	            relayout();
+				searchPlaces();	
+			}
+			//모임장소 글수정
+			function updateAjax(pno){
+				var ptitle=$("#putitle").val();
+				var pcontent=$("#pucontent").val();
+				var soket=$("input[name=psoket]:checked").val();
+				var com=$("input[name=pcom]:checked").val();
+				var people=$("input[name=ppeople]:checked").val();
+				var lat=$("#plat").val();
+				var lng=$("#plng").val();
+				var placeVal = {"pno" : pno, "ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng};
+				$.ajax({
+					type:"post",
+					url:"updatePlace.do",
+					data:JSON.stringify(placeVal),
+					contentType:"application/json",
+					success:function(res){
+						if(res>0){
+							$(".map_wrap").hide();
+							$("#keyword").val("KH정보교육원");
+							$("#placeformup").hide();
+							placeDetailAjax(pno);
+						}else{
+							alert("글수정에 실패했습니다.");
+						}
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});
+			}
+			//모임장소 글삭제
+			function deleteAjax(pno){
+				$.ajax({
+					type:"post",					
+					url:"deletePlace.do?pno="+pno,
+					success:function(res){
+						if(res>0){
+							placemodalshow();
+						}else{
+							alert("글삭제에 실패했습니다.");
+						}
 					},
 					error:function(){
 						alert("통신실패");
@@ -184,6 +291,8 @@
 					$("#allListShow").show();
 					$("#commentinsertdiv").hide();
 					$("#pcomments").hide();
+					$("#pdbutton").remove();
+					$("#pubutton").remove();
 	                relayout();
 					searchPlaces();	
 				}                
@@ -222,11 +331,16 @@
 				$("input[name=lat]").val(lat);
 				$("input[name=lng]").val(lng);
 				$("input[name=ptitle]").val(title);
+				$("#plat").val(lat);
+				$("#plng").val(lng);
+				$("#putitle").val(title);
 				alert("선택되었습니다.");				
 			}
 			//목록으로 클릭시 실행
 			function allListShow(){
                 $("#modal-title").text("모임장소")
+				$("#keyword").val("KH정보교육원");
+				$("#placeformup").hide();
                 $("#placeinsert").hide();
 				$(".map_wrap").hide();
 				$("#placeinsertform").show();
@@ -237,6 +351,9 @@
 				$("#allListShow").hide();
 				$("#commentinsertdiv").hide();
 				$("#pcomments").hide();
+				$("#pdbutton").remove();
+				$("#pubutton").remove();
+				placeformreset();
 			}
 			//글등록 함수
     		function placesubmit(){
@@ -259,6 +376,7 @@
 						if(msg.insert==true){
 							alert("등록되었습니다.");
 							placemodalshow();
+							placeformreset();
 						}else{
 							alert("등록실패!");
 						}
@@ -267,6 +385,19 @@
 						alert("통신실패");
 					}
 				});
+			}
+			//글쓰기 폼 초기화
+			function placeformreset(){
+				$("#ptitle").val("");
+				$("#pcontent").val("");
+				$("#lat").val("");
+				$("#lng").val("");
+				$("input:radio[name='soket']:radio[value='있음']").prop('checked', true);
+				$("input:radio[name='soket']:radio[value='있음']").prop('checked', false);
+				$("input:radio[name='com']:radio[value='사용가능']").prop('checked', true);
+				$("input:radio[name='com']:radio[value='사용가능']").prop('checked', false);
+				$("input:radio[name='people']:radio[value='2~4인']").prop('checked', true);
+				$("input:radio[name='people']:radio[value='2~4인']").prop('checked', false);
 			}
 			//댓글 불러오기
 			function placecommentAjax(pno){
