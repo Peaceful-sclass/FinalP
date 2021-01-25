@@ -52,8 +52,8 @@ public class ComunityBizImpl implements ComunityBiz {
 	
 	
 	@Override
-	public List<ComCommentDto> cmtselectAll(int comcmtno) {
-		return comdao.cmtselectAll(comcmtno);
+	public List<ComCommentDto> cmtselectAll(int cno) {
+		return comdao.cmtselectAll(cno);
 	}
 
 
@@ -70,6 +70,10 @@ public class ComunityBizImpl implements ComunityBiz {
 	@Override
 	public int cmtDelete(int comcmtno) {
 		return comdao.cmtDelete(comcmtno);
+	}
+	@Override
+	public int cmtAnswer(ComCommentDto comcmtdto) {
+		return comdao.cmtAnswer(comcmtdto);
 	}
 	
 

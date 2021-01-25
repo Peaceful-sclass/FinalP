@@ -21,6 +21,7 @@ public interface ComunityDao {
 	int cmtInsert(ComCommentDto comcmtdto);
 	int cmtUpdate(ComCommentDto comcmtdto);
 	int cmtDelete(int comcmtno);
+	int cmtAnswer(ComCommentDto comcmtdto);
 	
 	
 	

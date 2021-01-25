@@ -2,6 +2,10 @@ package com.wv.root.model.dto;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.wv.root.model.util.CustomDateSerializer;
+
 public class ComunityDto {
 	private int cno;
 	private String category;
@@ -71,7 +75,7 @@ public class ComunityDto {
 		this.content = content;
 	}
 
-
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getRegdate() {
 		return regdate;
 	}

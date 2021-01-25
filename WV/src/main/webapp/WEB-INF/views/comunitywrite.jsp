@@ -168,11 +168,12 @@
 		    placeholder: '내용을 입력해 주세요.',
 		    theme: 'snow'
 		});
-		quill.root.innerHTML = "${dto.content}";
+		quill.root.innerHTML = '${dto.content}';
 	</script>
 	<input type="hidden" name="member_no" id="memberno" value="${member.member_no }" />
 	<input type="hidden" name="member_id" id="memberid" value="${member.member_id }" />
 	<input type="hidden" name="category" id="category" value="${dto.category }" />
+	<input type="hidden" name="cno" id="cno" value="${dto.cno }" />
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>

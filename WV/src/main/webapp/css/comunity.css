@@ -11,7 +11,7 @@
     font-weight: bold;
 }
 .cm-selected{
-	background-color: rgba(255,99,71,0.5)!important;
+	background-color: rgba(255,99,71,0.3)!important;
 }
 th {
     text-align: center!important;
@@ -114,6 +114,29 @@ th {
 	text-align: left;
     margin: 15px auto;
 }
+.dv-delbt{
+    border-top: 1px dashed  rgba(239, 204, 135, 0.7);
+    margin: 0 10px;
+}
+#delbt,#updatebt{
+	min-width: 46px;
+    height: 23px;
+    margin: 5px 1px;
+    padding: 0 12px;
+    font-size: 13px;
+    line-height: 16px;
+    
+    display: inline-block;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+    
+    background: darkorange;
+    color: white;
+    float: right;
+}
 .dv-textarea{
     display: none;
 }
@@ -131,4 +154,155 @@ th {
 .dv-category{
     margin: 5px 10px;
 }
+
+.dv-cmt-bg{
+	background: rgba(254,246,241, 1);
+	border-bottom: 3px solid white;
+}
+.dv-cmt{
+    padding: 9px 180px 5px 15px;
+    color: #474747;
+    line-height: 18px;
+    margin-left: 75px;
+    min-height: 55px;
+    white-space: pre-wrap;
+	word-break: break-word;
+}
+.dv-cmtL{
+	position: absolute;
+    left: 0px;
+    top: 5px;
+    width: 85px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.dv-cmtR-date{
+	position: absolute;
+	right: 0px;
+	top: 2px;
+	font-size: 12px;
+    color: grey;
+}
+.dv-cmtR-repl{
+	position: absolute;
+    right: 0px;
+    top: 20px;
+    
+    min-width: 46px;
+    height: 23px;
+    margin: 5px 1px;
+    padding: 0 12px;
+    font-size: 13px;
+    
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+    
+    background: darkorange;
+    color: white;
+}
+.dv-cmtR-del{
+	position: absolute;
+    right: 55px;
+    top: 20px;
+    
+    min-width: 46px;
+    height: 23px;
+    margin: 5px 1px;
+    padding: 0 12px;
+    font-size: 13px;
+    
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+    
+    background: darkorange;
+    color: white;
+}
+.dv-relative{
+	position: relative;
+}
+.dv-reply{
+	display: inline-block;
+	margin-top: 5px;
+}
+#dv-reply-ta{
+	border: 1px solid rgba(239, 204, 135, 1);
+	width: 85%;
+}
+.dv-reply-bt{
+    min-width: 46px;
+    height: 23px;
+    margin: 5px 1px;
+    padding: 0 12px;
+    font-size: 13px;
+    
+    position: relative;
+    float: right;
+	left: 0px;    
 	
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: text-bottom;
+    
+    background: darkorange;
+    color: white;
+}
+.dv-reply-canclebt{
+    min-width: 46px;
+    height: 23px;
+    margin: 5px 1px;
+    padding: 0 12px;
+    font-size: 13px;
+    
+    position: relative;
+    float: right;
+	left: 0px;    
+	
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: text-bottom;
+    
+    background: darkorange;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

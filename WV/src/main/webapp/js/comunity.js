@@ -93,8 +93,6 @@ let searchWord = () => {
 
 
 ///////////////writeform
-
-
 let cmwrite = () => {
 	let chkno = document.getElementById("memberno").value;
 	if(chkno != null && chkno != "" && chkno != undefined ){
@@ -105,64 +103,62 @@ let cmwrite = () => {
 	}
 	
     let cmd = window.location.pathname;
-    if(cmd === "/root/cmwriteform.do"){		//cm글쓰기폼
-        toastr.info("", cmd, {timeOut: 5000});
+	let form = document.createElement("form");
+	let input = document.createElement("input");
+	let content = quill.root.innerHTML;
+	form.method = "get";
+	input.type = "hidden";
+	input.name = "content";
+    input.value= content; //내용
 
-		let form = document.createElement("form");
+    if(cmd === "/root/cmwriteform.do"){		//cm글쓰기폼
+        //toastr.info("", cmd, {timeOut: 5000});
 		form.action = "cmwrite.do";
-		form.method = "get";
-		let input = document.createElement("input");
-		input.type = "hidden";
-		input.name = "content";
-		let content = quill.root.innerHTML;
-	    input.value= content;
-		
-		//제목
-		form.append(input);
-		let title = document.querySelector(".dv-subject");
-		console.log("title :"+title.value);
-		$(form).append($('<input/>', {type: 'hidden', name: 'title', value:$(title).val() }));
-		//카테고리,회원
-		let category = document.querySelector("select[name=category]").value;
-		console.log("category: "+category);
-		$('#category').val(category); //input tag value 변경
-		$(form).append($('#memberid')).append($('#memberno')).append($('#category'));
-		
-		//검증절차
-		document.body.appendChild(form);
-		
-		if(title.value == null || title.value == "" || title.value == undefined){
-			toastr.warning("제목을 입력해주세요.", "제목 필요!", {timeOut: 5000});
-			title.focus();
-			return false;
-		} else if(category == null || category == "" || category == undefined){
-			toastr.warning("카테고리를 선택해주세요.", "카테고리 필요!", {timeOut: 5000});
-			document.querySelector("select[name=category]").focus();
-	        return false;
-		}
-		form.submit();
-        return false;
-				
-        
-    } else if(cmd === "/root/cmmodify.do"){ //cm글수정폼
-        
+    } else if(cmd === "/root/cmupdateform.do"){ //cm글수정폼
+        //toastr.info("", cmd, {timeOut: 5000});
+		form.action = "cmupdate.do";
     }
 	
+	//제목
+	form.append(input);
+	let title = document.querySelector(".dv-subject");
+	console.log("title :"+title.value);
+	$(form).append($('<input/>', {type: 'hidden', name: 'title', value:$(title).val() }));
+	//카테고리,회원,글번호
+	let category = document.querySelector("select[name=category]").value;
+	console.log("category: "+category);
+	$('#category').val(category); //input tag category value 변경
+	$(form).append($('#memberid')).append($('#memberno')).append($('#category')).append($('#cno'));
 	
+	//검증절차
+	document.body.appendChild(form);
 	
+	if(title.value == null || title.value == "" || title.value == undefined){
+		toastr.warning("제목을 입력해주세요.", "제목 필요!", {timeOut: 5000});
+		title.focus();
+		return false;
+	} else if(category == null || category == "" || category == undefined){
+		toastr.warning("카테고리를 선택해주세요.", "카테고리 필요!", {timeOut: 5000});
+		document.querySelector("select[name=category]").focus();
+        return false;
+	}
+
+	form.submit();
+    return false;
 	
-}
+};
 
 
 
-// 목록 글 Detail view
+/////// 목록의 글보기 Detail view
 
 function titleClick(param) {
-	console.log("param.dataset: "+param.dataset['no']);
+	$("#cmt").html("");
+	console.log("param.dataset: "+param.dataset['cno']);
 	$.ajax({
 		type: "post",
 		url: "cmdetail.do",
-		data: JSON.stringify({cno:param.dataset['no']}),
+		data: JSON.stringify({cno:param.dataset['cno']}),
 		contentType: "application/json",
 		dataType: "json",
 		beforeSend: function(){
@@ -172,25 +168,172 @@ function titleClick(param) {
 		},
 		success: function(rt){ //제목,내용,시간,조회수,작성자
 			$(".dv-subject").text(rt.dto.title);
-			$(".dv-subject2").children().eq(0).text(rt.dto.member_id);
-			$(".dv-subject2").children().eq(1).text(rt.dto.regdate);
-			$(".dv-subject2").children().eq(2).text(rt.dto.views);
+            $(".dv-subject2").children().eq(1).text(rt.dto.member_id);
+            console.log("rt.dto.regdate: "+rt.dto.regdate);
+			$(".dv-subject2").children().eq(2).text(rt.dto.regdate);
+			$(".dv-subject2").children().eq(4).text(rt.dto.views);
 			$(".dv-content").html(rt.dto.content);
+			
+			//현재회원과 작성자가 동일하면 버튼추가
+			if(param.dataset['mid'] === rt.dto.member_id){
+				$(".dv-delbt.dv-toggle").removeClass("dv-toggle");
+				document.querySelector("#delbt").dataset.cno = param.dataset['cno'];
+				document.querySelector("#updatebt").dataset.cno = param.dataset['cno'];
+			}
+			cmtLoad(param,rt);
         },
         complete: function(){
             //$(param).addClass("cm-bold");
-            let sel = param.parentNode.parentNode;
-			sel.classList.add("cm-selected","cm-bold");
+			//목록색,조회수 CSS업데이트
+			if(param.textContent != "댓글"){
+	            let sel = param.parentNode.parentNode;
+				sel.classList.add("cm-selected","cm-bold");
+	            let views = $(param).parent().siblings(":last");
+	            let views2 = parseInt(views.text())+1;
+				views.text(views2);
+			}
+			//댓글달기버튼에 글번호,현재id,no 추가
+			let replybt = document.querySelector(".dv-reply-bt");
+			let replycanclebt = document.querySelector(".dv-reply-canclebt");
+			replybt.dataset['cno'] = param.dataset['cno'];
+			replybt.dataset['mid'] = param.dataset['mid'];
+			replybt.dataset['mno'] = param.dataset['mno'];
+			replycanclebt.dataset['cno'] = param.dataset['cno'];
+			replycanclebt.dataset['mid'] = param.dataset['mid'];
+			replycanclebt.dataset['mno'] = param.dataset['mno'];
         },
         error: function(){
-            toastr("내용 로드에 실패했습니다.", "글읽기 실패", {timeOut: 5000});
+            toastr.error("내용 로드에 실패했습니다.", "글읽기 실패", {timeOut: 5000});
         }
 	});
 }
 
+//본글을  삭제
+let deleteContent = (param) =>{
+	$.ajax({
+		type: "post",
+		url: "cmdelete.do?cno="+param.dataset['no'],
+		success: function(){
+			console.log("hihi?");
+			if(arguments[0] > 0){
+	            toastr.success("글을 삭제하였습니다.", "글삭제 성공", {timeOut: 5000});
+			} else{
+				toastr.warning("서버에 문제가 있습니다.", "글삭제 실패", {timeOut: 5000});
+				alert("글삭제실패: 서버에 문제가 있습니다.");
+			}
+		},
+		complete: function(){
+			setTimeout(()=>{
+				location.href="comunity.do?category=전체"
+			}, 2000);
+		},
+		error: function(){
+			toastr.error("인터넷 상태를 확인해주세요..", "글삭제 실패", {timeOut: 5000});
+		}
+	});
+};
 
 
+let updateContent = (param)=>{
+	location.href = "cmupdateform.do?cno="+param.dataset['no'];
+};
 
 
+let cmtLoad = (param, rt)=>{//해당글의 댓글로드 rt에서 댓글까지 같이 받아와야 된다.
+	console.log(rt.cmt);
+	if(rt.cmt != null){
+		
+		for(let i=0; i<rt.cmt.length; i++){
+			let divT = document.createElement("div");
+			let divD = document.createElement("div");
+			let spanL = document.createElement("span");
+			let spanC = document.createElement("span");
+			let spanR = document.createElement("span");
+			let aRepl = document.createElement("a");
+			let aDel = document.createElement("a");
+			//let divTcopy = divT.cloneNode();
+			
+			$(divT).addClass("dv-relative").appendTo("#cmt");
+			$(divD).addClass("row dv-cmt-bg").appendTo(divT);
+			$(spanL).addClass("dv-cmtL").appendTo(divD).text(rt.cmt[i].member_id);
+			$(spanC).addClass("dv-cmt").appendTo(divD).text(rt.cmt[i].comcomment);
+			$(spanR).addClass("dv-cmtR-date").appendTo(divD).text(rt.cmt[i].regdate);
+			$(aRepl).addClass("dv-cmtR-repl").attr("data-cmtno",rt.cmt[i].comcmtno).attr("data-cmtcmd","1").attr('onclick',"cmtReply(this); return false;").attr('href', '#').text("답변").appendTo(divD);
+			aRepl.dataset["mid"] = rt.cmt[i].member_id; //답변 시 넘겨줄 해당 댓글관련 정보들 추가.
+			aRepl.dataset["mno"] = rt.cmt[i].member_no;
+			aRepl.dataset["grp"] = rt.cmt[i].comcmtgrpno;
+			aRepl.dataset["cno"] = rt.cmt[i].cno;
+			//자신의 글 검증 후 삭제 버튼추가
+			if(param.dataset['mid'] === rt.cmt[i].member_id){//현로그인id:댓글id
+				$(aDel).addClass("dv-cmtR-del").attr("data-cmtno",rt.cmt[i].comcmtno).attr("data-mid",param.dataset['mid']).attr("data-mno",param.dataset['mno']).attr("data-cno",param.dataset['cno']).attr("data-cmtcmd","2").attr('onclick',"cmtReply(this); return false;").attr('href', '#').text("삭제").appendTo(divD);
+			}
+		}
+		
+	}
+	
+};
 
 
+let cmtReply = (param)=>{
+	let answeredID = param.dataset['mid']; //댓글쓴 ID
+	let cmtData = {
+		"cno": param.dataset['cno'], 
+		"comcmtno": param.dataset['cmtno'], 
+		"member_no": param.dataset['mno'], 
+		"member_id": param.dataset['mid'], 
+		"comcomment": /*param.dataset['cmt']+ */document.querySelector("#dv-reply-ta").value,
+		"comcmtgrpno": param.dataset['grp'],
+		"comcmtgroupno": param.dataset['cmtcmd']
+	}
+	console.log(cmtData);
+	//로그인 검증
+	if(cmtData.member_id == null || cmtData.member_id == "" || cmtData.member_id == undefined){
+		toastr.warning("로그인을 먼저 해주십시오.", "로그인 필요!", {timeOut: 5000});
+		return false;
+	}
+	if(param.dataset['cmtcmd'] === "1"){ //Button - 1:answer 2:del 3:reply
+		$(".dv-reply").appendTo(param.parentNode.parentNode);
+		let reply = document.querySelector(".dv-reply-bt");
+		//cmtData.comcomment = "["+answeredID+"님에게 답변] ";
+		cmtData.comcomment = "[답글] ";
+		reply.dataset['cmtno'] = cmtData.comcmtno;
+		reply.dataset['grp'] = cmtData.comcmtgrpno;
+		reply.dataset['cmt'] = cmtData.comcomment;
+		return false;
+	}
+	console.log("여기까지는 ??");
+	$.ajax({
+		type: "post",
+		url: "cmtreply.do",
+		data: JSON.stringify(cmtData),
+		contentType: "application/json",
+		success: function(rt){
+			console.log("rt: "+rt);
+			if(rt > 0){
+				toastr.success("","성공", {timeOut: 5000});
+			}
+		},
+		complete: function(){
+			//댓글창 원상복귀
+			let tmp1 = document.getElementsByClassName("col-10 dv-border")[1];
+			$(".dv-reply").appendTo(tmp1);
+			titleClick(param);
+		},
+		error: function(){
+			toastr.error("인터넷 연결상태를 확인해주세요.","댓글달기 실패", {timeOut: 5000});
+		}
+	});
+};
+
+let cmtReplycancle = (param)=>{  //취소,초기화
+	let p = param.parentNode;
+	console.log(p);
+	document.getElementsByClassName("col-10 dv-border")[1].appendChild(p);
+	//$(p).appendTo(".col-10.dv-border");
+	//$(p).clonNode(".col-10 dv-border");
+	$(param).removeData();
+	param.dataset['cmtcmd'] = 3;
+};
+
+//$(".dv-reply-canclebt").on("click", cmtReplycancle);
+	
