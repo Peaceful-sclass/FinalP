@@ -60,9 +60,9 @@ CREATE TABLE ComComment (
 
 ALTER TABLE ComComment ADD CONSTRAINT PK_ComComment PRIMARY KEY (ComCmtNO);
 ALTER TABLE ComComment ADD CONSTRAINT FK_Comunity_TO_ComComment_1 FOREIGN KEY (CNO) REFERENCES Comunity (CNO);
-ALTER TABLE ComComment ADD CONSTRAINT FK_Member_TO_ComComment_1 FOREIGN KEY (member_no) REFERENCES Member (member_no);
+ALTER TABLE ComComment ADD CONSTRAINT FK_Member_TO_ComComment_1 FOREIGN KEY (member_no) REFERENCES myMember (member_no);
 
-
+select * from COMCOMMENT;
 
 
 ---------------------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ CREATE TABLE Outex(
 
 ALTER TABLE Outex ADD CONSTRAINT PK_OUTEX PRIMARY KEY (OUTEXNO);
 ALTER TABLE Outex ADD CONSTRAINT FK_OutSourcing_TO_Outex_1 FOREIGN KEY (OUTNO) REFERENCES OutSourcing(OUTNO);
-ALTER TABLE Outex ADD CONSTRAINT FK_Member_TO_Outex_1 FOREIGN KEY (member_no) REFERENCES Member (member_no);
+ALTER TABLE Outex ADD CONSTRAINT FK_Member_TO_Outex_1 FOREIGN KEY (member_no) REFERENCES myMember (member_no);
 
 
 ---------------------------------------------------------------------------------------

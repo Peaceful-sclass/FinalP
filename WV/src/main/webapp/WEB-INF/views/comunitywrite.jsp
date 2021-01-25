@@ -17,6 +17,7 @@
    
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
  
      <!-- Site Metas -->
     <title>comunity write</title>  
@@ -25,13 +26,7 @@
     <meta name="author" content="">
 	<link rel="stylesheet" href="css/comunity.css">
 	
-	<link rel="canonical" href="https://quilljs.com/standalone/full/">
-	<link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml" title="Quill - Your powerful rich text editor" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
-
-	<link rel="stylesheet" href="css/quill.snow.css" />
 
 	<style>
 	  body > #standalone-container {
@@ -46,11 +41,7 @@
 	  	border: 1px solid rgba(239, 204, 135, 0.8);
 	  }
 	</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-	
-	<script src="js/quill.min.js"></script>
+
 
 
 </head>
@@ -72,7 +63,7 @@
 				<div class="col-10 dv-border">
 					<!-- 제목 입력 -->
 					<div class="dv-header">
-						<input class="dv-subject" type="text" name="title" value="${dto.title}" placeholder="제목을 입력해 주세요." style="border: 1px solid rgba(239, 204, 135, 1); "/>
+						<input class="dv-subject" type="text" name="title" value="${dto.title}" placeholder="제목을 입력해 주세요." style="border: 1px solid rgba(239, 204, 135, 1); width: 95%;"/>
 					</div>
 					<!-- Category 입력 -->
 					<div class="dv-category">
@@ -168,11 +159,21 @@
 	</form> -->
 	<script src="js/comunity.js"></script>
 	<script>
-		quill.root.innerHTML = "${dto.content}";
+		var quill = new Quill('#editor-container', {
+		    modules: {
+		      formula: true,
+		      syntax: true,
+		      toolbar: '#toolbar-container'
+		    },
+		    placeholder: '내용을 입력해 주세요.',
+		    theme: 'snow'
+		});
+		quill.root.innerHTML = '${dto.content}';
 	</script>
 	<input type="hidden" name="member_no" id="memberno" value="${member.member_no }" />
 	<input type="hidden" name="member_id" id="memberid" value="${member.member_id }" />
 	<input type="hidden" name="category" id="category" value="${dto.category }" />
+	<input type="hidden" name="cno" id="cno" value="${dto.cno }" />
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>

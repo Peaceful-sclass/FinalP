@@ -2,111 +2,109 @@ package com.wv.root.model.dto;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.wv.root.model.util.CustomDateSerializer;
+
 public class ComCommentDto {
-	private int comucommentno;
-	private String comment;
+	private int comcmtno;
+	private int comcmtgroupno;
+	private int comcmtgrpno;
+	private String comcomment;
 	private Date regdate;
 	private int cno;
-	private int memberno;
-	private String memberid;
-	
-	
+	private int member_no;
+	private String member_id;
 	
 	public ComCommentDto() {
 		super();
 	}
 
-
-
-	public ComCommentDto(int comucommentno, String comment, Date regdate, int cno, int memberno, String memberid) {
+	public ComCommentDto(int comcmtno, int comcmtgroupno, int comcmtgrpno, String comcomment, Date regdate, int cno,
+			int member_no, String member_id) {
 		super();
-		this.comucommentno = comucommentno;
-		this.comment = comment;
+		this.comcmtno = comcmtno;
+		this.comcmtgroupno = comcmtgroupno;
+		this.comcmtgrpno = comcmtgrpno;
+		this.comcomment = comcomment;
 		this.regdate = regdate;
 		this.cno = cno;
-		this.memberno = memberno;
-		this.memberid = memberid;
+		this.member_no = member_no;
+		this.member_id = member_id;
 	}
 
-
-
-	public int getComucommentno() {
-		return comucommentno;
+	public int getComcmtno() {
+		return comcmtno;
 	}
 
-
-
-	public void setComucommentno(int comucommentno) {
-		this.comucommentno = comucommentno;
+	public void setComcmtno(int comcmtno) {
+		this.comcmtno = comcmtno;
 	}
 
-
-
-	public String getComment() {
-		return comment;
+	public int getComcmtgroupno() {
+		return comcmtgroupno;
 	}
 
-
-
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComcmtgroupno(int comcmtgroupno) {
+		this.comcmtgroupno = comcmtgroupno;
 	}
 
+	public int getComcmtgrpno() {
+		return comcmtgrpno;
+	}
 
+	public void setComcmtgrpno(int comcmtgrpno) {
+		this.comcmtgrpno = comcmtgrpno;
+	}
 
+	public String getComcomment() {
+		return comcomment;
+	}
+
+	public void setComcomment(String comcomment) {
+		this.comcomment = comcomment;
+	}
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getRegdate() {
 		return regdate;
 	}
-
-
 
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 
-
-
 	public int getCno() {
 		return cno;
 	}
-
-
 
 	public void setCno(int cno) {
 		this.cno = cno;
 	}
 
-
-
-	public int getMemberno() {
-		return memberno;
+	public int getMember_no() {
+		return member_no;
 	}
 
-
-
-	public void setMemberno(int memberno) {
-		this.memberno = memberno;
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
 	}
 
-
-
-	public String getMemberid() {
-		return memberid;
+	public String getMember_id() {
+		return member_id;
 	}
 
-
-
-	public void setMemberid(String memberid) {
-		this.memberid = memberid;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-
-
 
 	@Override
 	public String toString() {
-		return "ComuCommentDto [comucommentno=" + comucommentno + ", comment=" + comment + ", regdate=" + regdate
-				+ ", cno=" + cno + ", memberno=" + memberno + ", memberid=" + memberid + "]";
+		return "ComCommentDto [comcmtno=" + comcmtno + ", comcmtgroupno=" + comcmtgroupno + ", comcmtgrpno="
+				+ comcmtgrpno + ", comcomment=" + comcomment + ", regdate=" + regdate + ", cno=" + cno + ", member_no="
+				+ member_no + ", member_id=" + member_id + "]";
 	}
+
+
 
 
 	
