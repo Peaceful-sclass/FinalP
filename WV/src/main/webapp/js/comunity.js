@@ -199,11 +199,13 @@ function titleClick(param) {
 			replybt.dataset['cno'] = param.dataset['cno'];
 			replybt.dataset['mid'] = param.dataset['mid'];
 			replybt.dataset['mno'] = param.dataset['mno'];
-			replybt.dataset['cmtadd'] = "";
+			replybt.dataset['cmtadd'] = " ";
+			replybt.dataset['answerid'] = " ";
 			replycanclebt.dataset['cno'] = param.dataset['cno'];
 			replycanclebt.dataset['mid'] = param.dataset['mid'];
 			replycanclebt.dataset['mno'] = param.dataset['mno'];
-			replycanclebt.dataset['answerid'] = "";
+			replycanclebt.dataset['cmtadd'] = " ";
+			replycanclebt.dataset['answerid'] = " ";
         },
         error: function(){
             toastr.error("내용 로드에 실패했습니다.", "글읽기 실패", {timeOut: 5000});
