@@ -118,7 +118,7 @@
 
 					</div>
 					<div class="dv-reply">
-						<textarea name="dv-reply-ta" id="dv-reply-ta" cols="75" rows="1" placeholder="댓글을 입력해주세요."></textarea>
+						<textarea name="dv-reply-ta" id="dv-reply-ta" cols="100" rows="1" placeholder="댓글을 입력해주세요."></textarea>
 						<a href="#" class="dv-reply-bt" data-cmtcmd="3" onclick="cmtReply(this); return false;">댓글</a>
 						<a href="#" class="dv-reply-canclebt" data-cmtcmd="3" onclick="cmtReplycancle(this); return false;">취소</a>
 					</div>

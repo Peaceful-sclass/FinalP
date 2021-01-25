@@ -236,7 +236,9 @@ th {
 }
 #dv-reply-ta{
 	border: 1px solid rgba(239, 204, 135, 1);
-	width: 85%;
+	width: 100%;
+	position: relative;
+	float: left;
 }
 .dv-reply-bt{
     min-width: 46px;
@@ -247,7 +249,6 @@ th {
     
     position: relative;
     float: right;
-	left: 0px;    
 	
     display: inline-block;
     border: 1px solid black;
@@ -269,7 +270,6 @@ th {
     
     position: relative;
     float: right;
-	left: 0px;    
 	
     display: inline-block;
     border: 1px solid black;

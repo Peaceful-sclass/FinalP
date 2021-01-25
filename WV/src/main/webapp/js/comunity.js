@@ -117,6 +117,7 @@ let cmwrite = () => {
     } else if(cmd === "/root/cmupdateform.do"){ //cm글수정폼
         //toastr.info("", cmd, {timeOut: 5000});
 		form.action = "cmupdate.do";
+		$(form).append($('#cno')); //수정폼일때만 글번호input(hidden)를 추가해준다. 필요없을 시 bind exception뜸.
     }
 	
 	//제목
@@ -128,7 +129,7 @@ let cmwrite = () => {
 	let category = document.querySelector("select[name=category]").value;
 	console.log("category: "+category);
 	$('#category').val(category); //input tag category value 변경
-	$(form).append($('#memberid')).append($('#memberno')).append($('#category')).append($('#cno'));
+	$(form).append($('#memberid')).append($('#memberno')).append($('#category'));
 	
 	//검증절차
 	document.body.appendChild(form);
@@ -198,9 +199,11 @@ function titleClick(param) {
 			replybt.dataset['cno'] = param.dataset['cno'];
 			replybt.dataset['mid'] = param.dataset['mid'];
 			replybt.dataset['mno'] = param.dataset['mno'];
+			replybt.dataset['cmtadd'] = "";
 			replycanclebt.dataset['cno'] = param.dataset['cno'];
 			replycanclebt.dataset['mid'] = param.dataset['mid'];
 			replycanclebt.dataset['mno'] = param.dataset['mno'];
+			replycanclebt.dataset['answerid'] = "";
         },
         error: function(){
             toastr.error("내용 로드에 실패했습니다.", "글읽기 실패", {timeOut: 5000});
@@ -212,7 +215,7 @@ function titleClick(param) {
 let deleteContent = (param) =>{
 	$.ajax({
 		type: "post",
-		url: "cmdelete.do?cno="+param.dataset['no'],
+		url: "cmdelete.do?cno="+param.dataset['cno'],
 		success: function(){
 			console.log("hihi?");
 			if(arguments[0] > 0){
@@ -235,7 +238,7 @@ let deleteContent = (param) =>{
 
 
 let updateContent = (param)=>{
-	location.href = "cmupdateform.do?cno="+param.dataset['no'];
+	location.href = "cmupdateform.do?cno="+param.dataset['cno'];
 };
 
 
@@ -261,7 +264,7 @@ let cmtLoad = (param, rt)=>{//해당글의 댓글로드 rt에서 댓글까지 �
 			$(aRepl).addClass("dv-cmtR-repl").attr("data-cmtno",rt.cmt[i].comcmtno).attr("data-cmtcmd","1").attr('onclick',"cmtReply(this); return false;").attr('href', '#').text("답변").appendTo(divD);
 			aRepl.dataset["mid"] = rt.cmt[i].member_id; //답변 시 넘겨줄 해당 댓글관련 정보들 추가.
 			aRepl.dataset["mno"] = rt.cmt[i].member_no;
-			aRepl.dataset["grp"] = rt.cmt[i].comcmtgrpno;
+			aRepl.dataset["grpno"] = rt.cmt[i].comcmtgrpno;
 			aRepl.dataset["cno"] = rt.cmt[i].cno;
 			//자신의 글 검증 후 삭제 버튼추가
 			if(param.dataset['mid'] === rt.cmt[i].member_id){//현로그인id:댓글id
@@ -281,8 +284,8 @@ let cmtReply = (param)=>{
 		"comcmtno": param.dataset['cmtno'], 
 		"member_no": param.dataset['mno'], 
 		"member_id": param.dataset['mid'], 
-		"comcomment": /*param.dataset['cmt']+ */document.querySelector("#dv-reply-ta").value,
-		"comcmtgrpno": param.dataset['grp'],
+		"comcomment": /*param.dataset['cmt'] +*/ document.querySelector("#dv-reply-ta").value,
+		"comcmtgrpno": param.dataset['grpno'],
 		"comcmtgroupno": param.dataset['cmtcmd']
 	}
 	console.log(cmtData);
@@ -292,14 +295,23 @@ let cmtReply = (param)=>{
 		return false;
 	}
 	if(param.dataset['cmtcmd'] === "1"){ //Button - 1:answer 2:del 3:reply
+		$(".dv-reply-bt").text("쓰기");
 		$(".dv-reply").appendTo(param.parentNode.parentNode);
-		let reply = document.querySelector(".dv-reply-bt");
+		let replybt = document.querySelector(".dv-reply-bt");
 		//cmtData.comcomment = "["+answeredID+"님에게 답변] ";
-		cmtData.comcomment = "[답글] ";
-		reply.dataset['cmtno'] = cmtData.comcmtno;
-		reply.dataset['grp'] = cmtData.comcmtgrpno;
-		reply.dataset['cmt'] = cmtData.comcomment;
+		cmtData.comcomment = "님에게] ";
+		replybt.dataset['cmtno'] = cmtData.comcmtno;
+		replybt.dataset['grpno'] = cmtData.comcmtgrpno;
+		replybt.dataset['cmtadd'] = cmtData.comcomment;
+		replybt.dataset['answerid'] = "    ["+answeredID;
+		replybt.dataset['answertrue'] = "true";
 		return false;
+	} else if(param.dataset['cmtcmd'] === "3"){
+		if(param.dataset['answertrue'] == "true"){
+			cmtData.comcmtgroupno = 1;		//현재 답변이 진행중이면 1번 명령으로 바꿈.
+			console.log("answertrue 통과")
+		}
+		cmtData.comcomment = param.dataset['answerid']+param.dataset['cmtadd'] + document.querySelector("#dv-reply-ta").value;
 	}
 	console.log("여기까지는 ??");
 	$.ajax({
@@ -316,7 +328,10 @@ let cmtReply = (param)=>{
 		complete: function(){
 			//댓글창 원상복귀
 			let tmp1 = document.getElementsByClassName("col-10 dv-border")[1];
+			$(".dv-reply-bt").text("댓글");
 			$(".dv-reply").appendTo(tmp1);
+			$("#dv-reply-ta").val("");
+			$(".dv-reply-canclebt").click();
 			titleClick(param);
 		},
 		error: function(){
@@ -329,10 +344,20 @@ let cmtReplycancle = (param)=>{  //취소,초기화
 	let p = param.parentNode;
 	console.log(p);
 	document.getElementsByClassName("col-10 dv-border")[1].appendChild(p);
-	//$(p).appendTo(".col-10.dv-border");
-	//$(p).clonNode(".col-10 dv-border");
-	$(param).removeData();
+	let elem = document.querySelector('.dv-reply-bt');
+	let dataset = elem.dataset;
+	for (let key in dataset) {
+	    elem.removeAttribute("data-" + key.split(/(?=[A-Z])/).join("-").toLowerCase());
+	}
 	param.dataset['cmtcmd'] = 3;
+	dataset['cmtcmd'] = 3;
+	dataset['cno'] = param.dataset['cno'];
+	dataset['mid'] = param.dataset['mid'];
+	dataset['mno'] = param.dataset['mno'];
+	dataset['cmtadd'] = "";
+	dataset['answerid'] = "";
+	$("#dv-reply-ta").val("");
+	$(".dv-reply-bt").text("댓글");
 };
 
 //$(".dv-reply-canclebt").on("click", cmtReplycancle);

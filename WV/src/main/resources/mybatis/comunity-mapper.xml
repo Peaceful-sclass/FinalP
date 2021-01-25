@@ -97,7 +97,7 @@
 		select comcmtno, comcmtgroupno, comcmtgrpno, comcomment, regdate, cno, m.member_id member_id
 		from comcomment c join mymember m	on c.member_no = m.member_no 
 		where cno = #{cno}
-		order by comcmtgrpno
+		order by comcmtgroupno desc, comcmtgrpno
 	</select>
 	
 	<insert id="comcmtinsert" parameterType="comcommentDto">

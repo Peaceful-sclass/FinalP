@@ -150,10 +150,6 @@ public class ComunityDaoimpl implements ComunityDao {
 		int res = 0;
 		try {
 			res = session.update("comcmtbeforeanswer", comcmtdto);
-			if(res == 0) {
-				System.out.println("답변쓰기 업데이트 실패");
-				return res;
-			}
 			res = session.insert("comcmtanswer", comcmtdto);
 		} catch (Exception e) {
 			System.out.println("답변쓰기 실패");
