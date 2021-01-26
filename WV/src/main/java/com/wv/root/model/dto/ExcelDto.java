@@ -18,6 +18,7 @@ public class ExcelDto {
 	public ExcelDto() {
 		super();
 	}
+
 	public ExcelDto(int excelNo, int teamNo, int rowNo, String colA, String colB, String colC, String colD, String colE,
 			String colF, String colG, String colH, String colI, String colJ) {
 		super();

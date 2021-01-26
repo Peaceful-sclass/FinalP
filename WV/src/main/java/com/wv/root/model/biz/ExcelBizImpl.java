@@ -20,4 +20,23 @@ public class ExcelBizImpl implements ExcelBiz{
 		return dao.selectCol(teamno);
 	}
 
+	@Override
+	public int insertExcel(ExcelDto dto) {
+		return dao.insertExcel(dto);
+	}
+	
+	@Override
+	public ExcelDto selectRow(ExcelDto dto) {
+		return dao.selectRow(dto);
+	}
+	
+	@Override
+	public int updateExcel(ExcelDto dto) {
+		return dao.updateExcel(dto);
+	}
+
+
+
+
+
 }
