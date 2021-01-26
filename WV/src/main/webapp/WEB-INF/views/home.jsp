@@ -42,6 +42,8 @@
 <a href="shareBoardwriteView.do">파일게시판글작성test</a>
 <br>
 <a href="shareBoardList.do">게시판 리스트</a>
+<br>
+<a href="Chatting.do">chat</a>
 
 <!-- 요기까지 -->
 
