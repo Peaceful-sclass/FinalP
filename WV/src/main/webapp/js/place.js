@@ -247,6 +247,26 @@
 				var people=$("input[name=ppeople]:checked").val();
 				var lat=$("#plat").val();
 				var lng=$("#plng").val();
+				if(!ptitle){
+					alert("장소를 선택해주세요");
+					return;
+				}
+				if(!pcontent.trim()){
+					alert("장소소개를 입력해주세요");
+					return;
+				}
+				if(!soket){
+					alert("콘센트 여부를 체크해주세요");
+					return;
+				}
+				if(!com){
+					alert("컴퓨터 사용여부를 체크해주세요");
+					return;
+				}
+				if(!people){
+					alert("수용가능인원을 체크해주세요");
+					return;
+				}
 				var placeVal = {"pno" : pno, "ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng};
 				$.ajax({
 					type:"post",
@@ -454,6 +474,26 @@
 				var lat=$("#lat").val();
 				var lng=$("#lng").val();
 				var memberno = $("#pmemberno").val();
+				if(!ptitle){
+					alert("장소를 선택해주세요");
+					return;
+				}
+				if(!pcontent.trim()){
+					alert("장소소개를 입력해주세요");
+					return;
+				}
+				if(!soket){
+					alert("콘센트 여부를 체크해주세요");
+					return;
+				}
+				if(!com){
+					alert("컴퓨터 사용여부를 체크해주세요");
+					return;
+				}
+				if(!people){
+					alert("수용가능인원을 체크해주세요");
+					return;
+				}
 				var placeVal = {"ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng, "memberno" : memberno};
 				$.ajax({
 					type:"post",
@@ -578,6 +618,10 @@
 			//댓글 수정 저장
 			function updatePcomment(pcno, pno){
 				var editPcontent = $("#editPcontent").val();
+				if(!editPcontent.trim()){
+					alert("댓글을 입력해주세요");
+					return;					
+				}
 				var pcommentVal = {"pcno" : pcno, "pccontent" : editPcontent}
 				$.ajax({
 					type:"post",
@@ -606,6 +650,10 @@
 					$("#placecomment").val("");
 				}else{
 					var placecomment = $("#placecomment").val();
+					if(!placecomment.trim()){
+						alert("댓글을 입력해주세요");
+						return;					
+					}
 					var pcwriter = "admin";
 					var pcommentVal = {"pno" : pno, "pccontent" : placecomment, "pcwriter" : memberid, "memberno" : memberno};
 					$.ajax({
