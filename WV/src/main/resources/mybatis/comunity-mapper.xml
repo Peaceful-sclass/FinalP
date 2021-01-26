@@ -79,7 +79,7 @@
 	
 	<insert id="cominsert" parameterType="comunityDto">
 		insert into comunity
-		values(comunityseq.nextval, #{category}, #{title}, 0, sysdate, #{member_no}, #{content} )
+		values(comunityseq.nextval, #{category}, #{title}, #{content}, 0, sysdate, #{member_no} )
 	</insert>
 	
 	<update id="comupdate" parameterType="comunityDto">

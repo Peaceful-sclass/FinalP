@@ -229,7 +229,7 @@
 						
 						<!-- paging start -->						
 						<c:if test="${cpdto.prev > 0 }">
-							<a href="#" name="prev" value="${cpdto.prev }" onclick="cmpageChange(this); return false;">&amp;이전</a>
+							<a href="#" name="prev" value="${cpdto.prev }" onclick="cmpageChange(this); return false;">&lt;이전</a>
 						</c:if>
 						<c:forEach var="i" begin="${first }" end="${last }" >
 							<c:if test="${i > 0 }">

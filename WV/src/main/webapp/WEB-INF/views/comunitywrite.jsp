@@ -68,7 +68,7 @@
 					<!-- Category 입력 -->
 					<div class="dv-category">
 						<select name="category" style="border: 1px solid rgba(239, 204, 135, 1);" >
-							<option value="선택" <c:out value="${dto.category == null ? 'selected':''}" />>카테고리를 선택해주세요</option>
+							<option value="" <c:out value="${dto.category == null ? 'selected':''}" />>카테고리를 선택해주세요</option>
 							<option value="자유" ${dto.category eq'자유'? 'selected':''} >자유</option>
 							<option value="Q&A" <c:out value="${dto.category eq'Q&A'? 'selected':''}" />>Q&A</option>
 						</select>
