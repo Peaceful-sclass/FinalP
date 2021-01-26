@@ -140,6 +140,7 @@
 .btn-primary {
     color: #666666;
     background-color: #fff;
+    border: 1px solid #c0bfbf;
 }
 
 .btn-primary:hover {

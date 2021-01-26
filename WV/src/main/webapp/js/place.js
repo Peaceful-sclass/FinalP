@@ -92,7 +92,7 @@
 			//네비바 모임장소 클릭시 실행
 			function placemodalshow(){
 				$("#placeModal").modal({backdrop: 'static', keyboard: false});
-				$("#keyword").val("KH정보교육원");
+				$("#keyword").val("KH정보교육원 강남지원 1관");
 				$("#placeformup").hide();
                 $("#modal-title").text("모임장소")
                 $("#placeinsert").hide();
@@ -276,7 +276,7 @@
 					success:function(res){
 						if(res>0){
 							$(".map_wrap").hide();
-							$("#keyword").val("KH정보교육원");
+							$("#keyword").val("KH정보교육원 강남지원 1관");
 							$("#placeformup").hide();
 							placeDetailAjax(pno);
 						}else{
@@ -448,7 +448,7 @@
 			//목록으로 클릭시 실행
 			function allListShow(){
                 $("#modal-title").text("모임장소")
-				$("#keyword").val("KH정보교육원");
+				$("#keyword").val("KH정보교육원 강남지원 1관");
 				$("#placeformup").hide();
                 $("#placeinsert").hide();
 				$(".map_wrap").hide();
@@ -881,7 +881,7 @@
 			var content = '<div class="customoverlay">' +
 			    '  <div class="pmcs">'+
 			    '    <span>'+title+'</span>' +
-				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px;" onclick="placeselect();">선택</button>'+
+				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px; border: 1px solid #c0bfbf;" onclick="placeselect();">선택</button>'+
 			    '  </div>'+latlng+
 			    '</div>';
 			customOverlay.setPosition(marker.getPosition());
