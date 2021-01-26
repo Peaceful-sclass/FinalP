@@ -19,16 +19,30 @@
 		<result property="colJ" column="JCOL"/>
 	</resultMap>
 
-
   	<select id="selectRow" resultMap="ExcelMap">
 		SELECT EXCELNO, TEAMNO, ROWNO, ACOL, BCOL, CCOL, DCOL, ECOL, FCOL, GCOL, HCOL, ICOL, JCOL
 		FROM EXCELDOCUMENT
-		WHERE TEAMNO = #{teamno} ORDER BY ROWNO
+		WHERE TEAMNO = #{teamNo} ORDER BY ROWNO
 	</select>
   	
+  	<select id="selectRowOne" resultMap="ExcelMap">
+		SELECT EXCELNO, TEAMNO, ROWNO, ACOL, BCOL, CCOL, DCOL, ECOL, FCOL, GCOL, HCOL, ICOL, JCOL
+		FROM EXCELDOCUMENT
+		WHERE TEAMNO = #{teamNo} AND ROWNO = #{rowNo}
+	</select>
+  	
+  	
+  	<insert id="insertExcel" parameterType="ExcelDto">
+		INSERT INTO EXCELDOCUMENT
+		VALUES(EXCELNOSEQ.NEXTVAL, #{teamNo}, #{rowNo}, #{colA}, #{colB}, #{colC}, #{colD}, #{colE}, #{colF}, #{colG}, #{colH}, #{colI}, #{colJ})
+	</insert>
    
   
-  
+  	<update id="updateExcel" parameterType="ExcelDto">
+		UPDATE EXCELDOCUMENT
+		SET ACOL=#{colA}, BCOL=#{colB}, CCOL=#{colC}, DCOL=#{colD}, ECOL=#{colE}, FCOL=#{colF}, GCOL=#{colG}, HCOL=#{colH}, ICOL=#{colI}, JCOL=#{colJ}
+		WHERE TEAMNO=#{excelNo} AND ROWNO=#{rowNo}
+	</update>
   
   
   
