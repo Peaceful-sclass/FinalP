@@ -1,8 +1,22 @@
-			//모달 바디부분 길어질시 스크롤 가능하게
-			$(document).ready(function () {
-   				 $('head').append('<style type="text/css">.modal .modal-body {max-height: ' + ($('body').height() * .8) + 'px;overflow-y: auto;}.modal-open .modal{overflow-y: hidden !important;}</style>');
-			});
-			
+			function ss(){
+				// 라디오버튼 클릭시 이벤트 발생
+				var radioVal = $('input[name="listsoket"]:checked').val();
+				console.log(radioVal);
+				var x = "";				
+				if(radioVal=="없음"){
+					x = "없음";
+				}else{
+					x = "있음";
+				}
+				console.log(x);
+				var names = document.getElementsByName(x);
+				for(var i=0; i<x.length; i++){
+					$(names[i]).parents("div").hide();
+				}
+								
+			}
+			    
+
 			$('#placeModal').on('hidden.bs.modal', function () {
         	//모달이 닫힐때 부모창 스크롤 방지해제
 				$('body').css("overflow", "scroll");
@@ -22,6 +36,7 @@
                 $("#placeinsert").hide();
 				$(".map_wrap").hide();
 				$("#placeinsertform").show();
+				placeListAjax();
 				$("#placeListAll").show();
 				$("#placeDetail").hide();
 				$("#placeform").hide();
@@ -30,9 +45,9 @@
 				$("#pcomments").hide();
 				$("#pdbutton").remove();
 				$("#pubutton").remove();
-				placeformreset();
-				placeListAjax();				
+				placeformreset();				
 			}
+			
 			//모임장소 목록 가져오기
 			function placeListAjax() {
 				$.ajax({
@@ -44,8 +59,20 @@
 						if(result.length<1){
 							htmlcode += '등록된 글이 없습니다.';
 						}else{
+							htmlcode += '<div class="input-group">';
+							htmlcode += '<div class="input-box2"><span class="boxspan">콘센트</span>';
+							htmlcode += '<input type="radio" onclick="ss();" name="listsoket" value="있음" id="listsoket1" class="radio"><label for="listsoket1">있음</label>';
+							htmlcode += '<input type="radio" onclick="ss();" name="listsoket" value="없음" id="listsoket2" class="radio"><label for="listsoket2">없음</label></div>';
+							htmlcode += '<div class="input-box2"><span class="boxspan">컴퓨터 사용여부</span>';
+							htmlcode += '<input type="radio" name="listcom" value="사용가능" id="listcom1" class="radio"><label for="listcom1">사용가능</label>';
+							htmlcode += '<input type="radio" name="listcom" value="사용불가" id="listcom2" class="radio"><label for="listcom2">사용불가</label></div>';
+							htmlcode += '<div class="input-box2"><span class="boxspan">인원</span>';
+							htmlcode += '<input type="radio" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
+							htmlcode += '<input type="radio" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
+							htmlcode += '<input type="radio" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div></div><hr>';
+							
 							$(result).each(function(){
-								htmlcode += '<div><a onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'</div><hr>';
+								htmlcode += '<div><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><hr></div>';
 							});
 						}
 						$("#placeListAll").html(htmlcode);
@@ -88,8 +115,8 @@
 						$("#placeDetail").html(htmlcode);
 						detailmapload(dto.lat, dto.lng, dto.ptitle);
 						if(dto.memberno==memberno){
-							$("#modal-footer").append("<button type='button' id='pdbutton' onclick='deleteAjax("+pno+")'>글삭제</button>");	
-							$("#modal-footer").append("<button type='button' id='pubutton' onclick='updatepform("+pno+","+dto.lat+","+dto.lng+")'>글수정</button>");	
+							$("#modal-footer").append("<button type='button' id='pdbutton' class='btn btn-sm btn-primary' onclick='deleteAjax("+pno+")'>글삭제</button>");	
+							$("#modal-footer").append("<button type='button' id='pubutton' class='btn btn-sm btn-primary' onclick='updatepform("+pno+","+dto.lat+","+dto.lng+")'>글수정</button>");	
 						}						
 					},
 					error:function(){
@@ -378,7 +405,7 @@
 							placemodalshow();
 							placeformreset();
 						}else{
-							alert("등록실패!");
+							alert("이미 등록된 장소 입니다.");
 						}
 					},
 					error:function(){
@@ -554,14 +581,9 @@
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		// 장소 검색 객체를 생성합니다
-		var ps = new kakao.maps.services.Places();  
-
-		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-			zIndex:1,
-
-		});
-
+		var ps = new kakao.maps.services.Places(); 
+		
+		var customOverlay = new kakao.maps.CustomOverlay({});
 		// 키워드로 장소를 검색합니다
 		searchPlaces();
 
@@ -632,14 +654,16 @@
 		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 		        // mouseout 했을 때는 인포윈도우를 닫습니다
 		        (function(marker, title) {
-		            kakao.maps.event.addListener(marker, 'mouseover', function() {
-                		displayInfowindow(marker, title);					
-            		});
-
-		            itemEl.onmouseover =  function () {
+		            //kakao.maps.event.addListener(marker, 'mouseover', function() {
+                							
+            		//});
+					kakao.maps.event.addListener(marker, 'click', function() {
+		   				displayInfowindow(marker, title);
+					});
+		           	itemEl.onclick =  function () {
 		                displayInfowindow(marker, title);
 		            };
-
+				
 		        })(marker, places[i].place_name);
 
 		        fragment.appendChild(itemEl);
@@ -743,10 +767,17 @@
 		function displayInfowindow(marker, title) {
 			var lat = marker.getPosition().getLat();
 			var lng = marker.getPosition().getLng();
-			var latlng = '<input type="hidden" id="markerlat" value="'+lat+'"><input type="hidden" id="markerlng" value="'+lng+'"><input type="hidden" id="markertitle" value="'+title+'">'
-		    var content = '<div style="padding:5px;z-index:1; width:200px;">' + title +"&nbsp"+ '<button onclick="placeselect();"> '+"선택"+'</button>'+latlng+'</div>';
-		    infowindow.setContent(content);
-		    infowindow.open(map, marker);
+			var latlng = '<input type="hidden" id="markerlat" value="'+lat+'"><input type="hidden" id="markerlng" value="'+lng+'"><input type="hidden" id="markertitle" value="'+title+'">'	    
+			var content = '<div class="customoverlay">' +
+			    '  <div class="pmcs">'+
+			    '    <span>'+title+'</span>' +
+				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px;" onclick="placeselect();">선택</button>'+
+			    '  </div>'+latlng+
+			    '</div>';
+			customOverlay.setPosition(marker.getPosition());
+			customOverlay.setContent(content);
+			customOverlay.setZIndex(-1);
+			customOverlay.setMap(map);
 		}
 
 		 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -796,7 +827,7 @@
 			//커스텀 오버레이가 생성될 위치
 			var position2 = new kakao.maps.LatLng(lat, lng);
 			//커스텀 오버레이 생성
-			var customOverlay = new kakao.maps.CustomOverlay({
+			var customOverlay2 = new kakao.maps.CustomOverlay({
 			    map: map2,
 			    position: position2,
 			    content: content2 
