@@ -35,10 +35,7 @@
 					$("#userEmail").focus();
 					return false;
 				}
-				if($("#cancel").val()==""){
-					$("#cancel").focus();
-					return false;
-				}
+				
 			});
 			
 			
@@ -70,7 +67,7 @@
 												
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원가입</button>
-					<button class="cencle btn btn-danger" type="button" id="cancel">취소</button>
+					<button class="cencle btn btn-danger" type="button" >취소</button>
 				</div>
 			</form>
 		</section>
