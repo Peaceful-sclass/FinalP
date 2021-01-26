@@ -64,7 +64,7 @@ public class ComunityController {
 		return "comunitywrite";
 	}
 	
-	@RequestMapping(value = "cmwrite.do", method = RequestMethod.GET)
+	@RequestMapping(value = "cmwrite.do", method = RequestMethod.POST)
 	public String cmwrite(Model model, ComunityDto dto, RedirectAttributes reat) {
 		logger.info("[comunity Write]");
 		int res = combiz.comInsert(dto);
@@ -107,7 +107,7 @@ public class ComunityController {
 		return "comunitywrite";
 	}
 	
-	@RequestMapping(value = "cmupdate.do", method= RequestMethod.GET)
+	@RequestMapping(value = "cmupdate.do", method= RequestMethod.POST)
 	public String cmUpdate(Model model, @ModelAttribute ComunityDto dto, RedirectAttributes reat) {
 		logger.info("[comunity update]");
 		int res = combiz.comUpdate(dto);

@@ -106,7 +106,7 @@ let cmwrite = () => {
 	let form = document.createElement("form");
 	let input = document.createElement("input");
 	let content = quill.root.innerHTML;
-	form.method = "get";
+	form.method = "post";
 	input.type = "hidden";
 	input.name = "content";
     input.value= content; //내용
@@ -138,7 +138,8 @@ let cmwrite = () => {
 		toastr.warning("제목을 입력해주세요.", "제목 필요!", {timeOut: 5000});
 		title.focus();
 		return false;
-	} else if(category == null || category == "" || category == undefined){
+	}  
+	if(category == null || category == "" || category == undefined){
 		toastr.warning("카테고리를 선택해주세요.", "카테고리 필요!", {timeOut: 5000});
 		document.querySelector("select[name=category]").focus();
         return false;
@@ -154,6 +155,7 @@ let cmwrite = () => {
 /////// 목록의 글보기 Detail view
 
 function titleClick(param) {
+	$(".dv-reply-canclebt").click();
 	$("#cmt").html("");
 	console.log("param.dataset: "+param.dataset['cno']);
 	$.ajax({

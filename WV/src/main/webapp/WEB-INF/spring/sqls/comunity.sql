@@ -1,3 +1,5 @@
+
+----------------------------------------------------------------------------------------
 --커뮤니티
 DROP SEQUENCE comunitySEQ;
 DROP TABLE comunity CASCADE CONSTRAINTS;
@@ -7,7 +9,7 @@ CREATE TABLE Comunity (
 	CNO			number		NOT NULL,
 	CATEGORY	varchar2(20)		NOT NULL,
 	TITLE		varchar2(255)		NOT NULL,
-	CONTENT		clob		NULL,
+	CONTENT		Clob		NULL,
 	views		number		NULL,
 	REGDATE		date		NOT NULL,
 	MEMBER_NO	number		NOT NULL
