@@ -210,19 +210,16 @@ public class ExcelController {
 		
 		System.out.println(row1.getColB());
 		
-		
+		int res = biz.updateExcel(row1)+biz.updateExcel(row2)+biz.updateExcel(row3)+biz.updateExcel(row4)+biz.updateExcel(row5)+
+				biz.updateExcel(row6)+biz.updateExcel(row7)+biz.updateExcel(row8)+biz.updateExcel(row9)+biz.updateExcel(row10);
 		
 		biz.updateExcel(row1);
-		System.out.println(row1.getColB());
 		
+
+
+		return "redirect:shareDocumentList.do";
+
 		
-		biz.updateExcel(row2);biz.updateExcel(row3);biz.updateExcel(row4);biz.updateExcel(row5);
-		biz.updateExcel(row6);biz.updateExcel(row7);biz.updateExcel(row8);biz.updateExcel(row9);biz.updateExcel(row10);
-
-
-		model.addAttribute("list", biz.selectCol(1));
-
-		return "shareDocumentList";
 	}
 	
 	
