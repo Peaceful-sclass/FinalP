@@ -1,21 +1,83 @@
-			function ss(){
+			function selectresetlist(){
+				$("input:radio[name='listsoket']:radio[value='있음']").prop('checked', true);
+				$("input:radio[name='listsoket']:radio[value='있음']").prop('checked', false);
+				$("input:radio[name='listcom']:radio[value='사용가능']").prop('checked', true);
+				$("input:radio[name='listcom']:radio[value='사용가능']").prop('checked', false);
+				$("input:radio[name='listpeople']:radio[value='2~4인']").prop('checked', true);
+				$("input:radio[name='listpeople']:radio[value='2~4인']").prop('checked', false);
+				$(".plsall").show();
+			}
+			function soketselect(){
 				// 라디오버튼 클릭시 이벤트 발생
 				var radioVal = $('input[name="listsoket"]:checked').val();
 				console.log(radioVal);
-				var x = "";				
-				if(radioVal=="없음"){
-					x = "없음";
-				}else{
-					x = "있음";
-				}
-				console.log(x);
+				var x = "없음";				
+				var y = "있음";
 				var names = document.getElementsByName(x);
-				for(var i=0; i<x.length; i++){
-					$(names[i]).parents("div").hide();
+				var names2 = document.getElementsByName(y);				
+				if(radioVal=="없음"){
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().show();
+						$(names2[i]).parent().hide();
+					}		
+				}else{
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().hide();
+						$(names2[i]).parent().show();
+					}	
 				}
-								
+										
 			}
-			    
+			function comselect(){
+				// 라디오버튼 클릭시 이벤트 발생
+				var radioVal = $('input[name="listcom"]:checked').val();
+				console.log(radioVal);
+				var x = "사용가능";				
+				var y = "사용불가";
+				var names = document.getElementsByName(x);
+				var names2 = document.getElementsByName(y);				
+				if(radioVal=="사용가능"){
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().show();
+						$(names2[i]).parent().hide();
+					}		
+				}else{
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().hide();
+						$(names2[i]).parent().show();
+					}	
+				}							
+			}
+			function peopleselect(){
+				// 라디오버튼 클릭시 이벤트 발생
+				var radioVal = $('input[name="listpeople"]:checked').val();
+				console.log(radioVal);
+				var x = "2~4인";				
+				var y = "5~8인";				
+				var z = "8인이상";
+				var names = document.getElementsByName(x);
+				var names2 = document.getElementsByName(y);
+				var names3 = document.getElementsByName(z);				
+				if(radioVal=="2~4인"){
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().show();
+						$(names2[i]).parent().hide();
+						$(names3[i]).parent().hide();
+					}		
+				}else if(radioVal=="5~8인"){
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().hide();
+						$(names2[i]).parent().show();
+						$(names3[i]).parent().hide();
+					}	
+				}else if(radioVal=="8인이상"){
+					for(var i=0; i<x.length; i++){
+						$(names[i]).parent().hide();
+						$(names2[i]).parent().hide();
+						$(names3[i]).parent().show();
+					}	
+				}						
+			}    
 
 			$('#placeModal').on('hidden.bs.modal', function () {
         	//모달이 닫힐때 부모창 스크롤 방지해제
@@ -61,18 +123,18 @@
 						}else{
 							htmlcode += '<div class="input-group">';
 							htmlcode += '<div class="input-box2"><span class="boxspan">콘센트</span>';
-							htmlcode += '<input type="radio" onclick="ss();" name="listsoket" value="있음" id="listsoket1" class="radio"><label for="listsoket1">있음</label>';
-							htmlcode += '<input type="radio" onclick="ss();" name="listsoket" value="없음" id="listsoket2" class="radio"><label for="listsoket2">없음</label></div>';
+							htmlcode += '<input type="radio" onclick="soketselect();" name="listsoket" value="있음" id="listsoket1" class="radio"><label for="listsoket1">있음</label>';
+							htmlcode += '<input type="radio" onclick="soketselect();" name="listsoket" value="없음" id="listsoket2" class="radio"><label for="listsoket2">없음</label></div>';
 							htmlcode += '<div class="input-box2"><span class="boxspan">컴퓨터 사용여부</span>';
-							htmlcode += '<input type="radio" name="listcom" value="사용가능" id="listcom1" class="radio"><label for="listcom1">사용가능</label>';
-							htmlcode += '<input type="radio" name="listcom" value="사용불가" id="listcom2" class="radio"><label for="listcom2">사용불가</label></div>';
+							htmlcode += '<input type="radio" onclick="comselect();" name="listcom" value="사용가능" id="listcom1" class="radio"><label for="listcom1">사용가능</label>';
+							htmlcode += '<input type="radio" onclick="comselect();" name="listcom" value="사용불가" id="listcom2" class="radio"><label for="listcom2">사용불가</label></div>';
 							htmlcode += '<div class="input-box2"><span class="boxspan">인원</span>';
-							htmlcode += '<input type="radio" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
-							htmlcode += '<input type="radio" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
-							htmlcode += '<input type="radio" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div></div><hr>';
+							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
+							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
+							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();">초기화</button></div><hr>';
 							
 							$(result).each(function(){
-								htmlcode += '<div><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><hr></div>';
+								htmlcode += '<div class="plsall"><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><hr></div>';
 							});
 						}
 						$("#placeListAll").html(htmlcode);
