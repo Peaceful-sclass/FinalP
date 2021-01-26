@@ -10,6 +10,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 	<div id="root">
 		<header>
 			<h1> 게시판</h1>
@@ -77,5 +78,6 @@
 		</section>
 		<hr />
 	</div>
+	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>

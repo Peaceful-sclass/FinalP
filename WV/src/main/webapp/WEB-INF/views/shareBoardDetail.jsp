@@ -60,6 +60,7 @@
 	</script>
 	
 	<body>
+	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 	
 		<div id="root">
 			<header>
@@ -152,5 +153,6 @@
 			</section>
 			<hr />
 		</div>
+		<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 	</body>
 </html>

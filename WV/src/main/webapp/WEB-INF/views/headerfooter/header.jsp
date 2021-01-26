@@ -36,7 +36,13 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- place CSS -->
     <link rel="stylesheet" href="css/place.css">
-    
+    <!-- quill CSS -->
+    <link rel="canonical" href="https://quilljs.com/standalone/full/">
+	<link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml" title="Quill - Your powerful rich text editor" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+	<link rel="stylesheet" href="css/quill.snow.css" />
+
 	<script src="js/jquery-3.2.1.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -260,5 +266,9 @@
     <script src="js/custom.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1056e51774c015f0b972ae144cc7411f&libraries=services"></script>
     <script src="js/place.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="js/quill.min.js"></script>
+    
 </body>
 </html>

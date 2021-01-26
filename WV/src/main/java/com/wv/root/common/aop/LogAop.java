@@ -22,7 +22,7 @@ public class LogAop {
 	
 	public void after(JoinPoint join) {
 		Logger logger = LoggerFactory.getLogger(join.getTarget()+"");
-		logger.info("---------Aop End---------");
+		logger.info("---------Aop End---------\n");
 	}
 	
 	public void afterThrowing(JoinPoint join) {

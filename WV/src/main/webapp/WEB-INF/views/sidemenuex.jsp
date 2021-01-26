@@ -137,9 +137,8 @@
 									<div class="gallery-single fix">
 										<img src="images/img-09.jpg" class="img-fluid" alt="Image">
 										<div class="why-text">
-											<h4>팀 9</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $24.79</h5>
+											<h4>팀  생성</h4>
+											
 										</div>
 									</div>
 								</div>

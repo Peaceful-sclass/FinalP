@@ -37,7 +37,7 @@ public class LogFilter implements Filter {
 		String agent = req.getHeader("User-Agent"); //사용자 정보(브라우저, os 등)
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append("remodeAddr: "+ remoteAddr+"\n")
+		sb.append("remoteAddr: "+ remoteAddr+"\n")
 			.append("uri: "+uri+"\n")
 			.append("url: " + url + "\n")
 			.append("queryString: " + queryString + "\n")
