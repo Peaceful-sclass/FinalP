@@ -144,7 +144,7 @@
 
 	<!-- 모임장소 Modal -->
     <div class="modal fade" id="placeModal" role="dia">
-        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
+        <div class="modal-dialog" style="max-width: 100%; width: 60%; ">
             <div class="modal-content">
                 <div class="modal-header">
                  	<h4 id="modal-title" class="modal-title"></h4>                 	             	
@@ -162,7 +162,7 @@
 					            <div>
 					                <form onsubmit="searchPlaces(); return false;">
 					                    	검색 : <input type="text" value="KH정보교육원" id="keyword" size="15"> 
-					                    <button type="submit">검색하기</button>
+					                    <button type="submit" class="btn btn-sm btn-primary" style="margin-bottom:2px;">검색하기</button>
 					                </form>
 					            </div>
 					        </div>
@@ -172,33 +172,38 @@
 					    </div>					    
 					</div>
 					<div id="placeformup" style="float: right; display:none;"></div>
-					<div id="placeform" style="float: right">
-					        	<table>
-					       			<tr>
-					       				<th>장소이름 </th>
-					       				<td><input type="text" name="ptitle" id="ptitle"></td>
-					       			</tr>
-					       			<tr>
-					       				<th>모임장소소개</th>
-					       				<td><textarea id="pcontent"></textarea></td>
-					       			</tr>
-					       			<tr>
-					       				<th>구비사항 </th>
-					       				<td></td>
-					       			</tr>
-									<tr>
-					       				<th>콘센트여부</th>
-					       				<td><input type="radio" name="soket" value="있음">있음 <input type="radio" name="soket" value="없음">없음</td>
-					       			</tr>
-					       			<tr>
-					       				<th>컴퓨터 사용가능 여부</th>
-					       				<td><input type="radio" name="com" value="사용가능">사용가능 <input type="radio" name="com" value="사용불가">사용불가</td>
-					       			</tr>
-					       			<tr>
-					       				<th>수용 가능 인원</th>
-					       				<td><input type="radio" name="people" value="2~4인">2~4인 <input type="radio" name="people" value="5~8인">5~8인 <input type="radio" name="people" value="8인이상">8인이상</td>
-					       			</tr>
-					        	</table>
+					<div id="placeform" style="float: right; margin-right: 25px;">
+						<h4>장소명</h4>
+						<div class="input-group">
+							<div class="input-box">
+					    		<input type="text" name="ptitle" id="ptitle" readonly="readonly" class="ptx" onclick="alert('지도에서 장소를 선택하세요');">
+					    	</div>
+					    </div>
+						<h4>모임장소소개</h4>
+						<div class="input-group">
+							<div class="input-box">
+					    		<textarea id="pcontent" class="ptx" cols="28"></textarea>
+					    	</div>
+					    </div>
+					    <h4>콘센트여부</h4>
+					    <div class="input-group">
+							<div class="input-box">
+					    		<input type="radio" name="soket" value="있음" id="soket1" class="radio"><label for="soket1">있음</label><input type="radio" name="soket" value="없음" id="soket2" class="radio"><label for="soket2">없음</label>
+					    	</div>
+					    </div>
+					    
+						<h4>컴퓨터 사용가능 여부</h4>
+						<div class="input-group">
+							<div class="input-box">
+								<input type="radio" name="com" value="사용가능" id="com1" class="radio"><label for="com1">사용가능</label><input type="radio" name="com" value="사용불가" id="com2" class="radio"><label for="com2">사용불가</label>							
+							</div>
+						</div>
+						<h4>수용 가능 인원</h4>
+						<div class="input-group">
+							<div class="input-box">
+								<input type="radio" name="people" value="2~4인" id="people1" class="radio"><label for="people1">2~4인</label><input type="radio" name="people" value="5~8인" id="people2" class="radio"><label for="people2" id="lmid">5~8인</label><input type="radio" name="people" value="8인이상" id="people3" class="radio"><label for="people3">8인이상</label>
+							</div>
+						</div>
 					        	<input type="hidden" name="lat" id="lat" value="">
 					        	<input type="hidden" name="lng" id="lng" value="">
 					    </div>
@@ -218,11 +223,11 @@
 						<input type="hidden" id="pmemberno" value="${member.member_no}">
 						<input type="hidden" id="pmemberid" value="${member.member_id}">
                 </div>
-                <div class="modal-footer" id="modal-footer">
-                	<button type='button' id='placeinsertform'>모임장소글쓰기</button>
-                	<button type='button' id="allListShow" onclick='allListShow();'>목록으로</button>
-                	<button type='button' id='placeinsert' onclick="placesubmit()">글작성</button>
-                	<button type='button' data-dismiss='modal'>Close</button>
+                <div class="modal-footer" class="btn btn-sm btn-primary" id="modal-footer">
+                	<button type='button' class="btn btn-sm btn-primary" id='placeinsertform'>모임장소글쓰기</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="allListShow" onclick='allListShow();'>목록으로</button>
+                	<button type='button' class="btn btn-sm btn-primary" id='placeinsert' onclick="placesubmit()">글작성</button>
+                	<button type='button' class="btn btn-sm btn-primary" data-dismiss='modal'>Close</button>
                 </div>
             </div>
         </div>
