@@ -1,25 +1,3 @@
-
-------------------------------------------------------------
---임시회원
-DROP SEQUENCE MEMBERSEQ;
-DROP TABLE myMEMBER CASCADE CONSTRAINTS;
-
-CREATE SEQUENCE MEMBERSEQ;
-CREATE TABLE MYMEMBER(
-     MEMBER_NO NUMBER PRIMARY KEY,
-     MEMBER_ID VARCHAR2(1000) NOT NULL,
-     MEMBER_PW VARCHAR2(1000) NOT NULL,
-     MEMBER_EMAIL VARCHAR2(1000) NOT NULL,
-     MEMBER_GRADE VARCHAR2(30) NOT NULL,
-     MEMBER_REGDATE DATE DEFAULT SYSDATE
-);
-
-INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, 'admin','1','admin@admin.com','관리자',sysdate);
-INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, 'jm','2','jm@admin.com','관리자',sysdate);
-
-SELECT*FROM MYMEMBER;
-
-----------------------------------------------------------------------------------------
 --커뮤니티
 DROP SEQUENCE comunitySEQ;
 DROP TABLE comunity CASCADE CONSTRAINTS;
@@ -29,7 +7,7 @@ CREATE TABLE Comunity (
 	CNO			number		NOT NULL,
 	CATEGORY	varchar2(20)		NOT NULL,
 	TITLE		varchar2(255)		NOT NULL,
-	CONTENT		varchar2(4000)		NULL,
+	CONTENT		clob		NULL,
 	views		number		NULL,
 	REGDATE		date		NOT NULL,
 	MEMBER_NO	number		NOT NULL
