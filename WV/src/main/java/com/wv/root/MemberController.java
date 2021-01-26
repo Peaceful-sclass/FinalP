@@ -21,13 +21,13 @@ private static final Logger logger = LoggerFactory.getLogger(MemberController.cl
 MemberBiz biz;
 
 // 회원가입 get 회원가입폼으로 이동할때
-@RequestMapping(value = "/register.do", method = RequestMethod.GET)
+@RequestMapping(value = "register.do", method = RequestMethod.GET)
 public void getRegister() throws Exception {
 	logger.info("get register");
 }
 
 // 회원가입 post 회원가입 버튼눌렀을때
-@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+@RequestMapping(value = "register.do", method = RequestMethod.POST)
 public String postRegister(MemberDto dto) throws Exception {
 	logger.info("post register");
 	
@@ -37,7 +37,7 @@ public String postRegister(MemberDto dto) throws Exception {
 }
 
 //로그인
-@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+@RequestMapping(value = "login.do", method = RequestMethod.POST)
 public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 	logger.info("post login");
 	
@@ -54,11 +54,57 @@ public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rtt
 	return "redirect:/";
 }
 
-@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+@RequestMapping(value = "logout.do", method = RequestMethod.GET)
 public String logout(HttpSession session) throws Exception{
 	
 	session.invalidate();
 	
 	return "redirect:/";
 }
+
+//수정
+@RequestMapping(value="test.do", method = RequestMethod.GET)
+public String registerUpdateView() throws Exception{
+	
+	return "memberUpdateView";
+}
+
+//수정버튼 눌렀을때
+@RequestMapping(value="memberUpdate.do", method = RequestMethod.POST)
+public String registerUpdate(MemberDto dto, HttpSession session) throws Exception{
+	
+	biz.memberUpdate(dto);
+	
+	session.invalidate();
+	
+	return "redirect:/";
+}
+
+// 회원 탈퇴 get
+@RequestMapping(value="dest.do", method = RequestMethod.GET)
+public String memberDeleteView() throws Exception{
+	
+	return "memberDeleteView";
+}
+
+// 회원 탈퇴 post
+@RequestMapping(value="memberDelete.do", method = RequestMethod.POST)
+public String memberDelete(MemberDto dto, HttpSession session, RedirectAttributes rttr) throws Exception{
+	
+	// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+	MemberDto member = (MemberDto) session.getAttribute("member");
+	// 세션에있는 비밀번호
+	String sessionPass = member.getMember_pw();
+	// vo로 들어오는 비밀번호
+	String voPass = dto.getMember_pw();
+	
+	if(!(sessionPass.equals(voPass))) {
+		rttr.addFlashAttribute("msg", false);
+		return "redirect:memberDeleteView";
+	}
+	biz.memberDelete(dto);
+	session.invalidate();
+	return "redirect:/";
+}
+
 }

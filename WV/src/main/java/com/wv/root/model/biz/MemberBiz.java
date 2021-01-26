@@ -9,4 +9,8 @@ public interface MemberBiz {
 	public void register(MemberDto dto) throws Exception;
 	
 	public MemberDto login(MemberDto dto) throws Exception;
+	
+	public void memberUpdate(MemberDto dto) throws Exception;
+	
+	public void memberDelete(MemberDto dto) throws Exception;
 }

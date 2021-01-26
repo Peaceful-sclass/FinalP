@@ -2,6 +2,10 @@ package com.wv.root.model.dto;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.wv.root.model.util.CustomDateSerializer;
+
 public class ComunityDto {
 	private int cno;
 	private String category;
@@ -9,8 +13,8 @@ public class ComunityDto {
 	private String content;
 	private Date regdate;
 	private int views;
-	private int memberno;
-	private String memberid;
+	private int member_no;
+	private String member_id;
 	
 	
 	public ComunityDto() {
@@ -18,9 +22,8 @@ public class ComunityDto {
 	}
 
 
-
-	public ComunityDto(int cno, String category, String title, String content, Date regdate, int views, int memberno,
-			String memberid) {
+	public ComunityDto(int cno, String category, String title, String content, Date regdate, int views, int member_no,
+			String member_id) {
 		super();
 		this.cno = cno;
 		this.category = category;
@@ -28,23 +31,9 @@ public class ComunityDto {
 		this.content = content;
 		this.regdate = regdate;
 		this.views = views;
-		this.memberno = memberno;
-		this.memberid = memberid;
+		this.member_no = member_no;
+		this.member_id = member_id;
 	}
-
-
-	
-
-	public int getViews() {
-		return views;
-	}
-
-
-
-	public void setViews(int views) {
-		this.views = views;
-	}
-
 
 
 	public int getCno() {
@@ -86,7 +75,7 @@ public class ComunityDto {
 		this.content = content;
 	}
 
-
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Date getRegdate() {
 		return regdate;
 	}
@@ -97,32 +86,46 @@ public class ComunityDto {
 	}
 
 
-	public int getMemberno() {
-		return memberno;
+	public int getViews() {
+		return views;
 	}
 
 
-	public void setMemberno(int memberno) {
-		this.memberno = memberno;
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 
-	public String getMemberid() {
-		return memberid;
+	public int getMember_no() {
+		return member_no;
 	}
 
 
-	public void setMemberid(String memberid) {
-		this.memberid = memberid;
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
+
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 
 	@Override
 	public String toString() {
 		return "ComunityDto [cno=" + cno + ", category=" + category + ", title=" + title + ", content=" + content
-				+ ", regdate=" + regdate + ", memberno=" + memberno + ", memberid=" + memberid + "]";
+				+ ", regdate=" + regdate + ", views=" + views + ", member_no=" + member_no + ", member_id=" + member_id
+				+ "]";
 	}
-	
+
+
+
+
 	
 	
 	

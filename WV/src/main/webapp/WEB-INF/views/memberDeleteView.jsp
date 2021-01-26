@@ -9,46 +9,35 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<title>회원가입</title>
+		<title>회원탈퇴</title>
 	</head>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// 취소
 			$(".cencle").on("click", function(){
 				
-				location.href = "/login";
+				location.href = "/";
 						    
 			})
 		
 			$("#submit").on("click", function(){
-				if($("#userId").val()==""){
-					alert("아이디를 입력해주세요.");
-					$("#userId").focus();
-					return false;
-				}
 				if($("#userPass").val()==""){
 					alert("비밀번호를 입력해주세요.");
 					$("#userPass").focus();
 					return false;
-				}
-				if($("#userEmail").val()==""){
-					alert("이메일을 입력해주세요.");
-					$("#userEmail").focus();
-					return false;
-				}
+				}	
 			});
 			
-			
-		
+				
 			
 		})
 	</script>
 	<body>
 		<section id="container">
-			<form action="register.do" method="post">
+			<form action="memberDelete.do" method="post">
 				<div class="form-group has-feedback">
-					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
-					<input class="form-control" type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+					<label class="control-label" for="member_id">아이디</label>
+					<input class="form-control" type="text" id="userId" name="member_id" value="${member.member_id}" readonly="readonly"/>
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>
@@ -56,20 +45,18 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
-					<input class="form-control" type="text" id="userEmail" name="member_email" />
+					<input class="form-control" type="text" id="userName" name="member_email" value="${member.member_email}" readonly="readonly"/>
 				</div>
 				<div class="form-group has-feedback">
-					<label class="control-label" for="member_grade">회원등급</label>
-					<select class="form-control" id="userGrade" name="member_grade">
-				           <option>일반회원</option>
-				    </select>
-				</div>	
-												
-				<div class="form-group has-feedback">
-					<button class="btn btn-success" type="submit" id="submit">회원가입</button>
+					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>
 					<button class="cencle btn btn-danger" type="button">취소</button>
 				</div>
 			</form>
+			<div>
+				<c:if test="${msg == false}">
+					비밀번호가 맞지 않습니다.
+				</c:if>
+			</div>
 		</section>
 		
 	</body>

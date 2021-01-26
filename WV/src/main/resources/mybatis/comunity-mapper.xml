@@ -8,7 +8,7 @@
 	
 	<!-- 게시물수확인 -->
 	<select id="comunitycount" parameterType="hashmap" resultType="int">
-		select count(*) from comunity 
+		select count(*) from comunity c join mymember m on c.member_no=m.member_no
 		<choose>
 			<when test="cpdto.category == '전체'">
 				<where><include refid="search"></include></where>
@@ -16,11 +16,6 @@
 			<when test="cpdto.category == '자유'">
 				where category = '자유'
 				<include refid="search"></include>
-<!-- 				<choose>
-					<when test="search.searchsel == 'subject'">and title like '%'||#{search.word}||'%'</when>
-					<when test="search.searchsel == 'subjectcontent'">and title like '%#{search.word}%'</when>
-					<otherwise>and title like '%'||#{search.word}||'%'</otherwise>
-				</choose> -->
 			</when>
 			<otherwise>
 				where category = 'Q&amp;A'
@@ -29,28 +24,12 @@
 		</choose>
 	</select>
 
-	
-<!-- 	<select id="comunitycount" resultType="comunityDto">
-		select * from comunity
-		<choose>
-			<when test="category == '전체'">
-				order by regdate desc
-			</when>
-			<when test="category == '자유'">
-				where category = '자유' order by regdate desc
-			</when>
-			<otherwise>
-				where category = 'Q&amp;A' order by regdate desc
-			</otherwise>
-		</choose>
-	</select> -->
-	
 	<!-- 게시물 조회 -->
 	<select id="comunityall" parameterType="hashmap" resultType="comunityDto">
 		select rnum, cm.*
 				from (
-					select row_number() over (order by regdate desc ) rnum, c.*
-					from comunity c
+					select row_number() over (order by regdate desc ) rnum, c.*,m.member_id member_id
+					from comunity c join mymember m on c.member_no=m.member_no
  		<choose>
 			<when test="cpdto.category == '전체'">
 					<where><include refid="search"></include></where>
@@ -82,27 +61,29 @@
 				and content like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
 			</when>
 			<when test="search.searchsel == 'writer'">
-				and memberid like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
+				and member_id like '%'|| #{search.word, jdbcType=VARCHAR} ||'%'
 			</when>
 		</choose>
 	</sql>
 	
 	<select id="comunityone" parameterType="int" resultType="comunityDto">
-		select cno, category, title, content, regdate, m.memberid
-		from comunity c join member m
-		where m.memberno = c.memberno
-		and cno = #{cno}
-
+		select c.cno cno, c.category category, c.title title, c.content content, c.regdate regdate, m.member_id member_id, c.views views
+		from comunity c join mymember m
+		on m.member_no = c.member_no
+		where cno = #{cno}
 	</select>
+	<update id="viewsUp" parameterType="int">
+		update comunity set views = ( select views from comunity where cno = #{cno} )+1 
+		where cno = #{cno}
+	</update>
 	
 	<insert id="cominsert" parameterType="comunityDto">
 		insert into comunity
-		values(comunityseq.nextval, #{category}, #{title}, #{content}, sysdate, #{memberno})
-	
+		values(comunityseq.nextval, #{category}, #{title}, 0, sysdate, #{member_no}, #{content} )
 	</insert>
 	
 	<update id="comupdate" parameterType="comunityDto">
-		update comunity set (#{category}, #{title}, #{content})
+		update comunity set  category = #{category}, title = #{title}, content = #{content} 
 		where cno = #{cno}
 	</update>
 	
@@ -112,22 +93,22 @@
 	
 	
 	<!-- comment start /////////////////////////////////////////// -->
-	<select id="comcmtselect" parameterType="comcommentDto">
-		select comcmtno, groupno, grpno, comcomment, regdate, cno, m.memberid
-		from comcomment c join member m	on c.cno = m.cno 
-		where cno = #{cno} and groupno = #{groupno}
-		order by grpno
+	<select id="comcmtselect" parameterType="comcommentDto" resultType="comcommentDto">
+		select comcmtno, comcmtgroupno, comcmtgrpno, comcomment, regdate, cno, m.member_id member_id
+		from comcomment c join mymember m	on c.member_no = m.member_no 
+		where cno = #{cno}
+		order by comcmtgroupno desc, comcmtgrpno
 	</select>
 	
 	<insert id="comcmtinsert" parameterType="comcommentDto">
 		insert into comcomment
-		values(comcmtseq.nextval, comcmtgroupseq.nextval, 1, #{comcomment},sysdate, #{cno}, #{memberno})
+		values(comcmtseq.nextval, comcmtgroupseq.nextval, 1, #{comcomment}, sysdate, #{cno}, #{member_no})
 	</insert>
 	
 	<update id="comcmtupdate" parameterType="comcommentDto">
 		update comcomment 
-				set(comcomment = #{comcomment}, regdate = sysdate)
-				where comcmtno = #{comcmtno}
+		set comcomment = #{comcomment}, regdate = sysdate
+		where comcmtno = #{comcmtno}
 	</update>
 	
 	<delete id="comcmtdelete" parameterType="int">
@@ -139,13 +120,13 @@
 		values(comcmtseq.nextval, 
 		(select comcmtgroupno from comcomment where comcmtno = #{comcmtno}),
 		(select comcmtgrpno from comcomment where comcmtno = #{comcmtno})+1,
-		 #{comcomment},sysdate, #{cno}, #{memberno})
+		 #{comcomment},sysdate, #{cno}, #{member_no})
 	</insert>
 	
 	<update id="comcmtbeforeanswer" parameterType="comcommentDto">
 	<!-- update시 dto필요내용 - comcmtn,grpno,comcomment -->
 		update comcomment 
-		set(comcmtgrpno = #{comcmtgrpno}+1 )
+		set comcmtgrpno = #{comcmtgrpno}+1
 		where comcmtgroupno = (select comcmtgroupno from comcomment where comcmtno = #{comcmtno})
 		and comcmtgrpno > (select comcmtgrpno from comcomment where comcmtno = #{comcmtno})
 		<!-- 대소비교문법 <![CDATA[<=]]> -->

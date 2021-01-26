@@ -22,6 +22,18 @@ public class MemberBizImpl implements MemberBiz{
 	public MemberDto login(MemberDto dto) throws Exception {
 		return dao.login(dto);
 	}
+
+	@Override
+	public void memberUpdate(MemberDto dto) throws Exception {
+        
+		//받은 DTO를 DAO로 보내준다.
+		dao.memberUpdate(dto);
+	}
+
+	@Override
+	public void memberDelete(MemberDto dto) throws Exception {
+         dao.memberDelete(dto);        
+	}
 	
 
 }

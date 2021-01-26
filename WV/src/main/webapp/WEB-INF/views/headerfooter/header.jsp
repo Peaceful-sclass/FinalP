@@ -36,7 +36,13 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- place CSS -->
     <link rel="stylesheet" href="css/place.css">
-    
+    <!-- quill CSS -->
+    <link rel="canonical" href="https://quilljs.com/standalone/full/">
+	<link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml" title="Quill - Your powerful rich text editor" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+	<link rel="stylesheet" href="css/quill.snow.css" />
+
 	<script src="js/jquery-3.2.1.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -51,12 +57,25 @@
 		
 	</script>		
 </head>
+<!-- 로그인 스크립트 -->
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#outBtn").on("click", function(){
-			location.href="/logout.do";
+			location.href="logout.do";
+
 		})
 		
+		$("#registerBtn").on("click", function(){
+			location.href="register.do";
+		})
+		
+		$("#memberUpdateBtn").on("click", function(){
+			location.href="test.do";
+		})    
+		
+		$("#memberDeleteBtn").on("click", function(){
+			location.href="dest.do";
+		})  
 	});
 </script>
 <body>
@@ -75,6 +94,7 @@
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
+						<li class="nav-item"><a class="nav-link" href="shareDocumentList.do">팀메뉴2</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
 						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
@@ -84,22 +104,28 @@
 		<form name='homeForm' method="post" action="login.do">
 		<c:if test="${member == null}">
 			<div>
-				<label for="memberid"></label>
-				<input type="text" id="userId" name="memberid">
+				<label for="member_id"></label>
+				<input type="text" id="userId" name="member_id">
 			</div>
 			<div>
-				<label for="memberpw"></label>
-				<input type="password" id="userPass" name="memberpw">
+				<label for="member_pw"></label>
+				<input type="password" id="userPass" name="member_pw">
 			</div>
 			<div>
-				<span><a href="login.do"><button type="submit">로그인</button></a></span>
-				<span><a href="register.do"><button type="button">회원가입</button></a></span>
+				  <span><a href="login.do"><button type="submit">로그인</button></a></span>
+				      <span><a href="register.do"><button type="button">회원가입</button></a></span>  
+				<!--<button type="submit">로그인</button>
+				<button id="registerBtn" type="button">회원가입</button>-->
 				
 			</div>
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-				<p>${member.memberid}님 환영 합니다.</p>
+				<p>${member.member_id}님 환영 합니다.</p>
+				<button id="memberUpdateBtn" type="button">회원정보수정</button>
+				<!-- function빼고 해보기 
+				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
+				<button id="memberDeleteBtn" type="button">회원탈퇴</button>
 				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
@@ -116,9 +142,9 @@
 	<!-- End header -->
 	
 
-	<!-- Modal -->
+	<!-- 모임장소 Modal -->
     <div class="modal fade" id="placeModal" role="dia">
-        <div class="modal-dia" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
+        <div class="modal-dialog" style="max-width: 100%; max-height:100%; width: 80%; height: 80%;">
             <div class="modal-content">
                 <div class="modal-header">
                  	<h4 id="modal-title" class="modal-title"></h4>                 	             	
@@ -127,13 +153,15 @@
                 <div class="modal-body">
                 	<div id="placeListAll">
                 	</div>
+                	<div id="placeDetail">
+                	</div>
 					<div class="map_wrap">
 					    <div id="map" style="width:100%; height:100%; position:relative;overflow:hidden;"></div>					
 					    <div id="menu_wrap" class="bg_white">
 					        <div class="option">
 					            <div>
 					                <form onsubmit="searchPlaces(); return false;">
-					                    	검색 : <input type="text" value="서울역" id="keyword" size="15"> 
+					                    	검색 : <input type="text" value="KH정보교육원" id="keyword" size="15"> 
 					                    <button type="submit">검색하기</button>
 					                </form>
 					            </div>
@@ -143,7 +171,8 @@
 					        <div id="pagination"></div>
 					    </div>					    
 					</div>
-					<div id="placeform" style="display: inline-block">
+					<div id="placeformup" style="float: right; display:none;"></div>
+					<div id="placeform" style="float: right">
 					        	<table>
 					       			<tr>
 					       				<th>장소이름 </th>
@@ -159,23 +188,39 @@
 					       			</tr>
 									<tr>
 					       				<th>콘센트여부</th>
-					       				<td><input type="radio" name="soket" value="Y">있음 <input type="radio" name="soket" value="N">없음</td>
+					       				<td><input type="radio" name="soket" value="있음">있음 <input type="radio" name="soket" value="없음">없음</td>
 					       			</tr>
 					       			<tr>
 					       				<th>컴퓨터 사용가능 여부</th>
-					       				<td><input type="radio" name="com" value="Y">사용가능 <input type="radio" name="com" value="N">사용불가</td>
+					       				<td><input type="radio" name="com" value="사용가능">사용가능 <input type="radio" name="com" value="사용불가">사용불가</td>
 					       			</tr>
 					       			<tr>
 					       				<th>수용 가능 인원</th>
-					       				<td><input type="radio" name="people" value="max4">2~4인 <input type="radio" name="people" value="max8">5~8인 <input type="radio" name="people" value="max">8인이상</td>
+					       				<td><input type="radio" name="people" value="2~4인">2~4인 <input type="radio" name="people" value="5~8인">5~8인 <input type="radio" name="people" value="8인이상">8인이상</td>
 					       			</tr>
 					        	</table>
 					        	<input type="hidden" name="lat" id="lat" value="">
 					        	<input type="hidden" name="lng" id="lng" value="">
 					    </div>
+					    <div id="commentinsertdiv" style="padding-top: 10px; display:none;">
+							<div class="row">
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="3" id="placecomment" placeholder="댓글을 입력해 주세요"></textarea>
+								</div>
+								<div class="col-sm-2">
+									<button type="button" class="btn btn-sm btn-primary" id="Pcommentsubmit" style="width: 80%; margin-top: 10px"> 저 장 </button>
+								</div>
+							</div>
+						</div>
+						<div id="pcomments" class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px; display:none;">
+							<div id="pcommentsList"></div>							
+						</div>
+						<input type="hidden" id="pmemberno" value="${member.member_no}">
+						<input type="hidden" id="pmemberid" value="${member.member_id}">
                 </div>
                 <div class="modal-footer" id="modal-footer">
                 	<button type='button' id='placeinsertform'>모임장소글쓰기</button>
+                	<button type='button' id="allListShow" onclick='allListShow();'>목록으로</button>
                 	<button type='button' id='placeinsert' onclick="placesubmit()">글작성</button>
                 	<button type='button' data-dismiss='modal'>Close</button>
                 </div>
@@ -216,5 +261,9 @@
     <script src="js/custom.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1056e51774c015f0b972ae144cc7411f&libraries=services"></script>
     <script src="js/place.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="js/quill.min.js"></script>
+    
 </body>
 </html>
