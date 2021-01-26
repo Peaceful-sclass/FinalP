@@ -25,7 +25,7 @@
 		<typeAlias type="com.wv.root.model.util.chatajax" alias="chatajax"/>
 		<typeAlias type="com.wv.root.model.util.chatajaxres" alias="chatajaxres"/>
 
-		<typeAlias type="com.wv.root.model.dto.SBCommentDto" alias="SBCommentDto"/>
+		
 		<typeAlias type="com.wv.root.model.dto.ExcelDto" alias="ExcelDto"/>
 
 		<!-- <typeAlias type="com.wv.root.model.dto.MemberDto" alias="member2Dto"></typeAlias> -->
