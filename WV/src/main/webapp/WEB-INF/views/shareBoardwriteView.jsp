@@ -42,7 +42,7 @@
 		
 </script>
 <body>
-	
+	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 	<div id="root">
 		<header>
 			<h1> 게시판</h1>
@@ -84,5 +84,6 @@
 		</section>
 		<hr />
 	</div>
+	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>

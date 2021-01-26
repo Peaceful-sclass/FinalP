@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="chat">
+
+<!-- 채팅 입력시 -->
+<insert id="msg_send" parameterType="ChatDto">
+	INSERT INTO CHAT(CHATTING_NO, MEMBER_ID, CONTENT)
+	VALUES(#{chatting_no}, #{member_id}, #{content})
+</insert>
+
+<!-- 채팅방 클릭시 -->
+<select id="chatList" resultType="ChatDto">
+	SELECT * FROM CHAT WHERE CHATTING_NO=#{chatting_no} ORDER BY REGDATE
+</select>
+
+<select id="chatajax" parameterType="chatajax" resultType="chatajaxres">
+	SELECT CHATTING_NO, MEMBER_ID, CONTENT, TO_CHAR(REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS REGDATE
+	 FROM CHAT WHERE CHATTING_NO=#{chatting_no} AND REGDATE> TO_DATE(#{date},'YYYY-MM-DD HH24:MI:SS') ORDER BY REGDATE
+</select>
+
+</mapper>
