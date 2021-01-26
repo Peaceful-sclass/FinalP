@@ -37,7 +37,7 @@ CREATE TABLE Comunity (
 
 ALTER TABLE Comunity ADD CONSTRAINT PK_COMUNITY PRIMARY KEY (CNO);
 ALTER TABLE Comunity drop CONSTRAINT FK_Member_TO_Comunity_1;
-ALTER TABLE Comunity ADD CONSTRAINT FK_Member_TO_Comunity_1 FOREIGN KEY (MEMBER_NO) REFERENCES myMember(MEMBER_NO);
+ALTER TABLE Comunity ADD CONSTRAINT FK_Member_TO_Comunity_1 FOREIGN KEY (MEMBER_NO) REFERENCES myMember(MEMBER_NO) on delete cascade;
 select * from comunity order by regdate desc;
 
 ------------------------------------------------------------------------------
@@ -52,15 +52,17 @@ CREATE TABLE ComComment (
 	ComCmtNO		number		NOT NULL,
 	ComCmtgroupNO	number		NOT NULL,
 	ComCmtgrpNO		number		NOT NULL,
-	ComCOMMENT			varchar2(2000)		NOT NULL,
+	ComCOMMENT		varchar2(2000)		NOT NULL,
 	REGDATE			date		NOT NULL,
 	CNO				number		NOT NULL,
 	member_no		number		NOT NULL
 );
 
 ALTER TABLE ComComment ADD CONSTRAINT PK_ComComment PRIMARY KEY (ComCmtNO);
-ALTER TABLE ComComment ADD CONSTRAINT FK_Comunity_TO_ComComment_1 FOREIGN KEY (CNO) REFERENCES Comunity (CNO);
-ALTER TABLE ComComment ADD CONSTRAINT FK_Member_TO_ComComment_1 FOREIGN KEY (member_no) REFERENCES myMember (member_no);
+ALTER TABLE ComComment drop CONSTRAINT FK_Comunity_TO_ComComment_1;
+ALTER TABLE ComComment drop CONSTRAINT FK_Member_TO_ComComment_1;
+ALTER TABLE ComComment ADD CONSTRAINT FK_Comunity_TO_ComComment_1 FOREIGN KEY (CNO) REFERENCES Comunity (CNO) on delete cascade;
+ALTER TABLE ComComment ADD CONSTRAINT FK_Member_TO_ComComment_1 FOREIGN KEY (member_no) REFERENCES myMember (member_no) on delete cascade;
 
 select * from COMCOMMENT;
 
