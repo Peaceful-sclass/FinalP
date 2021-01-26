@@ -92,7 +92,7 @@
 			//네비바 모임장소 클릭시 실행
 			function placemodalshow(){
 				$("#placeModal").modal({backdrop: 'static', keyboard: false});
-				$("#keyword").val("KH정보교육원");
+				$("#keyword").val("KH정보교육원 강남지원 1관");
 				$("#placeformup").hide();
                 $("#modal-title").text("모임장소")
                 $("#placeinsert").hide();
@@ -131,7 +131,7 @@
 							htmlcode += '<div class="input-box2"><span class="boxspan">인원</span>';
 							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
 							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
-							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();">초기화</button></div><hr>';
+							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();" style="margin-left: 20px; height: 47px;">조건초기화</button></div><hr>';
 							
 							$(result).each(function(){
 								htmlcode += '<div class="plsall"><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><hr></div>';
@@ -164,7 +164,7 @@
 						var htmlcode = "";
 						htmlcode += '구비사항<br><div>콘센트여부: '+dto.soket+' 컴퓨터 사용가능 여부: '+dto.com+' 수용 가능 인원: '+dto.people+'</div>';	
 						htmlcode += '<div>장소소개 : <span id="pct">'+dto.pcontent+'</sapn></div><div>위치</div>';	
-						htmlcode += '<div id="detailmap" style="width:95%;height:400px;margin: auto;"></div>';
+						htmlcode += '<div id="detailmap" style="width:95%; height:400px; margin: auto; border: 1px solid #c0bfbf; border-radius: 3px;"></div>';
 						if(likecheck==1){
 							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/like-img.png" onclick="likeCancel('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
 						}else if(likecheck==0){
@@ -276,7 +276,7 @@
 					success:function(res){
 						if(res>0){
 							$(".map_wrap").hide();
-							$("#keyword").val("KH정보교육원");
+							$("#keyword").val("KH정보교육원 강남지원 1관");
 							$("#placeformup").hide();
 							placeDetailAjax(pno);
 						}else{
@@ -448,7 +448,7 @@
 			//목록으로 클릭시 실행
 			function allListShow(){
                 $("#modal-title").text("모임장소")
-				$("#keyword").val("KH정보교육원");
+				$("#keyword").val("KH정보교육원 강남지원 1관");
 				$("#placeformup").hide();
                 $("#placeinsert").hide();
 				$(".map_wrap").hide();
@@ -881,7 +881,7 @@
 			var content = '<div class="customoverlay">' +
 			    '  <div class="pmcs">'+
 			    '    <span>'+title+'</span>' +
-				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px;" onclick="placeselect();">선택</button>'+
+				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px; border: 1px solid #c0bfbf;" onclick="placeselect();">선택</button>'+
 			    '  </div>'+latlng+
 			    '</div>';
 			customOverlay.setPosition(marker.getPosition());
@@ -922,9 +922,14 @@
 			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
 			//저장된 장소의 위도 경도
 			var markerPosition2  = new kakao.maps.LatLng(lat, lng); 
+			var imageSrc = 'images/markers.png', // 마커이미지의 주소입니다    
+    		imageSize = new kakao.maps.Size(25, 35), // 마커이미지의 크기입니다
+    		imageOption = {offset: new kakao.maps.Point(14, 35)};
+			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 			//저장된 위도 경도로 마커 생성
 			var marker2 = new kakao.maps.Marker({
-			    position: markerPosition2
+			    position: markerPosition2,
+				image: markerImage 
 			});
 			//만든 마커 디테일맵에 추가
 			marker2.setMap(map2);
@@ -940,7 +945,7 @@
 			var customOverlay2 = new kakao.maps.CustomOverlay({
 			    map: map2,
 			    position: position2,
-			    content: content2 
+			    content: content2
 			});
 		};
 		

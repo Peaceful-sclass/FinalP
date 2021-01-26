@@ -161,8 +161,8 @@
 					        <div class="option">
 					            <div>
 					                <form onsubmit="searchPlaces(); return false;">
-					                    	검색 : <input type="text" value="KH정보교육원" id="keyword" size="15"> 
-					                    <button type="submit" class="btn btn-sm btn-primary" style="margin-bottom:2px;">검색하기</button>
+					                    	검색 : <input type="text" value="KH정보교육원 강남지원 1관" id="keyword" size="15"> 
+					                    <button type="submit" class="btn btn-sm btn-primary" style="margin-bottom:2px; border: 1px solid #c0bfbf;">검색하기</button>
 					                </form>
 					            </div>
 					        </div>
