@@ -36,17 +36,103 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 #placeDetail {display:hide;}
 #placeListAll {display:hide;}
-.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay {position:relative;bottom:80px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
 .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
 .customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #2979ff url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
 .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 
-
-.modal-dialog{
-    overflow-y: initial !important
+.placetitle{cursor:pointer}
+.customoverlay .pmcs {display:block;text-decoration:none;text-align:center;padding:10px 15px;padding-bottom:4px; border-radius:6px; background: #fff;font-weight:bold;}
+.pmcs span{text-align:center;background:#fff;padding-right:10px; font-size:14px;font-weight:bold;}
+.boxspan{padding: 10px 10px 0px 10px}
+.modal-body {max-height: calc(100vh - 230px);overflow-y: auto; }
+.input-group{
+    margin-bottom: 8px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
 }
-.modal-body{
-    height: 100%;
-    overflow-y: auto;
+.input-box{
+    width: 100%;
+    margin-right: 12px;
+    position: relative;
+}
+.input-box2{
+    width: 100%;
+    margin-right: 12px;
+    position: relative;
+    display: contents;
+}
+.ptx{
+	padding: 14px 10px 14px 10px;
+    width: 100%;
+    background-color: #fcfcfc;
+    border: 1px solid #00000033;
+    outline: none;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    border-radius: 3px;
+    color: #333;
+    font-size: 11pt;
+}
+
+.radio{
+    display: none;
+}
+.input-box label{
+    width: 33%;
+    padding: 9px;
+    background-color: #fcfcfc;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    border: 1px solid #c0bfbf;
+}
+.input-box2 label{
+    width: 10%;
+    padding: 9px;
+    text-align: center;
+    border: 1px solid #c0bfbf;
+}
+.input-box label:first-of-type{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-right: none;
+}
+.input-box2 label:first-of-type{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-right: none;
+}
+#lmid{
+	border-right: none;
+}
+.input-box label:last-of-type{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.input-box2 label:last-of-type{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.radio:checked + label{
+    background-color: #2979ff;
+    color: #fff;
+    transition: 0.5s;
+}
+.input-box select{
+    display: inline-block;
+    width: 33%;
+    padding: 9px;
+    background-color: #fcfcfc;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #c0bfbf;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
