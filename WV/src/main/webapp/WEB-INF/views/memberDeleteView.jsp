@@ -39,15 +39,33 @@
 					$("#userPass").focus();
 					return false;
 				}	
+				$.ajax({
+					url : "passChk",
+					type : "POST",
+					dataType : "json",
+					data : $("#delForm").serializeArray(),
+					success: function(data){
+						
+						if(data==0){
+							alert("패스워드가 틀렸습니다.");
+							return;
+						}else{
+							if(confirm("회원탈퇴하시겠습니까?")){
+								$("#delForm").submit();
+							}
+							
+						}
+					}
+				})				
 			});
 			
-				
+		})	
 			
-		})
+		
 	</script>
 	<body>
 		<section id="container">
-			<form action="memberDelete.do" method="post">
+			<form action="memberDelete.do" method="post" id="delForm">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label>
 					<input class="form-control" type="text" id="userId" name="member_id" value="${member.member_id}" readonly="readonly"/>

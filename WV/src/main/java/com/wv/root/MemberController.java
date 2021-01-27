@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -109,9 +108,12 @@ public String memberDelete(MemberDto dto, HttpSession session, RedirectAttribute
 	return "redirect:/";
 }
 
-
-		
-		
+//탈퇴 비번확인
+   @ResponseBody
+   @RequestMapping(value="/passChk", method = RequestMethod.POST)
+	public int passChk(MemberDto dto) throws Exception {
+		int result = biz.passChk(dto);
+		return result;
 	
-
+   }
 }

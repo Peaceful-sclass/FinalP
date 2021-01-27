@@ -34,6 +34,13 @@ public class MemberBizImpl implements MemberBiz{
 	public void memberDelete(MemberDto dto) throws Exception {
          dao.memberDelete(dto);        
 	}
+    
+	//탈퇴비번체크
+	@Override
+	public int passChk(MemberDto dto) throws Exception {
+		int result = dao.passChk(dto);
+		return result;
+	}
 	
 
 }

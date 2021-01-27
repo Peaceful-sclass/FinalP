@@ -37,6 +37,12 @@ public class MemberDaoImpl implements MemberDao {
 		     // #{userId}, #{userPass}에 피라미터값이 매칭이 된다.
 		     sql.delete("memberDelete", dto);
 	}
+
+	@Override
+	public int passChk(MemberDto dto) throws Exception {
+        int result = sql.selectOne("passChk", dto);
+		return result;
+	}
 }
 
 

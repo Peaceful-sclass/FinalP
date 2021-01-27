@@ -32,4 +32,11 @@
 	        WHERE MEMBER_ID = #{member_id}
 	          AND MEMBER_PW = #{member_pw}
 	</delete>
+	<!-- 탈퇴비번체크 --><!-- 아이디 비번 조건걸고 조건맞는 갯수 카운트 -->
+	<select id="passChk" resultType="int">
+	        SELECT COUNT(*) FROM MYMEMBER
+	        WHERE MEMBER_ID = #{member_id}
+	          AND MEMBER_PW = #{member_pw}   
+	</select>      
+	
 </mapper>
