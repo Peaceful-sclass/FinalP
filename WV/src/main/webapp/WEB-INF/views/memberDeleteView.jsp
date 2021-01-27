@@ -10,6 +10,19 @@
 	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<title>회원탈퇴</title>
+		
+				<style>
+		   #userId{
+		         width:130px;
+		   }
+		   #userPass{
+		         width:130px;
+		   }		   
+		   #userEmail{
+		         width:200px;
+		   }	
+
+		</style>
 	</head>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -45,7 +58,7 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
-					<input class="form-control" type="text" id="userName" name="member_email" value="${member.member_email}" readonly="readonly"/>
+					<input class="form-control" type="text" id="userEmail" name="member_email" value="${member.member_email}" readonly="readonly"/>
 				</div>
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>

@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.MemberBiz;
@@ -38,11 +40,11 @@ public String postRegister(MemberDto dto) throws Exception {
 
 //로그인
 @RequestMapping(value = "login.do", method = RequestMethod.POST)
-public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+public String login(MemberDto dto, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 	logger.info("post login");
 	
 	HttpSession session = req.getSession();
-	MemberDto login = biz.login(vo);
+	MemberDto login = biz.login(dto);
 	
 	if(login == null) {
 		session.setAttribute("member", null);
@@ -106,5 +108,10 @@ public String memberDelete(MemberDto dto, HttpSession session, RedirectAttribute
 	session.invalidate();
 	return "redirect:/";
 }
+
+
+		
+		
+	
 
 }

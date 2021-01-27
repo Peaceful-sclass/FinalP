@@ -10,6 +10,22 @@
 	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<title>회원가입</title>
+		
+		<style>
+		   #userId{
+		         width:130px;
+		   }
+		   #userPass{
+		         width:130px;
+		   }		   
+		   #userEmail{
+		         width:200px;
+		   }	
+		   #userGrade{
+		         width:140px;  
+		   }	
+		</style>
+		
 	</head>
 	<script type="text/javascript">
 				$(document).ready(function(){
@@ -36,19 +52,18 @@
 					return false;
 				}
 				
-			});
+			})
 			
 			
-		
-			
-		})
+		     
+		});
 	</script>
 	<body>
 		<section id="container">
 			<form action="register.do" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
-					<input class="form-control" type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+					<input class="form-control"  type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>
