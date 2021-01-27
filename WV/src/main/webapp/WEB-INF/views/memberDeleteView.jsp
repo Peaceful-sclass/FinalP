@@ -16,7 +16,7 @@
 			// 취소
 			$(".cencle").on("click", function(){
 				
-				location.href = "/";
+				location.href = "/root";
 						    
 			})
 		
