@@ -41,6 +41,12 @@ public class MemberBizImpl implements MemberBiz{
 		int result = dao.passChk(dto);
 		return result;
 	}
+
+	@Override
+	public int idChk(MemberDto dto) throws Exception {
+		int result = dao.idChk(dto);
+		return result;
+	}
 	
 
 }

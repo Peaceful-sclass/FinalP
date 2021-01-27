@@ -52,18 +52,40 @@
 					return false;
 				}
 				
-			})
-			
-			
-		     
-		});
-	</script>
+				var idChkVal = $("#idChk").val();
+				if(idChkVal == "N"){
+					alert("중복확인을 해주세요");
+					return false;
+					
+				}else if(idChkVal == "Y"){
+					$("#regForm").submit();
+				}
+			});
+		})
+         $(document).on('click', '. "#fn_idChk"', function(){
+					$.ajax({
+					url : "idChk",	
+					type :"post",
+					dataType : "json",
+					data : {"userId" : $("#userId").val()},
+					success : function(data){
+						if(data == 1){
+							alert("중복된 아이디입니다.");
+						}else if(data == 0){
+							$("#idChk").attr("value", "Y");
+							alert("사용가능한 아이디입니다.");
+				        }
+					  }
+					});
+				})
+    </script>
 	<body>
 		<section id="container">
-			<form action="register.do" method="post">
+			<form action="register.do" method="post" id="regForm">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
 					<input class="form-control"  type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+				    <button class="idChk" type="button" id="idChk" id="fn_idChk" value="N">중복확인</button> 
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>

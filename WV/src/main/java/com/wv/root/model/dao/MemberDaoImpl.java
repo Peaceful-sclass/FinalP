@@ -43,6 +43,12 @@ public class MemberDaoImpl implements MemberDao {
         int result = sql.selectOne("passChk", dto);
 		return result;
 	}
+
+	@Override
+	public int idChk(MemberDto dto) throws Exception {
+		int result = sql.selectOne("idChk", dto);
+		return result;
+	}
 }
 
 
