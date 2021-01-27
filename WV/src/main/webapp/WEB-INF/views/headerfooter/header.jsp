@@ -83,7 +83,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="index.jsp">
 					<img src="images/logof.png" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,7 @@
 					<ul class="navbar-nav ml-auto">
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
-						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
+						<li class="nav-item"><a class="nav-link" href="team.do">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="shareDocumentList.do">팀메뉴2</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
 						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
