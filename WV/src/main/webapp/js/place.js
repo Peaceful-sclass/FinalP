@@ -686,13 +686,15 @@
 	    	mapOption = {
 	    	center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
 	        level: 3 // 지도의 확대 레벨
-    	};  
+    		};  
 
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places(); 
-		
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    		customOverlay.setMap(null);		    
+		});
 		var customOverlay = new kakao.maps.CustomOverlay({});
 		// 키워드로 장소를 검색합니다
 		searchPlaces();
@@ -760,7 +762,7 @@
 		        // LatLngBounds 객체에 좌표를 추가합니다
 		        bounds.extend(placePosition);
 
-		        // 마커와 검색결과 항목에 mouseover 했을때
+		        // 마커와 검색결과 항목에 클릭 했을때
 		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 		        // mouseout 했을 때는 인포윈도우를 닫습니다
 		        (function(marker, title) {
@@ -813,11 +815,11 @@
 
 		// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 		function addMarker(position, idx, title) {
-		    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+		    var imageSrc = 'images/marker_number.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
 		        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
 		        imgOptions =  {
 		            spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-		            spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+		            spriteOrigin : new kakao.maps.Point(0, (idx*46)+9), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
 		            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
 		        },
 		        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
