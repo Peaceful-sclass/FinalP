@@ -105,7 +105,10 @@ let cmwrite = () => {
     let cmd = window.location.pathname;
 	let form = document.createElement("form");
 	let input = document.createElement("input");
-	let content = quill.root.innerHTML;
+	let content = quill.getContents();  /*quill.root.innerHTML;*/
+	console.log(content);
+	content = JSON.stringify(content);
+	console.log(content);
 	form.method = "post";
 	input.type = "hidden";
 	input.name = "content";
@@ -175,7 +178,9 @@ function titleClick(param) {
             console.log("rt.dto.regdate: "+rt.dto.regdate);
 			$(".dv-subject2").children().eq(2).text(rt.dto.regdate);
 			$(".dv-subject2").children().eq(4).text(rt.dto.views);
-			$(".dv-content").html(rt.dto.content);
+			let content = JSON.parse(rt.dto.content);
+            //console.log("rt.dto.content: "+ content);
+			quill.setContents(content, 'user');
 			
 			//현재회원과 작성자가 동일하면 버튼추가
 			if(param.dataset['mid'] === rt.dto.member_id){
