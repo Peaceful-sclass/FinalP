@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dao.MemberDao;
 import com.wv.root.model.dto.MemberDto;
+import com.wv.root.model.dto.TeamDto;
 
 @Service
 public class MemberBizImpl implements MemberBiz{
@@ -33,6 +34,11 @@ public class MemberBizImpl implements MemberBiz{
 	@Override
 	public void memberDelete(MemberDto dto) throws Exception {
          dao.memberDelete(dto);        
+	}
+
+	@Override
+	public TeamDto teamInfo(int member_no) {
+		return dao.teamInfo(member_no);
 	}
 	
 

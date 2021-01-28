@@ -1,11 +1,15 @@
 package com.wv.root.model.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.MemberDto;
+import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -36,6 +40,20 @@ public class MemberDaoImpl implements MemberDao {
 		     // xml에서 memberMapper.memberDelete에 보시면
 		     // #{userId}, #{userPass}에 피라미터값이 매칭이 된다.
 		     sql.delete("memberDelete", dto);
+	}
+
+	@Override
+	public TeamDto teamInfo(int member_no) {
+		TeamDto res = new TeamDto();
+		try {
+			List<TeamMemberDto> list = sql.selectList("wvteam.memberSteam", member_no);
+			res.setTmlist(list);
+		} catch (Exception e) {
+			System.out.println("[teamInfo] 팀정보 불러오기 실패!");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 }
 

@@ -6,7 +6,12 @@
   
 <mapper namespace="wvteam">
 	
-	
+	<select id="memberSteam" parameterType="int" resultType="com.wv.root.model.dto.TeamDto.TeamMemberDto">
+		select * 
+		from teammember tm join team t  ON tm.team_no = t.team_no
+		join mymember m  ON m.member_no = tm.member_no
+		where m.member_no = #{member_no}
+	</select>
 	
 	
 	
