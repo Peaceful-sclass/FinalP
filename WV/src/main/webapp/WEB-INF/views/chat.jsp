@@ -143,6 +143,7 @@ function msg_send_btn_click() {
 }
 
 function readAjax(){
+	var loginid= $("#member_id").val();
     
 	console.log(date);
     var data = {};
@@ -162,7 +163,7 @@ function readAjax(){
     			return;
     		}else{
     			for(var i=0; i<data.length; i++){
-    				if(data[i].member_id == 'user01'){
+    				if(data[i].member_id == loginid){
     					$(".msg_history").append(
     						"<div class='outgoing_msg'>"+
   				              "<div class='sent_msg'>"+
@@ -170,7 +171,7 @@ function readAjax(){
   				                "<span class='time_date'>"+data[i].regdate+"</span> </div>"+
   				            "</div>"
     					);
-    					scrollDown();
+    					
     				}else{
     					$(".msg_history").append(
     						"<div class='incoming_msg'>"+
@@ -183,7 +184,7 @@ function readAjax(){
   				            "</div>"
     					);
     				}	
-    				
+    				scrollDown();
     			}
     			var d= new Date();
 				date = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();	
@@ -217,7 +218,7 @@ function scrollDown(){
         <div class="mesgs">
           <div class="msg_history">
           
-            <!-- 나 이외의 다른사람 -->
+          <!--  
             <div class="incoming_msg">
               <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> 이름임
               <div class="received_msg">
@@ -228,18 +229,19 @@ function scrollDown(){
               </div>
             </div>
             
-            <!-- 내가 보낸 메시지 -->
+            
             <div class="outgoing_msg">
               <div class="sent_msg">
                 <p>Test which is a new approach to have all
                   solutions</p>
                 <span class="time_date"> 11:01 AM    |    June 9</span> </div>
             </div>
+            -->
             
             <c:forEach items="${chatList}" var = "chatList">
             
             <c:set var="id" value="${chatList.member_id}"></c:set>
-            <c:set var="loginid" value="user01"></c:set>
+            <c:set var="loginid" value="${member.member_id }"></c:set>
             	<c:choose>
             		
             		<c:when test="${id eq loginid }">
@@ -271,7 +273,7 @@ function scrollDown(){
             <div class="input_msg_write">
             	<!-- 들어온 채팅방번호,아이디 넣어줌 -->
             	<input type="hidden" id="chatting_no" value="1">
-            	<input type="hidden" id="member_id" value="user01">
+            	<input type="hidden" id="member_id" value="${member.member_id }">
             	
               <input type="text" id="content" class="write_msg" placeholder="메시지를 입력하세요." />
               <button class="msg_send_btn" type="button" id="sendBtn" onclick="msg_send_btn_click();" ><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
