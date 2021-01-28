@@ -92,7 +92,7 @@
 			//네비바 모임장소 클릭시 실행
 			function placemodalshow(){
 				$("#placeModal").modal({backdrop: 'static', keyboard: false});
-				$("#keyword").val("KH정보교육원");
+				$("#keyword").val("KH정보교육원 강남지원 1관");
 				$("#placeformup").hide();
                 $("#modal-title").text("모임장소")
                 $("#placeinsert").hide();
@@ -116,7 +116,6 @@
 					type:"post",
 					url:"placeselect.do",
 					success:function(result){
-						console.log("실행");
 						var htmlcode = "";
 						if(result.length<1){
 							htmlcode += '등록된 글이 없습니다.';
@@ -131,7 +130,7 @@
 							htmlcode += '<div class="input-box2"><span class="boxspan">인원</span>';
 							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
 							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
-							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();">초기화</button></div><hr>';
+							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();" style="margin-left: 20px; height: 47px;">조건초기화</button></div><hr>';
 							
 							$(result).each(function(){
 								htmlcode += '<div class="plsall"><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><hr></div>';
@@ -151,7 +150,6 @@
 					type:"post",
 					url:"placedetail.do?pno="+pno,
 					success:function(dto){
-						console.log("디테일");
 						$("#placeListAll").hide();
 						$("#placeDetail").show();
 						$("#allListShow").show();
@@ -162,9 +160,9 @@
 						var likecheck = likecheckAjax(pno, memberno);
 						placecommentAjax(pno);
 						var htmlcode = "";
-						htmlcode += '구비사항<br><div>콘센트여부: '+dto.soket+' 컴퓨터 사용가능 여부: '+dto.com+' 수용 가능 인원: '+dto.people+'</div>';	
+						htmlcode += '<div class="input-group" style="margin-bottom:0px; padding:0px;"><span class="boxspan" style="padding-left:0px;">콘센트</span><div class="input-box3"><label for="desoket">'+dto.soket+'</label></div><span class="boxspan">컴퓨터</span><div class="input-box3"><label for="decom">'+dto.com+'</label></div><span class="boxspan">수용 가능 인원</span><div class="input-box3"><label for="depeople">'+dto.people+'</label></div></div>';	
 						htmlcode += '<div>장소소개 : <span id="pct">'+dto.pcontent+'</sapn></div><div>위치</div>';	
-						htmlcode += '<div id="detailmap" style="width:95%;height:400px;margin: auto;"></div>';
+						htmlcode += '<div id="detailmap" style="width:95%; height:400px; margin: auto; border: 1px solid #c0bfbf; border-radius: 3px;"></div>';
 						if(likecheck==1){
 							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/like-img.png" onclick="likeCancel('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
 						}else if(likecheck==0){
@@ -190,7 +188,6 @@
 			function updatepform(pno, lat, lng){
 				var keyword = $("#modal-title").text();
 				var pcontent = $("#pct").text();
-				console.log("tnwjdvha");
 				var htmlcode = "";
 				htmlcode += '<table>';
 				htmlcode += '<tr>';
@@ -248,23 +245,23 @@
 				var lat=$("#plat").val();
 				var lng=$("#plng").val();
 				if(!ptitle){
-					alert("장소를 선택해주세요");
+					alert("장소를 선택해 주세요!");
 					return;
 				}
 				if(!pcontent.trim()){
-					alert("장소소개를 입력해주세요");
+					alert("장소 소개를 입력해 주세요!");
 					return;
 				}
 				if(!soket){
-					alert("콘센트 여부를 체크해주세요");
+					alert("콘센트 여부를 체크해 주세요!");
 					return;
 				}
 				if(!com){
-					alert("컴퓨터 사용여부를 체크해주세요");
+					alert("컴퓨터 사용여부를 체크해 주세요!");
 					return;
 				}
 				if(!people){
-					alert("수용가능인원을 체크해주세요");
+					alert("수용가능인원을 체크해 주세요!");
 					return;
 				}
 				var placeVal = {"pno" : pno, "ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng};
@@ -276,11 +273,11 @@
 					success:function(res){
 						if(res>0){
 							$(".map_wrap").hide();
-							$("#keyword").val("KH정보교육원");
+							$("#keyword").val("KH정보교육원 강남지원 1관");
 							$("#placeformup").hide();
 							placeDetailAjax(pno);
 						}else{
-							alert("글수정에 실패했습니다.");
+							alert("글 수정에 실패했습니다.");
 						}
 					},
 					error:function(){
@@ -296,8 +293,10 @@
 					success:function(res){
 						if(res>0){
 							placemodalshow();
+							$("#pdbutton").remove();
+							$("#pubutton").remove();
 						}else{
-							alert("글삭제에 실패했습니다.");
+							alert("글 삭제에 실패했습니다.");
 						}
 					},
 					error:function(){
@@ -357,7 +356,7 @@
 			function likeinsert(pno){
 				var memberno = $("#pmemberno").val();
 				if(!memberno){
-					alert("로그인후 가능합니다.");
+					alert("로그인 후 가능합니다.");
 				}else{
 					var likeval= {"pno" : pno, "memberno" : memberno};
 					var img = $("#likeimg");
@@ -374,7 +373,7 @@
 								img.attr('onclick','likeCancel('+pno+');');
 								$("#plike").text(plike+1);
 							}else{
-								alert("좋아요실패!");
+								alert("좋아요 실패!");
 							}
 						},
 						error:function(){
@@ -386,9 +385,8 @@
 			//모임 장소 글쓰기 버튼 클릭시 실행
             $("#placeinsertform").click(function() {
 				var memberno = $("#pmemberno").val();
-				console.log(memberno);
 				if(!memberno){
-					alert("로그인후 이용가능합니다.");
+					alert("로그인 후 이용가능합니다.");
 				}else{
 					$("#modal-title").text("모임장소글쓰기");
 					$("#placeinsertform").hide();
@@ -409,7 +407,6 @@
 			//디테일 함수 실행시 좋아요 체크 함수
 			function likecheckAjax(pno, memberno){
 				if(!memberno){
-					console.log("로그인안했주")
 					return 2;
 				}else{
 					var likeval= {"pno" : pno, "memberno" : memberno};
@@ -433,7 +430,7 @@
 				
 			}
 			//글쓸때 맵에서 장소 선택시 실행될 함수    
-			function placeselect(){				
+			function placeselect(){	
 				var lat = $("#markerlat").val();
 				var lng = $("#markerlng").val();
 				var title = $("#markertitle").val();
@@ -448,7 +445,7 @@
 			//목록으로 클릭시 실행
 			function allListShow(){
                 $("#modal-title").text("모임장소")
-				$("#keyword").val("KH정보교육원");
+				$("#keyword").val("KH정보교육원 강남지원 1관");
 				$("#placeformup").hide();
                 $("#placeinsert").hide();
 				$(".map_wrap").hide();
@@ -475,23 +472,23 @@
 				var lng=$("#lng").val();
 				var memberno = $("#pmemberno").val();
 				if(!ptitle){
-					alert("장소를 선택해주세요");
+					alert("장소를 선택해 주세요!");
 					return;
 				}
 				if(!pcontent.trim()){
-					alert("장소소개를 입력해주세요");
+					alert("장소 소개를 입력해주세요!");
 					return;
 				}
 				if(!soket){
-					alert("콘센트 여부를 체크해주세요");
+					alert("콘센트 여부를 체크해 주세요!");
 					return;
 				}
 				if(!com){
-					alert("컴퓨터 사용여부를 체크해주세요");
+					alert("컴퓨터 사용여부를 체크해 주세요!");
 					return;
 				}
 				if(!people){
-					alert("수용가능인원을 체크해주세요");
+					alert("수용가능인원을 체크해 주세요!");
 					return;
 				}
 				var placeVal = {"ptitle" : ptitle, "pcontent" : pcontent, "ptitle" : ptitle, "soket" : soket, "com" : com, "people" : people, "lat" : lat, "lng" : lng, "memberno" : memberno};
@@ -566,7 +563,7 @@
 			function editPcomment(pcno,pcwriter,pccontent,pno,memberno){
 				var pmemberno = $("#pmemberno").val();
 				if(pmemberno != memberno){
-					alert("작성자만 수정할수있습니다.");
+					alert("작성자만 수정할 수 있습니다!");
 				}else{
 					var htmlcode = "";
 					htmlcode += '<div class="media text-muted pt-3" id="pcs'+pcno+'">';
@@ -593,9 +590,9 @@
 			function deletePcomment(pcno, pno, memberno){
 				var pmemberno = $("#pmemberno").val();
 				if(pmemberno != memberno){
-					alert("작성자만 삭제할수있습니다.");
+					alert("작성자만 삭제할 수 있습니다!");
 				}else{
-					if(confirm("정말로 삭제 하시겠습니까?")){
+					if(confirm("삭제하시겠습니까?")){
 						$.ajax({
 							type:"post",
 							url:"deletePcomment.do?pcno="+pcno,
@@ -619,7 +616,7 @@
 			function updatePcomment(pcno, pno){
 				var editPcontent = $("#editPcontent").val();
 				if(!editPcontent.trim()){
-					alert("댓글을 입력해주세요");
+					alert("댓글을 입력해 주세요.");
 					return;					
 				}
 				var pcommentVal = {"pcno" : pcno, "pccontent" : editPcontent}
@@ -651,7 +648,7 @@
 				}else{
 					var placecomment = $("#placecomment").val();
 					if(!placecomment.trim()){
-						alert("댓글을 입력해주세요");
+						alert("댓글을 입력해 주세요.");
 						return;					
 					}
 					var pcwriter = "admin";
@@ -664,7 +661,6 @@
 						dataType:"json",
 						success:function(msg){
 							if(msg.insert==true){
-								alert("등록성공");
 								$("#placecomment").val("");
 								placecommentAjax(pno);
 							}else{
@@ -686,13 +682,13 @@
 	    	mapOption = {
 	    	center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
 	        level: 3 // 지도의 확대 레벨
-    	};  
+    		};  
 
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places(); 
-		
+
 		var customOverlay = new kakao.maps.CustomOverlay({});
 		// 키워드로 장소를 검색합니다
 		searchPlaces();
@@ -760,7 +756,7 @@
 		        // LatLngBounds 객체에 좌표를 추가합니다
 		        bounds.extend(placePosition);
 
-		        // 마커와 검색결과 항목에 mouseover 했을때
+		        // 마커와 검색결과 항목에 클릭 했을때
 		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 		        // mouseout 했을 때는 인포윈도우를 닫습니다
 		        (function(marker, title) {
@@ -785,8 +781,7 @@
 
 		    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 		    map.setBounds(bounds);
-		}
-
+		}	
 		// 검색결과 항목을 Element로 반환하는 함수입니다
 		function getListItem(index, places) {
 
@@ -813,11 +808,11 @@
 
 		// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 		function addMarker(position, idx, title) {
-		    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+		    var imageSrc = 'images/marker_number.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
 		        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
 		        imgOptions =  {
 		            spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-		            spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+		            spriteOrigin : new kakao.maps.Point(0, (idx*46)+9), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
 		            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
 		        },
 		        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
@@ -881,7 +876,7 @@
 			var content = '<div class="customoverlay">' +
 			    '  <div class="pmcs">'+
 			    '    <span>'+title+'</span>' +
-				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px;" onclick="placeselect();">선택</button>'+
+				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px; border: 1px solid #c0bfbf;" onclick="placeselect();">선택</button>'+
 			    '  </div>'+latlng+
 			    '</div>';
 			customOverlay.setPosition(marker.getPosition());
@@ -922,9 +917,14 @@
 			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
 			//저장된 장소의 위도 경도
 			var markerPosition2  = new kakao.maps.LatLng(lat, lng); 
+			var imageSrc = 'images/markers.png', // 마커이미지의 주소입니다    
+    		imageSize = new kakao.maps.Size(25, 35), // 마커이미지의 크기입니다
+    		imageOption = {offset: new kakao.maps.Point(14, 35)};
+			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 			//저장된 위도 경도로 마커 생성
 			var marker2 = new kakao.maps.Marker({
-			    position: markerPosition2
+			    position: markerPosition2,
+				image: markerImage 
 			});
 			//만든 마커 디테일맵에 추가
 			marker2.setMap(map2);
@@ -940,7 +940,6 @@
 			var customOverlay2 = new kakao.maps.CustomOverlay({
 			    map: map2,
 			    position: position2,
-			    content: content2 
+			    content: content2
 			});
 		};
-		

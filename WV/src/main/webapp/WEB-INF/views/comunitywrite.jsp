@@ -41,7 +41,7 @@
 	  	border: 1px solid rgba(239, 204, 135, 0.8);
 	  }
 	</style>
-
+	
 
 
 </head>
@@ -68,7 +68,7 @@
 					<!-- Category 입력 -->
 					<div class="dv-category">
 						<select name="category" style="border: 1px solid rgba(239, 204, 135, 1);" >
-							<option value="선택" <c:out value="${dto.category == null ? 'selected':''}" />>카테고리를 선택해주세요</option>
+							<option value="" <c:out value="${dto.category == null ? 'selected':''}" />>카테고리를 선택해주세요</option>
 							<option value="자유" ${dto.category eq'자유'? 'selected':''} >자유</option>
 							<option value="Q&A" <c:out value="${dto.category eq'Q&A'? 'selected':''}" />>Q&A</option>
 						</select>
@@ -159,16 +159,31 @@
 	</form> -->
 	<script src="js/comunity.js"></script>
 	<script>
-		var quill = new Quill('#editor-container', {
-		    modules: {
-		      formula: true,
-		      syntax: true,
-		      toolbar: '#toolbar-container'
-		    },
-		    placeholder: '내용을 입력해 주세요.',
-		    theme: 'snow'
-		});
-		quill.root.innerHTML = '${dto.content}';
+		/* window.addEventListener("load", function() {
+	
+		}, false) ; */
+	
+			hljs.configure({
+				  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
+				});
+				
+				var quill = new Quill('#editor-container', {
+				    modules: {
+				      formula: true,
+				      syntax: true,
+				      toolbar: '#toolbar-container'
+				    },
+				    placeholder: '내용을 입력해 주세요.',
+				    theme: 'snow'
+				});
+
+				let ctt1 = JSON.stringify(${dto.content});
+				let	ctt2 = JSON.parse(ctt1);
+				console.log(ctt2);
+				//const delta = quill.clipboard.convert(ctt);
+				
+				quill.setContents(ctt2, 'silent');
+		
 	</script>
 	<input type="hidden" name="member_no" id="memberno" value="${member.member_no }" />
 	<input type="hidden" name="member_id" id="memberid" value="${member.member_id }" />
