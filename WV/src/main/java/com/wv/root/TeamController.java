@@ -37,7 +37,7 @@ public class TeamController {
 		if(res > 0) {
 			request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));
 		}
-		reat.addFlashAttribute("createTeamRes", res);
+		model.addAttribute("createTeamRes", res);
 		
 		return "teamcreate";
 	}
