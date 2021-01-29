@@ -1,5 +1,8 @@
 package com.wv.root.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +25,32 @@ public class ContestDaoImpl implements ContestDao{
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	@Override
+	public ContestDto detailpage(int contestnum) {
+		ContestDto dto = null;
+		try {
+			dto = sqlSession.selectOne(NAMESPACE+"selectOne", contestnum);
+		} catch (Exception e) {
+			System.out.println("[error]: select one");
+			e.printStackTrace();
+		}		
+		return dto;
+	}
+
+	@Override
+	public List<ContestDto> contestList() {
+		List<ContestDto> list = new ArrayList<ContestDto>();
+		
+		try {
+			list = sqlSession.selectList(NAMESPACE+"selectList");
+		} catch (Exception e) {
+			System.out.println("[error]: select list");
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 }
