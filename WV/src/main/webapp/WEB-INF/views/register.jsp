@@ -10,13 +10,32 @@
 	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<title>회원가입</title>
+		
+		<style>
+		   #userId{
+		         width:140px;
+		   }
+		   #userPass{
+		         width:140px;
+		   }	
+		   #userPassC{
+		         width:140px; 
+		   }	   
+		   #userEmail{
+		         width:200px;
+		   }	
+		   #userGrade{
+		         width:140px;  
+		   }	
+		</style>
+		
 	</head>
 	<script type="text/javascript">
 				$(document).ready(function(){
 			// 취소
 			$(".cencle").on("click", function(){
 				
-				location.href = "/";
+				location.href = "/root";
 						    
 			})
 			$("#submit").on("click", function(){
@@ -35,25 +54,37 @@
 					$("#userEmail").focus();
 					return false;
 				}
-				
 			});
-			
-			
-		
-			
 		})
-	</script>
+          
+				function tocheckpw(){
+					var member_pw=document.getElementById("userPass").value;
+					var member_pwC=document.getElementById("userPassC").value;
+				
+				if(member_pw != member_pwC){
+					document.getElementById('pwsame').innerHTML = '비밀번호가다릅니다 다시입력해서주세요'
+				   return false;
+				}
+				}
+		
+		
+    </script>
 	<body>
 		<section id="container">
-			<form action="register.do" method="post">
+			<form action="register.do" onsubmit="return tocheckpw()" data-ajax="false" method="post" >
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
-					<input class="form-control" type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+					<input class="form-control"  type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>
-					<input class="form-control" type="password" id="userPass" name="member_pw" />
+					<input class="form-control" type="password" id="userPass" name="member_pw" placeholder="패스워드"/>
 				</div>
+				<div class="form-group has-feedback">
+					<label class="control-label" for="member_pwC">패스워드확인</label>
+                     <input class="form-control" type="password" id="userPassC" name="member_pw" placeholder="패스워드확인"/>   
+				     <p id="pwsame" style="color:red;"></p>
+				</div>				
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
 					<input class="form-control" type="text" id="userEmail" name="member_email" />

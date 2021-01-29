@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.MemberBiz;
@@ -30,19 +31,18 @@ public void getRegister() throws Exception {
 @RequestMapping(value = "register.do", method = RequestMethod.POST)
 public String postRegister(MemberDto dto) throws Exception {
 	logger.info("post register");
-	
 	biz.register(dto);
-	
+
 	return "home";
 }
 
 //로그인
 @RequestMapping(value = "login.do", method = RequestMethod.POST)
-public String login(MemberDto vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+public String login(MemberDto dto, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 	logger.info("post login");
 	
 	HttpSession session = req.getSession();
-	MemberDto login = biz.login(vo);
+	MemberDto login = biz.login(dto);
 	
 	if(login == null) {
 		session.setAttribute("member", null);
@@ -106,5 +106,15 @@ public String memberDelete(MemberDto dto, HttpSession session, RedirectAttribute
 	session.invalidate();
 	return "redirect:/";
 }
+
+//탈퇴 비번확인
+   @ResponseBody
+   @RequestMapping(value="/passChk", method = RequestMethod.POST)
+	public int passChk(MemberDto dto) throws Exception {
+		int result = biz.passChk(dto);
+		return result;
+	
+   }
+   
 
 }

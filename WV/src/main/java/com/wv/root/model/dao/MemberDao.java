@@ -16,4 +16,9 @@ public interface MemberDao {
 	
 	// 회원탈퇴
 	public void memberDelete(MemberDto dto) throws Exception;
+	
+	// 탈퇴 비번 체크
+	public int passChk(MemberDto dto) throws Exception;
+	
+
 }
