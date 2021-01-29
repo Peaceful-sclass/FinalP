@@ -39,6 +39,7 @@ public class MemberBizImpl implements MemberBiz{
 	@Override
 	public TeamDto teamInfo(int member_no) {
 		return dao.teamInfo(member_no);
+	}
   
 	//탈퇴비번체크
 	@Override
