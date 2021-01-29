@@ -3,8 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contest">
+	<resultMap type="ContestDto" id="ContestMap">
+		<result property="contestnum" column="CONTESTNUM" />
+		<result property="contestname" column="CONTESTNAME" />
+		<result property="contestagent" column="CONTESTAGENT" />
+		<result property="contestsupervision" column="CONTESTSUPERVISION" />
+		<result property="contesupport" column="CONTESUPPORT" />
+		<result property="contestfield" column="CONTESTFIELD" />
+		<result property="contesttarget" column="CONTESTTARGET" />
+		<result property="contestcompany" column="CONTESTCOMPANY" />
+		<result property="contestreward" column="CONTESTREWARD" />
+		<result property="conteststart" column="CONTESTSTART" />
+		<result property="contestend" column="CONTESTEND" />
+		<result property="contestcontent" column="CONTESTCONTENT" />
+		<result property="contestposter" column="CONTESTPOSTER" />
+		<result property="contestsvaefilename" column="CONTESTSVAEFILENAME" />
+		<result property="contestorifilename" column="CONTESTORIFILENAME" />
+		<result property="contestpage" column="CONTESTPAGE" />
+		<result property="contestperson" column="CONTESTPERSON" />
+		<result property="contestphone" column="CONTESTPHONE" />
+		<result property="contestemail" column="CONTESTEMAIL" />
+		<result property="memberno" column="MEMBERNO" />
+	</resultMap>
+
+	<select id="selectList" resultMap="ContestMap" >
+		SELECT CONTESTNUM, CONTESTNAME, CONTESTAGENT, CONTESTSUPERVISION, CONTESUPPORT, CONTESTFIELD, CONTESTTARGET, CONTESTCOMPANY, CONTESTREWARD, CONTESTSTART, CONTESTEND, CONTESTCONTENT, CONTESTPOSTER, CONTESTSVAEFILENAME, CONTESTORIFILENAME, CONTESTPAGE, CONTESTPERSON, CONTESTPHONE, CONTESTEMAIL, MEMBERNO
+		FROM CONTEST
+		ORDER BY CONTESTNUM DESC
+	</select>
+	
 	<insert id="insert" parameterType="ContestDto">
 		INSERT INTO CONTEST
 		VALUES(CONTESTSEQ.NEXTVAL, #{contestname}, #{contestagent}, #{contestsupervision}, #{contesupport}, #{contestfield}, #{contesttarget}, #{contestcompany}, #{contestreward}, #{conteststart}, #{contestend}, #{contestcontent}, #{contestposter}, #{contestsvaefilename}, #{contestorifilename}, #{contestpage}, #{contestperson}, #{contestphone}, #{contestemail}, #{memberno})
-	</insert>	
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="ContestDto">
+		SELECT CONTESTNUM, CONTESTNAME, CONTESTAGENT, CONTESTSUPERVISION, CONTESUPPORT, CONTESTFIELD, CONTESTTARGET, CONTESTCOMPANY, CONTESTREWARD, CONTESTSTART, CONTESTEND, CONTESTCONTENT, CONTESTPOSTER, CONTESTSVAEFILENAME, CONTESTORIFILENAME, CONTESTPAGE, CONTESTPERSON, CONTESTPHONE, CONTESTEMAIL, MEMBERNO
+		FROM CONTEST
+		WHERE CONTESTNUM = #{contestnum}
+	</select>	
 </mapper>
