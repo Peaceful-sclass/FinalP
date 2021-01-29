@@ -44,6 +44,7 @@
 	<link rel="stylesheet" href="css/quill.snow.css" />
 
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/toastr.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -54,6 +55,27 @@
 				location.href = "comunity.do?category=전체&currentPage=1";
 			}
 		};
+		
+		function chkHasTeam() {
+			let login = "${member.member_id}";
+			if(login == null || login == "" || login == undefined){
+				toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
+				return false;
+			}
+			let form = document.createElement("form");
+			let sessioninfo = "${team[0].team_no}";
+			$(form).append($('<input/>', {type: 'hidden', name: 'member_no', value:'${member.member_no}' }));
+			$(form).append($('<input/>', {type: 'hidden', name: 'member_id', value:'${member.member_id}' }));
+			form.method = "post";
+			if(sessioninfo == null || sessioninfo == "" || sessioninfo == undefined){
+				form.action = 'teamcreateform.do';
+			}else{
+				form.action = 'team.do';
+			}
+			document.body.appendChild(form);
+			console.log("formAction: "+ form.action);
+			form.submit();
+		}
 		
 	</script>		
 </head>
@@ -83,7 +105,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="/">
 					<img src="images/logof.png" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,10 +115,10 @@
 					<ul class="navbar-nav ml-auto">
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
-						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
+						<li class="nav-item"><a class="nav-link" href="#" onclick="chkHasTeam(); return false;">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="shareDocumentList.do">팀메뉴2</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
-						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
+						<!-- <li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li> -->
 						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
 					</ul>
 		
@@ -262,7 +284,6 @@
 	<script src="js/baguetteBox.min.js"></script>
 	<script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
-    <script src="js/toastr.min.js"></script>
     <script src="js/custom.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1056e51774c015f0b972ae144cc7411f&libraries=services"></script>
     <script src="js/place.js"></script>

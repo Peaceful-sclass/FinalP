@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+#team-create{
+	/*border: 1px solid grey;*/
+	border-radius: 10px;        
+	width: 600px;
+	height: 530px;
+	/*background-color: #f8f9fa;  임시 색 */
+	background-color: rgba(232,235,238,0.5); 
+}
+.team-create-in{
+	padding: 5px 50px 50px 50px;
+	/*border: 1px solid grey;*/
+	width: 100%;
+	height: 250px;
+}
+#tn,#ti{
+    width: 100%;
+	margin: 5px;
+    border: none;
+    resize: none;
+}
+.team-create-btarea{
+	/*border: 1px solid grey;*/
+	width: 100%;
+	height: 50px;
+	text-align: center;
+}
+.team-create-bt{		 /*no use*/
+	border: 1px solid white;
+}
