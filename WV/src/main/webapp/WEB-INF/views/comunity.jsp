@@ -49,7 +49,7 @@
 	    let searchSelectTag = document.getElementsByName("searchselect")[0];
 	    searchSelectTag.value = "${schdto.searchsel}";
 	    console.log("searchSelectTag.value: "+searchSelectTag.value)
- 	}
+	}
  	
  	let cmwriteform = (no) => {
  		if(no != null && no != "" && no != undefined){ //로긴전 기초검증
@@ -89,7 +89,23 @@
 					</div>
 					<!-- 내용 -->
 					<div class="dv-middle">
-						<div class="dv-content ql-editor"></div>
+						<div class="dv-content">
+							<script>
+								hljs.configure({
+								  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
+								});
+							
+								var quill = new Quill('.dv-content', {
+								  modules: {
+								    formula: true,
+								    syntax: true,
+								    toolbar: false
+								  },
+								  //readOnly: true,
+								  theme: 'snow'});
+								document.querySelector(".ql-editor").setAttribute("contenteditable","false");
+							</script>
+						</div>
 						<!-- <textarea class="dv-textarea" name="dv-content-ta" cols="300" rows="900"></textarea> -->
 					</div>
 					<!-- 삭제버튼 -->
@@ -229,7 +245,7 @@
 						
 						<!-- paging start -->						
 						<c:if test="${cpdto.prev > 0 }">
-							<a href="#" name="prev" value="${cpdto.prev }" onclick="cmpageChange(this); return false;">&amp;이전</a>
+							<a href="#" name="prev" value="${cpdto.prev }" onclick="cmpageChange(this); return false;">&lt;이전</a>
 						</c:if>
 						<c:forEach var="i" begin="${first }" end="${last }" >
 							<c:if test="${i > 0 }">

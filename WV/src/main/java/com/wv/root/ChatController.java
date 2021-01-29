@@ -1,13 +1,8 @@
 package com.wv.root;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.javassist.Loader.Simple;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -32,7 +27,6 @@ public class ChatController {
 	
 	@Autowired
 	private ChatBiz biz;
-	
 	@RequestMapping(value = "Chatting.do", method = RequestMethod.GET)
 	public String chatting(Model model) {
 		logger.info("chat");
@@ -70,14 +64,7 @@ public class ChatController {
 		chatajax tmp = new chatajax(chatting_no, date);
 		
 		List<chatajaxres> rlist = biz.chatajax(tmp);
-//		Map<String, Object> rmap = new HashMap<String, Object>();
-		
-		
-//		for(int i=0; i<rlist.size(); i++) {
-//			rmap.put("member_id",rlist.get(i).getMember_id());
-//			rmap.put("content",rlist.get(i).getContent());
-//			rmap.put("regdate",rlist.get(i).getRegdate());
-//		}
+
 		JSONArray jlist = new JSONArray();
 		if(rlist.size()==0) {
 			return jlist;

@@ -105,8 +105,11 @@ let cmwrite = () => {
     let cmd = window.location.pathname;
 	let form = document.createElement("form");
 	let input = document.createElement("input");
-	let content = quill.root.innerHTML;
-	form.method = "get";
+	let content = quill.getContents();  /*quill.root.innerHTML;*/
+	console.log(content);
+	content = JSON.stringify(content);
+	console.log(content);
+	form.method = "post";
 	input.type = "hidden";
 	input.name = "content";
     input.value= content; //내용
@@ -138,7 +141,8 @@ let cmwrite = () => {
 		toastr.warning("제목을 입력해주세요.", "제목 필요!", {timeOut: 5000});
 		title.focus();
 		return false;
-	} else if(category == null || category == "" || category == undefined){
+	}  
+	if(category == null || category == "" || category == undefined){
 		toastr.warning("카테고리를 선택해주세요.", "카테고리 필요!", {timeOut: 5000});
 		document.querySelector("select[name=category]").focus();
         return false;
@@ -154,6 +158,7 @@ let cmwrite = () => {
 /////// 목록의 글보기 Detail view
 
 function titleClick(param) {
+	$(".dv-reply-canclebt").click();
 	$("#cmt").html("");
 	console.log("param.dataset: "+param.dataset['cno']);
 	$.ajax({
@@ -173,7 +178,9 @@ function titleClick(param) {
             console.log("rt.dto.regdate: "+rt.dto.regdate);
 			$(".dv-subject2").children().eq(2).text(rt.dto.regdate);
 			$(".dv-subject2").children().eq(4).text(rt.dto.views);
-			$(".dv-content").html(rt.dto.content);
+			let content = JSON.parse(rt.dto.content);
+            //console.log("rt.dto.content: "+ content);
+			quill.setContents(content, 'user');
 			
 			//현재회원과 작성자가 동일하면 버튼추가
 			if(param.dataset['mid'] === rt.dto.member_id){

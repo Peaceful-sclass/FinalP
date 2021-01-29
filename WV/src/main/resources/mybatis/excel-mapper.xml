@@ -40,8 +40,8 @@
   
   	<update id="updateExcel" parameterType="ExcelDto">
 		UPDATE EXCELDOCUMENT
-		SET ACOL=#{colA}, BCOL=#{colB}, CCOL=#{colC}, DCOL=#{colD}, ECOL=#{colE}, FCOL=#{colF}, GCOL=#{colG}, HCOL=#{colH}, ICOL=#{colI}, JCOL=#{colJ}
-		WHERE TEAMNO=#{excelNo} AND ROWNO=#{rowNo}
+		SET ACOL = #{colA}, BCOL = #{colB}, CCOL = #{colC}, DCOL = #{colD}, ECOL = #{colE}, FCOL = #{colF}, GCOL = #{colG}, HCOL = #{colH}, ICOL = #{colI}, JCOL = #{colJ}
+		WHERE TEAMNO = #{teamNo} AND ROWNO = #{rowNo}
 	</update>
   
   
