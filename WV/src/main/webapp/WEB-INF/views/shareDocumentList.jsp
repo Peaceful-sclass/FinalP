@@ -5,7 +5,11 @@
 <% 	response.setContentType("text/html; charset=UTF-8"); %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <%-- %@ page session="false" %> --%>
+
+
 
 <!DOCTYPE html>
 <html lang="ko"><!-- Basic -->
@@ -17,10 +21,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
      <!-- Site Metas -->
-    <title>sidemenu example</title>  
+    <title>sidemenu example</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+	
+	<!-- calendar -->
+	<link href="fullcalendar/main.css" rel="stylesheet" />
+	<script src="fullcalendar/main.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var calendarEl = document.getElementById('calendar');
+	
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialDate : '2020-09-12',
+				editable : true,
+				selectable : true,
+			      selectMirror: true,
+			      select: function(arg) {
+			        var title = prompt('Event Title:');
+			        if (title) {
+			          calendar.addEvent({
+			            title: title,
+			            start: arg.start,
+			            end: arg.end,
+			            allDay: arg.allDay
+			          })
+			        }
+			        calendar.unselect()
+			      },
+			      eventClick: function(arg) {
+			        if (confirm('Are you sure you want to delete this event?')) {
+			          arg.event.remove()
+			        }
+			      },
+			      editable: true,
+				businessHours : true,
+				dayMaxEvents : true, // allow "more" link when too many events
+				events : [ {
+					title : 'All Day Event',
+					start : '2020-09-01'
+				}, {
+					title : 'Long Event',
+					start : '2020-09-07',
+					end : '2020-09-10'
+				}, {
+					groupId : 999,
+					title : 'Repeating Event',
+					start : '2020-09-09T16:00:00'
+				}, {
+					groupId : 999,
+					title : 'Repeating Event',
+					start : '2020-09-16T16:00:00'
+				}, {
+					title : 'Conference',
+					start : '2020-09-11',
+					end : '2020-09-13'
+				}, {
+					title : 'Meeting',
+					start : '2020-09-12T10:30:00',
+					end : '2020-09-12T12:30:00'
+				}, {
+					title : 'Lunch',
+					start : '2020-09-12T12:00:00'
+				}, {
+					title : 'Meeting',
+					start : '2020-09-12T14:30:00'
+				}, {
+					title : 'Happy Hour',
+					start : '2020-09-12T17:30:00'
+				}, {
+					title : 'Dinner',
+					start : '2020-09-12T20:00:00'
+				}, {
+					title : 'Birthday Party',
+					start : '2020-09-13T07:00:00'
+				}, {
+					title : 'Click for Google',
+					url : 'http://google.com/',
+					start : '2020-09-28'
+				} ]
+			});
+	
+			calendar.render();
+		});
+	</script>
+<style>
+body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+#calendar {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+</style>
 
 </head>
 
@@ -413,7 +511,10 @@
 												<tr>
 													<td colspan="11" align="right">
 														<form action="shareDocumentUpdateForm.do">
+															<!-- 팀번호 받아넘김 -->
 															<input name="teamNo" value="1" hidden="true">
+															<input type="button" value="달력" onclick="location.href='shareCalendar.do'">	
+															<input type="button" id="btnExcelDown" name="btnExcelDown" value="엑셀다운" onclick="location.href='excelDown.do'">	
 															<input type="submit" name="checkVal"value="문서작성">	
 														</form>
 													</td>
@@ -463,42 +564,17 @@
 							</div>
 							
 						</div>
-						<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid lunch">
-									<div class="gallery-single fix">
-										<img src="images/img-04.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Lunch 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $15.79</h5>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-4 col-md-6 special-grid lunch">
-									<div class="gallery-single fix">
-										<img src="images/img-05.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Lunch 2</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $18.79</h5>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-4 col-md-6 special-grid lunch">
-									<div class="gallery-single fix">
-										<img src="images/img-06.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Lunch 3</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $20.79</h5>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" style="max-width:100;%">
+							
+						
+								<div id='calendar'></div>
+						
+							
 						</div>
+						
+						
+						
+						
 						<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 							<div class="row">
 								<div class="col-lg-4 col-md-6 special-grid dinner">
