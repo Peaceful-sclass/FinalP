@@ -47,7 +47,7 @@ public String login(MemberDto vo, TeamDto teamdto, HttpServletRequest req, Redir
 	logger.info("post login");
 	
 	HttpSession session = req.getSession();
-	MemberDto login = biz.login(dto);
+	MemberDto login = biz.login(vo);
 	
 	if(login == null) {
 		session.setAttribute("member", null);
