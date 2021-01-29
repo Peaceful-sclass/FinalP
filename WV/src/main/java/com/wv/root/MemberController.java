@@ -54,7 +54,7 @@ public String login(MemberDto vo, TeamDto teamdto, HttpServletRequest req, Redir
 	}else {
 		session.setAttribute("member", login);
 		List<TeamMemberDto> team = biz.teamInfo(login.getMember_no()).getTmlist();
-		session.setAttribute("team", team);
+		session.setAttribute("team", team); //로그인하면서 팀정보 추가
 	}
 	
 	return "redirect:/";

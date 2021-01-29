@@ -48,13 +48,15 @@
 					<div class="tab-content" id="v-pills-tabContent">
 
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+							<!-- row안에 팀목록이 주루룩 들어가게... -->
+							
 							<div class="row">
 								<div class="col-lg-4 col-md-6 special-grid drinks">
 									<div class="gallery-single fix">
 										<img src="images/img-01.jpg" class="img-fluid" alt="Image">
 										<div class="why-text">
 											<h4>팀 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
+											<p>Sed id </p>
 											<h5> $7.79</h5>
 										</div>
 									</div>
@@ -62,72 +64,7 @@
 							</div>
 						</div>
 						
-						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid drinks">
-									<div class="gallery-single fix">
-										<img src="images/img-01.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Drinks 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $7.79</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid lunch">
-									<div class="gallery-single fix">
-										<img src="images/img-04.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Lunch 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $15.79</h5>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-4 col-md-6 special-grid lunch">
-									<div class="gallery-single fix">
-										<img src="images/img-05.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Lunch 2</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $18.79</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid dinner">
-									<div class="gallery-single fix">
-										<img src="images/img-07.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Dinner 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $25.79</h5>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-4 col-md-6 special-grid dinner">
-									<div class="gallery-single fix">
-										<img src="images/img-08.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Dinner 2</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $22.79</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					
 						
 					</div><!-- tab content end -->
 
