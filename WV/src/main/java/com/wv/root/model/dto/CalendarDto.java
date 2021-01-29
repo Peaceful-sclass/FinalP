@@ -1,15 +1,15 @@
 package com.wv.root.model.dto;
 
-public class ShareCalendarDto {
+public class CalendarDto {
 	private int teamNo;
 	private int calNo;
 	private String calTitle;
 	private String calStart;
 	
-	public ShareCalendarDto() {
+	public CalendarDto() {
 		super();
 	}
-	public ShareCalendarDto(int teamNo, int calNo, String calTitle, String calStart) {
+	public CalendarDto(int teamNo, int calNo, String calTitle, String calStart) {
 		super();
 		this.teamNo = teamNo;
 		this.calNo = calNo;
