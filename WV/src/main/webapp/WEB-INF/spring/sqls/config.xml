@@ -19,13 +19,11 @@
 		<typeAlias type="com.wv.root.model.dto.Place_likeDto" alias="place_likeDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.Place_commentDto" alias="place_commentDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.SBCommentDto" alias="SBCommentDto"/>
-
 		<typeAlias type="com.wv.root.model.dto.ChatDto" alias="ChatDto"/>
 		<typeAlias type="com.wv.root.model.dto.ChattingDto" alias="ChattingDto"/>
 		<typeAlias type="com.wv.root.model.util.chatajax" alias="chatajax"/>
 		<typeAlias type="com.wv.root.model.util.chatajaxres" alias="chatajaxres"/>
-
-		
+		<typeAlias type="com.wv.root.model.dto.CalendarDto" alias="CalendarDto"/>
 		<typeAlias type="com.wv.root.model.dto.ExcelDto" alias="ExcelDto"/>
 
 		<!-- <typeAlias type="com.wv.root.model.dto.MemberDto" alias="member2Dto"></typeAlias> -->
@@ -42,10 +40,12 @@
 		<mapper resource="/mybatis/place_like-mapper.xml"></mapper>
 		<mapper resource="/mybatis/place_comment-mapper.xml"></mapper>
 		<mapper resource="/mybatis/SBComment-mapper.xml"></mapper>
-
+		<mapper resource="/mybatis/calendar-mapper.xml"></mapper>
+		<mapper resource="/mybatis/excel-mapper.xml"></mapper>
+		
+		
 		<mapper resource="/mybatis/chat-mapper.xml"></mapper>
 
-		<mapper resource="/mybatis/excel-mapper.xml"/>
 
 <!-- 		<mapper resource="/mybatis/board-mapper.xml"></mapper> 추가. -->
 	</mappers>
