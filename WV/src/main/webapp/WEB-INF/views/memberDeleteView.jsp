@@ -10,13 +10,26 @@
 	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<title>회원탈퇴</title>
+		
+				<style>
+		   #userId{
+		         width:130px;
+		   }
+		   #userPass{
+		         width:130px;
+		   }		   
+		   #userEmail{
+		         width:200px;
+		   }	
+
+		</style>
 	</head>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// 취소
 			$(".cencle").on("click", function(){
 				
-				location.href = "/";
+				location.href = "/root";
 						    
 			})
 		
@@ -26,15 +39,33 @@
 					$("#userPass").focus();
 					return false;
 				}	
+				$.ajax({
+					url : "passChk",
+					type : "POST",
+					dataType : "json",
+					data : $("#delForm").serializeArray(),
+					success: function(data){
+						
+						if(data==0){
+							alert("패스워드가 틀렸습니다.");
+							return;
+						}else{
+							if(confirm("회원탈퇴하시겠습니까?")){
+								$("#delForm").submit();
+							}
+							
+						}
+					}
+				})				
 			});
 			
-				
+		})	
 			
-		})
+		
 	</script>
 	<body>
 		<section id="container">
-			<form action="memberDelete.do" method="post">
+			<form action="memberDelete.do" method="post" id="delForm">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label>
 					<input class="form-control" type="text" id="userId" name="member_id" value="${member.member_id}" readonly="readonly"/>
@@ -45,7 +76,7 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
-					<input class="form-control" type="text" id="userName" name="member_email" value="${member.member_email}" readonly="readonly"/>
+					<input class="form-control" type="text" id="userEmail" name="member_email" value="${member.member_email}" readonly="readonly"/>
 				</div>
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>

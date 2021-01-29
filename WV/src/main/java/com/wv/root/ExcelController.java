@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ExcelBiz;
+import com.wv.root.model.dao.ExcelDao;
+import com.wv.root.model.dao.ExcelDaoImpl;
 import com.wv.root.model.dto.ExcelDto;
 
 /**
@@ -210,18 +213,33 @@ public class ExcelController {
 		
 		System.out.println(row1.getColB());
 		
-		int res = biz.updateExcel(row1)+biz.updateExcel(row2)+biz.updateExcel(row3)+biz.updateExcel(row4)+biz.updateExcel(row5)+
-				biz.updateExcel(row6)+biz.updateExcel(row7)+biz.updateExcel(row8)+biz.updateExcel(row9)+biz.updateExcel(row10);
-		
-		biz.updateExcel(row1);
-		
+		biz.updateExcel(row1);biz.updateExcel(row2);biz.updateExcel(row3);biz.updateExcel(row4);biz.updateExcel(row5);
+		biz.updateExcel(row6);biz.updateExcel(row7);biz.updateExcel(row8);biz.updateExcel(row9);biz.updateExcel(row10);
 
 
 		return "redirect:shareDocumentList.do";
 
-		
 	}
 	
+	//엑셀 다운
+	@RequestMapping(value = "/excelDown.do", method = RequestMethod.GET)
+	public String excelDown(HttpServletRequest httpServletRequest, Locale locale, Model model) {
+		logger.info("Excel Down");
+		
+		model.addAttribute("request", httpServletRequest); 
+		biz.downExcel(biz.selectCol(1), model);
+		
+		return "redirect:shareDocumentList.do";
+	}
+	
+	
+	@RequestMapping(value = "/shareCalendar.do", method = RequestMethod.GET)
+	public String shareCalendar(Locale locale, Model model) {
+
+		
+
+		return "shareCalendar";
+	}
 	
 	
 	

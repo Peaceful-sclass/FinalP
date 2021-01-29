@@ -55,6 +55,12 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return res;
 	}
+
+	public int passChk(MemberDto dto) throws Exception {
+        int result = sql.selectOne("passChk", dto);
+		return result;
+	}
+
 }
 
 
