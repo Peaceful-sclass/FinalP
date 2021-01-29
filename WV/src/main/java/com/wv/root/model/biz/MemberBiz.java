@@ -16,5 +16,4 @@ public interface MemberBiz {
 	
 	public int passChk(MemberDto dto) throws Exception;
 	
-	public int idChk(MemberDto dto) throws Exception;
 }

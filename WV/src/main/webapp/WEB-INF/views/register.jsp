@@ -13,11 +13,14 @@
 		
 		<style>
 		   #userId{
-		         width:130px;
+		         width:140px;
 		   }
 		   #userPass{
-		         width:130px;
-		   }		   
+		         width:140px;
+		   }	
+		   #userPassC{
+		         width:140px; 
+		   }	   
 		   #userEmail{
 		         width:200px;
 		   }	
@@ -51,46 +54,37 @@
 					$("#userEmail").focus();
 					return false;
 				}
-				
-				var idChkVal = $("#idChk").val();
-				if(idChkVal == "N"){
-					alert("중복확인을 해주세요");
-					return false;
-					
-				}else if(idChkVal == "Y"){
-					$("#regForm").submit();
-				}
 			});
 		})
-         $(document).on('click', '. "#fn_idChk"', function(){
-					$.ajax({
-					url : "idChk",	
-					type :"post",
-					dataType : "json",
-					data : {"userId" : $("#userId").val()},
-					success : function(data){
-						if(data == 1){
-							alert("중복된 아이디입니다.");
-						}else if(data == 0){
-							$("#idChk").attr("value", "Y");
-							alert("사용가능한 아이디입니다.");
-				        }
-					  }
-					});
-				})
+          
+				function tocheckpw(){
+					var member_pw=document.getElementById("userPass").value;
+					var member_pwC=document.getElementById("userPassC").value;
+				
+				if(member_pw != member_pwC){
+					document.getElementById('pwsame').innerHTML = '비밀번호가다릅니다 다시입력해서주세요'
+				   return false;
+				}
+				}
+		
+		
     </script>
 	<body>
 		<section id="container">
-			<form action="register.do" method="post" id="regForm">
+			<form action="register.do" onsubmit="return tocheckpw()" data-ajax="false" method="post" >
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
 					<input class="form-control"  type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
-				    <button class="idChk" type="button" id="idChk" id="fn_idChk" value="N">중복확인</button> 
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>
-					<input class="form-control" type="password" id="userPass" name="member_pw" />
+					<input class="form-control" type="password" id="userPass" name="member_pw" placeholder="패스워드"/>
 				</div>
+				<div class="form-group has-feedback">
+					<label class="control-label" for="member_pwC">패스워드확인</label>
+                     <input class="form-control" type="password" id="userPassC" name="member_pw" placeholder="패스워드확인"/>   
+				     <p id="pwsame" style="color:red;"></p>
+				</div>				
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
 					<input class="form-control" type="text" id="userEmail" name="member_email" />
