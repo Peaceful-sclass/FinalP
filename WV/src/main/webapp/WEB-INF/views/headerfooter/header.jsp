@@ -150,7 +150,9 @@
 			}
 		}
 	});
-	<!-- team -->	
+	
+	//팀
+	
 	function chkHasTeam() { //회원이 팀을 가진지 확인.
 		let login = "${member.member_id}";
 		if(login == null || login == "" || login == undefined){
