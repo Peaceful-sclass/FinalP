@@ -3,6 +3,9 @@ package com.wv.root;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -14,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.wv.root.model.biz.ChatBiz;
 import com.wv.root.model.dto.ChatDto;
+import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.util.chatajax;
 import com.wv.root.model.util.chatajaxres;
 
@@ -56,8 +61,17 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value = "read_ajax.do", method = RequestMethod.POST)
-	public JSONArray read_ajax(@RequestBody Map<String, Object> map){
+	public JSONArray read_ajax(@RequestBody Map<String, Object> map,HttpServletRequest request){
 		logger.info("read_ajax");
+		
+		HttpSession session = request.getSession();
+		String id = null;
+		try {
+			id = ((MemberDto) session.getAttribute("member")).getMember_id();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
+		
 		
 		String date =  String.valueOf(map.get("date"));
 		int chatting_no = Integer.parseInt(String.valueOf(map.get("chatting_no")));
@@ -66,6 +80,9 @@ public class ChatController {
 		List<chatajaxres> rlist = biz.chatajax(tmp);
 
 		JSONArray jlist = new JSONArray();
+		JSONObject tmp2 = new JSONObject();
+		tmp2.put("session_id", id);
+		jlist.add(tmp2);
 		if(rlist.size()==0) {
 			return jlist;
 		}else {
