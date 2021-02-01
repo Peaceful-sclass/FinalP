@@ -59,16 +59,15 @@
 	</script>	
 	
 	<style type="text/css">
+	
+	
 	      #lo{
 	          width: 60px;
 	          height: 30px;
 	          font-size: 10px;
 	      }
-	</style>
-	
-			<style>
 
-		
+		   
 		   #userId{
 		         width:80px;
 		         height: 25px;
@@ -80,29 +79,41 @@
 		   }
 		   
 		   #logbt{
-		         width:60px;
+		         width:70px;
 		         height: 25px;		
 		         font-size: 5px;
+		         border-style:none;
+		         background-color:  #f8f9fa;
 		   }
+
+		   
 		   #regibt{
-		         width:60px;
+		         width:65px;
 		         height: 25px;	
 		         font-size: 5px;
+		         border-style:none;
+		         background-color:  #f8f9fa;
 		   }
 		   #memberUpdateBtn{
 		         width:60px;
 		         height: 25px;	
-		         font-size: 5px;	
+		         font-size: 5px;
+		         border-style:none;	
+		         background-color:  #f8f9fa;
 		   }
 		   #memberDeleteBtn{
 		         width:60px;
 		         height: 25px;	
 		         font-size: 5px;	
+		         border-style:none;
+		         background-color:  #f8f9fa;
 		   }		   		   
 		   #outBtn{
 		         width:60px;
 		         height: 25px;	
 		         font-size: 5px;	
+		         border-style:none;
+		         background-color:  #f8f9fa;
 		   }    
 		   
 		          
@@ -204,14 +215,14 @@
 		<c:if test="${member == null}">
 			<div>
 				<label for="member_id"></label>
-				<input style="position: fixed; top: 5px; right: 233px;" type="text" id="userId" name="member_id">
+				<input style="position: fixed; top: 5px; right: 233px;" type="text" id="userId" name="member_id" placeholder="ID">
 			</div>
 			<div>
 				<label for="member_pw"></label>
-				<input style="position: fixed; top: 5px; right: 143px;" type="password" id="userPass" name="member_pw" >
+				<input style="position: fixed; top: 5px; right: 150px;" type="password" id="userPass" name="member_pw" placeholder="PW">
 			</div>
 			<div>
-				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt">로그인</button></a></span>
+				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt" >로그인</button></a></span>
 				      <span style="position: fixed; top: 5px; right: 10px;"><a href="register.do"><button type="button" id="regibt">회원가입</button></a></span>  
 				<!--<button type="submit">로그인</button>
 				<button id="registerBtn" type="button">회원가입</button>-->
@@ -219,6 +230,7 @@
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
+			<p style="position: fixed; top: 5px; right: 210px; font-size: 13; ">${member.member_id}환영합니다 </p>
 				<button style="position: fixed; top: 5px; right: 140px;" id="memberUpdateBtn" type="button">회원수정</button>
 				<!-- function빼고 해보기 
 				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->

@@ -13,10 +13,10 @@
 		
 				<style>
 		   #userId{
-		         width:130px;
+		         width:200px;
 		   }
 		   #userPass{
-		         width:130px;
+		         width:200px;
 		   }		   
 		   #userEmail{
 		         width:200px;
@@ -72,7 +72,7 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>
-					<input class="form-control" type="password" id="userPass" name="member_pw" />
+					<input class="form-control" type="password" id="userPass" name="member_pw" placeholder="현재 패스워드 입력"/>
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
