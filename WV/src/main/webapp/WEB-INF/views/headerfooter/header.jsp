@@ -129,7 +129,7 @@
 				<button id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
-		<c:if test="${msg == false}">
+		<c:if test="${msg == false}">     <!-- 컨트롤러값 -->
 			<p style="color: red;">아이디와 비밀번호 확인해주세요.</p>
 		</c:if>
 	</form>
