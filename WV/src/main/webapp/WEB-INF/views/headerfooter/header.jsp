@@ -55,8 +55,31 @@
 				location.href = "comunity.do?category=전체&currentPage=1";
 			}
 		};
-
+		
+		<!-- team -->	
+		function chkHasTeam() { //회원이 팀을 가진지 확인.
+			let login = "${member.member_id}";
+			if(login == null || login == "" || login == undefined){
+				toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
+				return false;
+			}
+			let form = document.createElement("form");
+			let sessioninfo = "${team[0].team_no}";
+			$(form).append($('<input/>', {type: 'hidden', name: 'member_no', value:'${member.member_no}' }));
+			$(form).append($('<input/>', {type: 'hidden', name: 'member_id', value:'${member.member_id}' }));
+			form.method = "post";
+			if(sessioninfo == null || sessioninfo == "" || sessioninfo == undefined){
+				form.action = 'teamcreateform.do';
+			}else{
+				form.action = 'team.do';
+			}
+			document.body.appendChild(form);
+			console.log("formAction: "+ form.action);
+			form.submit();
+		}
 	</script>	
+
+
 	
 	<style type="text/css">
 	
@@ -161,6 +184,7 @@
 			}
 		}
 	});
+
 	
 	//팀
 	
@@ -184,6 +208,9 @@
 		console.log("formAction: "+ form.action);
 		form.submit();
 	}
+
+
+
 </script>
 <body>
 	<!-- Start header -->

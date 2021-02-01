@@ -40,8 +40,16 @@ let teamIcon = (param)=>{
 	});
 };
 
-
-
+let sidePost = (url,memberno)=>{
+	$.ajax({
+		type: 'post',
+		url: url+'?member_no='+memberno,
+		success: function(){},
+		error:function(){
+			toastr.error("인터넷상태를 확인해주세요.", "인터넷에러!", {tiemOut: 5000});
+		}
+	});
+};
 
 
 
