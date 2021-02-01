@@ -25,12 +25,6 @@
 		<result property="contestemail" column="CONTESTEMAIL" />
 		<result property="memberno" column="MEMBERNO" />
 	</resultMap>
-
-	<select id="selectList" resultMap="ContestMap" >
-		SELECT CONTESTNUM, CONTESTNAME, CONTESTAGENT, CONTESTSUPERVISION, CONTESUPPORT, CONTESTFIELD, CONTESTTARGET, CONTESTCOMPANY, CONTESTREWARD, CONTESTSTART, CONTESTEND, CONTESTCONTENT, CONTESTPOSTER, CONTESTSVAEFILENAME, CONTESTORIFILENAME, CONTESTPAGE, CONTESTPERSON, CONTESTPHONE, CONTESTEMAIL, MEMBERNO
-		FROM CONTEST
-		ORDER BY CONTESTNUM DESC
-	</select>
 	
 	<insert id="insert" parameterType="ContestDto">
 		INSERT INTO CONTEST
@@ -42,4 +36,94 @@
 		FROM CONTEST
 		WHERE CONTESTNUM = #{contestnum}
 	</select>	
+	
+	<select id="countcontest" resultType="int">
+		SELECT COUNT(*) FROM CONTEST
+	</select>
+	
+	<select id="countfield" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CONTEST WHERE CONTESTFIELD LIKE '%'||${value}||'%'
+	</select>
+	
+	<select id="counttarget" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CONTEST WHERE CONTESTTARGET LIKE '%'||${value}||'%'
+	</select>
+	
+	<select id="countcompany" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CONTEST WHERE CONTESTCOMPANY LIKE '%'||${value}||'%'
+	</select>
+	
+	<select id="countreward" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CONTEST WHERE CONTESTREWARD LIKE '%'||${value}||'%'
+	</select>
+	
+	<select id="selectcontest" resultType="ContestDto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM CONTEST
+							ORDER BY CONTESTNUM DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="fieldList" resultType="ContestDto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM CONTEST 
+							WHERE CONTESTFIELD LIKE '%'||${category}||'%' 
+							ORDER BY CONTESTNUM DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="targetList" parameterType="String" resultMap="ContestMap" >
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM CONTEST 
+							WHERE CONTESTTARGET LIKE '%'||${category}||'%' 
+							ORDER BY CONTESTNUM DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="companyList" parameterType="String" resultMap="ContestMap" >
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM CONTEST 
+							WHERE CONTESTCOMPANY LIKE '%'||${category}||'%' 
+							ORDER BY CONTESTNUM DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="rewardList" parameterType="String" resultMap="ContestMap" >
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM CONTEST 
+							WHERE CONTESTREWARD LIKE '%'||${category}||'%' 
+							ORDER BY CONTESTNUM DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
 </mapper>
