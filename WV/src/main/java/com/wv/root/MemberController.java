@@ -39,6 +39,12 @@ public String postRegister(MemberDto dto) throws Exception {
 //로그인
 @RequestMapping(value = "login.do", method = RequestMethod.POST)
 public String login(MemberDto dto, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	/*rttr.addFlashAttribute로 전달한 값은 url뒤에 붙지 않는다. 
+            일회성이라 리프레시할 경우 데이터가 소멸한다.
+            또한 2개이상 쓸 경우, 데이터는 소멸한다. 
+            따라서 맵을 이용하여 한번에 값전달해야한다.*/
+	/*rttr.addAttribute로 전달한 값은 url뒤에  붙으며, 
+            리프레시해도 데이터가 유지된다.*/
 	logger.info("post login");
 	
 	HttpSession session = req.getSession();
@@ -46,12 +52,13 @@ public String login(MemberDto dto, HttpServletRequest req, RedirectAttributes rt
 	
 	if(login == null) {
 		session.setAttribute("member", null);
-		rttr.addFlashAttribute("msg", false);
+		rttr.addFlashAttribute("msg", false);    //컨트롤러값 header로 뿌리기
 	}else {
 		session.setAttribute("member", login);
 	}
 	
 	return "redirect:/";
+	// "redirect:/" /로 돌아가기
 }
 
 @RequestMapping(value = "logout.do", method = RequestMethod.GET)
@@ -89,6 +96,7 @@ public String memberDeleteView() throws Exception{
 
 // 회원 탈퇴 post
 @RequestMapping(value="memberDelete.do", method = RequestMethod.POST)
+                                                         
 public String memberDelete(MemberDto dto, HttpSession session, RedirectAttributes rttr) throws Exception{
 	
 	// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
