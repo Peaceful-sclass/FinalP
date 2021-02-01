@@ -64,18 +64,23 @@ public class TeamBizImpl implements TeamBiz {
 //	            }}
 //	        return dto;
 //	    }
+   @Override
+	public int createTeam(TeamMemberDto dto) {
+		int res = dao.createTeam(dto);
+		return res;
+	}
 
-		public int createTeam(TeamMemberDto dto) {
-			int res = dao.createTeam(dto);
-			return res;
-		}
+   @Override
+	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto) {
+		return dao.getTeamInfo(dto);
+	}
 
-		public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto) {
-			return dao.getTeamInfo(dto);
-		}
+	@Override
+	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto) {
+		return dao.getTeamMember(dto);
+	}
 	
-	
-	
+	   
 	
 	
 	

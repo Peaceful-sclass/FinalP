@@ -8,7 +8,8 @@ public interface TeamDao {
 	String NameSpace = "wvteam.";
 	
 	public int createTeam(TeamMemberDto dto);
-	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto); 
+	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto);
+	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto); 
 	
 	
 	
