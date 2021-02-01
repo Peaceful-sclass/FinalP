@@ -202,7 +202,7 @@
 		<c:if test="${member == null}">
 			<div>
 				<label for="member_id"></label>
-				<input style="position: fixed; top: 5px; right: 240px;" type="text" id="userId" name="member_id">
+				<input style="position: fixed; top: 5px; right: 233px;" type="text" id="userId" name="member_id">
 			</div>
 			<div>
 				<label for="member_pw"></label>
