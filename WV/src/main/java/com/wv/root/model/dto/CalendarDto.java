@@ -1,15 +1,15 @@
 package com.wv.root.model.dto;
 
 public class CalendarDto {
-	private int teamNo;
 	private int calNo;
+	private int teamNo;
 	private String calTitle;
 	private String calStart;
 	
 	public CalendarDto() {
 		super();
 	}
-	public CalendarDto(int teamNo, int calNo, String calTitle, String calStart) {
+	public CalendarDto(int calNo, int teamNo, String calTitle, String calStart) {
 		super();
 		this.teamNo = teamNo;
 		this.calNo = calNo;

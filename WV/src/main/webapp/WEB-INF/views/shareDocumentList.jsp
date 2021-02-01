@@ -34,26 +34,27 @@
 			var calendarEl = document.getElementById('calendar');
 	
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialDate : '2020-09-12',
+				
 				editable : true,
 				selectable : true,
 			      selectMirror: true,
 			      select: function(arg) {
-			        var title = prompt('Event Title:');
+			        var title = prompt('일정을 입력하세요:');
 			        if (title) {
 			          calendar.addEvent({
 			            title: title,
-			            start: arg.start,
-			            end: arg.end,
-			            allDay: arg.allDay
-			          })
+			            start: arg.start
+			          }),
+			          location.href='shareCalendarInsert.do?title='+title+'&start='+arg.start;
+			          
 			        }
 			        calendar.unselect()
 			      },
 			      eventClick: function(arg) {
-			        if (confirm('Are you sure you want to delete this event?')) {
-			          arg.event.remove()
+			        if (confirm('일정을 지우시겠습니까??')) {
+			        	location.href='shareCalendarDelete.do?start='+arg.event.title
 			        }
+			        
 			      },
 			      editable: true,
 				businessHours : true,
@@ -61,46 +62,14 @@
 				events : [ {
 					title : 'All Day Event',
 					start : '2020-09-01'
-				}, {
-					title : 'Long Event',
-					start : '2020-09-07',
-					end : '2020-09-10'
-				}, {
-					groupId : 999,
-					title : 'Repeating Event',
-					start : '2020-09-09T16:00:00'
-				}, {
-					groupId : 999,
-					title : 'Repeating Event',
-					start : '2020-09-16T16:00:00'
-				}, {
-					title : 'Conference',
-					start : '2020-09-11',
-					end : '2020-09-13'
-				}, {
-					title : 'Meeting',
-					start : '2020-09-12T10:30:00',
-					end : '2020-09-12T12:30:00'
-				}, {
-					title : 'Lunch',
-					start : '2020-09-12T12:00:00'
-				}, {
-					title : 'Meeting',
-					start : '2020-09-12T14:30:00'
-				}, {
-					title : 'Happy Hour',
-					start : '2020-09-12T17:30:00'
-				}, {
-					title : 'Dinner',
-					start : '2020-09-12T20:00:00'
-				}, {
-					title : 'Birthday Party',
-					start : '2020-09-13T07:00:00'
-				}, {
-					title : 'Click for Google',
-					url : 'http://google.com/',
-					start : '2020-09-28'
-				} ]
+				}
+				<c:forEach items="${callist }" var="caldto">
+				,{
+					title :	"${caldto.calTitle }",
+					start : "${caldto.calStart }"
+				}
+				</c:forEach>
+				]
 			});
 	
 			calendar.render();
@@ -118,6 +87,40 @@ body {
 	max-width: 1100px;
 	margin: 0 auto;
 }
+table.document {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+  border-left: 1px solid #ccc;
+  margin: 20px 10px;
+}
+
+table.document thead th {
+  padding: 10px;
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 2px solid #c00;
+  background: #dcdcd1;
+}
+table.document tbody th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background: #ececec;
+}
+table.document td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+
 </style>
 
 </head>
@@ -132,21 +135,21 @@ body {
 			<div class="row inner-menu-box">
 				<div class="col-3">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">문서협업</a>
+						<a class="nav-link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">달력</a>
 						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">코드협업</a>
-						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">달력</a>
+						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">문서협업</a>
 						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">공유</a>
 					</div>
 				</div>
 				
 				<div class="col-9">
 					<div class="tab-content" id="v-pills-tabContent">
-						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+						<div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 							<div class="row">
 									<c:choose>
 										<c:when test="${!empty check}">
 											<form action="shareDocumentUpdate.do"  method="post">
-												<table border="1">
+												<table border="1" class="document">
 													<tr>
 														<th colspan="3" align="center">update</th>
 														<th colspan="3" align="center">A</th>
@@ -307,7 +310,7 @@ body {
 									
 										<c:when test="${empty list }">
 											<form action="shareDocumentInsert.do"  method="post">
-												<table border="1">
+												<table border="1" class="document">
 													<tr>
 														<th colspan="3" align="center">insert</th>
 														<th colspan="3" align="center">A</th>
@@ -466,7 +469,7 @@ body {
 										
 										
 										<c:otherwise>
-											<table border="1">
+											<table border="1" class="document">
 												<colgroup>
 													<col width="50">
 													<col width="300">
@@ -529,42 +532,11 @@ body {
 						
 						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid drinks">
-									<div class="gallery-single fix">
-										<img src="images/img-01.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Drinks 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $7.79</h5>
-										</div>
-									</div>
-								</div>
 								
-								<div class="col-lg-4 col-md-6 special-grid drinks">
-									<div class="gallery-single fix">
-										<img src="images/img-02.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Drinks 2</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $9.79</h5>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-4 col-md-6 special-grid drinks">
-									<div class="gallery-single fix">
-										<img src="images/img-03.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Drinks 3</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $10.79</h5>
-										</div>
-									</div>
-								</div>
 							</div>
-							
 						</div>
-						<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" style="max-width:100;%">
+						
+						<div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
 							
 						
 								<div id='calendar'></div>
@@ -574,45 +546,9 @@ body {
 						
 						
 						
-						
 						<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid dinner">
-									<div class="gallery-single fix">
-										<img src="images/img-07.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Dinner 1</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $25.79</h5>
-										</div>
-									</div>
-								</div>
 								
-								<div class="col-lg-4 col-md-6 special-grid dinner">
-									<div class="gallery-single fix">
-										<img src="images/img-08.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Dinner 2</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $22.79</h5>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-4 col-md-6 special-grid dinner">
-									<div class="gallery-single fix">
-										<img src="images/img-09.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>Special Dinner 3</h4>
-											<p>Sed id magna vitae eros sagittis euismod.</p>
-											<h5> $24.79</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 			
 		</div>
