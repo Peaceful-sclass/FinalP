@@ -365,11 +365,6 @@
 											</form>
 												
 										</c:when>
-									
-										
-										
-										
-										
 										
 										
 										<c:otherwise>

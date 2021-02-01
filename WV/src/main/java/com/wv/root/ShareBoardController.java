@@ -92,25 +92,22 @@ public class ShareBoardController {
 	public String write(ShareBoardDto dto,MultipartHttpServletRequest mpRequest) {
 		logger.info("write");
 			
-		//지금 들어온 팀의 팀번호와 로그인한계정의 id를 가져와서 써줘야함
+		//지금 들어온 팀의 팀번호 가져와서 써줘야함
 		dto.setTeam_no(1);
-		dto.setWriter("user");
 			
 		int res = biz.write(dto,mpRequest);
 			
-		//성공시(나중에 바꿀것)
+		//성공시
 		if(res>0) {
-			return "redirect:home.do";
+			return "redirect:shareBoardList.do";
 		}
 		//실패시
 		else {
-			return "redirect:home.do";
+			return "redirect:shareBoardList.do";
 		}
 			
 	}
 	
-	
-	//%%%%수정 삭제에 글쓴이인지 확인하는거 추가해야함
 	//게시판 수정 화면
 	@RequestMapping(value = "shareBoardupdateView.do", method = RequestMethod.GET)
 	public String updateView(ShareBoardDto dto, @ModelAttribute("scri") SearchCriteria scri, Model model) {
@@ -138,7 +135,7 @@ public class ShareBoardController {
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 		
-		//성공시(나중에 바꿀것)
+		//성공시
 		if(res>0) {
 			return "redirect:shareBoardList.do";
 		}
@@ -161,7 +158,7 @@ public class ShareBoardController {
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 		
-		//성공시(나중에 바꿀것)
+		//성공시
 		if(res>0) {
 			return "redirect:shareBoardList.do";
 		}
@@ -176,8 +173,6 @@ public class ShareBoardController {
 	public String commentWrite(SBCommentDto dto,SearchCriteria scri, RedirectAttributes rttr) {
 		logger.info("comment Write");
 		
-		//로그인한 아이디를 가져와서 넣어줌
-		dto.setWriter("작성자 테스트");
 		
 		commentBiz.writeComment(dto);
 		

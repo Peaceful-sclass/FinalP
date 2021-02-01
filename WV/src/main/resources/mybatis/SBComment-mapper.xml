@@ -6,7 +6,7 @@
 <mapper namespace="SBCommentMapper">
 
 	<select id="comment" resultType="SBCommentDto" parameterType="int">
-		SELECT RNO, CONTENT, WRITER, REGDATE FROM SBCOMMENT WHERE BNO = #{bno}
+		SELECT RNO, CONTENT, WRITER, REGDATE FROM SBCOMMENT WHERE BNO = #{bno} ORDER BY REGDATE
 	</select>
 	
 	<insert id="writeComment" parameterType="SBCommentDto">

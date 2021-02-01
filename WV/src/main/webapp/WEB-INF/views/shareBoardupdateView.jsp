@@ -4,8 +4,14 @@
 <html>
 <head>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
  	<title>게시판</title>
 </head>
+<style>
+	.clearfix::after{clear:both;content:'';display:block;}
+</style>
 <script type="text/javascript">
 	$(document).ready(function(){
 			var formObj = $("form[name='updateForm']");
@@ -33,6 +39,8 @@
 				formObj.attr("method", "post");
 				formObj.submit();
 			})
+			
+			CKEDITOR.replace('content', {width:'800px',height: '500px'});
 		})
 			
 		function fn_valiChk(){
@@ -47,7 +55,7 @@
  		function fn_addFile(){
 			var fileIndex = 1;
 			$(".fileAdd_btn").on("click", function(){
-				$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+				$("#fileIndex").append("<div class='clearfix'><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 			});
 			$(document).on("click","#fileDelBtn", function(){
 				$(this).parent().remove();
@@ -68,73 +76,71 @@
 </script>
 <body>
 <jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
-	
-	<div id="root">
-		<header>
-			<h1> 게시판</h1>
-		</header>
-		<hr />
-			 
-		<nav>
-		  홈 - 글 작성
-		</nav>
-		<hr />
-			
-		<section id="container">
-			<form name="updateForm" role="form" method="post" action="shareBoardupdate.do" enctype="multipart/form-data">
-				<input type="hidden" name="bno" value="${dto.bno}" readonly="readonly"/>
-					<input type="hidden" id="page" name="page" value="${scri.page}"> 
-					<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
-					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
-					<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
-					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
-					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<label for="title">제목</label><input type="text" id="title" name="title" value="${dto.title}"/>
-							</td>
-						</tr>	
-						<tr>
-							<td>
-								<label for="content">내용</label><textarea id="content" name="content"><c:out value="${dto.content}" /></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="writer">작성자</label><input type="text" id="writer" name="writer" value="${dto.writer}" readonly="readonly"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="regdate">작성날짜</label>
-								<fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd"/>					
-							</td>
-						</tr>
-						<tr>
-							<td id="fileIndex">
-								<c:forEach var="file" items="${file}" varStatus="var">
-								<div>
-									<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO }">
-									<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
-									<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)
-									<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
-								</div>
-								</c:forEach>
-							</td>
-						</tr>		
-					</tbody>			
-				</table>
-				<div>
-					<button type="submit" class="update_btn">저장</button>
+
+	<br><br><br><br><br><br><br><br>
+		<div id="container">
+		
+		<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form name="updateForm" role="form" method="post" action="shareBoardupdate.do" enctype="multipart/form-data">
+        		<input type="hidden" id="bno" name="bno" value="${dto.bno}" />
+				<input type="hidden" id="page" name="page" value="${scri.page}"> 
+				<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+				<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+				<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
+				<input type="hidden" id="fileNoDel" name="fileNoDel[]" value="">
+				<input type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
+		
+            <div class="table table-responsive">
+                      <table class="table table-striped">
+            <tr>
+                <td class="danger">작성자</td>
+                
+                <td><input type="hidden" id="writer" name="writer" value="${dto.writer }">${dto.writer}</td>
+                <td class="danger">작성일</td>
+                <td><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd" /></td>
+            </tr>
+            <tr>
+                <td class="danger">제목</td>
+                <td colspan="3"><input type="text"  class="form-control" id="title" name="title" value="${dto.title}" ></td>
+            </tr>
+             
+            
+             
+            <tr>
+                <td class="danger">내용</td>
+                <td colspan="3"><textarea id="content" name="content" class="form-control" >${dto.content}</textarea></td>
+            </tr>
+            
+            <tr>
+                <td class="danger"><button type="button" class="fileAdd_btn">파일추가</button></td>
+                <td colspan="3" id="fileIndex">
+					<c:forEach var="file" items="${file}" varStatus="var">
+					<div>
+						<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO }">
+						<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+						<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)
+						<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+					</div>
+					</c:forEach>
+				</td>
+            </tr>
+            <tr>  
+                <td colspan="4"  class="text-center">
+                    <button type="submit" class="update_btn">저장</button>
 					<button type="submit" class="cancel_btn">취소</button>
-					<button type="button" class="fileAdd_btn">파일추가</button>
-				</div>
-			</form>
-		</section>
-		<hr />
+                </td>
+            </tr>
+          </table>
+         
+     
+            </div>
+            </form>  
+    </div>
 	</div>
+	</div>
+	
 	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>
