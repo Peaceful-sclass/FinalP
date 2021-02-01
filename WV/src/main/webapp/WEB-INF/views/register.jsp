@@ -90,7 +90,7 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pwC">패스워드확인</label>
-                     <input class="form-control" type="password" id="userPassC" name="member_pw" placeholder="패스워드확인"/>   
+                     <input class="form-control" type="password" id="userPassC" name="member_pw2" placeholder="패스워드확인"/>   
 				     <p id="pwsame" style="color:red;"></p>
 				</div>				
 				<div class="form-group has-feedback">

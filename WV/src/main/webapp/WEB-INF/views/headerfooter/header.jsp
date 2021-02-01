@@ -54,8 +54,48 @@
 				location.href = "comunity.do?category=전체&currentPage=1";
 			}
 		};
+	</script>	
+	
+		<style>
 		
-	</script>		
+		   #userId{
+		         width:80px;
+		         height: 25px;
+		   }
+		   
+		   #userPass{
+		         width:80px;
+		         height: 25px;		   
+		   }
+		   
+		   #logbt{
+		         width:60px;
+		         height: 25px;		
+		         font-size: 5px;
+		   }
+		   #regibt{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;
+		   }
+		   #memberUpdateBtn{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;	
+		   }
+		   #memberDeleteBtn{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;	
+		   }		   		   
+		   #outBtn{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;	
+		   }    
+		   
+		          
+		</style>	
 </head>
 <!-- 로그인 스크립트 -->
 <script type="text/javascript">
@@ -90,7 +130,7 @@
 				  <span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-rs-food">
-					<ul class="navbar-nav ml-auto">
+					<ul class="navbar-nav ml-auto" id="lef">
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
@@ -100,8 +140,12 @@
 						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
 					</ul>
 		
-		<!-- 로그인// -->
-		<form name='homeForm' method="post" action="login.do">
+		
+				</div>
+			</div>
+			
+			<!-- 로그인// -->
+		<form name='homeForm' method="post" action="login.do" >
 		<c:if test="${member == null}">
 			<div>
 				<label for="member_id"></label>
@@ -109,20 +153,19 @@
 			</div>
 			<div>
 				<label for="member_pw"></label>
-				<input type="password" id="userPass" name="member_pw">
+				<input type="password" id="userPass" name="member_pw" >
 			</div>
 			<div>
-				  <span><a href="login.do"><button type="submit">로그인</button></a></span>
-				      <span><a href="register.do"><button type="button">회원가입</button></a></span>  
+				      <span><a href="login.do"><button type="submit" id="logbt">로그인</button></a></span>
+				      <span><a href="register.do"><button type="button" id="regibt">회원가입</button></a></span>  
 				<!--<button type="submit">로그인</button>
 				<button id="registerBtn" type="button">회원가입</button>-->
-				
 			</div>
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
 				<p>${member.member_id}님 환영 합니다.</p>
-				<button id="memberUpdateBtn" type="button">회원정보수정</button>
+				<button id="memberUpdateBtn" type="button">회원수정</button>
 				<!-- function빼고 해보기 
 				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
 				<button id="memberDeleteBtn" type="button">회원탈퇴</button>
@@ -133,10 +176,9 @@
 			<p style="color: red;">아이디와 비밀번호 확인해주세요.</p>
 		</c:if>
 	</form>
-				</div>
-			</div>
 		</nav>
-		
+		 
+		 
 
 	</header>
 	<!-- End header -->
