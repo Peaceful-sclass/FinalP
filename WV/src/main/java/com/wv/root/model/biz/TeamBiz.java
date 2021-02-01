@@ -8,6 +8,7 @@ public interface TeamBiz {
 	
 	public int createTeam(TeamMemberDto dto);
 	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto);
+	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto);
 	
 	
 	

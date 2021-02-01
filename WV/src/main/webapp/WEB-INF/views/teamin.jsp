@@ -23,7 +23,32 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-
+   	<link rel="stylesheet" href="css/team.css">
+   	<script type="text/javascript" src="js/team.js"></script>
+    <script>
+    	window.onload = function(){
+    		let session = "${member.member_id}"; //session login 확인
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do";
+    		}
+    		//팀아이콘배경랜덤
+    		let tmiconbg = document.getElementsByClassName("why-text");
+    		let bgcolor = {
+    			1:"background: rgba(207, 166, 113, 0.9);",
+    			2:"background: rgba(222, 255, 222, 0.9);",
+    			3:"background: rgba(255, 222, 239, 0.9);",
+    			4:"background: rgba(239, 222, 255, 0.9);",
+    			5:"background: rgba(255, 255, 227, 0.9);"
+    		}
+    		for(let i=0; i<tmiconbg.length; i++){
+    			let r = Math.floor(Math.random()*Object.keys(bgcolor).length)+1;
+    			tmiconbg[i].setAttribute("style",bgcolor[r]);
+    			//tmiconbg[i].style.background = bgcolor[r];
+    		}
+    		
+    	}
+    </script>
+	
 </head>
 
 <body>
@@ -48,20 +73,36 @@
 					<div class="tab-content" id="v-pills-tabContent">
 
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-							<!-- row안에 팀목록이 주루룩 들어가게... -->
 							
-							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid drinks">
-									<div class="gallery-single fix">
-										<img src="images/img-01.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>팀 1</h4>
-											<p>Sed id </p>
-											<h5> $7.79</h5>
-										</div>
+							<div class="row justify-content-end">
+								<div class="team-main">
+									<div class="team-main-top">
+										<a class="team-main-top-create" href="#" data-mid="${member_id}" onclick="teamCreateBT(this); return false;">팀만들기</a>
+									</div>
+								</div>
+								<div class="team-main">
+									<div class="team-main-top">
+										<a class="team-main-top-create" href="#">팀초대</a>
 									</div>
 								</div>
 							</div>
+							<hr />
+							<!-- 팀목록 Start -->
+							<div class="row">
+								<c:forEach var="dto" items="${team}">
+									<div class="col-lg-4 col-md-6 special-grid drinks">
+										<div class="gallery-single fix">
+											<div class="why-text">
+												<h4><a href="#" data-tname="${dto.team_name}" data-tno="${dto.team_no}" onclick="teamIcon(this); return false;">${dto.team_name}</a></h4>
+												<p><a href="#">${dto.team_intro}</a></p>
+											</div>
+										</div>
+									</div>
+								
+								</c:forEach>
+								
+							</div><!-- 팀목록 End -->
+							
 						</div>
 						
 					

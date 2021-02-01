@@ -34,7 +34,7 @@
     				let form = document.createElement("form");
 					$(form).append($('<input/>', {type: 'hidden', name: 'member_no', value:'${member.member_no}' }));
 					$(form).append($('<input/>', {type: 'hidden', name: 'member_id', value:'${member.member_id}' }));
-					form.action = 'teamin.do';
+					form.action = 'team.do';
 					form.method = "post";
 					document.body.appendChild(form);
 					form.submit();
