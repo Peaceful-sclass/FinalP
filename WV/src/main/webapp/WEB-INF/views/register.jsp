@@ -13,13 +13,13 @@
 		
 		<style>
 		   #userId{
-		         width:140px;
+		         width:200px;
 		   }
 		   #userPass{
-		         width:140px;
+		         width:200px;
 		   }	
 		   #userPassC{
-		         width:140px; 
+		         width:200px; 
 		   }	   
 		   #userEmail{
 		         width:200px;
@@ -72,7 +72,6 @@
 				
 				//아이디 중복검사
 				
-				
               		
     </script>
 	<body>
@@ -80,7 +79,7 @@
 			<form action="register.do" onsubmit="return tocheckpw()" data-ajax="false" method="post" > <!-- onsubmit="return tocheckpw()" data-ajax="false" 해당function이 맞으면 submit 아니면 페이지그대로-->
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label> <!-- for는 member-mapper부분 -->
-					<input class="form-control"  type="text" id="userId" name="member_id" />    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+					<input class="form-control"  type="text" id="userId" name="member_id" maxlength="8" placeholder="8자이내 입력"/>    <!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
                     <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button>
                     <img id="id_check_sucess" style="display: none;">  
 				</div>
@@ -95,7 +94,7 @@
 				</div>				
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
-					<input class="form-control" type="text" id="userEmail" name="member_email" />
+					<input class="form-control" type="text" id="userEmail" name="member_email" placeholder="이메일 입력"/>
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_grade">회원등급</label>

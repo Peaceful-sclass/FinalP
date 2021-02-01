@@ -13,10 +13,10 @@
 		
 				<style>
 		   #userId{
-		         width:130px;
+		         width:160px;
 		   }
 		   #userPass{
-		         width:130px;
+		         width:200px;
 		   }		   
 		   #userEmail{
 		         width:200px;
@@ -59,11 +59,11 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_pw">패스워드</label>
-					<input class="form-control" type="password" id="userPass" name="member_pw" />
+					<input class="form-control" type="password" id="userPass" name="member_pw" placeholder="바꾸실 패스워드 입력"/>
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_email">이메일</label>
-					<input class="form-control" type="text" id="userEmail" name="member_email" value="${member.member_email}"/>
+					<input class="form-control" type="text" id="userEmail" name="member_email" value="${member.member_email}" placeholder="바꾸실 이메일 입력"/>
 				</div>
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">회원정보수정</button>
