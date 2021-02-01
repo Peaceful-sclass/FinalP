@@ -52,7 +52,9 @@
     	function teamSide(param){
     		let session = "${member.member_id}"; //session login 확인
     		let sessionTeamInfo = '${teamInfo.team_name}';
-    		let textcon = param.textConetent.value;
+    		let textcon = param.innerText;
+    		console.log("textcon: "+ textcon.value);
+    		
     		if(session == null || session == "" ||session == undefined ){
     			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
     		}else if(sessionTeamInfo == null||sessionTeamInfo == ""||sessionTeamInfo == undefined){
