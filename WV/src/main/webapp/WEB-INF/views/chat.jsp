@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -95,7 +96,9 @@ img{ max-width:100%;}
   overflow-y: auto;
 }</style>
 
+
 <script type="text/javascript">
+
 
 var date = 0;
 $(document).ready(function() {
@@ -159,10 +162,17 @@ function readAjax(){
     	dataType : 'json',
     	success : function(data) {
     		console.log(data.length);
-    		if(data.length == 0){
+    		if(data.length == 1){
+    			console.log(data[0].session_id);
+    			if(data[0].session_id==null){
+    				console.log('널임');
+    				window.open('about:blank','_self').self.close();
+    				
+    			}
     			return;
     		}else{
-    			for(var i=0; i<data.length; i++){
+    			
+    			for(var i=1; i<=data.length; i++){
     				if(data[i].member_id == loginid){
     					$(".msg_history").append(
     						"<div class='outgoing_msg'>"+
@@ -197,11 +207,21 @@ function readAjax(){
     });
     
     
+    
+    
 }
 
 function scrollDown(){
 	$(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
 }
+
+function CloseWindow(){
+	window.colse();
+	self.close();
+	window.opener = window.location.href; self.close();
+	window.open('about:blank','_self').close();
+}
+
 
 
 </script>
