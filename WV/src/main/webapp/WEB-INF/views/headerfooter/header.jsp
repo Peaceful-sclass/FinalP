@@ -63,8 +63,69 @@
 	          font-size: 10px;
 	      }
 	</style>
+	
+			<style>
+		
+		   #userId{
+		         width:80px;
+		         height: 25px;
+		   }
+		   
+		   #userPass{
+		         width:80px;
+		         height: 25px;		   
+		   }
+		   
+		   #logbt{
+		         width:60px;
+		         height: 25px;		
+		         font-size: 5px;
+		   }
+		   #regibt{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;
+		   }
+		   #memberUpdateBtn{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;	
+		   }
+		   #memberDeleteBtn{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;	
+		   }		   		   
+		   #outBtn{
+		         width:60px;
+		         height: 25px;	
+		         font-size: 5px;	
+		   }    
+		   
+		          
+		</style>
 </head>
+<!-- 로그인 스크립트 -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#outBtn").on("click", function(){
+			location.href="logout.do";
 
+		})
+		
+		$("#registerBtn").on("click", function(){
+			location.href="register.do";
+		})
+		
+		$("#memberUpdateBtn").on("click", function(){
+			location.href="test.do";
+		})    
+		
+		$("#memberDeleteBtn").on("click", function(){
+			location.href="dest.do";
+		})  
+	});
+</script>
 <body>
 	<!-- Start header -->
 	<header class="top-navbar">
@@ -90,6 +151,38 @@
 		
 				</div>
 				
+				      			<!-- 로그인// -->
+		<form name='homeForm' method="post" action="login.do" >
+		<c:if test="${member == null}">
+			<div>
+				<label for="member_id"></label>
+				<input style="position: fixed; top: 5px; right: 240px;" type="text" id="userId" name="member_id">
+			</div>
+			<div>
+				<label for="member_pw"></label>
+				<input style="position: fixed; top: 5px; right: 143px;" type="password" id="userPass" name="member_pw" >
+			</div>
+			<div>
+				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt">로그인</button></a></span>
+				      <span style="position: fixed; top: 5px; right: 10px;"><a href="register.do"><button type="button" id="regibt">회원가입</button></a></span>  
+				<!--<button type="submit">로그인</button>
+				<button id="registerBtn" type="button">회원가입</button>-->
+			</div>
+		</c:if>
+		<c:if test="${member != null }">
+			<div>
+				<p>${member.member_id}님 환영 합니다.</p>
+				<button id="memberUpdateBtn" type="button">회원수정</button>
+				<!-- function빼고 해보기 
+				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
+				<button id="memberDeleteBtn" type="button">회원탈퇴</button>
+				<button id="outBtn" type="button">로그아웃</button>
+			</div>
+		</c:if>
+		<c:if test="${msg == false}">     <!-- 컨트롤러값 -->
+			<p style="color: red;">아이디와 비밀번호 확인해주세요.</p>
+		</c:if>
+	</form>
 			</div>
 			 
 			 
