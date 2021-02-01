@@ -13,6 +13,18 @@
 		where m.member_no = #{member_no}
 	</select>
 	
+	<select id="redundantvalidation" parameterType="String" resultType="int">
+		select count(team_name)
+		from team where team_name = #{team_name}
+	</select>
+	
+	<select id="teamMember" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto" resultType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
+		select * 
+		from teammember tm join team t  ON tm.team_no = t.team_no
+		join mymember m  ON m.member_no = tm.member_no
+		where tm.team_no = #{team_no}
+	</select>
+	
 	<insert id="createTeam" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		insert all
 		into team values(teamseq.nextval, #{team_name}, #{team_intro})

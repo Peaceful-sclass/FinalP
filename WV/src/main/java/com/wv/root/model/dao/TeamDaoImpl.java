@@ -53,7 +53,14 @@ public class TeamDaoImpl implements TeamDao {
     	int res = 0; 
     	try {
     		System.out.println("[createTeam dto]: "+dto);
+    		res = session.selectOne(NameSpace+"redundantvalidation", dto.getTeam_name());
+    		if(res == 1) {//1이라면 중복팀이름
+    			return res = 11;
+    		}
 			res = session.insert(NameSpace+"createTeam", dto );
+			if(res == 1) {
+				res = 22;
+			}
 		} catch (DataAccessException e) {
 			System.out.println("[team create fail]");
 			e.printStackTrace();
@@ -71,6 +78,19 @@ public class TeamDaoImpl implements TeamDao {
 			e.printStackTrace();
 		}
 		return tmlist;
+	}
+
+	@Override
+	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto) {
+		List<TeamMemberDto> tmdto = null;
+		try {
+			tmdto = session.selectList(NameSpace+"teamMember", dto);
+		} catch (Exception e) {
+			System.out.println("[getTeamMember] 읽기 실패!");
+			e.printStackTrace();
+		}
+		
+		return tmdto;
 	}
     
     

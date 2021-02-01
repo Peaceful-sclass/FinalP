@@ -72,7 +72,6 @@ public class ComunityDaoimpl implements ComunityDao {
 	}
 
 	@Override
-	@Transactional
 	public int comInsert(ComunityDto comdto) {
 		int res = 0;
 		
@@ -90,7 +89,6 @@ public class ComunityDaoimpl implements ComunityDao {
 	}
 
 	@Override
-	@Transactional
 	public int comUpdate(ComunityDto comdto) {
 		int res = 0;
 		
@@ -106,7 +104,6 @@ public class ComunityDaoimpl implements ComunityDao {
 	}
 
 	@Override
-	@Transactional
 	public int comDelete(int cno) {
 	int res = 0;
 		

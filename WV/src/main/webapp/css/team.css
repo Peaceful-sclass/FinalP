@@ -29,3 +29,21 @@
 .team-create-bt{		 /*no use*/
 	border: 1px solid white;
 }
+.team-main{
+	margin: 0 7px 0 7px;
+}
+.team-main-top{
+	width: 100%;
+    height: 100%;
+}
+.team-main-top-create{
+	font-size: 15px;
+	font-weight: bolder;
+    background: darkorange;
+    color: #fff;
+    border-radius: .25rem;
+    /*display: block;*/
+    padding: .5rem 1rem;
+    transition: all .3s ease-in-out;
+    box-shadow: 0 0 5px black;
+}

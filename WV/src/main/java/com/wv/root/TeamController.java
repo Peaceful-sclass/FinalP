@@ -1,17 +1,26 @@
 package com.wv.root;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.TeamBiz;
+import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Controller
@@ -21,6 +30,8 @@ public class TeamController {
 	
 	@Autowired
 	private TeamBiz teambiz;
+	//@Autowired
+	//private JavaMailSender mailSender;
 	
 
 	@RequestMapping(value = "teamcreateform.do", method = RequestMethod.POST)
@@ -31,26 +42,67 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value = "teamcreate.do", method = RequestMethod.POST)
-	public String teamCreate(Model model, TeamMemberDto dto, RedirectAttributes reat, HttpServletRequest request) {
+	public String teamCreate(Model model, TeamMemberDto dto, RedirectAttributes reat, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		logger.info("[Team Create]");
+		response.setContentType("text/html; charset=UTF-8;");
+		PrintWriter pw = response.getWriter();
 		int res = teambiz.createTeam(dto);
-		if(res > 0) {
-			request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));
+		if(res == 11) {
+			pw.println("<script>toastr.success('같은 팀명이 있습니다.','팀이름 중복',{timeOut:5000});</script>");
+			pw.flush();
+			return "teamcreate";
+		}
+		
+		if(res == 22) {
+			request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
 		}
 		model.addAttribute("createTeamRes", res);
+//		pw.println("<script>alert('팀을 만들었습니다.');</script>");
+		//pw.println("<script>toastr.success('팀을 만들었습니다.','팀생성',{timeOut:5000});</script>");
+		//pw.flush();
 		
 		return "teamcreate";
+		//return "teamin";
 	}
 	
 	@RequestMapping(value = "team.do", method = RequestMethod.POST)
-	public String teamIN(Model model) {
+	public String teamIN(Model model, TeamMemberDto dto, HttpServletRequest request) {
 		logger.info("[Team Inner]");
 		//팀원초대 신청(팀넘버/초대할아이디) - mail컨트롤러(조회:보낼 이메일주소,)
 		//- 코드발송 - 코드확인 - 코드입력(팀메뉴초기생성메뉴에서 코드로 팀가입)
 		//- 코드가 저장될 테이블이 필요?(pk, id[받은파람:input], mailcode, 해당팀no[받은파람]
 		// table검증은 id,code,teamno 3가지 컬럼값을 and조건으로 다 가지고 있으면 초대한 것으로 확인.
+		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
 		
 		return "teamin";
+	}
+	
+	@RequestMapping(value ="teamcreateBT.do", method = RequestMethod.GET)
+	public String teamcreateBT(Model model, @RequestParam("member_id")String member_id) {
+		logger.info("[TEAM MAIN: Team Create BTClick]");
+		
+		return "teamcreate";
+	}
+	
+	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
+	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
+		
+		
+		return "teamin";
+	}
+	
+	//팀아이콘 클릭시 session에 전달해줄 정보(멤버리스트,팀번호/이름)
+	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
+		System.out.println("[dto]: "+dto);
+		List<TeamMemberDto> tmdto = teambiz.getTeamMember(dto);
+		TeamDto tmdtoinfo = new TeamDto();
+		tmdtoinfo.setTeam_no(dto.getTeam_no());
+		tmdtoinfo.setTeam_name(dto.getTeam_name());
+		request.getSession().setAttribute("teamMember", tmdto);
+		request.getSession().setAttribute("teamInfo", tmdtoinfo);
+		//return "통신성공";
 	}
 
 	

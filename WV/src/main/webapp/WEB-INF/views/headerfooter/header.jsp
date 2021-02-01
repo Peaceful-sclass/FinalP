@@ -55,8 +55,9 @@
 				location.href = "comunity.do?category=전체&currentPage=1";
 			}
 		};
+
 		
-		function chkHasTeam() {
+		function chkHasTeam() { //회원이 팀을 가진지 확인.
 			let login = "${member.member_id}";
 			if(login == null || login == "" || login == undefined){
 				toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
@@ -97,7 +98,29 @@
 		
 		$("#memberDeleteBtn").on("click", function(){
 			location.href="dest.do";
-		})  
+		})
+		
+		//NAV BAR 선택CSS
+		let cmd = window.location.pathname;
+		let ulnav = document.querySelectorAll(".navbar-nav > .nav-item");
+		if(cmd == "/root/team.do"||cmd == "/root/teamin.do"||cmd == "/root/teamcreate.do"){
+			for(let i=0; i<ulnav.length; i++){
+				ulnav[i].classList.remove('active');
+				ulnav[1].classList.add('active');
+			}
+		}
+		else if(cmd == "/root/comunity.do"||cmd == "/root/comunitywrite.do"){
+			for(let i=0; i<ulnav.length; i++){
+				ulnav[i].classList.remove('active');
+				ulnav[3].classList.add('active');
+			}
+		}
+		else if(cmd == "/root/home.do"){
+			for(let i=0; i<ulnav.length; i++){
+				ulnav[i].classList.remove('active');
+				ulnav[0].classList.add('active');
+			}
+		}
 	});
 </script>
 <body>
@@ -105,7 +128,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<a class="navbar-brand" href="/">
+				<a class="navbar-brand" href="home.do">
 					<img src="images/logof.png" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +138,7 @@
 					<ul class="navbar-nav ml-auto">
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
-						<li class="nav-item"><a class="nav-link" href="#" onclick="chkHasTeam(); return false;">팀메뉴</a></li>
+						<li class="nav-item" id="navTeam"><a class="nav-link" href="#" onclick="chkHasTeam(); return false;">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="shareDocumentList.do">팀메뉴2</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
 						<!-- <li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li> -->
