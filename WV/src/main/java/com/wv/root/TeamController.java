@@ -72,6 +72,14 @@ public class TeamController {
 		//- 코드발송 - 코드확인 - 코드입력(팀메뉴초기생성메뉴에서 코드로 팀가입)
 		//- 코드가 저장될 테이블이 필요?(pk, id[받은파람:input], mailcode, 해당팀no[받은파람]
 		// table검증은 id,code,teamno 3가지 컬럼값을 and조건으로 다 가지고 있으면 초대한 것으로 확인.
+		
+		//String sessionval = (String)request.getSession().getAttribute("member.member_id");
+		if(request.getSession().getAttribute("member") == null) {//세션확인 후 로그인해제상태면 홈으로...
+			//System.out.println("sessionval: "+request.getSession().getAttribute("member"));
+			return "redirect:home.do";
+		}
+		
+		//멤버의 팀리스트를 갱신/로드(member_no필요)
 		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
 		
 		return "teamin";
@@ -100,8 +108,8 @@ public class TeamController {
 		TeamDto tmdtoinfo = new TeamDto();
 		tmdtoinfo.setTeam_no(dto.getTeam_no());
 		tmdtoinfo.setTeam_name(dto.getTeam_name());
-		request.getSession().setAttribute("teamMember", tmdto);
-		request.getSession().setAttribute("teamInfo", tmdtoinfo);
+		request.getSession().setAttribute("teamMember", tmdto);//팀멤버리스트
+		request.getSession().setAttribute("teamInfo", tmdtoinfo);//팀번호/이름
 		//return "통신성공";
 	}
 
