@@ -47,6 +47,33 @@
     		}
     		
     	}
+    	
+    	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
+    	function teamSide(param){
+    		let session = "${member.member_id}"; //session login 확인
+    		let sessionTeamInfo = '${teamInfo.team_name}';
+    		let textcon = param.textConetent.value;
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
+    		}else if(sessionTeamInfo == null||sessionTeamInfo == ""||sessionTeamInfo == undefined){
+    			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+    			return false;
+    		}
+    		
+    		if(textcon == "팀메인"){
+    			location.href="team.do?member_no="+${member.member_no};
+    		} else if(textcon == "일정"){
+    			location.href="team.do?member_no="+${member.member_no};
+    		} else if(textcon == "시트"){
+    			location.href="team.do?member_no="+${member.member_no};
+    		} else if(textcon == "코드"){
+    			location.href="team.do?member_no="+${member.member_no};
+    		} else if(textcon == "저장소"){
+    			location.href="team.do?member_no="+${member.member_no};
+    		}
+    	}
+    	
+    	
     </script>
 	
 </head>
@@ -61,11 +88,11 @@
 			<div class="row inner-menu-box">
 				<div class="col-3">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true">팀메인</a>
-						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">일정</a>
-						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">문서</a>
-						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">코드</a>
-						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">저장소</a>
+						<a class="nav-link active" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
+						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="teamSide(this); return false;">일정</a>
+						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="teamSide(this); return false;">시트</a>
+						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="teamSide(this); return false;">코드</a>
+						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
 					</div>
 				</div>
 				
