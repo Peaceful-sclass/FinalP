@@ -217,17 +217,21 @@
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-				<p>${member.member_id}님 환영 합니다.</p>
-				<button id="memberUpdateBtn" type="button">회원수정</button>
+				<button style="position: fixed; top: 5px; right: 140px;" id="memberUpdateBtn" type="button">회원수정</button>
 				<!-- function빼고 해보기 
 				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
-				<button id="memberDeleteBtn" type="button">회원탈퇴</button>
-				<button id="outBtn" type="button">로그아웃</button>
+				<button  style="position: fixed; top: 5px; right: 75px;" id="memberDeleteBtn" type="button">회원탈퇴</button>
+				<button style="position: fixed; top: 5px; right: 10px;" id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
-		<c:if test="${msg == false}">     <!-- 컨트롤러값 -->
-			<p style="color: red;">아이디와 비밀번호 확인해주세요.</p>
+              
+               
+		  <c:if test="${msg == false}">     <!-- 컨트롤러값 아이디 패스워드 틀릴시-->
+		     <script type="text/javascript">
+		     alert("아이디 패스워드를 확인해주세요");
+		     </script>
 		</c:if>
+
 	</form>
 			</div>
 			 
