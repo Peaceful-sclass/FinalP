@@ -1,5 +1,7 @@
 package com.wv.root;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.MemberBiz;
 import com.wv.root.model.dto.MemberDto;
+import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Controller
 public class MemberController {
@@ -38,7 +42,7 @@ public String postRegister(MemberDto dto) throws Exception {
 
 //로그인
 @RequestMapping(value = "login.do", method = RequestMethod.POST)
-public String login(MemberDto dto, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 	/*rttr.addFlashAttribute로 전달한 값은 url뒤에 붙지 않는다. 
             일회성이라 리프레시할 경우 데이터가 소멸한다.
             또한 2개이상 쓸 경우, 데이터는 소멸한다. 
@@ -55,11 +59,15 @@ public String login(MemberDto dto, HttpServletRequest req, RedirectAttributes rt
 		rttr.addFlashAttribute("msg", false);    //컨트롤러값 header로 뿌리기
 	}else {
 		session.setAttribute("member", login);
+		List<TeamMemberDto> team = biz.teamInfo(login.getMember_no()).getTmlist();
+		session.setAttribute("team", team); //로그인하면서 팀정보 추가
 	}
 	
 	return "redirect:/";
 	// "redirect:/" /로 돌아가기
 }
+
+
 
 @RequestMapping(value = "logout.do", method = RequestMethod.GET)
 public String logout(HttpSession session) throws Exception{
