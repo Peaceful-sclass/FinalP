@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.w3c.dom.views.AbstractView;
+import org.w3c.dom.views.DocumentView;
 
 import com.wv.root.model.dao.ExcelDao;
 import com.wv.root.model.dto.ExcelDto;
@@ -33,6 +36,11 @@ public class ExcelBizImpl implements ExcelBiz{
 	@Override
 	public int updateExcel(ExcelDto dto) {
 		return dao.updateExcel(dto);
+	}
+
+	@Override
+	public int downExcel(List<ExcelDto> dto, Model model){
+		return dao.downExcel(dto, model);
 	}
 
 

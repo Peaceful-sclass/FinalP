@@ -1,6 +1,7 @@
 package com.wv.root.model.dao;
 
 import com.wv.root.model.dto.MemberDto;
+import com.wv.root.model.dto.TeamDto;
 
 public interface MemberDao {
 	   
@@ -16,9 +17,11 @@ public interface MemberDao {
 	
 	// 회원탈퇴
 	public void memberDelete(MemberDto dto) throws Exception;
+
+	public TeamDto teamInfo(int member_no);
 	
 	// 탈퇴 비번 체크
 	public int passChk(MemberDto dto) throws Exception;
-	
+
 
 }

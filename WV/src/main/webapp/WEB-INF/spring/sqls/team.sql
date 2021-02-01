@@ -1,29 +1,44 @@
+--------------------------------------------------------------------------------------------------------
 --팀--
 DROP SEQUENCE TEAMSEQ;
-DROP TABLE TEAM;
+DROP TABLE TEAM cascade constraints;
 
 CREATE SEQUENCE TEAMSEQ;
 CREATE TABLE TEAM(
-     TEAM_NO NUMBER PRIMARY KEY,
-     MEMBER_NO NUMBER PRIMARY KEY,
-     TEAM_NAME VARCHAR2(50) NOT NULL  
+     TEAM_NO NUMBER,
+     TEAM_NAME VARCHAR2(50) NOT NULL,
+     TEAM_INTRO VARCHAR2(2000)
 );
 
-INSERT INTO TEAM VALUES(TEAMSEQ.NEXTVAL, '협업1');
+ALTER TABLE Team ADD CONSTRAINT PK_TEAM PRIMARY KEY (TEAM_NO);
+ALTER TABLE Team ADD CONSTRAINT UK_TEAM unique (TEAM_Name);
 
-SELECT*FROM TEAM;
 
---팀정보--
-DROP SEQUENCE TMEMBERSEQ;
-DROP TABLE TEAMMEMBER;
+INSERT INTO TEAM VALUES(1, 'WV', 'testtest' );
 
-CREATE SEQUENCE TMEMBERSEQ;
+SELECT * FROM TEAM;
+
+--------------------------------------------------------------------------------------------------------
+--팀 멤버 정보테이블--
+DROP SEQUENCE TeamMEMBERSEQ;
+DROP TABLE TEAMMEMBER cascade constraints;
+
+CREATE SEQUENCE TeamMEMBERSEQ;
 CREATE TABLE TEAMMEMBER(
-     TEAM_NO NUMBER PRIMARY KEY,
+     TEAMmember_NO NUMBER,
      MEMBER_NO NUMBER NOT NULL,
-     TEAM_NAME NUMBER NOT NULL  
+     TEAM_no NUMBER NOT NULL,
+     grade_inteam varchar2(10) default '팀원'
 );
 
-INSERT INTO MYTEAM VALUES(TMEMBERSEQ.NEXTVAL, );
+ALTER TABLE TeamMember ADD CONSTRAINT PK_TEAMMEMBER PRIMARY KEY (TEAMMEMBER_NO);
+ALTER TABLE TeamMember ADD CONSTRAINT FK_Team_TO_TeamMember_1 FOREIGN KEY (TEAM_NO) REFERENCES Team (TEAM_NO);
+ALTER TABLE TeamMember ADD CONSTRAINT FK_Member_TO_TeamMember_1 FOREIGN KEY (MEMBER_NO) REFERENCES myMember (MEMBER_NO);
 
-SELECT*FROM MYTEAM;
+
+INSERT INTO TEAMMEMBER VALUES(TeamMEMBERSEQ.NEXTVAL, 22, 1, '팀장' );
+
+SELECT * FROM TEAMMEMBER;
+
+
+--------------------------------------------------------------------------------------------------------

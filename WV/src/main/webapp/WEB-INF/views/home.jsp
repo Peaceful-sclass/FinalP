@@ -45,6 +45,7 @@
 <br>
 <a href="Chatting.do">chat</a>
 
+
 <!-- 요기까지 -->
 
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>

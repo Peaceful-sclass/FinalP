@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ExcelBiz;
+import com.wv.root.model.biz.ShareCalendarBiz;
+import com.wv.root.model.dao.ExcelDao;
+import com.wv.root.model.dao.ExcelDaoImpl;
 import com.wv.root.model.dto.ExcelDto;
 
 /**
@@ -29,13 +34,20 @@ public class ExcelController {
 
 	@Autowired
 	private ExcelBiz biz;
-
+	@Autowired
+	private ShareCalendarBiz calbiz;
+	
+	@Autowired
+	HttpSession session;
+	
 	
 	//공유 문서 값 가져오기
 	@RequestMapping(value = "/shareDocumentList.do", method = RequestMethod.GET)
-	public String shareDocumentList(Locale locale, Model model) {
+	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest) {
 		logger.info("Excel List");
 		
+		
+		model.addAttribute("callist", calbiz.selectEvent(1));
 		//팀 넘버가 1일 경우
 		model.addAttribute("list", biz.selectCol(1));
 		
@@ -210,17 +222,25 @@ public class ExcelController {
 		
 		System.out.println(row1.getColB());
 		
-		int res = biz.updateExcel(row1)+biz.updateExcel(row2)+biz.updateExcel(row3)+biz.updateExcel(row4)+biz.updateExcel(row5)+
-				biz.updateExcel(row6)+biz.updateExcel(row7)+biz.updateExcel(row8)+biz.updateExcel(row9)+biz.updateExcel(row10);
-		
-		biz.updateExcel(row1);
-		
+		biz.updateExcel(row1);biz.updateExcel(row2);biz.updateExcel(row3);biz.updateExcel(row4);biz.updateExcel(row5);
+		biz.updateExcel(row6);biz.updateExcel(row7);biz.updateExcel(row8);biz.updateExcel(row9);biz.updateExcel(row10);
 
 
 		return "redirect:shareDocumentList.do";
 
-		
 	}
+	
+	//엑셀 다운
+	@RequestMapping(value = "/excelDown.do", method = RequestMethod.GET)
+	public String excelDown(HttpServletRequest httpServletRequest, Locale locale, Model model) {
+		logger.info("Excel Down");
+		
+		model.addAttribute("request", httpServletRequest); 
+		biz.downExcel(biz.selectCol(1), model);
+		
+		return "redirect:shareDocumentList.do";
+	}
+	
 	
 	
 	

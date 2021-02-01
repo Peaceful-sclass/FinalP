@@ -44,6 +44,7 @@
 	<link rel="stylesheet" href="css/quill.snow.css" />
 
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/toastr.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -54,6 +55,7 @@
 				location.href = "comunity.do?category=전체&currentPage=1";
 			}
 		};
+
 	</script>	
 	
 	<style type="text/css">
@@ -65,6 +67,30 @@
 	</style>
 	
 			<style>
+
+
+		
+		function chkHasTeam() { //회원이 팀을 가진지 확인.
+			let login = "${member.member_id}";
+			if(login == null || login == "" || login == undefined){
+				toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
+				return false;
+			}
+			let form = document.createElement("form");
+			let sessioninfo = "${team[0].team_no}";
+			$(form).append($('<input/>', {type: 'hidden', name: 'member_no', value:'${member.member_no}' }));
+			$(form).append($('<input/>', {type: 'hidden', name: 'member_id', value:'${member.member_id}' }));
+			form.method = "post";
+			if(sessioninfo == null || sessioninfo == "" || sessioninfo == undefined){
+				form.action = 'teamcreateform.do';
+			}else{
+				form.action = 'team.do';
+			}
+			document.body.appendChild(form);
+			console.log("formAction: "+ form.action);
+			form.submit();
+		}
+
 		
 		   #userId{
 		         width:80px;
@@ -123,7 +149,29 @@
 		
 		$("#memberDeleteBtn").on("click", function(){
 			location.href="dest.do";
-		})  
+		})
+		
+		//NAV BAR 선택CSS
+		let cmd = window.location.pathname;
+		let ulnav = document.querySelectorAll(".navbar-nav > .nav-item");
+		if(cmd == "/root/team.do"||cmd == "/root/teamin.do"||cmd == "/root/teamcreate.do"){
+			for(let i=0; i<ulnav.length; i++){
+				ulnav[i].classList.remove('active');
+				ulnav[1].classList.add('active');
+			}
+		}
+		else if(cmd == "/root/comunity.do"||cmd == "/root/comunitywrite.do"){
+			for(let i=0; i<ulnav.length; i++){
+				ulnav[i].classList.remove('active');
+				ulnav[3].classList.add('active');
+			}
+		}
+		else if(cmd == "/root/home.do"){
+			for(let i=0; i<ulnav.length; i++){
+				ulnav[i].classList.remove('active');
+				ulnav[0].classList.add('active');
+			}
+		}
 	});
 </script>
 <body>
@@ -131,7 +179,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="home.do">
 					<img src="images/logof.png" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,10 +189,10 @@
 					<ul class="navbar-nav ml-auto" id="lef">
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
-						<li class="nav-item"><a class="nav-link" href="sidemenuex.do">팀메뉴</a></li>
+						<li class="nav-item" id="navTeam"><a class="nav-link" href="#" onclick="chkHasTeam(); return false;">팀메뉴</a></li>
 						<li class="nav-item"><a class="nav-link" href="shareDocumentList.do">팀메뉴2</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
-						<li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li>
+						<!-- <li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li> -->
 						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
 					</ul>
 		
@@ -315,7 +363,6 @@
 	<script src="js/baguetteBox.min.js"></script>
 	<script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
-    <script src="js/toastr.min.js"></script>
     <script src="js/custom.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1056e51774c015f0b972ae144cc7411f&libraries=services"></script>
     <script src="js/place.js"></script>
