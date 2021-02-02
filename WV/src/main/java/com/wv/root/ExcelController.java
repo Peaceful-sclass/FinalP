@@ -1,13 +1,10 @@
 package com.wv.root;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ExcelBiz;
-import com.wv.root.model.dao.ExcelDao;
-import com.wv.root.model.dao.ExcelDaoImpl;
 import com.wv.root.model.dto.ExcelDto;
 
 /**
@@ -32,16 +27,16 @@ public class ExcelController {
 
 	@Autowired
 	private ExcelBiz biz;
-
+	
 	
 	//공유 문서 값 가져오기
 	@RequestMapping(value = "/shareDocumentList.do", method = RequestMethod.GET)
-	public String shareDocumentList(Locale locale, Model model) {
+	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest, int team_no) {
 		logger.info("Excel List");
+		System.out.println("Team No 값:"+httpServletRequest.getParameter("team_no"));
 		
 		//팀 넘버가 1일 경우
-		model.addAttribute("list", biz.selectCol(1));
-		
+		model.addAttribute("list", biz.selectCol( Integer.parseInt(httpServletRequest.getParameter("team_no"))) );
 
 		return "shareDocumentList";
 	}
@@ -233,13 +228,6 @@ public class ExcelController {
 	}
 	
 	
-	@RequestMapping(value = "/shareCalendar.do", method = RequestMethod.GET)
-	public String shareCalendar(Locale locale, Model model) {
-
-		
-
-		return "shareCalendar";
-	}
 	
 	
 	

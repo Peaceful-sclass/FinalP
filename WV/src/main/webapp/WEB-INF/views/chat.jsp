@@ -162,17 +162,17 @@ function readAjax(){
     	dataType : 'json',
     	success : function(data) {
     		console.log(data.length);
-    		if(data.length == 1){
-    			console.log(data[0].session_id);
-    			if(data[0].session_id==null){
-    				console.log('널임');
-    				window.open('about:blank','_self').self.close();
+    		if(data.length == 0){
+    			//console.log(data[0].session_id);
+    			//if(data[0].session_id==null){
+    				//console.log('널임');
+    				//window.open('about:blank','_self').self.close();
     				
-    			}
+    			//}
     			return;
     		}else{
     			
-    			for(var i=1; i<=data.length; i++){
+    			for(var i=0; i<data.length; i++){
     				if(data[i].member_id == loginid){
     					$(".msg_history").append(
     						"<div class='outgoing_msg'>"+

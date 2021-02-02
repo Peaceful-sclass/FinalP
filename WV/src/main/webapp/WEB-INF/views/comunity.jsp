@@ -48,7 +48,13 @@
 	    categorySelectTag.value = "${cpdto.category}";
 	    let searchSelectTag = document.getElementsByName("searchselect")[0];
 	    searchSelectTag.value = "${schdto.searchsel}";
-	    console.log("searchSelectTag.value: "+searchSelectTag.value)
+	    console.log("searchSelectTag.value: "+searchSelectTag.value);
+	    
+	    function enter(){
+		    if(event.keyCode == 13){
+		         cmpageChange(); 
+		    }
+		}
 	}
  	
  	let cmwriteform = (no) => {
@@ -173,7 +179,7 @@
 				<div class="col-1">
 				</div>
 				<div class="col-10">
-					<form name="tableform1" action="cmdetail.do" method="get">
+					<!-- <form name="tableform1" action="cmdetail.do" method="get"> -->
 						<input type="hidden" name="category" value="${cpdto.category}" />
 						<table class="table table-sm table-striped table-hover">
 						  <thead>
@@ -214,7 +220,7 @@
 							      		<option value="writer">작성자</option>
 									</select>
 									<input type="text" class="a-search-input" name="word" value="${cpdto.search.word }">  
-							      	<input type="button" class="bt-search" value="검색" onclick="cmpageChange(this);" />
+							      	<input type="button" class="bt-search" value="검색" onclick="cmpageChange(this);" onkeydown="javascript:enter();" />
 						      </td>
 						      <td colspan="9">
 						      	<input type="button" class="bt-write" value="글쓰기" onclick="cmwriteform('${member.member_no}');"/>
@@ -223,7 +229,7 @@
 						  	
 						  </tfoot>
 						</table>
-					</form>
+					<!-- </form> -->
 				</div>
 				<div class="col-1">
 				</div>

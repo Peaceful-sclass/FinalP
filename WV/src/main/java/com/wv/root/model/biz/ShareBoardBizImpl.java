@@ -50,7 +50,7 @@ public class ShareBoardBizImpl implements ShareBoardBiz{
 		return dao.listCount(scri);
 	}
 	
-	@Transactional(isolation = Isolation.READ_COMMITTED)
+	//@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ShareBoardDto selectOne(int bno) {
 		// TODO Auto-generated method stub

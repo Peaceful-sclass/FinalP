@@ -3,6 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Calendar">
+	<resultMap type="CalendarDto" id="CalendarMap">
+		<result property="calNo" column="CALENDARNO"/>
+		<result property="teamNo" column="TEAMNO"/>
+		<result property="calTitle" column="CALTITLE"/>
+		<result property="calStart" column="CALSTART"/>
+	</resultMap>
 
 
+	<select id="selectEvent" resultMap="CalendarMap">
+		SELECT CALENDARNO, TEAMNO, CALTITLE, CALSTART
+		FROM SHARECALENDAR
+		WHERE TEAMNO = #{teamNo}	
+	</select>
+
+	<insert id="insertEvent" parameterType="CalendarDto">
+		INSERT INTO SHARECALENDAR
+		VALUES(CALENDARNOSEQ.NEXTVAL, #{teamNo}, #{calTitle}, #{calStart})
+	</insert>
+	
+	<delete id="deleteEvent" parameterType="String">
+		DELETE FROM SHARECALENDAR
+		WHERE CALTITLE = #{calTitle}
+	</delete>
+	
 </mapper>

@@ -9,6 +9,7 @@ function selectcategory(select){ //안씀..
     return false;
 };
 
+
 /*let titleClick = function(){ //테이블폼 제출용
     //let form = document.tableform1;
     //form.action;
@@ -275,6 +276,7 @@ let cmtLoad = (param, rt)=>{//해당글의 댓글로드 rt에서 댓글까지 �
 			aRepl.dataset["mno"] = rt.cmt[i].member_no;
 			aRepl.dataset["grpno"] = rt.cmt[i].comcmtgrpno;
 			aRepl.dataset["cno"] = rt.cmt[i].cno;
+			aRepl.dataset["currentid"] = param.dataset['mid'];
 			//자신의 글 검증 후 삭제 버튼추가
 			if(param.dataset['mid'] === rt.cmt[i].member_id){//현로그인id:댓글id
 				$(aDel).addClass("dv-cmtR-del").attr("data-cmtno",rt.cmt[i].comcmtno).attr("data-mid",param.dataset['mid']).attr("data-mno",param.dataset['mno']).attr("data-cno",param.dataset['cno']).attr("data-cmtcmd","2").attr('onclick',"cmtReply(this); return false;").attr('href', '#').text("삭제").appendTo(divD);
@@ -301,6 +303,9 @@ let cmtReply = (param)=>{
 	//로그인 검증
 	if(cmtData.member_id == null || cmtData.member_id == "" || cmtData.member_id == undefined){
 		toastr.warning("로그인을 먼저 해주십시오.", "로그인 필요!", {timeOut: 5000});
+		return false;
+	}else if(cmtData.member_id === param.dataset['currentid']){
+		toastr.warning("자기 댓글에 답변할 수 없습니다", "답변 불가!", {timeOut: 5000});
 		return false;
 	}
 	if(param.dataset['cmtcmd'] === "1"){ //Button - 1:answer 2:del 3:reply

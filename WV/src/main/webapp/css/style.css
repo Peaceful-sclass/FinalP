@@ -1,3 +1,4 @@
+@charset "utf-8";
 /*------------------------------------------------------------------
     IMPORT FONTS
 -------------------------------------------------------------------*/
@@ -19,7 +20,7 @@
 
 body {
     color: #666666;
-    /* font-size : 15px 지움 */
+    /* font-size : 15px ì§ì */
     font-family: 'Rubik', sans-serif;
     line-height: 1.80857;
 }
@@ -180,6 +181,7 @@ button:focus{
 	padding: 10px 20px;
 	border-radius: 4px;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 
 .top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover{
@@ -385,7 +387,8 @@ button:focus{
 -------------------------------------------------------------------*/
 
 .menu-box{
-	padding: 150px 0px;
+	padding: 150px 0 0 0;
+	min-height: 550px;
 }
 
 .heading-title{
@@ -427,30 +430,33 @@ button:focus{
 }
 
 .why-text {
-    position: absolute;
     left: 0;
-    bottom: -100%;
     right: 0;
-    height: 100%;
     background: rgba(207, 166, 113, 0.9);
     padding: 12px 12px;
-    -webkit-transition: all .3s ease;
-    transition: all .3s ease;
 }
 .why-text h4{
+	border-bottom: 1px dashed #010101;
 	color: #ffffff;
 	font-size: 16px;
 	font-weight: 500;
 	font-family: 'Rubik', sans-serif;
 }
+/* 팀아이콘 스타일 설정 */
 .why-text p{
 	color: #ffffff;
 	font-size: 13px;
-	border-bottom: 1px dashed #010101;
 	margin: 0px;
 	padding-bottom: 15px;
 	margin-top: 0px;
 	margin-bottom: 15px;
+	
+	height: 111px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
 }
 .why-text h5{
 	font-size: 18px;
@@ -688,7 +694,7 @@ button:focus{
 .footer-area p.lead a:hover{
 	color: #d65106;
 }
-/* footerìì­ ë§í¬ ê¸ì ì */
+/* footerÃ¬ÂÂÃ¬ÂÂ­ Ã«Â§ÂÃ­ÂÂ¬ ÃªÂ¸ÂÃ¬ÂÂ Ã¬ÂÂ */
 .footer-area p a{
 	font-size: 18px;
     color: #504a4a;
@@ -753,7 +759,7 @@ button:focus{
 	border-radius: 4px;
 }
 
-/* footer ë°°ê²½ì */
+/* footer Ã«Â°Â°ÃªÂ²Â½Ã¬ÂÂ */
 .copyright{
 	margin-top: 20px;
 	position: relative;

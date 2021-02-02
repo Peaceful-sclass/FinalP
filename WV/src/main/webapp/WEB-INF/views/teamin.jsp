@@ -23,7 +23,66 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+   	<link rel="stylesheet" href="css/team.css">
+   	<script type="text/javascript" src="js/team.js"></script>
+    <script>
+    	var sessionTeamInfo;
+    	window.onload = function(){
+    		let session = "${member.member_id}"; //session login 확인
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do";
+    		}
+    		//팀아이콘배경랜덤
+    		let tmiconbg = document.getElementsByClassName("why-text");
+    		let bgcolor = {
+    			1:"background: rgba(207, 166, 113, 0.9);",
+    			2:"background: rgba(222, 255, 222, 0.9);",
+    			3:"background: rgba(255, 222, 239, 0.9);",
+    			4:"background: rgba(239, 222, 255, 0.9);",
+    			5:"background: rgba(255, 255, 227, 0.9);",
+    			6:"background: rgba(222, 222, 239, 0.9);",
+    			7:"background: rgba(222, 255, 255, 0.9);"
+    		}
+    		for(let i=0; i<tmiconbg.length; i++){
+    			let r = Math.floor(Math.random()*Object.keys(bgcolor).length)+1;
+    			tmiconbg[i].setAttribute("style",bgcolor[r]);
+    			//tmiconbg[i].style.background = bgcolor[r];
+    		}
+    		
+    	}
+    	
+    	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
+    	function teamSide(param){
+    		let session = "${member.member_id}"; //session login 확인
+    		//sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
+    		window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
+    		let textcon = $(param).text();
+    		console.log("textcon: "+ textcon);
+    		console.log("sessionTeamInfo: "+ window.sessionTeamInfo);
+    		
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
+    		}else if(sessionTeamInfo == null||sessionTeamInfo == ""||sessionTeamInfo == undefined){
+    			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+    			return false;
+    		}
+    		
+    		if(textcon == "팀메인"){
+    			sidePost('team.do','${member.member_no}');
+    		} else if(textcon == "일정"){
+    			location.href="home.do";
+    		} else if(textcon == "시트"){
+    			location.href="shareDocumentList.do?team_no="+${teamInfo.team_no};
+    		} else if(textcon == "코드"){
+    			location.href="home.do";
+    		} else if(textcon == "저장소"){
+    			location.href="shareBoardList.do";
+    		}
+    		
+    		
+    	}
 
+    </script>
 </head>
 
 <body>
@@ -32,15 +91,14 @@
 	<div class="menu-box">
 		<div class="container">
 			
-			
 			<div class="row inner-menu-box">
 				<div class="col-3">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true">팀메인</a>
-						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">일정</a>
-						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">문서</a>
-						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">코드</a>
-						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">저장소</a>
+						<a class="nav-link active" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
+						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="teamSide(this); return false;">일정</a>
+						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="teamSide(this); return false;">시트</a>
+						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="teamSide(this); return false;">코드</a>
+						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
 					</div>
 				</div>
 				
@@ -48,20 +106,36 @@
 					<div class="tab-content" id="v-pills-tabContent">
 
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-							<!-- row안에 팀목록이 주루룩 들어가게... -->
 							
-							<div class="row">
-								<div class="col-lg-4 col-md-6 special-grid drinks">
-									<div class="gallery-single fix">
-										<img src="images/img-01.jpg" class="img-fluid" alt="Image">
-										<div class="why-text">
-											<h4>팀 1</h4>
-											<p>Sed id </p>
-											<h5> $7.79</h5>
-										</div>
+							<div class="row justify-content-end">
+								<div class="team-main">
+									<div class="team-main-top">
+										<a class="team-main-top-create" href="#" data-mid="${member_id}" onclick="teamCreateBT(this); return false;">팀만들기</a>
+									</div>
+								</div>
+								<div class="team-main">
+									<div class="team-main-top">
+										<a class="team-main-top-create" href="#" data-mid="${member_id}" onclick="teamInvite(this); return false;">팀초대</a>
 									</div>
 								</div>
 							</div>
+							<hr />
+							<!-- 팀목록 Start -->
+							<div class="row">
+								<c:forEach var="dto" items="${team}">
+									<div class="col-lg-4 col-md-6 special-grid drinks">
+										<div class="gallery-single fix">
+											<div class="why-text">
+												<h4><a href="#" data-tname="${dto.team_name}" data-tno="${dto.team_no}" onclick="teamIcon(this); return false;">${dto.team_name}</a></h4>
+												<p><a href="#">${dto.team_intro}</a></p>
+											</div>
+										</div>
+									</div>
+								
+								</c:forEach>
+								
+							</div><!-- 팀목록 End -->
+							
 						</div>
 						
 					

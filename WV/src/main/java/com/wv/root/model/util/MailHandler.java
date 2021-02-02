@@ -19,26 +19,26 @@ public class MailHandler {
            this.mailSender = mailSender;
            message = this.mailSender.createMimeMessage();
            messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-       }
+       }//messageHelper가 message객체를 감싸서 message객체가 완성될 수 있게 도와준다.
 
 
+       //이메일 타이틀 
        public void setSubject(String subject) throws MessagingException {
            messageHelper.setSubject(subject);
            
-           // 이메일 타이틀 
        }
+       //이메일 TEXT 부분 
        public void setText(String htmlContent) throws MessagingException {
            messageHelper.setText(htmlContent, true);
            
-           //  이메일 TEXT 부분 
        }
+       //보내는 사람 이메일 
        public void setFrom(String email, String name) throws UnsupportedEncodingException, MessagingException {
            messageHelper.setFrom(email, name);
-           // 보내는 사람 이메일 
        }
+       //받는 사람 이메일 
        public void setTo(String email) throws MessagingException {
            messageHelper.setTo(email);
-           //받는 사람 이메일 
        }
        public void addInline(String contentId, DataSource dataSource) throws MessagingException {
            messageHelper.addInline(contentId, dataSource);
