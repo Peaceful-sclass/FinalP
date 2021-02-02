@@ -33,7 +33,7 @@ public class TeamDaoImpl implements TeamDao {
  
     @Override  //table에 초대정보 업데이트
     public void createCode(String member_email, String code) {
-    	Map<String, String> map = new HashMap();
+    	Map<String, String> map = new HashMap<String,String>();
     	map.put("member_email", member_email);
     	map.put("code", code);
         try {
@@ -52,7 +52,7 @@ public class TeamDaoImpl implements TeamDao {
         System.out.println("인증하나요??");
         
         session.update(NameSpace + ".userAuth", vo);
-        System.out.println(vo.getUserState());
+//        System.out.println(vo.getUserState());
     }
 	
     

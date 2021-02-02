@@ -2,8 +2,10 @@ package com.wv.root;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -119,11 +121,19 @@ public class TeamController {
 
 	
 	@RequestMapping(value = "invite.do", method = RequestMethod.GET)
-    public String RegisterPost(Email edto, Model model, RedirectAttributes rttr) throws Exception{
+    public String invite(Email edto, Model model, RedirectAttributes rttr){
 		logger.info("[Invite Email]");
-    
-        teambiz.invite(edto);
-        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
+		
+        try {
+			teambiz.invite(edto);
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("[invite.do] 잘못된 인코딩 오류");
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			System.out.println("[invite.do] 메세징오류");
+			e.printStackTrace();
+		}
+        rttr.addFlashAttribute("msg", "가입시 사용한 이메일로 인증해주세요");
         return "redirect:/";
     }
 //
