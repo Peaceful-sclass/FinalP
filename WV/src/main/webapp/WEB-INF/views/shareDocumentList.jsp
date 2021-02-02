@@ -87,38 +87,7 @@ body {
 	max-width: 1100px;
 	margin: 0 auto;
 }
-table.document {
-  border-collapse: collapse;
-  text-align: left;
-  line-height: 1.5;
-  border-left: 1px solid #ccc;
-  margin: 20px 10px;
-}
 
-table.document thead th {
-  padding: 10px;
-  font-weight: bold;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 2px solid #c00;
-  background: #dcdcd1;
-}
-table.document tbody th {
-  width: 150px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  background: #ececec;
-}
-table.document td {
-  width: 350px;
-  padding: 10px;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
 
 
 </style>
@@ -516,7 +485,6 @@ table.document td {
 														<form action="shareDocumentUpdateForm.do">
 															<!-- 팀번호 받아넘김 -->
 															<input name="teamNo" value="1" hidden="true">
-															<input type="button" value="달력" onclick="location.href='shareCalendar.do'">	
 															<input type="button" id="btnExcelDown" name="btnExcelDown" value="엑셀다운" onclick="location.href='excelDown.do'">	
 															<input type="submit" name="checkVal"value="문서작성">	
 														</form>
@@ -536,7 +504,7 @@ table.document td {
 							</div>
 						</div>
 						
-						<div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
+						<div class="ab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
 							
 						
 								<div id='calendar'></div>
