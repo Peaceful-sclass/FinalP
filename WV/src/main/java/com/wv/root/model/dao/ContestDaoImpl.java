@@ -160,4 +160,16 @@ public class ContestDaoImpl implements ContestDao{
 		return res;
 	}
 
+	@Override
+	public List<ContestDto> homeClist() {
+		List<ContestDto> list = new ArrayList<ContestDto>();
+		try {
+			list = sqlSession.selectList(NAMESPACE+"homeclist");
+		} catch (Exception e) {
+			System.out.println("[error]: homeclist");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

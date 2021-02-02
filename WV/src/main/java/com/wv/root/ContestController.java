@@ -35,6 +35,13 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 	@Autowired
 	private ContestBiz biz;
 	
+	@RequestMapping("/homeClist.do")
+	public String loginform(Model model) {
+		logger.info("[homeClist.do]");
+		model.addAttribute("contest", biz.homeClist());
+		return "home";      
+	}
+	
 	@RequestMapping("/contestinsert.do")
 	public String loginform() {
 		logger.info("[contestinsert]");

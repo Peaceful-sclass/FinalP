@@ -33,6 +33,8 @@ public interface ContestDao {
 
 	public int countReward(String category);
 
+	public List<ContestDto> homeClist();
+
 	
 	
 }
