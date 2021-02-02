@@ -63,11 +63,10 @@ public class TeamDaoImpl implements TeamDao {
     		res = session.selectOne(NameSpace+"redundantvalidation", dto.getTeam_name());
     		if(res == 1) {//1이라면 중복팀이름
     			return res = 11;
+    		}else {
+    			res = 22; //아니라면 22 신호를 넣고 insert 진행
     		}
-			res = session.insert(NameSpace+"createTeam", dto );
-			if(res == 1) {
-				res = 22;
-			}
+    		session.insert(NameSpace+"createTeam", dto );
 		} catch (DataAccessException e) {
 			System.out.println("[team create fail]");
 			e.printStackTrace();
