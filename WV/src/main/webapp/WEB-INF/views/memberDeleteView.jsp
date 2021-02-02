@@ -27,7 +27,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// 취소
-			$(".cencle").on("click", function(){
+			$("#cc").on("click", function(){
 				
 				location.href = "/root";
 						    
@@ -64,7 +64,9 @@
 		
 	</script>
 	<body>
+	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 		<section id="container">
+		        <h1>회원탈퇴</h1>
 			<form action="memberDelete.do" method="post" id="delForm">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label>
@@ -79,8 +81,8 @@
 					<input class="form-control" type="text" id="userEmail" name="member_email" value="${member.member_email}" readonly="readonly"/>
 				</div>
 				<div class="form-group has-feedback">
-					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>
-					<button class="cencle btn btn-danger" type="button">취소</button>
+					<button  type="submit" id="submit">회원탈퇴</button>
+					<button  type="button" id="cc">취소</button>
 				</div>
 			</form>
 			<div>
@@ -90,6 +92,7 @@
 			</div>
 		</section>
 		
+		<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 	</body>
 	
 </html>

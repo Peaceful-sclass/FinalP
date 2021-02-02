@@ -11,7 +11,7 @@
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<title>회원가입</title>
 		
-				<style>
+	 <style>
 		   #userId{
 		         width:160px;
 		   }
@@ -21,13 +21,16 @@
 		   #userEmail{
 		         width:200px;
 		   }	
+		   
+
+		   
 
 		</style>
 	</head>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// 취소
-			$(".cencle").on("click", function(){
+			$("#cc").on("click", function(){
 				
 				location.href = "/root";
 						    
@@ -51,7 +54,9 @@
 		})
 	</script>
 	<body>
+	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 		<section id="container">
+	       	<h1>회원수정</h1>
 			<form action="memberUpdate.do" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label>
@@ -66,12 +71,12 @@
 					<input class="form-control" type="text" id="userEmail" name="member_email" value="${member.member_email}" placeholder="바꾸실 이메일 입력"/>
 				</div>
 				<div class="form-group has-feedback">
-					<button class="btn btn-success" type="submit" id="submit">회원정보수정</button>
-					<button class="cencle btn btn-danger" type="button">취소</button>
+					<button type="submit" id="submit">회원정보수정</button>
+					<button type="button" id="cc">취소</button>
 				</div>
 			</form>
 		</section>
-		
+		<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 	</body>
 	
 </html>
