@@ -56,7 +56,7 @@
 			}
 		};
 		
-		<!-- team -->	
+		// team 	
 		function chkHasTeam() { //회원이 팀을 가진지 확인.
 			let login = "${member.member_id}";
 			if(login == null || login == "" || login == undefined){
@@ -82,8 +82,41 @@
 
 	
 	<style type="text/css">
-	
-	
+	      #logbt:hover{
+	          background:#DB631F;
+	          color: white;
+	          border-radius: 2px;
+	      }
+	      #regibt:hover{
+	          background:#DB631F;
+	          color: white;
+	          border-radius: 2px;
+	      }	   
+	      #userId:hover{
+	          background:#DB631F;
+	          color: white;
+	      }	   
+		  #userPass:hover{
+	          background:#DB631F;
+	          color: white;
+	      }	
+	      #memberUpdateBtn:hover{
+	          background:#DB631F;
+	          color: white;
+	          border-radius: 2px;
+	      }
+	      
+	      #memberDeleteBtn:hover{
+	          background:#DB631F;
+	          color: white;
+	          border-radius: 2px;
+	      }	
+	      
+	      #outBtn:hover{
+	          background:#DB631F;
+	          color: white;
+	          border-radius: 2px;
+	      }
 	      #lo{
 	          width: 60px;
 	          height: 30px;
@@ -107,6 +140,7 @@
 		         font-size: 5px;
 		         border-style:none;
 		         background-color:  #f8f9fa;
+		         
 		   }
 
 		   
@@ -249,7 +283,7 @@
 				<input style="position: fixed; top: 5px; right: 150px;" type="password" id="userPass" name="member_pw" placeholder="PW">
 			</div>
 			<div>
-				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt" >로그인</button></a></span>
+				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt"  >로그인</button></a></span>
 				      <span style="position: fixed; top: 5px; right: 10px;"><a href="register.do"><button type="button" id="regibt">회원가입</button></a></span>  
 				<!--<button type="submit">로그인</button>
 				<button id="registerBtn" type="button">회원가입</button>-->
@@ -257,7 +291,7 @@
 		</c:if>
 		<c:if test="${member != null }">
 			<div>
-			<p style="position: fixed; top: 5px; right: 210px; font-size: 13; ">${member.member_id}환영합니다 </p>
+			<p style="position: fixed; top: 5px; right: 210px; font-size: 13; ">${member.member_id}님 환영합니다 </p>
 				<button style="position: fixed; top: 5px; right: 140px;" id="memberUpdateBtn" type="button">회원수정</button>
 				<!-- function빼고 해보기 
 				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
@@ -269,7 +303,7 @@
                
 		  <c:if test="${msg == false}">     <!-- 컨트롤러값 아이디 패스워드 틀릴시-->
 		     <script type="text/javascript">
-		     alert("아이디 패스워드를 확인해주세요");
+		     toastr.warning("아이디 비번 확인해주세요", {tiemOut: 5000});
 		     </script>
 		</c:if>
 
