@@ -30,8 +30,13 @@ let teamIcon = (param)=>{
 		url: "teamicon.do",
 		data: JSON.stringify({team_no:param.dataset['tno'], team_name:param.dataset['tname']}),
 		contentType: "application/json",
-		success: function(){
+		success: function(rt){
 			toastr.info(param.dataset['tname']+"팀을 선택했습니다.", "팀선택", {tiemOut: 5000});
+			//location.reload();
+			console.log("rt: "+rt.team_no);
+			window.sessionStorage.removeItem("teamInfo");
+			window.sessionStorage.setItem("teamInfo", rt.team_no);//리턴받은 값을 임시로 클라세션에 전달해준다.
+			//window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
 		},
 		error: function(){
 			toastr.error("인터넷 상태가 양호하지 않습니다.", "인터넷에러", {tiemOut: 5000});
@@ -44,7 +49,9 @@ let sidePost = (url,memberno)=>{
 	$.ajax({
 		type: 'post',
 		url: url+'?member_no='+memberno,
-		success: function(){},
+		success: function(){
+			
+		},
 		error:function(){
 			toastr.error("인터넷상태를 확인해주세요.", "인터넷에러!", {tiemOut: 5000});
 		}
@@ -52,4 +59,15 @@ let sidePost = (url,memberno)=>{
 };
 
 
+let teamInvite = (param)=>{
+	$.ajax({
+		type: 'get',
+		url: 'invite.do?member_id='+param.dataset['mid'],
+		success: function(){
+			
+		},error:function(){
+			toastr.error("인터넷상태를 확인해주세요.", "인터넷에러!", {tiemOut: 5000});
+		}
+	});
+};
 

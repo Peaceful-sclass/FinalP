@@ -1,6 +1,8 @@
 package com.wv.root.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,36 +19,41 @@ public class TeamDaoImpl implements TeamDao {
 	private SqlSessionTemplate session;
 
 	
-//    //회원 정보 입력
-//    public void insertUser(TeamDto vo) throws Exception {
-//        System.out.println("회원등록완료 !!!");
-//        session.insert(NameSpace+".insertUser",vo);
-//        System.out.println("//////////////////////////////////");
-//        System.out.println("회원등록완료 !!!");
-//    }
-//    //email 중복 확인
-//    public TeamDto authenticate(String str) throws Exception {
-//        return session.selectOne(NameSpace+".checkdupl", str);
-//    }
-// 
-//    //해당 email에 인증 키 업데이트
-//    public void createAuthKey(String memberEmail, String memberAuthKey) throws Exception {
-//        TeamDto vo = new TeamDto();
-//        vo.setMemberAuthKey(memberAuthKey);
-//        vo.setMemberEmail(memberEmail);
-//        session.update(NameSpace + ".createAuthKey", vo);
-//    }
-//    //이메일 인증 코드 확인
-//    public TeamDto chkAuth(TeamDto vo) throws Exception {
-//        return session.selectOne(NameSpace + ".chkAuth", vo);
-//    }
-//    //인증 후 계정 활성화
-//    public void userAuth(TeamDto vo) throws Exception {
-//        System.out.println("인증하나요??");
-//        
-//        session.update(NameSpace + ".userAuth", vo);
-//        System.out.println(vo.getUserState());
-//    }
+    //회원 정보 입력
+    public void insertUser(TeamDto vo) throws Exception {
+        System.out.println("회원등록완료 !!!");
+        session.insert(NameSpace+".insertUser",vo);
+        System.out.println("//////////////////////////////////");
+        System.out.println("회원등록완료 !!!");
+    }
+    //email 중복 확인
+    public TeamDto authenticate(String str) throws Exception {
+        return session.selectOne(NameSpace+".checkdupl", str);
+    }
+ 
+    @Override  //table에 초대정보 업데이트
+    public void createCode(String member_email, String code) {
+    	Map<String, String> map = new HashMap();
+    	map.put("member_email", member_email);
+    	map.put("code", code);
+        try {
+			session.insert(NameSpace + "createCode", map);
+		} catch (Exception e) {
+			System.out.println("[teamDao:careteCode] fail");
+			e.printStackTrace();
+		}
+    }
+    //이메일 인증 코드 확인
+    public TeamDto chkAuth(TeamDto vo) throws Exception {
+        return session.selectOne(NameSpace + ".chkAuth", vo);
+    }
+    //인증 후 계정 활성화
+    public void userAuth(TeamDto vo) throws Exception {
+        System.out.println("인증하나요??");
+        
+        session.update(NameSpace + ".userAuth", vo);
+        System.out.println(vo.getUserState());
+    }
 	
     
     public int createTeam(TeamMemberDto dto) {

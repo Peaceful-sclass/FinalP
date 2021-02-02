@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.TeamBiz;
 import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Controller
@@ -47,16 +48,17 @@ public class TeamController {
 		response.setContentType("text/html; charset=UTF-8;");
 		PrintWriter pw = response.getWriter();
 		int res = teambiz.createTeam(dto);
-		if(res == 11) {
-			pw.println("<script>toastr.success('같은 팀명이 있습니다.','팀이름 중복',{timeOut:5000});</script>");
+		model.addAttribute("createTeamRes", res);
+		if(res == 11) { //팀명중복.
+//			pw.println("<script>toastr.success('같은 팀명이 있습니다.','팀이름 중복',{timeOut:5000});</script>");
+			pw.println("<script>alert('같은 팀명이 있습니다.');</script>");
 			pw.flush();
 			return "teamcreate";
 		}
 		
-		if(res == 22) {
+		if(res == 22) { //팀생성됨.
 			request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
 		}
-		model.addAttribute("createTeamRes", res);
 //		pw.println("<script>alert('팀을 만들었습니다.');</script>");
 		//pw.println("<script>toastr.success('팀을 만들었습니다.','팀생성',{timeOut:5000});</script>");
 		//pw.flush();
@@ -102,7 +104,7 @@ public class TeamController {
 	//팀아이콘 클릭시 session에 전달해줄 정보(멤버리스트,팀번호/이름)
 	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
 	@ResponseBody
-	public void teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
+	public TeamDto teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
 		System.out.println("[dto]: "+dto);
 		List<TeamMemberDto> tmdto = teambiz.getTeamMember(dto);
 		TeamDto tmdtoinfo = new TeamDto();
@@ -110,18 +112,19 @@ public class TeamController {
 		tmdtoinfo.setTeam_name(dto.getTeam_name());
 		request.getSession().setAttribute("teamMember", tmdto);//팀멤버리스트
 		request.getSession().setAttribute("teamInfo", tmdtoinfo);//팀번호/이름
-		//return "통신성공";
+		System.out.println("[temicon.do] "+tmdtoinfo);
+		return tmdtoinfo;
 	}
 
 	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String RegisterPost(TeamDto team,Model model,RedirectAttributes rttr) throws Exception{
-//    
-//        System.out.println("regesterPost 진입 ");
-//        teambiz.regist(team);
-//        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
-//        return "redirect:/";
-//    }
+	@RequestMapping(value = "invite.do", method = RequestMethod.GET)
+    public String RegisterPost(Email edto, Model model, RedirectAttributes rttr) throws Exception{
+		logger.info("[Invite Email]");
+    
+        teambiz.invite(edto);
+        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
+        return "redirect:/";
+    }
 //
 //    //이메일 인증 코드 검증
 //    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
