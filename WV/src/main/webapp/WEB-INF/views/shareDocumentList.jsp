@@ -548,9 +548,11 @@ table.document td {
 						
 						<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 							<div class="row">
-								
+						</div>
+					</div>
+					</div>		
 			</div>
-			
+			</div>
 		</div>
 	</div>
 	<!-- End Menu -->
