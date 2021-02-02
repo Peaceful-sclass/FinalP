@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ExcelBiz;
-import com.wv.root.model.biz.ShareCalendarBiz;
 import com.wv.root.model.dto.ExcelDto;
 
 /**
@@ -28,18 +27,16 @@ public class ExcelController {
 
 	@Autowired
 	private ExcelBiz biz;
-	@Autowired
-	private ShareCalendarBiz calbiz;
+	
 	
 	//공유 문서 값 가져오기
 	@RequestMapping(value = "/shareDocumentList.do", method = RequestMethod.GET)
-	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest) {
+	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest, int team_no) {
 		logger.info("Excel List");
+		System.out.println("Team No 값:"+httpServletRequest.getParameter("team_no"));
 		
-		model.addAttribute("callist", calbiz.selectEvent(1));
 		//팀 넘버가 1일 경우
-		model.addAttribute("list", biz.selectCol(1));
-		
+		model.addAttribute("list", biz.selectCol( Integer.parseInt(httpServletRequest.getParameter("team_no"))) );
 
 		return "shareDocumentList";
 	}

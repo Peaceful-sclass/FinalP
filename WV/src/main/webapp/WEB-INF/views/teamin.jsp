@@ -72,17 +72,17 @@
     		} else if(textcon == "일정"){
     			location.href="home.do";
     		} else if(textcon == "시트"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			location.href="shareDocumentList.do?team_no="+${teamInfo.team_no};
     		} else if(textcon == "코드"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			location.href="home.do";
     		} else if(textcon == "저장소"){
     			location.href="shareBoardList.do";
     		}
     		
+    		
     	}
 
     </script>
-	
 </head>
 
 <body>

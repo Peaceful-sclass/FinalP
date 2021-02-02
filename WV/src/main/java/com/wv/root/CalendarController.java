@@ -1,9 +1,5 @@
 package com.wv.root;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ShareCalendarBiz;
 import com.wv.root.model.dto.CalendarDto;
-import com.wv.root.model.dto.ExcelDto;
 
 @Controller
 public class CalendarController {
@@ -36,7 +31,7 @@ public class CalendarController {
 		//팀 넘버가 1일 경우
 		model.addAttribute("list", biz.selectEvent(1));
 
-		return "redirect:shareDocumentList.do";
+		return "shareCalendar";
 	}
 	
 	//일정 추가하기
@@ -90,7 +85,7 @@ public class CalendarController {
 		biz.insert(dto);
 		
 
-		return "redirect:shareDocumentList.do";
+		return "redirect:shareCalendarList.do";
 	}
 	
 	@RequestMapping(value = "/shareCalendarDelete.do", method = RequestMethod.GET)
@@ -106,9 +101,9 @@ public class CalendarController {
 		int res = biz.delete(httpServletRequest.getParameter("start"));
 		
 		if(res>0) {
-			return "redirect:shareDocumentList.do";
+			return "redirect:shareCalendarList.do";
 		}else {
-			return "redirect:shareDocumentList.do";
+			return "redirect:shareCalendarList.do";
 		}
 
 		
