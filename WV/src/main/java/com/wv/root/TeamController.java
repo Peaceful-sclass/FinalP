@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.TeamBiz;
+import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
@@ -108,7 +109,7 @@ public class TeamController {
 	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
 	@ResponseBody
 	public TeamDto teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
-		System.out.println("[dto]: "+dto);
+		System.out.println("[dto]: "+dto);			//team_no,team_name
 		List<TeamMemberDto> tmdto = teambiz.getTeamMember(dto);
 		TeamDto tmdtoinfo = new TeamDto();
 		tmdtoinfo.setTeam_no(dto.getTeam_no());
@@ -121,11 +122,17 @@ public class TeamController {
 
 	
 	@RequestMapping(value = "invite.do", method = RequestMethod.GET)
-    public String invite(Email edto, Model model, RedirectAttributes rttr){
+    public String invite(Email edto, Model model, RedirectAttributes rttr, HttpServletRequest request){
 		logger.info("[Invite Email]");
-		
+		MemberDto member = (MemberDto)request.getSession().getAttribute("member");
+		edto.setMember_id(member.getMember_id());
+		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
         try {
-			teambiz.invite(edto);
+        	if(res > 0) {
+        		rttr.addFlashAttribute("msg", "이미 초대를 받은 ID입니다.");
+        		return "redirect:/";
+        	}
+			teambiz.invite(edto); //member_id,team_no
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("[invite.do] 잘못된 인코딩 오류");
 			e.printStackTrace();
@@ -133,7 +140,7 @@ public class TeamController {
 			System.out.println("[invite.do] 메세징오류");
 			e.printStackTrace();
 		}
-        rttr.addFlashAttribute("msg", "가입시 사용한 이메일로 인증해주세요");
+        rttr.addFlashAttribute("msg", "팀초대완료");
         return "redirect:/";
     }
 //

@@ -25,18 +25,35 @@
 		where tm.team_no = #{team_no}
 	</select>
 	
+		
 	<insert id="createTeam" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		insert all
 		into team values(teamseq.nextval, #{team_name}, #{team_intro})
 		into teammember values(teammemberseq.nextval, #{member_no}, teamseq.currval, '팀장')
 		select * from dual
 	</insert>
+
+
+
+<!-- 팀초대 관련 query -->
+	<!-- 회원에게  팀초대시 그팀 초대장이 db에 있는지 확인.(초대장을 보냈는지) -->
+	<select id="chkISidinTeam" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teamcode
+		where teammember_id = #{teammember_id} and team_no = #{team_no}
+	</select>
 	
+	<!-- 팀초대장 정보 생성 -->
 	<insert id="createCode" parameterType="hashmap">
-		
+		insert into
+		teamcode values(teamcodenoseq.nextval, #{email.member_id}, #{email.team_no}, #{code}, sysdate)
 	</insert>
 	
-	
+	<!-- 팀탈퇴시 초대장 수동 삭제 -->
+	<delete id="delcode" parameterType="com.wv.root.model.dto.TeamDto$Email">
+		delete from teamcode
+		where member_id = #{teammember_id} and team_no = #{team_no}
+	</delete>
 	
 	
 	

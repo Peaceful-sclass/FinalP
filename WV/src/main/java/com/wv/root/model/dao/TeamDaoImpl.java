@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Repository
@@ -32,9 +33,9 @@ public class TeamDaoImpl implements TeamDao {
     }
  
     @Override  //table에 초대정보 업데이트
-    public void createCode(String member_email, String code) {
-    	Map<String, String> map = new HashMap<String,String>();
-    	map.put("member_email", member_email);
+    public void createCode(Email edto, String code) {
+    	Map<String, Object> map = new HashMap<String,Object>();
+    	map.put("email", edto);
     	map.put("code", code);
         try {
 			session.insert(NameSpace + "createCode", map);
@@ -97,6 +98,18 @@ public class TeamDaoImpl implements TeamDao {
 		}
 		
 		return tmdto;
+	}
+	@Override //팀초대장목록에 id가 있는지부터 확인
+	public int chkISidinTeam(Email edto) {
+		int res = 0;
+		try {
+			res = session.selectOne(NameSpace+"chkISidinTeam", edto);
+		} catch (Exception e) {
+			System.out.println("[DAO:chkISidinTeam] fail");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
     
     

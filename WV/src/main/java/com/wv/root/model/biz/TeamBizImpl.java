@@ -37,7 +37,7 @@ public class TeamBizImpl implements TeamBiz {
 	        
 	        String key = new TempKey().getKey(50,false);  // 인증키 생성
 
-	        //dao.createAuthKey(dto.getMember_email(),key); //인증키 db 저장
+	        dao.createCode(dto,key); //인증키 db 저장 /member_id,team_no,code
 	        
 	        //메일 전송
 	        MailHandler sendMail = new MailHandler(mailSender);
@@ -85,6 +85,11 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto) {
 		return dao.getTeamMember(dto);
+	}
+
+	@Override
+	public int chkISidinTeam(Email edto) {
+		return dao.chkISidinTeam(edto);
 	}
 	
 	   
