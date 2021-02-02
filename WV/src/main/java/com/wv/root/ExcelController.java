@@ -1,14 +1,10 @@
 package com.wv.root;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ExcelBiz;
 import com.wv.root.model.biz.ShareCalendarBiz;
-import com.wv.root.model.dao.ExcelDao;
-import com.wv.root.model.dao.ExcelDaoImpl;
 import com.wv.root.model.dto.ExcelDto;
 
 /**
@@ -37,15 +31,10 @@ public class ExcelController {
 	@Autowired
 	private ShareCalendarBiz calbiz;
 	
-	@Autowired
-	HttpSession session;
-	
-	
 	//공유 문서 값 가져오기
 	@RequestMapping(value = "/shareDocumentList.do", method = RequestMethod.GET)
 	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest) {
 		logger.info("Excel List");
-		
 		
 		model.addAttribute("callist", calbiz.selectEvent(1));
 		//팀 넘버가 1일 경우
