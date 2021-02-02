@@ -125,5 +125,9 @@
 					)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-
+	
+	<select id="homeclist" resultMap="ContestMap">
+		SELECT * FROM CONTEST WHERE ROWNUM &lt;=12
+		ORDER BY CONTESTNUM DESC
+	</select>
 </mapper>

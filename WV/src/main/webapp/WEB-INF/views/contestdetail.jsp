@@ -17,7 +17,7 @@
 <div class="menu-box">
 	<div class="container">
 		<h3 class="content-tit">
-        	공모전 대외활동 정보    
+        	공모전 대외활동 정보  <button class="btn btn-sm btn-primary" onclick="location.href='contestlist.do'" style="margin-left: 3%;">목록</button>
 		</h3>
 		<div class="contest-detail">
 		<div class="tit-area">

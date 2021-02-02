@@ -193,7 +193,7 @@
 					        <div id="pagination"></div>
 					    </div>					    
 					</div>
-					<div id="placeformup" style="float: right; display:none;"></div>
+					<div id="placeformup" style="float: right; display:none; margin-right: 25px;"></div>
 					<div id="placeform" style="float: right; margin-right: 25px;">
 						<h4>장소명</h4>
 						<div class="input-group">

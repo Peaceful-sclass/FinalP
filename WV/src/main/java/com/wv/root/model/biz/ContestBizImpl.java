@@ -76,4 +76,9 @@ public class ContestBizImpl implements ContestBiz{
 		return dao.countReward(category);
 	}
 
+	@Override
+	public List<ContestDto> homeClist() {
+		return dao.homeClist();
+	}
+
 }

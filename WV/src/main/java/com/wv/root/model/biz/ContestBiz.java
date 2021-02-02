@@ -28,5 +28,7 @@ public interface ContestBiz {
 
 	public int countCompany(String category);
 
-	public int countReward(String category);	
+	public int countReward(String category);
+
+	public List<ContestDto> homeClist();	
 }
