@@ -70,7 +70,7 @@
     		if(textcon == "팀메인"){
     			sidePost('team.do','${member.member_no}');
     		} else if(textcon == "일정"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			location.href="home.do";
     		} else if(textcon == "시트"){
     			location.href="team.do?member_no="+${member.member_no};
     		} else if(textcon == "코드"){
