@@ -26,6 +26,7 @@
    	<link rel="stylesheet" href="css/team.css">
    	<script type="text/javascript" src="js/team.js"></script>
     <script>
+    	var sessionTeamInfo;
     	window.onload = function(){
     		let session = "${member.member_id}"; //session login 확인
     		if(session == null || session == "" ||session == undefined ){
@@ -38,7 +39,9 @@
     			2:"background: rgba(222, 255, 222, 0.9);",
     			3:"background: rgba(255, 222, 239, 0.9);",
     			4:"background: rgba(239, 222, 255, 0.9);",
-    			5:"background: rgba(255, 255, 227, 0.9);"
+    			5:"background: rgba(255, 255, 227, 0.9);",
+    			6:"background: rgba(222, 222, 239, 0.9);",
+    			7:"background: rgba(222, 255, 255, 0.9);"
     		}
     		for(let i=0; i<tmiconbg.length; i++){
     			let r = Math.floor(Math.random()*Object.keys(bgcolor).length)+1;
@@ -51,10 +54,11 @@
     	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
     	function teamSide(param){
     		let session = "${member.member_id}"; //session login 확인
-    		let sessionTeamInfo = '${teamInfo.team_name}';
+    		//sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
+    		window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
     		let textcon = $(param).text();
     		console.log("textcon: "+ textcon);
-    		console.log("sessionTeamInfo: "+ sessionTeamInfo);
+    		console.log("sessionTeamInfo: "+ window.sessionTeamInfo);
     		
     		if(session == null || session == "" ||session == undefined ){
     			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
@@ -112,7 +116,7 @@
 								</div>
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="team-main-top-create" href="#">팀초대</a>
+										<a class="team-main-top-create" href="#" data-mid="${member_id}" onclick="teamInvite(this); return false;">팀초대</a>
 									</div>
 								</div>
 							</div>

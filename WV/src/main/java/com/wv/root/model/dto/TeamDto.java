@@ -147,5 +147,61 @@ public class TeamDto {
 		
 		
 	}
-
+	
+	public static class Email {
+		private int teamcode_no;
+		private String member_id;
+		private int team_no;
+		private String code;
+		private String member_email;
+		public Email() {
+			super();
+		}
+		public Email(int teamcode_no, String member_id, int team_no, String code, String member_email) {
+			super();
+			this.teamcode_no = teamcode_no;
+			this.member_id = member_id;
+			this.team_no = team_no;
+			this.code = code;
+			this.member_email = member_email;
+		}
+		public int getTeamcode_no() {
+			return teamcode_no;
+		}
+		public void setTeamcode_no(int teamcode_no) {
+			this.teamcode_no = teamcode_no;
+		}
+		public String getMember_id() {
+			return member_id;
+		}
+		public void setMember_id(String member_id) {
+			this.member_id = member_id;
+		}
+		public int getTeam_no() {
+			return team_no;
+		}
+		public void setTeam_no(int team_no) {
+			this.team_no = team_no;
+		}
+		public String getCode() {
+			return code;
+		}
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public String getMember_email() {
+			return member_email;
+		}
+		public void setMember_email(String member_email) {
+			this.member_email = member_email;
+		}
+		@Override
+		public String toString() {
+			return "Email [teamcode_no=" + teamcode_no + ", member_id=" + member_id + ", team_no=" + team_no + ", code="
+					+ code + ", member_email=" + member_email + "]";
+		}
+		
+		
+	}
+	
 }

@@ -9,7 +9,8 @@ public interface TeamDao {
 	
 	public int createTeam(TeamMemberDto dto);
 	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto);
-	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto); 
+	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto);
+	public void createCode(String member_email, String key);
 	
 	
 	
