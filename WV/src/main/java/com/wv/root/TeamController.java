@@ -87,6 +87,7 @@ public class TeamController {
 		return "teamin";
 	}
 	
+	//팀메인의 버튼
 	@RequestMapping(value ="teamcreateBT.do", method = RequestMethod.GET)
 	public String teamcreateBT(Model model, @RequestParam("member_id")String member_id) {
 		logger.info("[TEAM MAIN: Team Create BTClick]");
