@@ -76,7 +76,7 @@
     		} else if(textcon == "코드"){
     			location.href="team.do?member_no="+${member.member_no};
     		} else if(textcon == "저장소"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			location.href="shareBoardList.do";
     		}
     		
     	}
