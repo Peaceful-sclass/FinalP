@@ -45,6 +45,16 @@
 <br>
 <a href="Chatting.do">chat</a>
 
+<div style="position: fixed; right: 50px; bottom: 85px">
+
+<img src="images/chat.png" width="70px" height="70px" alt="chat" onclick="openchat();">
+
+</div>
+<script type="text/javascript">
+function openchat(){
+	window.open("Chatting.do","채팅창","width=600, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+}
+</script>
 
 <!-- 요기까지 -->
 

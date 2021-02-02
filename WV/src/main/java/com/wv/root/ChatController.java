@@ -61,17 +61,8 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value = "read_ajax.do", method = RequestMethod.POST)
-	public JSONArray read_ajax(@RequestBody Map<String, Object> map,HttpServletRequest request){
+	public JSONArray read_ajax(@RequestBody Map<String, Object> map){
 		logger.info("read_ajax");
-		
-		HttpSession session = request.getSession();
-		String id = null;
-		try {
-			id = ((MemberDto) session.getAttribute("member")).getMember_id();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-		}
-		
 		
 		String date =  String.valueOf(map.get("date"));
 		int chatting_no = Integer.parseInt(String.valueOf(map.get("chatting_no")));
@@ -80,9 +71,7 @@ public class ChatController {
 		List<chatajaxres> rlist = biz.chatajax(tmp);
 
 		JSONArray jlist = new JSONArray();
-		JSONObject tmp2 = new JSONObject();
-		tmp2.put("session_id", id);
-		jlist.add(tmp2);
+
 		if(rlist.size()==0) {
 			return jlist;
 		}else {
