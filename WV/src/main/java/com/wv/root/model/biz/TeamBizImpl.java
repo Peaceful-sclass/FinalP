@@ -20,64 +20,46 @@ import com.wv.root.model.util.TempKey;
 @Service
 public class TeamBizImpl implements TeamBiz {
 
-	   @Inject
-	   private JavaMailSender mailSender;
-	
-	   @Autowired
-	   private TeamDao dao;
-	   
+	@Inject
+	private JavaMailSender mailSender;
 
-	   public void invite(Email dto) throws MessagingException, UnsupportedEncodingException {
-	        //String encPassword = passwordEncoder.encode(dto.getMemberPassword());
-	        //dto.setMemberPassword(encPassword);
-	        //System.out.println("암호화된 비밀번호 : "+user.getUserPassword());
+	@Autowired
+	private TeamDao dao;
 
-	        //dao.insertUser(dto);
-	        System.out.println("[Biz: invite()] - "+dto);
-	        
-	        String key = new TempKey().getKey(50,false);  // 인증키 생성
 
-	        //dao.createAuthKey(dto.getMember_email(),key); //인증키 db 저장
-	        
-	        //메일 전송
-	        MailHandler sendMail = new MailHandler(mailSender);
-	        sendMail.setSubject("WV 팀초대 인증메일");
-	        sendMail.setText(
-	                new StringBuffer().append("<h1>WV 팀초대 이메일 인증</h1>").
-	        append("<a href='http://localhost:8787/root/emailConfirm.do?member_email=").
-			append(dto.getMember_email()).append("&code=").append(key).
-			append("' target='_blank'>이메일 인증 확인</a>").toString());
-	        sendMail.setFrom("sjeys14@gmail.com", "서비스센터 ");
+	public void invite(Email dto) throws MessagingException, UnsupportedEncodingException {
+		//String encPassword = passwordEncoder.encode(dto.getMemberPassword());
+		//dto.setMemberPassword(encPassword);
+		//System.out.println("암호화된 비밀번호 : "+user.getUserPassword());
 
-	        //sendMail.setTo(dto.getMember_email());
-	        sendMail.setTo("sjeys14@gmail.com");
-	        sendMail.send();
-	    }
+		System.out.println("[Biz: invite()] - "+dto);//member_id,team_no
 
-	    //이메일 인증 키 검증
-	    public TeamDto userAuth(TeamDto user) throws Exception {
-	        TeamDto dto =new TeamDto();
-	        System.out.println(user+"user");
-	        //dto=dao.chkAuth(user);
-	   
-	        if(dto!=null){
-	            try{
-	                System.out.println(dto+"dto");
-	            //    dao.userAuth(user);
-	              //  dao.successAuth(dto);
-	            }catch (Exception e) {
-	                e.printStackTrace();
-	            }}
-	        return dto;
-	    }
-	    
-   @Override
+		String key = new TempKey().getKey(50,false);  // 인증키 생성
+
+		dao.createCode(dto,key); //인증키 db 저장 /member_id,team_no,code
+
+		//메일 전송
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("WV 팀초대 인증메일");
+		sendMail.setText(
+		new StringBuffer().append("<h1>WV 팀초대 이메일 인증</h1>").
+		append("<a href='http://localhost:8787/root/emailConfirm.do?member_id=").
+		append(dto.getMember_id()).append("&code=").append(key).append("&team_no=").append(dto.getTeam_no()).
+		append("' target='_blank'>이메일 인증 확인</a>").toString());
+		sendMail.setFrom("sjeys14@gmail.com", "WV-SERVICE ");
+
+		sendMail.setTo(dao.getIvEmail(dto)); //초대할ID의 email조회
+		//sendMail.setTo("sjeys14@gmail.com");
+		sendMail.send();
+	}
+
+	@Override
 	public int createTeam(TeamMemberDto dto) {
 		int res = dao.createTeam(dto);
 		return res;
 	}
 
-   @Override
+	@Override
 	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto) {
 		return dao.getTeamInfo(dto);
 	}
@@ -86,17 +68,32 @@ public class TeamBizImpl implements TeamBiz {
 	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto) {
 		return dao.getTeamMember(dto);
 	}
-	
-	   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public int chkISidinTeam(Email edto) {
+		return dao.chkISidinTeam(edto);
+	}
+
+	@Override
+	public int chkteamLD(Email edto) {
+		return dao.chkteamLD(edto);
+	}
+
+	@Override
+	public int emailConfirm(Email edto) {
+		return dao.emailConfirm(edto);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
