@@ -71,8 +71,14 @@
 	top: 30px;
 }
 </style>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
+
+     
+</head>
+    
+<body>
+	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
+   
+    <script type="text/javascript">
 			$(document).ready(function(){
 			// 취소
 			$("#cc").on("click", function(){
@@ -98,7 +104,6 @@
 				}
 			});
 		})
-             
 		
 		       //비밀번호확인
 				function tocheckpw(){
@@ -110,27 +115,16 @@
 				   return false;
 				}
 				}
-		
-				
-				//아이디 중복검사
-				
               		
     </script>
 
-</head>
-
-
-    
-<body>
-	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
-
+   
 	<div class="menu-box">
 
 		<div class="container">
 
 
-			<form action="register.do" onsubmit="return tocheckpw()"
-				data-ajax="false" method="post">
+			<form action="register.do" onsubmit="return tocheckpw()" data-ajax="false" method="post">
 				<!-- onsubmit="return tocheckpw()" data-ajax="false" 해당function이 맞으면 submit 아니면 페이지그대로-->
 				<div class="row">
 					<div class="col-2"></div>
@@ -169,7 +163,7 @@
 							<button type="submit" id="submit">회원가입</button>
 							<button type="button" id="cc">취소</button>
 						</div>
-
+						
 					</div>
 					<!-- col-8 end -->
 					<div class="col-2"></div>

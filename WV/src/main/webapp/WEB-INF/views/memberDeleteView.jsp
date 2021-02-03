@@ -65,9 +65,12 @@
 	</script>
 	<body>
 	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
+	
+	
 		<section id="container">
 		        <h1>회원탈퇴</h1>
 			<form action="memberDelete.do" method="post" id="delForm">
+			
 				<div class="form-group has-feedback">
 					<label class="control-label" for="member_id">아이디</label>
 					<input class="form-control" type="text" id="userId" name="member_id" value="${member.member_id}" readonly="readonly"/>
