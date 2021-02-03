@@ -3,9 +3,8 @@
     
 <%	request.setCharacterEncoding("UTF-8"); %>
 <% 	response.setContentType("text/html; charset=UTF-8"); %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%-- %@ page session="false" %> --%>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -26,7 +25,7 @@
 		<div class="cd-area">
 			<div class="img">
 				<div class="thumb">
-					<img src="images/${contest.contestposter}" height="350" alt="${contest.contestname }">
+					<img src="images/${contest.contestposter}" height="350" onerror="this.src='images/logobackup.png'" alt="${contest.contestname }">
 				</div>
 				<div class="tac">
 				</div>
@@ -84,7 +83,8 @@
 			<div class="tit">상세내용</div>
 			<div class="comm-desc" id="viewContents">
 				<p>${contest.contestcontent }</p>
-				<p><img src="images/${contest.contestposter}" style="width: 80%; margin-left: 10%; margin-right: 10%"><br style="clear:both;">&nbsp;</p></div>
+				<c:set var="posterValue" value="${fn:split(contest.contestposter, '-')}"/>
+				<p><c:if test="${null ne posterValue[1]}"><img src="images/${contest.contestposter}" style="width: 80%; margin-left: 10%; margin-right: 10%"><br style="clear:both;">&nbsp;</c:if></p></div>
 		</div>
 		<div class="event-notice conte">
 			<div>
@@ -94,6 +94,8 @@
 		</div>
 		<div class="article sns-share">
 			<a class="btn btn-sm btn-primary" href="contestlist.do">목록</a>
+			<c:if test="${contest.memberno eq member.member_no}"><a class="btn btn-sm btn-primary" href="contestUpdateForm.do?contestnum=${contest.contestnum }">수정</a></c:if>
+			<c:if test="${contest.memberno eq member.member_no}"><a class="btn btn-sm btn-primary" href="contestDelete.do?contestnum=${contest.contestnum }">삭제</a></c:if>
 		</div>
 	</div>
 	</div>

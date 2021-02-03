@@ -37,7 +37,7 @@
 		
 		        <div class="col-md-3">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[0].contestposter}"
+		            <img class="card-img-top" src="images/${contest[0].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[0].contestname }</h4>
@@ -53,7 +53,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[1].contestposter}"
+		            <img class="card-img-top" src="images/${contest[1].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[1].contestname }</h4>
@@ -69,7 +69,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[2].contestposter}"
+		            <img class="card-img-top" src="images/${contest[2].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[2].contestname }</h4>
@@ -85,7 +85,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[3].contestposter}"
+		            <img class="card-img-top" src="images/${contest[3].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[3].contestname }</h4>
@@ -110,7 +110,7 @@
 		
 		        <div class="col-md-3">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[4].contestposter}"
+		            <img class="card-img-top" src="images/${contest[4].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[4].contestname }</h4>
@@ -126,7 +126,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[5].contestposter}"
+		            <img class="card-img-top" src="images/${contest[5].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[5].contestname }</h4>
@@ -142,7 +142,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[6].contestposter}"
+		            <img class="card-img-top" src="images/${contest[6].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[6].contestname }</h4>
@@ -158,7 +158,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[7].contestposter}"
+		            <img class="card-img-top" src="images/${contest[7].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[7].contestname }</h4>
@@ -184,7 +184,7 @@
 		
 		        <div class="col-md-3">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[8].contestposter}"
+		            <img class="card-img-top" src="images/${contest[8].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[8].contestname }</h4>
@@ -200,7 +200,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[9].contestposter}"
+		            <img class="card-img-top" src="images/${contest[9].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[9].contestname }</h4>
@@ -216,7 +216,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[10].contestposter}"
+		            <img class="card-img-top" src="images/${contest[10].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[10].contestname }</h4>
@@ -232,7 +232,7 @@
 		
 		        <div class="col-md-3 d-none d-md-block">
 		          <div class="card mb-2">
-		            <img class="card-img-top" src="images/${contest[11].contestposter}"
+		            <img class="card-img-top" src="images/${contest[11].contestposter}" onerror="this.src='images/non-img.jpg'"
 		              alt="Card image cap">
 		            <div class="card-body">
 		              <h4 class="card-title">${contest[11].contestname }</h4>

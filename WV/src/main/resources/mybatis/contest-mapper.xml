@@ -130,4 +130,15 @@
 		SELECT * FROM CONTEST WHERE ROWNUM &lt;=12
 		ORDER BY CONTESTNUM DESC
 	</select>
+	
+	<delete id="contestdelete" parameterType="int">
+		DELETE FROM CONTEST WHERE CONTESTNUM = #{contestnum}
+	</delete>
+	
+	<update id="updatecontest" parameterType="ContestDto">
+		UPDATE CONTEST
+		SET CONTESTNAME = #{contestname}, CONTESTAGENT =  #{contestagent}, CONTESTSUPERVISION = #{contestsupervision}, CONTESUPPORT =  #{contesupport}, CONTESTFIELD = #{contestfield}, CONTESTTARGET = #{contesttarget}, CONTESTCOMPANY = #{contestcompany}, CONTESTREWARD = #{contestreward}, CONTESTSTART = #{conteststart}, CONTESTEND = #{contestend}, CONTESTCONTENT = #{contestcontent}, CONTESTPOSTER = #{contestposter}, CONTESTSVAEFILENAME = #{contestsvaefilename}, CONTESTORIFILENAME = #{contestorifilename}, CONTESTPAGE = #{contestpage}, CONTESTPERSON = #{contestperson}, CONTESTPHONE = #{contestphone}, CONTESTEMAIL = #{contestemail}
+		WHERE CONTESTNUM = #{contestnum}
+	</update>
+	
 </mapper>
