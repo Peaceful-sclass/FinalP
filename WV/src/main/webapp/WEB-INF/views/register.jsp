@@ -5,6 +5,7 @@
 <% 	response.setContentType("text/html; charset=UTF-8"); %>	
 	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
@@ -126,36 +127,34 @@
 
 			<form action="register.do" onsubmit="return tocheckpw()" data-ajax="false" method="post">
 				<!-- onsubmit="return tocheckpw()" data-ajax="false" 해당function이 맞으면 submit 아니면 페이지그대로-->
+				
 				<div class="row">
 					<div class="col-2"></div>
 					<div class="col-8">
+					
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_id">아이디</label>
 							<!-- for는 member-mapper부분 -->
-							<input class="form-control" type="text" id="userId"
-								name="member_id" maxlength="8" placeholder="8자이내 입력" />
+							<input class="form-control" type="text" id="userId" name="member_id" maxlength="8" placeholder="8자이내 입력" />
 							<!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pw">패스워드</label> <input
-								class="form-control" type="password" id="userPass"
-								name="member_pw" placeholder="패스워드" />
+							<label class="control-label" for="member_pw">패스워드</label> 
+							<input class="form-control" type="password" id="userPass" name="member_pw" placeholder="패스워드" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pwC">패스워드확인</label> <input
-								class="form-control" type="password" id="userPassC"
-								name="member_pw2" placeholder="패스워드확인" />
+							<label class="control-label" for="member_pwC">패스워드확인</label> 
+							<input class="form-control" type="password" id="userPassC" name="member_pw2" placeholder="패스워드확인" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_email">이메일</label> <input
-								class="form-control" type="text" id="userEmail"
-								name="member_email" placeholder="이메일 입력" />
+							<label class="control-label" for="member_email">이메일</label> 
+							<input class="form-control" type="text" id="userEmail" name="member_email" placeholder="이메일 입력" />
 						</div>
 						<br>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_grade">회원등급</label> <select
-								class="form-control" id="userGrade" name="member_grade">
+							<label class="control-label" for="member_grade">회원등급</label> 
+							<select class="form-control" id="userGrade" name="member_grade">
 								<option>일반회원</option>
 							</select>
 						</div>
@@ -164,18 +163,16 @@
 							<button type="button" id="cc">취소</button>
 						</div>
 						
-					</div>
-					<!-- col-8 end -->
+					</div>  <!-- col-8 end -->
 					<div class="col-2"></div>
 
-				</div>
+				</div><!-- row -->
 			</form>
 
 
-		</div>
-	</div>
-	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp"
-		flush="false"></jsp:include>
+		</div><!-- container -->
+	</div><!-- menu박스 -->
+	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 
 </html>
