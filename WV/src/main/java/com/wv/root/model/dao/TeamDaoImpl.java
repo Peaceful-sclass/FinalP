@@ -20,17 +20,6 @@ public class TeamDaoImpl implements TeamDao {
 	private SqlSessionTemplate session;
 
 	
-    //회원 정보 입력
-    public void insertUser(TeamDto vo) throws Exception {
-        System.out.println("회원등록완료 !!!");
-        session.insert(NameSpace+".insertUser",vo);
-        System.out.println("//////////////////////////////////");
-        System.out.println("회원등록완료 !!!");
-    }
-    //email 중복 확인
-    public TeamDto authenticate(String str) throws Exception {
-        return session.selectOne(NameSpace+".checkdupl", str);
-    }
  
     @Override  //table에 초대정보 업데이트
     public void createCode(Email edto, String code) {
@@ -44,19 +33,8 @@ public class TeamDaoImpl implements TeamDao {
 			e.printStackTrace();
 		}
     }
-    //이메일 인증 코드 확인
-    public TeamDto chkAuth(TeamDto vo) throws Exception {
-        return session.selectOne(NameSpace + ".chkAuth", vo);
-    }
-    //인증 후 계정 활성화
-    public void userAuth(TeamDto vo) throws Exception {
-        System.out.println("인증하나요??");
-        
-        session.update(NameSpace + ".userAuth", vo);
-//        System.out.println(vo.getUserState());
-    }
 	
-    
+    @Override
     public int createTeam(TeamMemberDto dto) {
     	int res = 0; 
     	try {
@@ -76,6 +54,7 @@ public class TeamDaoImpl implements TeamDao {
 		return res;
 	}
     
+    @Override //멤버의 팀리스트
 	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto) {
 		List<TeamMemberDto> tmlist = null;
 		try {
@@ -87,7 +66,7 @@ public class TeamDaoImpl implements TeamDao {
 		return tmlist;
 	}
 
-	@Override
+	@Override //팀의 멤버리스트
 	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto) {
 		List<TeamMemberDto> tmdto = null;
 		try {
@@ -103,6 +82,11 @@ public class TeamDaoImpl implements TeamDao {
 	public int chkISidinTeam(Email edto) {
 		int res = 0;
 		try {
+			res = session.selectOne(NameSpace+"chkISmemberInTeam", edto);
+			if(res>0) { //이미 팀이면
+				System.out.println("[DAO:chkISidinTeam] 이미 팀멤버입니다.");
+				return res;
+			}
 			res = session.selectOne(NameSpace+"chkISidinTeam", edto);
 		} catch (Exception e) {
 			System.out.println("[DAO:chkISidinTeam] fail load");
@@ -122,7 +106,7 @@ public class TeamDaoImpl implements TeamDao {
 		}
 		return res;
 	}
-	@Override
+	@Override //invite메소드시 초대할 멤버의 메일정보전달
 	public String getIvEmail(Email dto) {
 		String email = "";
 		try {
@@ -133,6 +117,21 @@ public class TeamDaoImpl implements TeamDao {
 			e.printStackTrace();
 		}
 		return email;
+	}
+
+	@Override	//팀초대 email검증
+	public int emailConfirm(Email edto) {
+		int res = 0;
+		try {
+			res = session.selectOne(NameSpace+"emailConfirm", edto);
+			if(res>0) {
+				res = session.update(NameSpace+"teamMemberConfirm", edto);
+			}
+		} catch (Exception e) {
+			System.out.println("[DAO:emailConfirm] fail load");
+			e.printStackTrace();
+		}
+		return res;
 	}
     
     

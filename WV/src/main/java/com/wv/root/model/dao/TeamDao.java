@@ -15,6 +15,7 @@ public interface TeamDao {
 	public int chkISidinTeam(Email edto);
 	public int chkteamLD(Email edto);
 	public String getIvEmail(Email dto);
+	public int emailConfirm(Email edto);
 	
 	
 	

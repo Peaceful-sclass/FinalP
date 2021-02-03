@@ -41,7 +41,12 @@
     			4:"background: rgba(239, 222, 255, 0.9);",
     			5:"background: rgba(255, 255, 227, 0.9);",
     			6:"background: rgba(222, 222, 239, 0.9);",
-    			7:"background: rgba(222, 255, 255, 0.9);"
+    			7:"background: rgba(222, 255, 255, 0.9);",
+    			8:"background: rgba(255, 222, 255, 0.9);",
+    			9:"background: rgba(255, 255, 222, 0.9);",
+    			10:"background: rgba(222, 222, 255, 0.9);",
+    			11:"background: rgba(239, 222, 239, 0.9);",
+    			12:"background: rgba(239, 239, 222, 0.9);"
     		}
     		for(let i=0; i<tmiconbg.length; i++){
     			let r = Math.floor(Math.random()*Object.keys(bgcolor).length)+1;
@@ -172,7 +177,7 @@
                 </div>
                 <div class="modal-footer justify-content-center" style="border-top: 0px; padding: 7px 20px;" >
                 	<button type='button' class="btn btn-sm btn-primary" id="iv-modal-ivbt" data-mid="${member.member_id}" onclick="teamInviteSend(this)">초대</button>
-                	<button type='button' class="btn btn-sm btn-primary" id="iv-modal-ccbt" data-dismiss='modal'>취소</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="iv-modal-ccbt" data-dismiss='modal' onclick="(()=>{$('#iv-modal-input').val('');})();">취소</button>
                 </div>
             </div>
         </div>

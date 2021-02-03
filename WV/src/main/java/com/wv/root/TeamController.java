@@ -103,12 +103,10 @@ public class TeamController {
 		return "teamcreate";
 	}
 	
-	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
-	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
-		
-		
-		return "teamin";
-	}
+//	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
+//	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
+//		return "teamin";
+//	}
 	
 	//팀아이콘 클릭시 session에 전달해줄 정보(멤버리스트,팀번호/이름)
 	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
@@ -141,8 +139,12 @@ public class TeamController {
 	@ResponseBody
     public int invite(Email edto, HttpServletRequest request){
 		logger.info("[Invite Email]");//edto.getMember_id:초대받는ID
-		TeamDto currentTeam = (TeamDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
-		edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
+		if(request.getSession().getAttribute("teamInfo") instanceof TeamDto ) {
+			TeamDto currentTeam = (TeamDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
+			edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
+		} else if(request.getSession().getAttribute("teamInfo") instanceof Integer) {
+			edto.setTeam_no((int)request.getSession().getAttribute("teamInfo"));//현재선택된Team
+		}
 		
 		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
         try {
@@ -159,22 +161,20 @@ public class TeamController {
 		}
         return res;
     }
-//
-//    //이메일 인증 코드 검증
-//    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-//    public String emailConfirm(TeamDto team,Model model,RedirectAttributes rttr) throws Exception { 
-//        
-//        System.out.println("cont get user"+team);
-//        TeamDto dto = null;
-//        dto = teambiz.userAuth(team);
-//        if(dto == null) {
-//            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
-//            return "redirect:/";
-//        }
-//        //System.out.println("usercontroller vo =" +vo);
-//        model.addAttribute("login",dto);
-//        return "/user/emailConfirm";
-//    }
+
+    //이메일 인증 코드 검증
+    @RequestMapping(value = "emailConfirm.do", method = RequestMethod.GET)
+    public String emailConfirm(Email edto,Model model,RedirectAttributes rttr) throws Exception { 
+    	logger.info("[emailConfirm]");
+        int res = 0;
+        res = teambiz.emailConfirm(edto);
+        if(res == 0) {
+            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
+            System.out.println("[ct:eamilConfirm] 초대실패");
+            return "redirect:/";
+        }
+        return "home";
+    }
 
 
 		

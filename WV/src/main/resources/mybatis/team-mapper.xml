@@ -36,7 +36,14 @@
 
 
 <!-- 팀초대 관련 query -->
-	<!-- 회원에게  팀초대시 그팀 초대장이 db에 있는지 확인.(초대장을 보냈는지) -->
+	<!-- 멤버인지 확인 -->
+	<select id="chkISmemberInTeam" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teammember
+		where member_no = (select member_no from mymember where member_id = #{member_id}) and team_no = #{team_no}
+	</select>
+	
+	<!-- 팀초대시 회원에게 해당팀 초대장이 db에 있는지 확인.(초대장을 이미 보냈는지?) -->
 	<select id="chkISidinTeam" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
 		select count(*)
 		from teamcode
@@ -56,6 +63,12 @@
 		from mymember where member_id = #{member_id}
 	</select>
 	
+	<!-- email초대장 검증confirm -->
+	<select id="emailConfirm" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*) from teamcode
+		where  teammember_id = #{member_id} and team_no = #{team_no} and code = #{code}	
+	</select>
+	
 	<!-- 팀초대장 정보 생성 -->
 	<insert id="createCode" parameterType="hashmap">
 		insert into
@@ -68,7 +81,11 @@
 		where member_id = #{teammember_id} and team_no = #{team_no}
 	</delete>
 	
-	
+	<insert id="teamMemberConfirm" parameterType="com.wv.root.model.dto.TeamDto$Email">
+		insert into teammember
+		values(teammemberseq.nextval, (select member_no from mymember where member_id = #{member_id}),
+		 #{team_no}, '팀원')
+	</insert>
 	
 	
 	

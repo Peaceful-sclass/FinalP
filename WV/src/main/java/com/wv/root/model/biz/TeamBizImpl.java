@@ -42,32 +42,15 @@ public class TeamBizImpl implements TeamBiz {
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("WV 팀초대 인증메일");
 		sendMail.setText(
-				new StringBuffer().append("<h1>WV 팀초대 이메일 인증</h1>").
-				append("<a href='http://localhost:8787/root/emailConfirm.do?member_email=").
-				append(dto.getMember_email()).append("&code=").append(key).
-				append("' target='_blank'>이메일 인증 확인</a>").toString());
-		sendMail.setFrom("sjeys14@gmail.com", "서비스센터 ");
+		new StringBuffer().append("<h1>WV 팀초대 이메일 인증</h1>").
+		append("<a href='http://localhost:8787/root/emailConfirm.do?member_id=").
+		append(dto.getMember_id()).append("&code=").append(key).append("&team_no=").append(dto.getTeam_no()).
+		append("' target='_blank'>이메일 인증 확인</a>").toString());
+		sendMail.setFrom("sjeys14@gmail.com", "WV-SERVICE ");
 
 		sendMail.setTo(dao.getIvEmail(dto)); //초대할ID의 email조회
 		//sendMail.setTo("sjeys14@gmail.com");
 		sendMail.send();
-	}
-
-	//이메일 인증 키 검증
-	public TeamDto userAuth(TeamDto user) throws Exception {
-		TeamDto dto =new TeamDto();
-		System.out.println(user+"user");
-		//dto=dao.chkAuth(user);
-
-		if(dto!=null){
-			try{
-				System.out.println(dto+"dto");
-				//    dao.userAuth(user);
-				//  dao.successAuth(dto);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}}
-		return dto;
 	}
 
 	@Override
@@ -94,6 +77,11 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public int chkteamLD(Email edto) {
 		return dao.chkteamLD(edto);
+	}
+
+	@Override
+	public int emailConfirm(Email edto) {
+		return dao.emailConfirm(edto);
 	}
 
 

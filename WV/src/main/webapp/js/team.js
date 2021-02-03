@@ -119,14 +119,14 @@ let teamInviteBT = (param)=>{ //팀메인의 버튼
 	});
 };
 
-let teamInviteSend = (param)=>{ //모달의 버튼
+let teamInviteSend = (param)=>{ //초대모달의 버튼
 	let toID = document.getElementById("iv-modal-input").value;
 	$.ajax({
 		type: 'post',
 		url: 'invite.do?member_id='+toID,
 		success: function(rt){
-			if(rt>1){
-				toastr.error(toID+"님에게 이미 초대장을 보냈습니다.", "초대불가!", {tiemOut: 5000});
+			if(rt>0){
+				toastr.error(toID+"님은 팀원이거나 이미 초대한 사람입니다.", "초대불가!", {tiemOut: 5000});
 			}else{
 				$("#invitemodal").modal("hide");				
 				toastr.success(toID+"님에게 초대메일을 보냈습니다.", "초대장발송!", {tiemOut: 5000});
