@@ -125,7 +125,7 @@ function msg_send_btn_click() {
     data["content"] = $("#content").val();
     
 	
-    console.log(data);
+    //console.log(data);
     
     $.ajax({
     	contentType : 'application/json',
@@ -147,11 +147,12 @@ function msg_send_btn_click() {
 
 function readAjax(){
 	var loginid= $("#member_id").val();
+	var chatting_no = $("#chatting_no").val();
     
-	console.log(date);
+	//console.log(date);
     var data = {};
     
-    data["chatting_no"] = $("#chatting_no").val();
+    data["chatting_no"] = chatting_no;
     data["date"] = date;
     
     $.ajax({
@@ -161,18 +162,21 @@ function readAjax(){
     	type : 'post',
     	dataType : 'json',
     	success : function(data) {
-    		console.log(data.length);
-    		if(data.length == 0){
-    			//console.log(data[0].session_id);
-    			//if(data[0].session_id==null){
-    				//console.log('널임');
-    				//window.open('about:blank','_self').self.close();
-    				
-    			//}
+    		//console.log(data.length);
+    		
+    		//console.log("chatting_no: "+ chatting_no);
+    		//console.log("team_no:"+data[0].team_no);
+    		
+    		if(chatting_no != data[0].team_no){
+    			CloseWindow();
+    		}
+    		
+    		if(data.length == 1){
+    			
     			return;
     		}else{
     			
-    			for(var i=0; i<data.length; i++){
+    			for(var i=1; i<data.length; i++){
     				if(data[i].member_id == loginid){
     					$(".msg_history").append(
     						"<div class='outgoing_msg'>"+
@@ -216,10 +220,10 @@ function scrollDown(){
 }
 
 function CloseWindow(){
-	window.colse();
+	//window.colse();
 	self.close();
-	window.opener = window.location.href; self.close();
-	window.open('about:blank','_self').close();
+	//window.opener = window.location.href; self.close();
+	//window.open('about:blank','_self').close();
 }
 
 
@@ -231,7 +235,7 @@ function CloseWindow(){
 <body>
 
 <div class="container">
-<h3 class="text-center">Messaging</h3>
+<h3 class="text-center"><c:out value="${teamInfo.team_name } 채팅방"></c:out></h3>
 <div class="messaging">
 
       <div class="inbox_msg"> 
@@ -292,7 +296,7 @@ function CloseWindow(){
           <div class="type_msg">
             <div class="input_msg_write">
             	<!-- 들어온 채팅방번호,아이디 넣어줌 -->
-            	<input type="hidden" id="chatting_no" value="1">
+            	<input type="hidden" id="chatting_no" value="${teamInfo.team_no }">
             	<input type="hidden" id="member_id" value="${member.member_id }">
             	
               <input type="text" id="content" class="write_msg" placeholder="메시지를 입력하세요." />
