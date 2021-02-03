@@ -121,11 +121,26 @@ public class TeamController {
 	}
 
 	
-	@RequestMapping(value = "invite.do", method = RequestMethod.GET)
-    public String invite(Email edto, Model model, RedirectAttributes rttr, HttpServletRequest request){
+	@RequestMapping(value = "/chkteamLD.do", method = RequestMethod.GET)
+	@ResponseBody
+	public int chkteamLD(String member_id, int team_no){ //currId,teamno
+		logger.info("[Invite chkteamLD]");
+		Email edto = new Email();
+		edto.setMember_id(member_id);
+		edto.setTeam_no(team_no);
+		int res = teambiz.chkteamLD(edto); //팀장 체크
+		return res;
+	}
+	
+	@RequestMapping(value = "invite.do", method = RequestMethod.POST)
+    public String invite(Email edto, RedirectAttributes rttr, HttpServletRequest request){
 		logger.info("[Invite Email]");
-		MemberDto member = (MemberDto)request.getSession().getAttribute("member");
-		edto.setMember_id(member.getMember_id());
+		MemberDto currentmember = (MemberDto)request.getSession().getAttribute("member");//현재 로긴ID
+		TeamDto currentTeam = (TeamDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
+		currentmember.getMember_no(); ////////////////여기할차례 좀 자자..ㅠㅠ
+		currentTeam.getTeam_no();
+		
+		edto.setTeam_no(currentTeam.getTeam_no());
 		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
         try {
         	if(res > 0) {

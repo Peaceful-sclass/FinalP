@@ -13,6 +13,7 @@ public interface TeamDao {
 	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto);
 	public void createCode(Email dto, String key);
 	public int chkISidinTeam(Email edto);
+	public int chkteamLD(Email edto);
 	
 	
 	

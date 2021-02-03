@@ -59,12 +59,41 @@ let sidePost = (url,memberno)=>{
 };
 
 
-let teamInvite = (param)=>{
-	$.ajax({
+let teamInviteBT = (param)=>{ //팀메인의 버튼
+	let currTeam = sessionStorage.getItem("teamInfo");
+	console.log("currTeam: "+currTeam);
+	if(param.dataset['mid'] == null||param.dataset['mid'] == ""||param.dataset['mid'] == undefined){
+		toastr.warning("로그인을 해주십시오.", "로그인 필요!", {tiemOut: 5000});
+		setTimeout(()=>{
+			location.href="homd.do";
+		},1500);
+		return false;
+	} else if(currTeam == null||currTeam == ""||currTeam == undefined){
+		toastr.warning("팀을 먼저 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+		return false;
+	}
+	$.ajax({ //currId,teamno
 		type: 'get',
-		url: 'invite.do?member_id='+param.dataset['mid'],
+		url: 'chkteamLD.do?member_id='+param.dataset['mid']+'&team_no='+currTeam,
+		success: function(rt){
+			if(rt==0){
+				toastr.warning("팀장만이 팀원을 초대할 수 있습니다.", "초대불가", {tiemOut: 5000});
+			} else if(rt==1){
+				$("#invitemodal").modal("show");				
+			}
+		},error: function(){
+			toastr.error("인터넷연결을 확인해주세요.", "통신에러!", {tiemOut: 5000});
+		}
+	});
+};
+let teamInviteSend = (param)=>{ //모달의 버튼
+	let toID = document.getElementById("iv-modal-input").value;
+	$.ajax({
+		type: 'post',
+		url: 'invite.do?member_id='+toID,
 		success: function(){
-			
+			$("#invitemodal").modal("hide");				
+			toastr.success(toID+"님에게 초대메일을 보냈습니다.", "초대장발송!", {tiemOut: 5000});
 		},error:function(){
 			toastr.error("인터넷상태를 확인해주세요.", "인터넷에러!", {tiemOut: 5000});
 		}

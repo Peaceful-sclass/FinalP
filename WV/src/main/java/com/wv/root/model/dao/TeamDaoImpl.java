@@ -105,10 +105,21 @@ public class TeamDaoImpl implements TeamDao {
 		try {
 			res = session.selectOne(NameSpace+"chkISidinTeam", edto);
 		} catch (Exception e) {
-			System.out.println("[DAO:chkISidinTeam] fail");
+			System.out.println("[DAO:chkISidinTeam] fail load");
 			e.printStackTrace();
 		}
 		
+		return res;
+	}
+	@Override //팀장체크
+	public int chkteamLD(Email edto) { //team_no,member_id
+		int res = 0;
+		try {
+			res = session.selectOne(NameSpace+"chkteamLD",edto);
+		} catch (Exception e) {
+			System.out.println("[DAO:chkteamLD] fail load");
+			e.printStackTrace();
+		}
 		return res;
 	}
     

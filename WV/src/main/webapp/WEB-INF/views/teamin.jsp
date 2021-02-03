@@ -110,12 +110,12 @@
 							<div class="row justify-content-end">
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="team-main-top-create" href="#" data-mid="${member_id}" onclick="teamCreateBT(this); return false;">팀만들기</a>
+										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamCreateBT(this); return false;">팀만들기</a>
 									</div>
 								</div>
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="team-main-top-create" href="#" data-mid="${member_id}" onclick="teamInvite(this); return false;">팀초대</a>
+										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamInviteBT(this); return false;">팀초대</a>
 									</div>
 								</div>
 							</div>
@@ -149,6 +149,33 @@
 		</div><!-- Container End -->
 	</div>
 	<!-- End Menu Box -->
+	
+	
+	
+	<!-- Invite Modal -->
+    <div class="modal" id="invitemodal" role="dialog" data-backdrop="false">
+        <div class="modal-dialog" id="iv-modal-dialog">
+            <div class="modal-content" style="background-color: #f8f9fa;">
+                <!-- <div class="modal-header">
+                 	<h4 id="modal-title" class="modal-title"></h4>                 	             	
+                </div> -->
+                <div class="modal-body" style="padding: 0 50px;">
+					<div class="input-group">
+						<div class="input-box">
+				    		<input type="text" name="idtoInvite" id="iv-modal-input" placeholder="초대할 ID를 입력해주세요." >
+				    	</div>
+				    </div>
+						
+                </div>
+                <div class="modal-footer justify-content-center" style="border-top: 0px; padding: 7px 20px;" >
+                	<button type='button' class="btn btn-sm btn-primary" id="iv-modal-ivbt" data-mid="${member.member_id}" onclick="teamInviteSend(this)">초대</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="iv-modal-ccbt" data-dismiss='modal'>취소</button>
+                </div>
+            </div>
+        </div>
+    </div>	
+	
+	
 	
 	
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>

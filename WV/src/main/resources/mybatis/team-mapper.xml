@@ -43,6 +43,13 @@
 		where teammember_id = #{teammember_id} and team_no = #{team_no}
 	</select>
 	
+	<!-- 팀장체크 -->
+	<select id="chkteamLD" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teammember tm join mymember m ON tm.member_no = m.member_no 
+		where grade_inteam = '팀장' and member_id = #{member_id} and team_no = #{team_no}
+	</select>
+	
 	<!-- 팀초대장 정보 생성 -->
 	<insert id="createCode" parameterType="hashmap">
 		insert into

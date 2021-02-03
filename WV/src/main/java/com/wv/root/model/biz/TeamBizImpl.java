@@ -91,6 +91,11 @@ public class TeamBizImpl implements TeamBiz {
 	public int chkISidinTeam(Email edto) {
 		return dao.chkISidinTeam(edto);
 	}
+
+	@Override
+	public int chkteamLD(Email edto) {
+		return dao.chkteamLD(edto);
+	}
 	
 	   
 	
