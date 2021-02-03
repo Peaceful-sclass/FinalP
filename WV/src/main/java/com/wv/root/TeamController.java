@@ -2,10 +2,8 @@ package com.wv.root;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.TeamBiz;
-import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
@@ -86,11 +83,6 @@ public class TeamController {
 		
 		//멤버의 팀리스트를 갱신/로드(member_no필요)
 		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
-		if(teambiz.getTeamInfo(dto).get(0) != null) {
-			request.getSession().setAttribute("teamInfo", teambiz.getTeamInfo(dto).get(0).getTeam_no());
-		} else {
-			request.getSession().setAttribute("teamInfo", "");
-		}
 		
 		return "teamin";
 	}
@@ -103,16 +95,18 @@ public class TeamController {
 		return "teamcreate";
 	}
 	
-//	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
-//	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
-//		return "teamin";
-//	}
+	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
+	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
+		
+		
+		return "teamin";
+	}
 	
 	//팀아이콘 클릭시 session에 전달해줄 정보(멤버리스트,팀번호/이름)
 	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
 	@ResponseBody
 	public TeamDto teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
-		System.out.println("[dto]: "+dto);			//team_no,team_name
+		System.out.println("[dto]: "+dto);
 		List<TeamMemberDto> tmdto = teambiz.getTeamMember(dto);
 		TeamDto tmdtoinfo = new TeamDto();
 		tmdtoinfo.setTeam_no(dto.getTeam_no());
@@ -124,57 +118,30 @@ public class TeamController {
 	}
 
 	
-	@RequestMapping(value = "/chkteamLD.do", method = RequestMethod.GET)
-	@ResponseBody
-	public int chkteamLD(String member_id, int team_no){ //currId,teamno
-		logger.info("[Invite chkteamLD]");
-		Email edto = new Email();
-		edto.setMember_id(member_id);
-		edto.setTeam_no(team_no);
-		int res = teambiz.chkteamLD(edto); //팀장 체크
-		return res;
-	}
-	
-	@RequestMapping(value = "invite.do", method = RequestMethod.POST)
-	@ResponseBody
-    public int invite(Email edto, HttpServletRequest request){
-		logger.info("[Invite Email]");//edto.getMember_id:초대받는ID
-		if(request.getSession().getAttribute("teamInfo") instanceof TeamDto ) {
-			TeamDto currentTeam = (TeamDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
-			edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
-		} else if(request.getSession().getAttribute("teamInfo") instanceof Integer) {
-			edto.setTeam_no((int)request.getSession().getAttribute("teamInfo"));//현재선택된Team
-		}
-		
-		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
-        try {
-        	if(res > 0) { //1이상이면 중복초대
-        		return res;
-        	}
-			teambiz.invite(edto); //member_id,team_no
-		} catch (UnsupportedEncodingException e) {
-			System.out.println("[invite.do:mail] 잘못된 인코딩 오류");
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			System.out.println("[invite.do:mail] 메세징오류");
-			e.printStackTrace();
-		}
-        return res;
+	@RequestMapping(value = "invite.do", method = RequestMethod.GET)
+    public String RegisterPost(Email edto, Model model, RedirectAttributes rttr) throws Exception{
+		logger.info("[Invite Email]");
+    
+        teambiz.invite(edto);
+        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
+        return "redirect:/";
     }
-
-    //이메일 인증 코드 검증
-    @RequestMapping(value = "emailConfirm.do", method = RequestMethod.GET)
-    public String emailConfirm(Email edto,Model model,RedirectAttributes rttr) throws Exception { 
-    	logger.info("[emailConfirm]");
-        int res = 0;
-        res = teambiz.emailConfirm(edto);
-        if(res == 0) {
-            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
-            System.out.println("[ct:eamilConfirm] 초대실패");
-            return "redirect:/";
-        }
-        return "home";
-    }
+//
+//    //이메일 인증 코드 검증
+//    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
+//    public String emailConfirm(TeamDto team,Model model,RedirectAttributes rttr) throws Exception { 
+//        
+//        System.out.println("cont get user"+team);
+//        TeamDto dto = null;
+//        dto = teambiz.userAuth(team);
+//        if(dto == null) {
+//            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
+//            return "redirect:/";
+//        }
+//        //System.out.println("usercontroller vo =" +vo);
+//        model.addAttribute("login",dto);
+//        return "/user/emailConfirm";
+//    }
 
 
 		

@@ -42,15 +42,3 @@ SELECT * FROM TEAMMEMBER;
 
 
 --------------------------------------------------------------------------------------------------------
---TEAM CODE TABLE
-select * from teamcode;
-drop sequence teamcodenoseq;
-drop table teamcode;
-create sequence teamcodenoseq;
-create table teamcode(
-    Teamcode_no number primary key,
-    Teammember_id varchar2(20) not null,
-    Team_no number not null,
-    code varchar2(200) not null,
-    regdate date
-);
