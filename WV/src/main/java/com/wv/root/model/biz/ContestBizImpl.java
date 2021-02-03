@@ -81,4 +81,14 @@ public class ContestBizImpl implements ContestBiz{
 		return dao.homeClist();
 	}
 
+	@Override
+	public int contestDelete(int contestnum) {
+		return dao.contestDelete(contestnum);
+	}
+
+	@Override
+	public int updateContest(ContestDto dto) {
+		return dao.updateContest(dto);
+	}
+
 }

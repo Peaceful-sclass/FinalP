@@ -91,7 +91,7 @@
     color: #111;
 }
 .write-list > li .need {
-    color: #54c5cf;
+    color: #d65106;
 }
 .write-list > li .long {
     width: 57.4%;
@@ -368,7 +368,7 @@ p {
 .event-notice {
     margin-top: 30px;
     padding: 24px 10px 24px 210px;
-    background: url(../images/we.png) no-repeat 60px 10px;
+    background: url(../images/logof.png) no-repeat 32px 10px;
     background-color: #fff;
     border: 1px solid #c0bfbf;
     border-radius: 3px;

@@ -40,6 +40,69 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 		logger.info("[homeClist.do]");
 		model.addAttribute("contest", biz.homeClist());
 		return "home";      
+	}	
+	@ResponseBody
+	@RequestMapping("/updateContest.do")
+	public String updateContest(MultipartHttpServletRequest mtfRequest, Model model, ContestDto dto) {
+		logger.info("[updateContest.do]");
+		String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); 
+		MultipartFile file = mtfRequest.getFile("file");
+		MultipartFile poster = mtfRequest.getFile("poster");
+		String uid = UUID.randomUUID().toString().replaceAll("-", "");		
+		String uid2 = UUID.randomUUID().toString().replaceAll("-", "");
+		if(file != null){
+			String oriFileName = file.getOriginalFilename();
+			String svaeFileName = uid +"_"+ oriFileName;
+			System.out.println(file.getOriginalFilename());
+			System.out.println("path:"+ path);
+			File uploadFile = new File(path+File.separator+svaeFileName);
+			try {
+				file.transferTo(uploadFile);
+				dto.setContestsvaefilename(svaeFileName);
+				dto.setContestorifilename(oriFileName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(poster != null){
+			String oriFileName = poster.getOriginalFilename();
+			String posterName = uid2+"_"+ oriFileName;
+			System.out.println("path:"+ path);
+			File uploadFile = new File(path+File.separator+posterName);
+			try {
+				poster.transferTo(uploadFile);
+				dto.setContestposter(posterName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		int res = biz.updateContest(dto);
+		if(res>0) {
+			return "<script>alert('success');location.href='contestDetail.do?contestnum="+dto.getContestnum()+"'</script>";
+		}else {
+			return "<script>alert('fail');location.href='contestUpdateForm.do?contestnum="+dto.getContestnum()+"'</script>";      
+		}
+	}
+	@RequestMapping("/contestUpdateForm.do")
+	public String contestUpdateForm(Model model, int contestnum) {
+		logger.info("[contestUpdateForm.do]");
+		model.addAttribute("contest", biz.detailpage(contestnum));
+		return "contestupdate";      
+	}
+	@ResponseBody
+	@RequestMapping("/contestDelete.do")
+	public String contestDelete(Model model, int contestnum) {
+		logger.info("[contestDelete.do]");
+		int res = biz.contestDelete(contestnum);
+		if(res>0) {
+			return "<script>alert('delete success');location.href='contestlist.do'</script>";
+		}else {
+			return "<script>alert('fail');location.href='contestDetail.do?contestnum="+contestnum+"'</script>";      
+		}
 	}
 	
 	@RequestMapping("/contestinsert.do")
@@ -153,7 +216,7 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 		model.addAttribute("catTitle", "4");
 		return "contestlist";      
 	}
-	
+	@ResponseBody
 	@RequestMapping("/insertContest.do")
 	public String insertcontest(MultipartHttpServletRequest mtfRequest, Model model, ContestDto dto) {
 		String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); 
@@ -162,6 +225,7 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 		String uid = UUID.randomUUID().toString().replaceAll("-", "");		
 		String uid2 = UUID.randomUUID().toString().replaceAll("-", "");
 		if(file != null){
+			
 			String oriFileName = file.getOriginalFilename();
 			String svaeFileName = uid +"_"+ oriFileName;
 			System.out.println(file.getOriginalFilename());
@@ -172,10 +236,8 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 				dto.setContestsvaefilename(svaeFileName);
 				dto.setContestorifilename(oriFileName);
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -188,18 +250,16 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 				poster.transferTo(uploadFile);
 				dto.setContestposter(posterName);
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		int res = biz.insert(dto);
 		if(res>0) {
-			return "redirect:home.do";
+			return "<script>alert('success');location.href='contestlist.do'</script>";
 		}else {
-			return "redirect:contestinsert.do";
+			return "<script>alert('fail');location.href='contestinsert.do'</script>";
 		}
 	}
 	

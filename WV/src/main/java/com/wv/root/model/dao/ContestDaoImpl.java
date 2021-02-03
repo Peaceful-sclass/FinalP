@@ -172,4 +172,28 @@ public class ContestDaoImpl implements ContestDao{
 		return list;
 	}
 
+	@Override
+	public int contestDelete(int contestnum) {
+		int res = 0;
+		try {
+			res = sqlSession.delete(NAMESPACE+"contestdelete", contestnum);
+		} catch (Exception e) {
+			System.out.println("[error]: contestdelete");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int updateContest(ContestDto dto) {
+		int res = 0;
+		try {
+			res = sqlSession.update(NAMESPACE+"updatecontest", dto);
+		} catch (Exception e) {
+			System.out.println("[error]: updatecontest");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 }
