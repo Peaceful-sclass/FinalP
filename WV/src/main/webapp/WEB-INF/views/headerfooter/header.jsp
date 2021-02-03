@@ -124,12 +124,12 @@
 	      }
 
 		   
-		   #userId{
+		   #uId{
 		         width:80px;
 		         height: 25px;
 		   }
 		   
-		   #userPass{
+		   #uPass{
 		         width:80px;
 		         height: 25px;		   
 		   }
@@ -276,11 +276,11 @@
 		<c:if test="${member == null}">
 			<div>
 				<label for="member_id"></label>
-				<input style="position: fixed; top: 5px; right: 233px;" type="text" id="userId" name="member_id" placeholder="ID">
+				<input style="position: fixed; top: 5px; right: 233px;" type="text" id="uId" name="member_id" placeholder="ID">
 			</div>
 			<div>
 				<label for="member_pw"></label>
-				<input style="position: fixed; top: 5px; right: 150px;" type="password" id="userPass" name="member_pw" placeholder="PW">
+				<input style="position: fixed; top: 5px; right: 150px;" type="password" id="uPass" name="member_pw" placeholder="PW">
 			</div>
 			<div>
 				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt"  >로그인</button></a></span>
