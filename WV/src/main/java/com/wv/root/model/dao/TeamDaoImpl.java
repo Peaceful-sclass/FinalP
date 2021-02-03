@@ -122,6 +122,18 @@ public class TeamDaoImpl implements TeamDao {
 		}
 		return res;
 	}
+	@Override
+	public String getIvEmail(Email dto) {
+		String email = "";
+		try {
+			email = session.selectOne(NameSpace+"ivEmailone", dto.getMember_id());
+			System.out.println("[DAO:getIvEmail:email] "+email);
+		} catch (Exception e) {
+			System.out.println("[DAO:getIvEmail] fail load");
+			e.printStackTrace();
+		}
+		return email;
+	}
     
     
 	

@@ -40,7 +40,7 @@
 	<select id="chkISidinTeam" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
 		select count(*)
 		from teamcode
-		where teammember_id = #{teammember_id} and team_no = #{team_no}
+		where teammember_id = #{member_id} and team_no = #{team_no}
 	</select>
 	
 	<!-- 팀장체크 -->
@@ -48,6 +48,12 @@
 		select count(*)
 		from teammember tm join mymember m ON tm.member_no = m.member_no 
 		where grade_inteam = '팀장' and member_id = #{member_id} and team_no = #{team_no}
+	</select>
+	
+	<!-- 초대할 사람 email주소 얻기 -->
+	<select id="ivEmailone" parameterType="String" resultType="String">
+		select member_email
+		from mymember where member_id = #{member_id}
 	</select>
 	
 	<!-- 팀초대장 정보 생성 -->

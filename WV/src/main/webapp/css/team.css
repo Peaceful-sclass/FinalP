@@ -47,7 +47,10 @@
     transition: all .3s ease-in-out;
     box-shadow: 0 0 5px black;
 }
-
+/* 팀목록 관련 */
+.whytext2:hover{
+	cursor: pointer;
+}
 
 /* modal관련 */
 #iv-modal-ivbt,#iv-modal-ccbt{
@@ -64,4 +67,8 @@
     margin-top: 20px; 
     /*border-color: darkgoldenrod;*/
     border: 1px solid grey;
+}
+
+.teamselection{
+	border: 5px solid cornsilk;
 }

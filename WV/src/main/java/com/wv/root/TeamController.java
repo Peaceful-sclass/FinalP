@@ -86,6 +86,11 @@ public class TeamController {
 		
 		//멤버의 팀리스트를 갱신/로드(member_no필요)
 		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
+		if(teambiz.getTeamInfo(dto).get(0) != null) {
+			request.getSession().setAttribute("teamInfo", teambiz.getTeamInfo(dto).get(0).getTeam_no());
+		} else {
+			request.getSession().setAttribute("teamInfo", "");
+		}
 		
 		return "teamin";
 	}
@@ -133,30 +138,26 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value = "invite.do", method = RequestMethod.POST)
-    public String invite(Email edto, RedirectAttributes rttr, HttpServletRequest request){
-		logger.info("[Invite Email]");
-		MemberDto currentmember = (MemberDto)request.getSession().getAttribute("member");//현재 로긴ID
+	@ResponseBody
+    public int invite(Email edto, HttpServletRequest request){
+		logger.info("[Invite Email]");//edto.getMember_id:초대받는ID
 		TeamDto currentTeam = (TeamDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
-		currentmember.getMember_no(); ////////////////여기할차례 좀 자자..ㅠㅠ
-		currentTeam.getTeam_no();
+		edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
 		
-		edto.setTeam_no(currentTeam.getTeam_no());
 		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
         try {
-        	if(res > 0) {
-        		rttr.addFlashAttribute("msg", "이미 초대를 받은 ID입니다.");
-        		return "redirect:/";
+        	if(res > 0) { //1이상이면 중복초대
+        		return res;
         	}
 			teambiz.invite(edto); //member_id,team_no
 		} catch (UnsupportedEncodingException e) {
-			System.out.println("[invite.do] 잘못된 인코딩 오류");
+			System.out.println("[invite.do:mail] 잘못된 인코딩 오류");
 			e.printStackTrace();
 		} catch (MessagingException e) {
-			System.out.println("[invite.do] 메세징오류");
+			System.out.println("[invite.do:mail] 메세징오류");
 			e.printStackTrace();
 		}
-        rttr.addFlashAttribute("msg", "팀초대완료");
-        return "redirect:/";
+        return res;
     }
 //
 //    //이메일 인증 코드 검증

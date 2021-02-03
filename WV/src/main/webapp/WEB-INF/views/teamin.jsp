@@ -49,12 +49,15 @@
     			//tmiconbg[i].style.background = bgcolor[r];
     		}
     		
+    		//페이지 로드시 기본팀 선택
+    		let basicTeamNo = "${teamInfo}";
+    		teamSelectionCSS(basicTeamNo);
+    		
     	}
     	
     	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
     	function teamSide(param){
     		let session = "${member.member_id}"; //session login 확인
-    		//sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
     		window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
     		let textcon = $(param).text();
     		console.log("textcon: "+ textcon);
@@ -125,8 +128,8 @@
 								<c:forEach var="dto" items="${team}">
 									<div class="col-lg-4 col-md-6 special-grid drinks">
 										<div class="gallery-single fix">
-											<div class="why-text">
-												<h4><a href="#" data-tname="${dto.team_name}" data-tno="${dto.team_no}" onclick="teamIcon(this); return false;">${dto.team_name}</a></h4>
+											<div class="why-text whytext2" data-tname="${dto.team_name}" data-tno="${dto.team_no}" onclick="teamIcon(this); return false;" style="cursor:pointer;">
+												<h4><a href="#" >${dto.team_name}</a></h4>
 												<p><a href="#">${dto.team_intro}</a></p>
 											</div>
 										</div>

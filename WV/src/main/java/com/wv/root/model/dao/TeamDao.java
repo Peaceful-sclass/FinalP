@@ -14,6 +14,7 @@ public interface TeamDao {
 	public void createCode(Email dto, String key);
 	public int chkISidinTeam(Email edto);
 	public int chkteamLD(Email edto);
+	public String getIvEmail(Email dto);
 	
 	
 	
