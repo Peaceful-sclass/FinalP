@@ -14,6 +14,9 @@ public interface TeamBiz {
 	public List<TeamMemberDto> getTeamInfo(TeamMemberDto dto);
 	public List<TeamMemberDto> getTeamMember(TeamMemberDto dto);
 	public void invite(Email edto) throws MessagingException, UnsupportedEncodingException;
+	public int chkISidinTeam(Email edto);
+	public int chkteamLD(Email edto);
+	public int emailConfirm(Email edto);
 	
 	
 	
