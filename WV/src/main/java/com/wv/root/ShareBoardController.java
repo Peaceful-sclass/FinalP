@@ -6,7 +6,9 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ import com.wv.root.model.biz.SBCommentBiz;
 import com.wv.root.model.biz.ShareBoardBiz;
 import com.wv.root.model.dto.SBCommentDto;
 import com.wv.root.model.dto.ShareBoardDto;
+import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.util.PageMaker;
 import com.wv.root.model.util.SearchCriteria;
 
@@ -42,11 +45,13 @@ public class ShareBoardController {
 	
 	//게시판 목록 조회
 	@RequestMapping(value = "shareBoardList.do", method = RequestMethod.GET)
-	public String list(Model model,@ModelAttribute("scri") SearchCriteria scri) {
+	public String list(Model model,@ModelAttribute("scri") SearchCriteria scri,HttpServletRequest request) {
 		logger.info("list");
 		
+		HttpSession session = request.getSession();
+		
 		//지금들어온 팀의 팀번호를 넘겨줘야함
-		int team_no=1;
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
 		
 		scri.setTeam_no(team_no);
 		
@@ -89,11 +94,14 @@ public class ShareBoardController {
 		
 	//게시판 글 작성
 	@RequestMapping(value = "shareBoardWrite.do",method = RequestMethod.POST)
-	public String write(ShareBoardDto dto,MultipartHttpServletRequest mpRequest) {
+	public String write(ShareBoardDto dto,MultipartHttpServletRequest mpRequest,HttpServletRequest request) {
 		logger.info("write");
-			
-		//지금 들어온 팀의 팀번호 가져와서 써줘야함
-		dto.setTeam_no(1);
+		
+		HttpSession session = request.getSession();
+		
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();	
+		
+		dto.setTeam_no(team_no);
 			
 		int res = biz.write(dto,mpRequest);
 			

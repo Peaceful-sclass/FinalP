@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.wv.root.model.biz.ChatBiz;
 import com.wv.root.model.dto.ChatDto;
 import com.wv.root.model.dto.MemberDto;
+import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.util.chatajax;
 import com.wv.root.model.util.chatajaxres;
 
@@ -33,13 +34,20 @@ public class ChatController {
 	@Autowired
 	private ChatBiz biz;
 	@RequestMapping(value = "Chatting.do", method = RequestMethod.GET)
-	public String chatting(Model model) {
+	public String chatting(Model model,HttpServletRequest request) {
 		logger.info("chat");
 		
-		//지금 클릭한 채팅방 번호 넘겨줘야함
-		int chatting_no = 1;
+		HttpSession session = request.getSession();
 		
-		model.addAttribute("chatList", biz.chatList(chatting_no));
+		//지금들어온 팀의 팀번호를 넘겨줘야함
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
+		//지금 클릭한 채팅방 번호 넘겨줘야함
+		//int chatting_no = 1;
+		
+		//model.addAttribute("chatList", biz.chatList(chatting_no));
+		
+		model.addAttribute("chatList", biz.chatList(team_no));
 		
 		
 		return "chat";
@@ -61,8 +69,20 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value = "read_ajax.do", method = RequestMethod.POST)
-	public JSONArray read_ajax(@RequestBody Map<String, Object> map){
+	public JSONArray read_ajax(@RequestBody Map<String, Object> map,HttpServletRequest request){
 		logger.info("read_ajax");
+		
+		
+		HttpSession session = request.getSession();
+		
+		//지금들어온 팀의 팀번호를 넘겨줘야함
+		int team_no;
+		try {
+			team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		} catch (Exception e) {
+			team_no = 0;
+		}
+		
 		
 		String date =  String.valueOf(map.get("date"));
 		int chatting_no = Integer.parseInt(String.valueOf(map.get("chatting_no")));
@@ -71,6 +91,10 @@ public class ChatController {
 		List<chatajaxres> rlist = biz.chatajax(tmp);
 
 		JSONArray jlist = new JSONArray();
+		
+		JSONObject tmp2 = new JSONObject();
+		tmp2.put("team_no", team_no);
+		jlist.add(tmp2);
 
 		if(rlist.size()==0) {
 			return jlist;

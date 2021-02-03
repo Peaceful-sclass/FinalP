@@ -114,45 +114,6 @@
 	</div>
 	<!-- End Menu Box -->
 	
-	<!-- 
-	<br><br><br><br><br><br><br><br>
-	<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <h2 class="text-center">게시글 작성</h2><p>&nbsp;</p>
-        <form name="writeForm" action="shareBoardWrite.do" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="writer" name="writer" value="${member.member_id }" >
-            <div class="table table-responsive">
-                      <table class="table table-striped">
-            <tr>
-                <td class="danger"><h3 class="text-center">제목</h3></td>
-                <td colspan="3"><input type="text" id="title" name="title" class="form-control"></td>
-            </tr>
-             
-            <tr>
-                <td class="danger"><h3 class="text-center">내용</h3></td>
-                <td colspan="3"><textarea  id="content" name="content" class="form-control"></textarea></td>
-            </tr>
-            
-            <tr>
-                <td class="danger"><button class="fileAdd_btn" type="button">파일추가</button></td>
-                <td colspan="3" id="fileIndex"></td>
-            </tr>
-             
-            <tr>  
-                <td colspan="4"  class="text-center">
-                    <button class="write_btn btn btn-warning" type="submit" >작성</button>
-                </td>
-            </tr>
-          </table>
-         
-     
-            </div>
-        </form>   
-    </div>
-</div>
- -->
-	
 	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>
