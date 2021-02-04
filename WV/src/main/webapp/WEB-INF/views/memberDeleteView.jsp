@@ -34,6 +34,21 @@
 	border-radius: 2px;
 }
 
+#userPassC:hover {
+	background: #DB631F;
+	color: white;
+}
+
+#userEmail:hover {
+	background: #DB631F;
+	color: white;
+}
+
+#userGrade:hover {
+	background: #DB631F;
+	color: white;
+}
+
 #userId {
 	width: 200px;
 }
@@ -71,7 +86,7 @@
 }
 
 .col-8 {
-	left: 200px;
+	left: 240px;
 }
 </style>
 </head>
@@ -146,9 +161,9 @@
                           <h1>회원탈퇴</h1>
                           <br>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_id" id="f">아이디</label> <input
+							<label class="control-label" for="member_id" id="f" style="display:none">아이디</label> <input
 								class="form-control" type="text" id="userId" name="member_id"
-								value="${member.member_id}" readonly="readonly" />
+								value="${member.member_id}" readonly="readonly" style="display:none"/>
 						</div>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_pw" id="f">패스워드</label> <input
@@ -162,7 +177,7 @@
 							<p id="pwsame" style="color: red;"></p>
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_email" id="f">이메일</label> <input
+							<label class="control-label" for="member_email" id="f" >이메일</label> <input
 								class="form-control" type="text" id="userEmail"
 								name="member_email" value="${member.member_email}"
 								readonly="readonly" />
