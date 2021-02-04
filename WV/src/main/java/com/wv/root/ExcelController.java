@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ExcelBiz;
 import com.wv.root.model.dto.ExcelDto;
+import com.wv.root.model.dto.TeamDto;
 
 /**
  * Handles requests for the application home page.
@@ -31,12 +33,17 @@ public class ExcelController {
 	
 	//공유 문서 값 가져오기
 	@RequestMapping(value = "/shareDocumentList.do", method = RequestMethod.GET)
-	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest, int team_no) {
+	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest) {
 		logger.info("Excel List");
-		System.out.println("Team No 값:"+httpServletRequest.getParameter("team_no"));
 		
-		//팀 넘버가 1일 경우
-		model.addAttribute("list", biz.selectCol( Integer.parseInt(httpServletRequest.getParameter("team_no"))) );
+		HttpSession session = httpServletRequest.getSession();
+		
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
+		System.out.println("팀넘버"+team_no);
+		
+		//팀 넘버가 team_no일 경우
+		model.addAttribute("list", biz.selectCol(team_no));
 
 		return "shareDocumentList";
 	}
@@ -221,8 +228,12 @@ public class ExcelController {
 	public String excelDown(HttpServletRequest httpServletRequest, Locale locale, Model model) {
 		logger.info("Excel Down");
 		
+		HttpSession session = httpServletRequest.getSession();
+		
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
 		model.addAttribute("request", httpServletRequest); 
-		biz.downExcel(biz.selectCol(1), model);
+		biz.downExcel(biz.selectCol(team_no), model);
 		
 		return "redirect:shareDocumentList.do";
 	}

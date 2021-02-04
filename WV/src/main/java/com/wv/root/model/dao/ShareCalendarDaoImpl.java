@@ -49,11 +49,11 @@ public class ShareCalendarDaoImpl implements ShareCalendarDao{
 
 
 	@Override
-	public int delete(String calTitle) {
+	public int delete(CalendarDto dto) {
 		int res = 0;
 
 		try {
-			res = sqlSession.delete(NAMESPACE + "deleteEvent", calTitle);
+			res = sqlSession.delete(NAMESPACE + "deleteEvent", dto);
 		} catch (Exception e) {
 			System.out.println("[error]: deleteEvent");
 			e.printStackTrace();
