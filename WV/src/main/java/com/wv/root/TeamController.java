@@ -87,7 +87,7 @@ public class TeamController {
 		//멤버의 팀리스트를 갱신/로드(member_no필요)
 		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
 		if(teambiz.getTeamInfo(dto).get(0) != null) {
-			request.getSession().setAttribute("teamInfo", teambiz.getTeamInfo(dto).get(0).getTeam_no());
+			request.getSession().setAttribute("teamInfo", teambiz.getTeamInfo(dto).get(0));
 		} else {
 			request.getSession().setAttribute("teamInfo", "");
 		}
@@ -119,7 +119,7 @@ public class TeamController {
 		tmdtoinfo.setTeam_name(dto.getTeam_name());
 		request.getSession().setAttribute("teamMember", tmdto);//팀멤버리스트
 		request.getSession().setAttribute("teamInfo", tmdtoinfo);//팀번호/이름
-		System.out.println("[temicon.do] "+tmdtoinfo);
+		System.out.println("[teamicon.do] "+tmdtoinfo);
 		return tmdtoinfo;
 	}
 

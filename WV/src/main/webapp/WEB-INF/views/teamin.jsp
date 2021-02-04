@@ -55,7 +55,7 @@
     		}
     		
     		//페이지 로드시 기본팀 선택
-    		let basicTeamNo = "${teamInfo}";
+    		let basicTeamNo = "${teamInfo.team_no}";
     		teamSelectionCSS(basicTeamNo);
     		
     	}
@@ -78,9 +78,9 @@
     		if(textcon == "팀메인"){
     			sidePost('team.do','${member.member_no}');
     		} else if(textcon == "일정"){
-    			location.href="home.do";
+    			location.href="shareDocumentList.do?team_no="+${teamInfo.team_no};
     		} else if(textcon == "시트"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			location.href="home.do";
     		} else if(textcon == "코드"){
     			location.href="team.do?member_no="+${member.member_no};
     		} else if(textcon == "저장소"){
