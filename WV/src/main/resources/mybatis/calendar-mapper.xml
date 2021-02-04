@@ -22,9 +22,9 @@
 		VALUES(CALENDARNOSEQ.NEXTVAL, #{teamNo}, #{calTitle}, #{calStart})
 	</insert>
 	
-	<delete id="deleteEvent" parameterType="String">
+	<delete id="deleteEvent" parameterType="CalendarDto">
 		DELETE FROM SHARECALENDAR
-		WHERE CALTITLE = #{calTitle}
+		WHERE CALTITLE = #{calTitle} AND TEAMNO = #{teamNo}
 	</delete>
 	
 </mapper>

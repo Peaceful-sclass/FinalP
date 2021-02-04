@@ -3,6 +3,7 @@ package com.wv.root;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ShareCalendarBiz;
 import com.wv.root.model.dto.CalendarDto;
+import com.wv.root.model.dto.TeamDto;
 
 @Controller
 public class CalendarController {
@@ -25,11 +27,15 @@ public class CalendarController {
 	
 	//일정 가져오기
 	@RequestMapping(value = "/shareCalendarList.do", method = RequestMethod.GET)
-	public String shareCalendarList(Locale locale, Model model) {
+	public String shareCalendarList(Locale locale, Model model, HttpServletRequest httpServletRequest) {
 		logger.info("Calendar List");
+		HttpSession session = httpServletRequest.getSession();
+		
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
 		
 		//팀 넘버가 1일 경우
-		model.addAttribute("list", biz.selectEvent(1));
+		model.addAttribute("list", biz.selectEvent(team_no));
 
 		return "shareCalendar";
 	}
@@ -38,7 +44,9 @@ public class CalendarController {
 	@RequestMapping(value = "/shareCalendarInsert.do", method = RequestMethod.GET)
 	public String shareCalendarInsert(HttpServletRequest httpServletRequest, Model model) {
 		logger.info("Calendar Insert");
+		HttpSession session = httpServletRequest.getSession();
 		
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
 		
 		
 		String month = httpServletRequest.getParameter("start").substring(4,7);
@@ -80,7 +88,7 @@ public class CalendarController {
 		System.out.println("title= " + httpServletRequest.getParameter("title"));
 		System.out.println("start= " + transform);
 		
-		CalendarDto dto = new CalendarDto(0, 1, httpServletRequest.getParameter("title"), transform);
+		CalendarDto dto = new CalendarDto(0, team_no, httpServletRequest.getParameter("title"), transform);
 		
 		biz.insert(dto);
 		
@@ -91,14 +99,19 @@ public class CalendarController {
 	@RequestMapping(value = "/shareCalendarDelete.do", method = RequestMethod.GET)
 	public String shareCalendarDelete(HttpServletRequest httpServletRequest, Model model) {
 		logger.info("Calendar Delete");
+		HttpSession session = httpServletRequest.getSession();
 		
+		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
+		
+		CalendarDto dto = new CalendarDto(0, team_no, httpServletRequest.getParameter("start"), null);
 		
 		System.out.println("start 값:"+httpServletRequest.getParameter("start"));
 		
 
 		
 		
-		int res = biz.delete(httpServletRequest.getParameter("start"));
+		int res = biz.delete(dto);
 		
 		if(res>0) {
 			return "redirect:shareCalendarList.do";

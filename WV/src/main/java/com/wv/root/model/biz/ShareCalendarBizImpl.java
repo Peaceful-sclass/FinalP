@@ -25,8 +25,8 @@ public class ShareCalendarBizImpl implements ShareCalendarBiz{
 	}
 
 	@Override
-	public int delete(String calTitle) {
-		return dao.delete(calTitle);
+	public int delete(CalendarDto dto) {
+		return dao.delete(dto);
 	}
 
 }
