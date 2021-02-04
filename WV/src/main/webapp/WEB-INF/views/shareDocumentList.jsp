@@ -96,19 +96,26 @@
 	<link href="fullcalendar/main.css" rel="stylesheet" />
 	<script src="fullcalendar/main.js"></script>
 <style>
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
-}
-
-#calendar {
-	max-width: 1100px;
-	margin: 0 auto;
-}
-
-
+table { 
+    width: 750px; 
+    border-collapse: collapse; 
+    margin:50px auto;
+    }
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+    background: #eee; 
+    }
+th { 
+    background: #f57936; 
+    color: white; 
+    font-weight: bold; 
+    }
+td, th { 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+    font-size: 18px;
+    }
 
 </style>
 
@@ -139,7 +146,8 @@ body {
 									<c:choose>
 										<c:when test="${!empty check}">
 											<form action="shareDocumentUpdate.do"  method="post">
-												<table border="1" class="document">
+												<table class="styled-table">
+													<thead>
 													<tr>
 														<th colspan="3" align="center">update</th>
 														<th colspan="3" align="center">A</th>
@@ -153,6 +161,8 @@ body {
 														<th colspan="3" align="center">I</th>
 														<th colspan="3" align="center">J</th>
 													</tr>
+													</thead>
+													<tbody>
 													<tr>
 														<td colspan="3" align="center">1</td>
 														<td colspan="3" align="center"><input type="text" name="A1" value="${row1.colA }"></td>
@@ -292,6 +302,7 @@ body {
 															<input type="button" value="취소" onclick="location.href='shareDocumentList.do'">	
 														</td>
 													</tr>
+													</tbody>
 												</table>
 											</form>										
 										</c:when>
@@ -300,7 +311,7 @@ body {
 									
 										<c:when test="${empty list }">
 											<form action="shareDocumentInsert.do"  method="post">
-												<table border="1" class="document">
+												<table class="styled-table">
 													<tr>
 														<th colspan="3" align="center">insert</th>
 														<th colspan="3" align="center">A</th>
@@ -459,7 +470,7 @@ body {
 										
 										
 										<c:otherwise>
-											<table border="1" class="document">
+											<table class="styled-table">
 												<colgroup>
 													<col width="50">
 													<col width="300">
@@ -473,6 +484,7 @@ body {
 													<col width="300">
 													<col width="300">
 												</colgroup>
+												<thead>
 												<tr>
 													<th></th>
 													<th>A</th>
@@ -486,6 +498,8 @@ body {
 													<th>I</th>
 													<th>J</th>
 												</tr>
+												</thead>
+												<tbody>
 											<c:forEach items="${list }" var="dto" varStatus="status">
 												<tr>
 													<td>${status.count }</td>
@@ -501,6 +515,7 @@ body {
 													<td>${dto.colJ }</td>
 												</tr>
 											</c:forEach>
+												</tbody>
 												<tr>
 													<td colspan="11" align="right">
 														<form action="shareDocumentUpdateForm.do">
@@ -511,6 +526,7 @@ body {
 														</form>
 													</td>
 												</tr>
+												
 										</table>
 										</c:otherwise>
 									</c:choose>
