@@ -109,7 +109,7 @@
    font-weight: bold;
 }
 .col-8{
-     left: 200px; 
+     left: 240px; 
 }
 </style>
 

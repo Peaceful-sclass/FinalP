@@ -33,6 +33,20 @@
 	color: #f8f9fa;
 	border-radius: 2px;
 }
+#userPassC:hover {
+	background: #DB631F;
+	color: white;
+}
+
+#userEmail:hover {
+	background: #DB631F;
+	color: white;
+}
+
+#userGrade:hover {
+	background: #DB631F;
+	color: white;
+}
 
 #userId {
 	width: 160px;
@@ -71,7 +85,7 @@
 }
 
 .col-8 {
-	left: 200px;
+	left: 240px;
 }
 </style>
 </head>
@@ -134,7 +148,7 @@
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_pw" id="f">패스워드 수정</label> <input
 								class="form-control" type="password" id="userPass"
-								name="member_pw" placeholder="패스워드" />
+								name="member_pw" placeholder="바꾸실 패스워드 입력" />
 						</div>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_pwC" id="f">패스워드 확인</label> <input
