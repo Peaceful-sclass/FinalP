@@ -55,11 +55,15 @@
     		}
     		
     		//페이지 로드시 기본팀 선택. 이후는 선택된 팀 선택
-    		let basicTeamNo = "${teamInfo.team_no}";
-    		console.log("[teamin.jsp]basicTeamNo: "+basicTeamNo);
-    		sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
-    		sessionStorage.setItem("teamName","${teamInfo.team_name}");
-    		teamSelectionCSS(basicTeamNo);
+    		//let basicTeamNo = "${teamInfo.team_no}";
+    		//console.log("[teamin.jsp]basicTeamNo: "+basicTeamNo);
+    		/*let currteamno = sessionStorage.getItem("teamInfo");
+    		if(currteamno == null||currteamno == ""||currteamno == undefined){
+	    		sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
+    		}
+	    		sessionStorage.setItem("teamName","${teamInfo.team_name}");
+    		*/
+    		teamSelectionCSS();
     		
 
     		

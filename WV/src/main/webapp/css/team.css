@@ -53,7 +53,8 @@
 }
 
 .teamselection{
-	border: 5px solid cornsilk;
+	border: 5px solid rgba(214,81,6,0.4);
+    border-radius: 4px;
 }
 
 /* modal관련 */

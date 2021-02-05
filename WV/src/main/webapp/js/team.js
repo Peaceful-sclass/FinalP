@@ -24,19 +24,19 @@ let teamCreateBT = (param)=>{
 	location.href="teamcreateBT.do?member_id="+param.dataset['mid'];
 };
 
-let teamIcon = (param)=>{
+let teamIcon = (param)=>{ //팀멤버리스트,팀번호와 이름을 세션에 추가갱신
 	$.ajax({
 		type: 'post',
 		url: "teamicon.do",
 		data: JSON.stringify({team_no:param.dataset['tno'], team_name:param.dataset['tname']}),
 		contentType: "application/json",
-		success: function(rt){
+		success: function(rt){ //팀번호,이름 받아옴
 			toastr.info(param.dataset['tname']+"팀을 선택했습니다.", "팀선택", {tiemOut: 5000});
 			//location.reload();
 			console.log("rt: "+rt.team_no);
 			window.sessionStorage.removeItem("teamInfo");
 			window.sessionStorage.setItem("teamInfo", rt.team_no);//리턴받은 값을 임시로 클라세션에 전달해준다.
-			//window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
+			window.sessionStorage.setItem("teamName",rt.team_name);
 			teamSelectionCSS();//css후처리함수
 		},
 		error: function(){
@@ -50,7 +50,7 @@ let teamIcon = (param)=>{
 let teamSelectionCSS = (basicteamno)=>{
 	let currTeamno = window.sessionStorage.getItem("teamInfo");
   console.log("[teamSelectionCSS]currTeamno: "+currTeamno);
-	//기본팀선택CSS적용
+	/*//기본팀선택CSS적용
 	if(currTeamno==null||currTeamno==""||currTeamno==undefined){
 		let whytext = document.querySelector("[data-tno=\'"+basicteamno+"\']");
 		//let whytext = basictg.parentNode.parentNode;
@@ -61,7 +61,7 @@ let teamSelectionCSS = (basicteamno)=>{
 		//let whytext = basictg.parent().parent();
 		//whytext.addClass("teamselection");
 		//whytext.css({"border":"1px solid black"});
-	}
+	}*/
 	//현재선택팀의 css를 변경 
 	if(currTeamno != null||currTeamno != ""||currTeamno != undefined){
 		let allwhytext = document.getElementsByClassName("why-text");
@@ -145,6 +145,7 @@ let teamManageBT = (param)=>{
   $('body').css("overflow", "hidden");
   let currTeam = sessionStorage.getItem("teamInfo");
   let currTeamName = sessionStorage.getItem("teamName");
+  console.log("teamManageBT:currTeamName: "+currTeamName);
   $('#mmTeamNamebt').text(currTeamName);
   let teamdata = {
       team_no: currTeam,
