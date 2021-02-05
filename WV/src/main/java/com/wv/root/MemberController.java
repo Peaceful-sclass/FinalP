@@ -112,9 +112,24 @@ public String registerUpdateView() throws Exception{
 
 //수정버튼 눌렀을때
 @RequestMapping(value="memberUpdate.do", method = RequestMethod.POST)
-public String registerUpdate(MemberDto dto, HttpSession session) throws Exception{
-	
-	biz.memberUpdate(dto);
+public String registerUpdate(MultipartHttpServletRequest mtfRequest, Model model, MemberDto dto, HttpSession session) throws Exception{
+	MultipartFile pfimg = mtfRequest.getFile("member_pfimg");	
+	if(pfimg.isEmpty()==false) {
+		String path = mtfRequest.getSession().getServletContext().getRealPath("/images");
+		String uid = UUID.randomUUID().toString().replaceAll("-", "");
+		String oriFileName = pfimg.getOriginalFilename(); 
+		String svaeFileName = uid +"_"+ oriFileName; 
+		File uploadFile = new File(path+File.separator+svaeFileName);
+		try {
+			pfimg.transferTo(uploadFile);
+			dto.setMember_photo("images/"+svaeFileName);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	biz.memberUpdate(dto);	
 	
 	session.invalidate();
 	
