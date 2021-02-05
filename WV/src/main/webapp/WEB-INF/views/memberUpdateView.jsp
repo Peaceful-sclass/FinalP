@@ -105,10 +105,10 @@
 		
 			$("#submit").on("click", function(){
 				if($("#userPass").val()==""){
-					alert("비밀번호를 입력해주세요.");
+					alert("패스워드를 입력해주세요.");
 					$("#userPass").focus();
 					return false;
-				}
+				}				
 				if($("#userEmail").val()==""){
 					alert("이메일을 입력해주세요.");
 					$("#userEmail").focus();
@@ -118,7 +118,7 @@
 			
 		})
 
-		       //비밀번호확인
+						       //비밀번호확인
 				function tocheckpw(){
 					var member_pw=document.getElementById("userPass").value;
 					var member_pwC=document.getElementById("userPassC").value;
@@ -128,6 +128,7 @@
 				   return false;
 				}
 				}
+
 		</script>
 
 	<div class="menu-box">
