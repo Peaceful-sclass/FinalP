@@ -17,11 +17,14 @@ public interface MemberDao {
 	
 	// 회원탈퇴
 	public void memberDelete(MemberDto dto) throws Exception;
-
+     
+	// 팀정보
 	public TeamDto teamInfo(int member_no);
 	
 	// 탈퇴 비번 체크
 	public int passChk(MemberDto dto) throws Exception;
 
+	//아이디 중복체크
+		public int idChk(MemberDto dto) throws Exception;
 
 }

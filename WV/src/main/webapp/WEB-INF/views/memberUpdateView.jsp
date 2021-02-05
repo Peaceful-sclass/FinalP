@@ -85,7 +85,7 @@
 }
 
 .col-8 {
-	left: 240px;
+	left: 220px;
 }
 </style>
 </head>
@@ -126,7 +126,7 @@
 			
 		})
 
-						       //비밀번호확인
+				//비밀번호확인
 				function tocheckpw(){
 					var member_pw=document.getElementById("userPass").value;
 					var member_pwC=document.getElementById("userPassC").value;
