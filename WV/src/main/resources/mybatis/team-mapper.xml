@@ -6,6 +6,7 @@
   
 <mapper namespace="wvteam">
 	
+	<!-- 멤버가 속한 팀들 -->
 	<select id="memberSteam" parameterType="int" resultType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		select * 
 		from teammember tm join team t  ON tm.team_no = t.team_no
@@ -18,6 +19,7 @@
 		from team where team_name = #{team_name}
 	</select>
 	
+	<!-- 팀의 멤버목록을 불러옴 -->
 	<select id="teamMember" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto" resultType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		select * 
 		from teammember tm join team t  ON tm.team_no = t.team_no
@@ -81,6 +83,7 @@
 		where member_id = #{teammember_id} and team_no = #{team_no}
 	</delete>
 	
+	<!-- 초대장 인증시 팀원으로 추가 -->
 	<insert id="teamMemberConfirm" parameterType="com.wv.root.model.dto.TeamDto$Email">
 		insert into teammember
 		values(teammemberseq.nextval, (select member_no from mymember where member_id = #{member_id}),
