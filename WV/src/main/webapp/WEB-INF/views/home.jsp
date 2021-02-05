@@ -14,7 +14,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />	
-<div class="menu-box" style="min-height: 700px">
+<div class="menu-box" style="min-height: 1000px">
 	<div class="container">
 		<h2 style="font-size: 2em; line-height: 1.5em; color: #666f77; text-transform: uppercase; letter-spacing: 0.125em; padding: 30px 0px 20px 0px">공모전 소식</h2>
 		<div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel" data-interval="3000">

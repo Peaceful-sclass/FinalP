@@ -310,7 +310,7 @@
 				포스터
 			</span>
 			<span class="filebox">
-				<input type="text" class="upload-name" id="postername" value="">
+				<input type="text" class="upload-name" id="postername" value="" readonly="readonly">
   				<label for="poster">파일선택</label> 
   				<input type="file" name="poster" id="poster"  accept="image/*">  				
 			</span>
@@ -320,7 +320,7 @@
 				첨부파일
 			</span>
 			<span class="filebox">
-				<input type="text" class="upload-name" id="filename" value="">
+				<input type="text" class="upload-name" id="filename" value="" readonly="readonly">
   				<label for="file">파일선택</label> 
   				<input type="file" name="file" id="file">  				
 			</span>
