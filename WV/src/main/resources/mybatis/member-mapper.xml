@@ -7,7 +7,7 @@
 <mapper namespace="wvmember">
     	<!-- 회원가입 -->
    <insert id="register" parameterType="memberDto">
-        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_email}, #{member_grade}, SYSDATE)
+        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_email}, #{member_grade}, SYSDATE, #{member_photo} )
    </insert>	 
 
 	<!-- 로그인 -->

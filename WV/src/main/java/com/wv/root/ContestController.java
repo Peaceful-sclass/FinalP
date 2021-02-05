@@ -50,7 +50,7 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 		MultipartFile poster = mtfRequest.getFile("poster");
 		String uid = UUID.randomUUID().toString().replaceAll("-", "");		
 		String uid2 = UUID.randomUUID().toString().replaceAll("-", "");
-		if(file != null){
+		if(file.isEmpty()==false){
 			String oriFileName = file.getOriginalFilename();
 			String svaeFileName = uid +"_"+ oriFileName;
 			System.out.println(file.getOriginalFilename());
@@ -66,7 +66,7 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 				e.printStackTrace();
 			}
 		}
-		if(poster != null){
+		if(poster.isEmpty()==false){
 			String oriFileName = poster.getOriginalFilename();
 			String posterName = uid2+"_"+ oriFileName;
 			System.out.println("path:"+ path);
@@ -224,7 +224,7 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 		MultipartFile poster = mtfRequest.getFile("poster");
 		String uid = UUID.randomUUID().toString().replaceAll("-", "");		
 		String uid2 = UUID.randomUUID().toString().replaceAll("-", "");
-		if(file != null){
+		if(file.isEmpty()==false){
 			
 			String oriFileName = file.getOriginalFilename();
 			String svaeFileName = uid +"_"+ oriFileName;
@@ -241,7 +241,7 @@ private Logger logger = LoggerFactory.getLogger(ContestController.class);
 				e.printStackTrace();
 			}
 		}
-		if(poster != null){
+		if(poster.isEmpty()==false){
 			String oriFileName = poster.getOriginalFilename();
 			String posterName = uid2+"_"+ oriFileName;
 			System.out.println("path:"+ path);

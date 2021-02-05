@@ -89,6 +89,12 @@
 	border-radius: 2px;
 }
 
+#member_pfname {
+	width: 200px;
+	border-radius: 2px;
+	float: left;
+}
+
 #userGrade {
 	width: 140px;
 	border-radius: 2px;
@@ -125,6 +131,31 @@
 
 .col-8 {
 	left: 240px;
+}
+input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+.filelabel{
+	display: inline-block;
+    padding: 1px 6px;
+    vertical-align: middle;
+    cursor: pointer;    
+    background-color: white;
+    color: #DB631F;
+    font-weight: bold;
+    border: 2px solid #DB631F;
+    border-radius: 2px;
+    margin: 1% 0px 0px 1%;
+}
+.filelabel:hover {
+	background: #DB631F;
+	color: white;
+	border-radius: 2px;
 }
 </style>
 
@@ -177,6 +208,12 @@
 					return false;
 				}
 			});
+			
+			//프로필 이미지 변경
+			$("#member_pfimg").on('change', function(){ 
+				var imgname = $("#member_pfimg").val().split('/').pop().split('\\').pop();
+			    $("#member_pfname").val(imgname);
+			});
 		})
 
 		//비밀번호확인
@@ -188,7 +225,8 @@
 				document.getElementById('pwsame').innerHTML = '비밀번호가다릅니다 다시입력해서주세요'
 				return false;
 			}
-		}
+		}		
+		
 	</script>
 
 
@@ -198,7 +236,7 @@
 
 
 			<form action="register.do" onsubmit="return tocheckpw()"
-				data-ajax="false" method="post">
+				data-ajax="false" method="post" enctype="multipart/form-data">
 				<!-- onsubmit="return tocheckpw()" data-ajax="false" 해당function이 맞으면 submit 아니면 페이지그대로-->
 
 				<div class="row">
@@ -240,6 +278,13 @@
 
 
 						</div>
+						<div class="form-group has-feedback">
+							<div class="control-label" id="f" style="margin-bottom: .5rem;">프로필사진</div> 
+							<input type="text" class="form-control" id="member_pfname" value="" readonly="readonly">
+							<label for="member_pfimg" class="filelabel">파일선택</label> 
+  							<input type="file" name="member_pfimg" id="member_pfimg"  accept="image/*">  
+						</div>
+						
 						<div class="form-group has-feedback" style="display: none">
 							<!-- 아직 사용안하는부분이라 숨김 -->
 							<label class="control-label" for="member_grade" id="f">회원등급</label>
