@@ -52,6 +52,7 @@
 	color: white;
 	border-radius: 2px;
 }
+
 #cc:hover {
 	background: #bebebe;
 	color: #f8f9fa;
@@ -89,27 +90,31 @@
 	top: 30px;
 	border-radius: 2px;
 }
+
 #submit {
-      background-color: white;
-      color: #DB631F;
-      font-weight: bold;
-      border-style:solid;
-      border-color: #DB631F;
-      border-radius: 2px;
+	background-color: white;
+	color: #DB631F;
+	font-weight: bold;
+	border-style: solid;
+	border-color: #DB631F;
+	border-radius: 2px;
 }
+
 #cc {
-      border-style: #DB631F;
-      background-color: #f8f9fa;
-      font-weight: bold;
-      border-style:solid;
-      border-radius: 2px;
+	border-style: #DB631F;
+	background-color: #f8f9fa;
+	font-weight: bold;
+	border-style: solid;
+	border-radius: 2px;
 }
-#f{
-   color: #DB631F;  
-   font-weight: bold;
+
+#f {
+	color: #DB631F;
+	font-weight: bold;
 }
-.col-8{
-     left: 240px; 
+
+.col-8 {
+	left: 240px;
 }
 </style>
 
@@ -128,17 +133,21 @@
 				location.href = "/root";
 						    
 			})
+			 //아이디 입력확인
 			$("#submit").on("click", function(){
 				if($("#userId").val()==""){
 					alert("아이디를 입력해주세요.");
 					$("#userId").focus();
 					return false;
 				}
+				
+				//비번입력확인
 				if($("#userPass").val()==""){
-					alert("비밀번호를 입력해주세요.");
+					alert("패스워드를 입력해주세요.");
 					$("#userPass").focus();
 					return false;
 				}
+				//이메일입력확인
 				if($("#userEmail").val()==""){
 					alert("이메일을 입력해주세요.");
 					$("#userEmail").focus();
@@ -157,7 +166,9 @@
 				   return false;
 				}
 				}
-              		
+         
+
+
     </script>
 
 
@@ -173,34 +184,34 @@
 				<div class="row">
 					<div class="col-2"></div>
 					<div class="col-8">
-                        <h1>회원가입</h1>
-                        <br>
+						<h1>회원가입</h1>
+						<br>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_id" id="f">아이디</label>
 							<!-- for는 member-mapper부분 -->
 							<input class="form-control" type="text" id="userId"
-								name="member_id" maxlength="8" placeholder="8자이내 입력" />
-							<!-- id는 위에 알림창 script부분, name은 member-mapper부분 -->
+								name="member_id" maxlength="8" placeholder="8자이내 입력">
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pw" id="f">패스워드</label> <input
-								class="form-control" type="password" id="userPass"
+							<label class="control-label" for="member_pw" id="f">패스워드</label>
+							<input class="form-control" type="password" id="userPass"
 								name="member_pw" placeholder="패스워드" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pwC" id="f">패스워드 확인</label> <input
-								class="form-control" type="password" id="userPassC"
+							<label class="control-label" for="member_pwC" id="f">패스워드
+								확인</label> <input class="form-control" type="password" id="userPassC"
 								name="member_pw2" placeholder="패스워드확인" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_email" id="f">이메일</label> <input
-								class="form-control" type="text" id="userEmail"
+							<label class="control-label" for="member_email" id="f">이메일</label>
+							<input class="form-control" type="text" id="userEmail"
 								name="member_email" placeholder="이메일 입력" />
 						</div>
-						<div class="form-group has-feedback" style="display:none"> <!-- 아직 사용안하는부분이라 숨김 -->
-							<label class="control-label" for="member_grade" id="f">회원등급</label> <select
-								class="form-control" id="userGrade" name="member_grade">
+						<div class="form-group has-feedback" style="display: none">
+							<!-- 아직 사용안하는부분이라 숨김 -->
+							<label class="control-label" for="member_grade" id="f">회원등급</label>
+							<select class="form-control" id="userGrade" name="member_grade">
 								<option>일반회원</option>
 							</select>
 						</div>
