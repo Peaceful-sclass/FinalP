@@ -54,11 +54,14 @@
     			//tmiconbg[i].style.background = bgcolor[r];
     		}
     		
-    		//페이지 로드시 기본팀 선택
+    		//페이지 로드시 기본팀 선택. 이후는 선택된 팀 선택
     		let basicTeamNo = "${teamInfo.team_no}";
+    		sessionStorage.setItem("teamName","${teamInfo.team_name}");
     		teamSelectionCSS(basicTeamNo);
     		
-    	}
+
+    		
+    	}//window.onload end
     	
     	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
     	function teamSide(param){
@@ -114,8 +117,13 @@
 					<div class="tab-content" id="v-pills-tabContent">
 
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-							
+							<!-- 팀관리줄 -->
 							<div class="row justify-content-end">
+								<div class="team-main">
+									<div class="team-main-top" style="position:absolute; left:20px;">
+										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamManageBT(this); return false;">팀정보</a>
+									</div>
+								</div>
 								<div class="team-main">
 									<div class="team-main-top">
 										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamCreateBT(this); return false;">팀만들기</a>
@@ -126,7 +134,8 @@
 										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamInviteBT(this); return false;">팀초대</a>
 									</div>
 								</div>
-							</div>
+							</div><!-- 팀관리줄 End -->
+							
 							<hr />
 							<!-- 팀목록 Start -->
 							<div class="row">
@@ -182,10 +191,55 @@
             </div>
         </div>
     </div>	
+    
+	<!-- Manage Modal -->
+    <div class="modal" id="managemodal" role="dialog" data-backdrop="false">
+        <div class="modal-dialog" id="mmdialog">
+            <div class="modal-content">
+                <div class="modal-header" style="justify-content: center;">
+                 	<!-- <h4 id="modal-title" class="modal-title"></h4> -->
+                	<button type='button' class="btn btn-sm btn-primary" id="mmTeamNamebt" data-mid="${member.member_id}">팀의 이름입니다.</button>
+                 	                 	             	
+                </div> 
+                <div class="modal-body">
+					<div class="justify-content-center" id="mmC">
+						<table class="table-sm table-hover" style="width: 100%;">
+						  <thead>
+						    <tr>
+						      <th scope="col" style="width:30%;">F</th>
+						      <th scope="col" style="width:50%;">팀원</th>
+						      <th scope="col">등급</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  
+						    <tr>
+						      <td>
+						      	<input type="checkbox" name="tmchkbox" />
+						      </td>
+						      <td>Mark</td>
+						      <td>
+						      	<select name="grade_inteam" >
+									<option value="매니저">매니저</option>
+									<option value="팀원">팀원</option>
+								</select>
+						      </td>
+						    </tr>
+					
+						  </tbody>
+						</table>
+					</div>
+						
+                </div>
+                <div class="modal-footer justify-content-center" style="border-top: 0px; padding: 7px 20px;" >
+                	<button type='button' class="btn btn-sm btn-primary" id="mmCdbt" data-mid="${member.member_id}" onclick="teamInviteSend(this)">변경</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="mmCcbt" data-dismiss="modal" onclick="(()=>{$('#managemodal').val('');$('body').css('overflow', 'scroll');})();">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>	
 	
-	
-	
-	
+		
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
 </body>
 </html>

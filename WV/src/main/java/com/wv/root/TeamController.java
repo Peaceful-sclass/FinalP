@@ -86,8 +86,11 @@ public class TeamController {
 		
 		//멤버의 팀리스트를 갱신/로드(member_no필요)
 		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
-		if(teambiz.getTeamInfo(dto).get(0) != null) {
-			request.getSession().setAttribute("teamInfo", teambiz.getTeamInfo(dto).get(0));
+		//첫페이지 진입시 필요한 기본 팀넘버,이름(멤버의 첫번째 팀을 강제로 선택)
+		TeamMemberDto tmdto = teambiz.getTeamInfo(dto).get(0);
+		if(tmdto != null) {
+			request.getSession().setAttribute("teamInfo", tmdto);
+			//request.getSession().setAttribute("teamMember", teambiz.getTeamMember(tmdto));//기본팀의 멤버리스트(tema_no) 또한 같이 추가
 		} else {
 			request.getSession().setAttribute("teamInfo", "");
 		}
@@ -123,7 +126,7 @@ public class TeamController {
 		return tmdtoinfo;
 	}
 
-	
+	//초대시 자신이 팀장인지 체크
 	@RequestMapping(value = "/chkteamLD.do", method = RequestMethod.GET)
 	@ResponseBody
 	public int chkteamLD(String member_id, int team_no){ //currId,teamno
@@ -176,7 +179,15 @@ public class TeamController {
         return "home";
     }
 
-
+    //팀정보누를시 팀원 목록
+    @RequestMapping(value= "teamManage.do", method= RequestMethod.POST)
+    @ResponseBody
+    public List<TeamMemberDto> teamManage(@RequestBody TeamMemberDto tmdto){
+    	logger.info("[con:teamManage]");				//memid,teamno
+    	List<TeamMemberDto> list = teambiz.getTeamMember(tmdto);
+    	
+    	return list;
+    }
 		
 	
 }

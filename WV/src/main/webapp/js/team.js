@@ -61,7 +61,6 @@ let teamSelectionCSS = (basicteamno)=>{
 		//whytext.addClass("teamselection");
 		//whytext.css({"border":"1px solid black"});
 	}
-	
 	//현재선택팀의 css를 변경 
 	if(currTeamno != null||currTeamno != ""||currTeamno != undefined){
 		let allwhytext = document.getElementsByClassName("why-text");
@@ -77,6 +76,7 @@ let teamSelectionCSS = (basicteamno)=>{
 	}
 };
 
+//사이드메뉴바 이동명령이 post일시 실행함수
 let sidePost = (url,memberno)=>{
 	$.ajax({
 		type: 'post',
@@ -136,4 +136,94 @@ let teamInviteSend = (param)=>{ //초대모달의 버튼
 		}
 	});
 };
+
+
+//팀정보 버튼누르면 팀원목록
+let teamManageBT = (param)=>{
+  $("#managemodal").modal('show');
+  $('body').css("overflow", "hidden");
+  let currTeam = sessionStorage.getItem("teamInfo");
+  let currTeamName = sessionStorage.getItem("teamName");
+  $('#mmTeamNamebt').text(currTeamName);
+  let teamdata = {
+      team_no: currTeam,
+      member_id: param.dataset['mid']
+  };
+  $.ajax({
+    type: "post",
+    url: "teamManage.do",
+    data: JSON.stringify(teamdata),
+    contentType: "application/json",
+    dataType:"json",
+    success:function(rt){ //팀멤버로드
+        //$(form).append($('<input/>', {type: 'hidden', name: 'title', value:$(title).val() }));
+        let LD = chkteamLD(teamdata.member_id,currTeam);
+        if(LD != 1){//팀원
+          $("thead>tr>th:eq(0)").hide();
+          $("#mmCdbt").hide();
+          let code;
+	        for(let i=0; i<rt.length; i++){
+		        code+= '<tr><td>'+rt[i].member_id+'</td>';
+	          code+= '<td>'+rt[i].grade_inteam+'</td></tr>';
+	        } 
+          $("tbody").html(code);
+            
+        } else{//팀장일경우 ui추가변경
+          $("thead>tr>th:eq(0)").show();
+          $("#mmCdbt").show();
+          let code;
+	        for(let i=0; i<rt.length; i++){
+            if(rt[i].grade_inteam=="팀장"){
+		          code+='<tr> <td> </td>';
+		          code+= '<td>'+rt[i].member_id+'</td>';
+	            code+= '<td>팀장</td></tr>';
+            }else if(rt[i].grade_inteam=="매니저"){
+			        code+='<tr> <td> <input type="checkbox" name="tmchkbox" value='+rt[i].member_no+' /> </td>';
+			        code+= '<td>'+rt[i].member_id+'</td>';
+	            code+= '<td> <select name="grade_inteam">';
+		          code+= '<option value="매니저" selected>매니저</option>';
+		          code+= '<option value="팀원">팀원</option> </select></td></tr>';
+            }else{
+			        code+='<tr> <td> <input type="checkbox" name="tmchkbox" value='+rt[i].member_no+' /> </td>';
+			        code+= '<td>'+rt[i].member_id+'</td>';
+	            code+= '<td> <select name="grade_inteam">';
+		          code+= '<option value="매니저">매니저</option>';
+		          code+= '<option value="팀원" selected>팀원</option> </select></td></tr>';
+            }
+	        } 
+          $("tbody").html(code);
+          $("select[name=grade_inteam]").val();
+          
+          
+        }
+    },
+    error: function(){
+			toastr.error("인터넷상태를 확인해주세요.", "인터넷에러!", {tiemOut: 5000});
+    }
+  });
+  
+};
+
+
+//팀장체크 rt=1 :팀장
+let chkteamLD =(currid, teamno)=>{
+  let rt2;
+  $.ajax({ //currId,teamno
+    type: 'get',
+    url: 'chkteamLD.do?member_id='+currid+'&team_no='+teamno,
+    async: false,
+    success: function(rt){
+        rt2 = rt;
+    },error: function(){
+      toastr.error("인터넷연결을 확인해주세요.", "통신에러!", {tiemOut: 5000});
+    }
+  });
+  console.log("chkteamLD rt: "+rt2);
+  return rt2;
+};
+
+
+
+
+
 

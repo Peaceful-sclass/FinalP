@@ -45,7 +45,7 @@ th {
     text-align: center;
     vertical-align: top;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
     float: right;
 }
@@ -63,7 +63,7 @@ th {
     font-weight: 700;
     text-align: center;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
 }
 .a-search-input{
@@ -133,7 +133,7 @@ th {
     text-align: center;
     vertical-align: top;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
     float: right;
 }
@@ -202,7 +202,7 @@ th {
     text-align: center;
     vertical-align: top;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
 }
 .dv-cmtR-del{
@@ -224,7 +224,7 @@ th {
     text-align: center;
     vertical-align: top;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
 }
 .dv-relative{
@@ -258,7 +258,7 @@ th {
     text-align: center;
     vertical-align: text-bottom;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
 }
 .dv-reply-canclebt{
@@ -279,7 +279,7 @@ th {
     text-align: center;
     vertical-align: text-bottom;
     
-    background: darkorange;
+    background: rgb(214,81,6);
     color: white;
 }
 
