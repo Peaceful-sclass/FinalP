@@ -49,7 +49,7 @@
 }
 
 #userId {
-	width: 160px;
+	width: 200px;
 }
 
 #userPass {
@@ -104,16 +104,24 @@
 			})
 		
 			$("#submit").on("click", function(){
+				//비번확인
 				if($("#userPass").val()==""){
 					alert("패스워드를 입력해주세요.");
 					$("#userPass").focus();
 					return false;
-				}				
+				}	
+				//비번체크확인
+				if ($("#userPassC").val() == "") {
+					alert("패스워드확인을 입력해주세요.");
+					$("#userPassC").focus();
+					return false;
+				}	
 				if($("#userEmail").val()==""){
 					alert("이메일을 입력해주세요.");
 					$("#userEmail").focus();
 					return false;
 				}
+
 			});
 			
 		})
@@ -141,7 +149,7 @@
 					<div class="col-8">
                              <h1>회원수정</h1>
                              <br>
-						<div class="form-group has-feedback" style="display:none"> <!-- 수정할 필요없어서 숨김 -->
+						<div class="form-group has-feedback">
 							<label class="control-label" for="member_id" id="f">아이디</label> <input
 								class="form-control" type="text" id="userId" name="member_id"
 								value="${member.member_id}" readonly="readonly" />
@@ -157,8 +165,8 @@
 								name="member_pw2" placeholder="패스워드확인" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
-						<div class="form-group has-feedback">
-							<label class="control-label" for="member_email" id="f">이메일 수정</label> <input
+						<div class="form-group has-feedback" style="display:none">
+							<label class="control-label" for="member_email" id="f" >이메일 수정</label> <input
 								class="form-control" type="text" id="userEmail"
 								name="member_email" value="${member.member_email}"
 								placeholder="바꾸실 이메일 입력" />
