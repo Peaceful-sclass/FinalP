@@ -49,6 +49,7 @@ let teamIcon = (param)=>{
 //선택된 팀 CSS 변경함수
 let teamSelectionCSS = (basicteamno)=>{
 	let currTeamno = window.sessionStorage.getItem("teamInfo");
+  console.log("[teamSelectionCSS]currTeamno: "+currTeamno);
 	//기본팀선택CSS적용
 	if(currTeamno==null||currTeamno==""||currTeamno==undefined){
 		let whytext = document.querySelector("[data-tno=\'"+basicteamno+"\']");
