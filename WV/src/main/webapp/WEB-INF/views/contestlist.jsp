@@ -23,7 +23,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/headerfooter/header.jsp"
 		flush="false" />
-	<div class="menu-box">
+	<div class="menu-box" style="min-height: 1800px;">
 		<div class="container">
 			<div class="row inner-menu-box">
 				<div class="col-3">					
