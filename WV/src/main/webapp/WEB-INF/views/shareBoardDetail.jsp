@@ -4,8 +4,6 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <title>게시판</title>
 </head>
@@ -96,105 +94,82 @@
 				
 				<div class="col-9">
 					<div id="container">
-		
-		<div class="row">
-    
-    <div >
-        <form name="readForm" role="form" method="post">
-        <input type="hidden" id="bno" name="bno" value="${dto.bno}" />
+					
+					<div id="boardmain">
+					<form name="readForm" role="form" method="post">
+        			<input type="hidden" id="bno" name="bno" value="${dto.bno}" />
 					<input type="hidden" id="page" name="page" value="${scri.page}"> 
 					<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
 					<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
 					<input type="hidden" id="FILE_NO" name="FILE_NO">
-		</form>
-            <div class="table table-responsive">
-                      <table class="table table-striped">
-            <tr>
-                <td class="danger">작성자</td>
-                <td>${dto.writer}</td>
-                <td class="danger">작성일</td>
-                <td><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd" /></td>
-            </tr>
-            <tr>
-                <td class="danger">제목</td>
-                <td colspan="3"><input type="text"  class="form-control" id="title" name="title" value="${dto.title}"  readonly="readonly"></td>
-            </tr>
-             
-            
-             
-            <tr>
-                <td class="danger">내용</td>
-                <td colspan="3"><textarea id="content" name="content" class="form-control" readonly="readonly"><c:out value="${dto.content}" /></textarea></td>
-            </tr>
-            
-            <tr>
-                <td class="danger">파일</td>
-                <td colspan="3">
-                <c:forEach var="file" items="${file }">
-					<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORG_FILE_NAME }</a>(${file.FILE_SIZE}kb)<br>
-				</c:forEach>
-				</td>
-            </tr>
-            <tr>  
-                <td colspan="4"  class="text-center">
-                    <c:if test="${dto.writer eq member.member_id }">
+					</form>
+					
+					<h2>${dto.title}</h2>
+					<hr>
+					<div>
+					<div style="float:left;"><h4>&nbsp;&nbsp;<c:out value="${dto.writer}" /></h4></div>
+					<div style="float:right;"><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd" /></div>
+					<div style="clear:both;"></div>
+					</div>
+					<hr>
+					<textarea id="content" name="content" class="form-control" readonly="readonly"><c:out value="${dto.content}" /></textarea>
+					<hr>
+					<c:forEach var="file" items="${file }">
+					<h6><a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORG_FILE_NAME }</a>(${file.FILE_SIZE}kb)</h6><br>
+					</c:forEach>
+					<hr>
+					<c:if test="${dto.writer eq member.member_id }">
 					<button type="submit" id="update_btn" class="update_btn btn btn-warning">수정</button>
 					<button type="submit" id="delete_btn" class="delete_btn btn btn-danger">삭제</button>
 					</c:if>
 					<button type="submit" id="list_btn" class="list_btn btn btn-primary">목록</button>
-                </td>
-            </tr>
-          </table>
-         
-     
-            </div>  
-    </div>
-	</div>
-	 
-	
-				
-				<br>
-				<div >
-				<table class="table table-hover">
-					<c:if test="${empty commentList }">
-						<tr><td colspan="10" class="cm-txt-center"><p>작성된 댓글이 없습니다.</p></td></tr>
-					</c:if>
 					
+					</div>
+					
+					<hr />
+					
+					<div id="boardcomment">
+					<div style="padding-bottom:10px">댓글</div>
+					<c:if test="${empty commentList }">
+						<div class="cm-txt-center"><p>작성된 댓글이 없습니다.</p></div>
+					</c:if>
 					<c:forEach items="${commentList}" var = "commentList">
-						<tr>
-							<td ><c:out value="${commentList.content }" /></td>
-							<td><c:out value="${commentList.writer}" /></td>
-							<td><fmt:formatDate value="${commentList.regdate}" pattern="yyyy-MM-dd"/></td>
-							<td>
-								<c:if test="${commentList.writer eq member.member_id }">
-								<button type="button" id="commentDelte" class="commentDelte btn btn-danger" data-rno="${commentList.rno }">삭제</button>
-								</c:if> 
-							</td>
-						</tr>
-					</c:forEach>		
-				</table>
-				</div>
-				
-				<form action="SBCommentWrite.do" name="commentForm" method="post" >
+					
+					<div id="commenttop" style="background-color:#F5D0A9; border-radius: 8px">
+						<div style="float:left; padding:10px 10px 0px 10px;"><h5><c:out value="${commentList.writer}" /></h5></div>
+						<div style="float:right; padding:10px 10px 0px 10px;"><h5><fmt:formatDate value="${commentList.regdate}" pattern="yyyy-MM-dd"/></h5></div>
+						<div style="clear:both;"></div>
+					</div>
+					<div id="commentcontent" style="padding:5px 10px 0px 10px;">
+						<div style="float:right;">
+						<c:if test="${commentList.writer eq member.member_id }">
+						<input type="button" id="commentDelte" class="commentDelte btn btn-primary" data-rno="${commentList.rno }" value="삭제">
+						</c:if>
+						</div>
+						<div >&nbsp;&nbsp;<c:out value="${commentList.content }" /></div>
+					</div>
+					<div style="clear:both;"></div>
+					<br>
+					</c:forEach>
+					</div>
+					<hr>
+					
+					<form action="SBCommentWrite.do" name="commentForm" method="post" >
 					<input type="hidden" id="bno" name="bno" value="${dto.bno}" />
 					<input type="hidden" id="page" name="page" value="${scri.page}"> 
   					<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
   					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
   					<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
   					<input type="hidden" id="writer" name="writer" value="${member.member_id }">
-  					
-  					<table class="table table-hover">
-  					<tr>
-  						<td>댓글</td>
-  						<td><div class="col-sm-8"><input type="text" id="content" name="content" class="form-control"/></div></td>
-  						<td><button type="button" id="commentWriteBtn" class="replyWriteBtn btn btn-success">작성</button></td>
-  					</tr>
-  					</table>
-				</form>
+					<div id="commentWrite">
+					&nbsp;&nbsp;<input type="text" id="content" name="content" size=50 placeholder="댓글을 입력해 주세요">
+					<div  style="float:right; padding-right:30px;"><input id="commentWriteBtn" class="replyWriteBtn btn btn-primary" type="button" value="작성"></div>
+					</div>
+					</form>
+
 	
 				
-			<hr />
 			</div>
 
 				</div><!-- col-9 end -->

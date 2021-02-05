@@ -75,12 +75,12 @@ public class ChatController {
 		
 		HttpSession session = request.getSession();
 		
-		//지금들어온 팀의 팀번호를 넘겨줘야함
+		String member_id;
 		int team_no;
 		try {
-			team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+			member_id= ((MemberDto)session.getAttribute("member")).getMember_id();
 		} catch (Exception e) {
-			team_no = 0;
+			member_id = "";
 		}
 		
 		
@@ -93,7 +93,7 @@ public class ChatController {
 		JSONArray jlist = new JSONArray();
 		
 		JSONObject tmp2 = new JSONObject();
-		tmp2.put("team_no", team_no);
+		tmp2.put("member_id", member_id);
 		jlist.add(tmp2);
 
 		if(rlist.size()==0) {

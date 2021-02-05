@@ -32,7 +32,7 @@
 			<script type="text/javascript">
 			
 			function openchat(){
-				objtestchat= window.open("Chatting.do","testchat","width=500, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+				window.open("Chatting.do","testchat","width=500, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no");
 			}
 
 			</script>
@@ -42,7 +42,7 @@
 				<div class="container">
 				
 				<c:if test="${not empty teamInfo }">
-					<div style="position: fixed; right: 50px; bottom:100px">
+					<div style="position: fixed; right: 30px; bottom:100px">
 					<img src="images/chat.png" width="70px" height="70px" alt="chat" onclick="openchat();">
 					</div>
 				</c:if>
