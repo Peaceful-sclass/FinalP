@@ -35,19 +35,9 @@ public void getRegister() throws Exception {
 @RequestMapping(value = "register.do", method = RequestMethod.POST)
 public String postRegister(MemberDto dto) throws Exception {
 	logger.info("post register");
-	int result = biz.idChk(dto);
-	try {
-		if(result == 1) {
-			return "register.do";
-		}else if(result == 0) {
-			biz.register(dto);
-		}
-		// 요기에서~ 입력된 아이디가 존재한다면 -> 다시 회원가입 페이지로 돌아가기 
-		// 존재하지 않는다면 -> register
-	} catch (Exception e) {
-		throw new RuntimeException();
-	}
-	return "redirect:/";
+	biz.register(dto);
+
+	return "home";
 }
 
 //로그인
@@ -140,14 +130,6 @@ public String memberDelete(MemberDto dto, HttpSession session, RedirectAttribute
 		int result = biz.passChk(dto);
 		return result;
 	
-   }
-   
-//아이디 중복체크
-   @ResponseBody
-   @RequestMapping(value="idChk.do", method = RequestMethod.POST)
-   public int idChk(MemberDto dto) throws Exception {
-   	int result = biz.idChk(dto);
-   	return result;
    }
    
 

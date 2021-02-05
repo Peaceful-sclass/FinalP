@@ -48,16 +48,6 @@ public class MemberBizImpl implements MemberBiz{
 		return result;
 
 	}
-
-	//아이디 중복체크
-	@Override
-	public int idChk(MemberDto dto) throws Exception {
-		int result = dao.idChk(dto);
-		return result;
-	}
-	
-	
-	
 	
 
 }
