@@ -57,7 +57,7 @@ public class ShareBoardController {
 			
 		}
 		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
-		int team_no= tdto.getMember_no(); 
+		int team_no= tdto.getTeam_no(); 
 		System.out.println("[con:ShareBoard] team_no:  "+team_no);
 		scri.setTeam_no(team_no);
 		
@@ -105,7 +105,10 @@ public class ShareBoardController {
 		
 		HttpSession session = request.getSession();
 		
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();	
+		//int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
+		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
+		int team_no= tdto.getTeam_no();
 		
 		dto.setTeam_no(team_no);
 			
