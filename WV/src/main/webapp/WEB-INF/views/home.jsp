@@ -44,7 +44,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[0].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[0].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[0].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[0].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[0].contestnum}'">상세요강</button>
 		            </div>
@@ -60,7 +60,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[1].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[1].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[1].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[1].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[1].contestnum}'">상세요강</button>
 		            </div>
@@ -76,7 +76,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[2].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[2].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[2].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[2].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[2].contestnum}'">상세요강</button>
 		            </div>
@@ -92,7 +92,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[3].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[3].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[3].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[3].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[3].contestnum}'">상세요강</button>
 		            </div>
@@ -117,7 +117,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[4].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[4].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[4].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[4].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[4].contestnum}'">상세요강</button>
 		            </div>
@@ -133,7 +133,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[5].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[5].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[5].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[5].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[5].contestnum}'">상세요강</button>
 		            </div>
@@ -149,7 +149,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[6].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[6].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[6].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[6].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[6].contestnum}'">상세요강</button>
 		            </div>
@@ -165,7 +165,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[7].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[7].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[7].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[7].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[7].contestnum}'">상세요강</button>
 		            </div>
@@ -191,7 +191,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[8].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[8].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[8].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[8].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[8].contestnum}'">상세요강</button>
 		            </div>
@@ -207,7 +207,7 @@
 		             <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[9].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[9].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[9].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[9].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[9].contestnum}'">상세요강</button>
 		            </div>
@@ -223,7 +223,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[10].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[10].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[10].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[10].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[10].contestnum}'">상세요강</button>
 		            </div>
@@ -239,7 +239,7 @@
 		              <p class="card-text">
 		              	<b>주최 </b>&nbsp; ${contest[11].contestagent }<br>
 		              	<b>접수시작 </b>&nbsp; ${contest[11].conteststart }<br>
-		              	<b>접수시작 </b>&nbsp; ${contest[11].contestend }<br>         			              	
+		              	<b>접수마감 </b>&nbsp; ${contest[11].contestend }<br>         			              	
 		              </p>
 		              <button class="btn btn-primary" onclick="location.href='contestDetail.do?contestnum=${contest[11].contestnum}'">상세요강</button>
 		            </div>
