@@ -7,13 +7,13 @@
 <style type="text/css">
 	li {list-style: none; float: left; padding: 6px;}
 </style>
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script type="text/javascript">
 $(function(){
 	$('#searchBtn').click(function() {
-		self.location = "shareBoardList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+		self.location = "shareBoardList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" +j $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
     });
 	
 	$('#writeBtn').click(function(){

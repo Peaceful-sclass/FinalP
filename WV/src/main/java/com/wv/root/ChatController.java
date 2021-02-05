@@ -23,6 +23,7 @@ import com.wv.root.model.biz.ChatBiz;
 import com.wv.root.model.dto.ChatDto;
 import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 import com.wv.root.model.util.chatajax;
 import com.wv.root.model.util.chatajaxres;
 
@@ -40,12 +41,11 @@ public class ChatController {
 		HttpSession session = request.getSession();
 		
 		//지금들어온 팀의 팀번호를 넘겨줘야함
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		//int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
 		
-		//지금 클릭한 채팅방 번호 넘겨줘야함
-		//int chatting_no = 1;
+		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
+		int team_no= tdto.getTeam_no();
 		
-		//model.addAttribute("chatList", biz.chatList(chatting_no));
 		
 		model.addAttribute("chatList", biz.chatList(team_no));
 		
@@ -76,7 +76,6 @@ public class ChatController {
 		HttpSession session = request.getSession();
 		
 		String member_id;
-		int team_no;
 		try {
 			member_id= ((MemberDto)session.getAttribute("member")).getMember_id();
 		} catch (Exception e) {
