@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ShareCalendarBiz;
 import com.wv.root.model.dto.CalendarDto;
-import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Controller
 public class CalendarController {
@@ -31,7 +31,7 @@ public class CalendarController {
 		logger.info("Calendar List");
 		HttpSession session = httpServletRequest.getSession();
 		
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		int team_no= ((TeamMemberDto)session.getAttribute("teamInfo")).getTeam_no();
 		
 		
 		//팀 넘버가 1일 경우
@@ -46,7 +46,7 @@ public class CalendarController {
 		logger.info("Calendar Insert");
 		HttpSession session = httpServletRequest.getSession();
 		
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		int team_no= ((TeamMemberDto)session.getAttribute("teamInfo")).getTeam_no();
 		
 		
 		String month = httpServletRequest.getParameter("start").substring(4,7);
@@ -101,7 +101,7 @@ public class CalendarController {
 		logger.info("Calendar Delete");
 		HttpSession session = httpServletRequest.getSession();
 		
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		int team_no= ((TeamMemberDto)session.getAttribute("teamInfo")).getTeam_no();
 		
 		
 		CalendarDto dto = new CalendarDto(0, team_no, httpServletRequest.getParameter("start"), null);
