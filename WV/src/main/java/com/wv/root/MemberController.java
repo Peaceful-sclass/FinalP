@@ -1,6 +1,9 @@
 package com.wv.root;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.MemberBiz;
@@ -33,8 +39,28 @@ public void getRegister() throws Exception {
 
 // 회원가입 post 회원가입 버튼눌렀을때
 @RequestMapping(value = "register.do", method = RequestMethod.POST)
-public String postRegister(MemberDto dto) throws Exception {
+public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, MemberDto dto) throws Exception {
 	logger.info("post register");
+	MultipartFile pfimg = mtfRequest.getFile("member_pfimg");	
+	if(pfimg.isEmpty()==false) {//이미지 있는지 확인
+		String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); //경로설정
+		String uid = UUID.randomUUID().toString().replaceAll("-", ""); //이미지이름 중복방지
+		String oriFileName = pfimg.getOriginalFilename(); //이미지 원래이름
+		String svaeFileName = uid +"_"+ oriFileName; //db에 경로저장할 이름
+		File uploadFile = new File(path+File.separator+svaeFileName);
+		try {
+			pfimg.transferTo(uploadFile);
+			dto.setMember_photo("images/"+svaeFileName); //객체에 이미지 경로 담아줌
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}else {
+		String defaultimg = "images/logof.png";
+		dto.setMember_photo(defaultimg); // 디폴트이미지 설정
+		System.out.println(dto.getMember_photo());
+	}
 	biz.register(dto);
 
 	return "home";
