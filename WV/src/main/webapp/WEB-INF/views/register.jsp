@@ -63,6 +63,12 @@
 	border-radius: 2px;
 }
 
+#dm:hover {
+	background: #DB631F;
+	color: white;
+	border-radius: 2px;
+}
+
 #userId {
 	width: 200px;
 	border-radius: 2px;
