@@ -138,7 +138,7 @@
 					
 					<div id="commenttop" style="background-color:#F5D0A9; border-radius: 8px">
 						<div style="float:left; padding:10px 10px 0px 10px;">
-						<h5><c:out value="${commentList.writer}" /></h5>
+						<h5><img width="25px" height="25px" src="${commentList.member_photo }" alt="sunil">&nbsp;&nbsp;<c:out value="${commentList.writer}" /></h5>
 						</div>
 						<div style="float:right; padding:10px 10px 0px 10px;"><h5><fmt:formatDate value="${commentList.regdate}" pattern="yyyy-MM-dd"/></h5></div>
 						<div style="clear:both;"></div>

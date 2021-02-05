@@ -103,6 +103,7 @@ public class ChatController {
 				ojt.put("member_id", rlist.get(i).getMember_id());
 				ojt.put("content", rlist.get(i).getContent());
 				ojt.put("regdate", rlist.get(i).getRegdate());
+				ojt.put("member_photo", rlist.get(i).getMember_photo());
 				
 				jlist.add(ojt);
 			}

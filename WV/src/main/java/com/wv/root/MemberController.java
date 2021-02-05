@@ -57,7 +57,7 @@ public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, 
 			e.printStackTrace();
 		}
 	}else {
-		String defaultimg = "images/logof.png";
+		String defaultimg = "images/user-profile.png";
 		dto.setMember_photo(defaultimg); // 디폴트이미지 설정
 		System.out.println(dto.getMember_photo());
 	}
