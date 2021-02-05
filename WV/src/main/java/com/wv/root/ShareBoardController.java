@@ -27,6 +27,7 @@ import com.wv.root.model.biz.ShareBoardBiz;
 import com.wv.root.model.dto.SBCommentDto;
 import com.wv.root.model.dto.ShareBoardDto;
 import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 import com.wv.root.model.util.PageMaker;
 import com.wv.root.model.util.SearchCriteria;
 
@@ -51,8 +52,13 @@ public class ShareBoardController {
 		HttpSession session = request.getSession();
 		
 		//지금들어온 팀의 팀번호를 넘겨줘야함
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
-		
+		if(session.getAttribute("teamInfo") instanceof String) {
+			System.out.println("[con:ShareBoard] team_no:  "+(String)session.getAttribute("teamInfo"));
+			
+		}
+		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
+		int team_no= tdto.getMember_no(); 
+		System.out.println("[con:ShareBoard] team_no:  "+team_no);
 		scri.setTeam_no(team_no);
 		
 		model.addAttribute("list", biz.list(scri));

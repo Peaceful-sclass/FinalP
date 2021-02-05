@@ -90,6 +90,7 @@ public class TeamController {
 		TeamMemberDto tmdto = teambiz.getTeamInfo(dto).get(0);
 		if(tmdto != null) {
 			request.getSession().setAttribute("teamInfo", tmdto);
+			System.out.println("[con:teamIN]teamInfo.team_no: "+tmdto.getTeam_no());
 			//request.getSession().setAttribute("teamMember", teambiz.getTeamMember(tmdto));//기본팀의 멤버리스트(tema_no) 또한 같이 추가
 		} else {
 			request.getSession().setAttribute("teamInfo", "");
@@ -114,10 +115,10 @@ public class TeamController {
 	//팀아이콘 클릭시 session에 전달해줄 정보(멤버리스트,팀번호/이름)
 	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
 	@ResponseBody
-	public TeamDto teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
+	public TeamMemberDto teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
 		System.out.println("[dto]: "+dto);			//team_no,team_name
 		List<TeamMemberDto> tmdto = teambiz.getTeamMember(dto);
-		TeamDto tmdtoinfo = new TeamDto();
+		TeamMemberDto tmdtoinfo = new TeamMemberDto();
 		tmdtoinfo.setTeam_no(dto.getTeam_no());
 		tmdtoinfo.setTeam_name(dto.getTeam_name());
 		request.getSession().setAttribute("teamMember", tmdto);//팀멤버리스트
