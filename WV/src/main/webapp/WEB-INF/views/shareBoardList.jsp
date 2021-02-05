@@ -11,15 +11,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script type="text/javascript">
+
 $(function(){
 	$('#searchBtn').click(function() {
 		self.location = "shareBoardList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" +j $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
     });
 	
+
 	$('#writeBtn').click(function(){
 		self.location = "shareBoardwriteView.do";
 	});
 }); 
+
+
 </script>
 </head>
 <body>
@@ -75,9 +79,9 @@ $(function(){
 				  <div class="input-group">
 				   <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}" class="form-control"/>
 				   <span class="input-group-btn">
-				   <button id="searchBtn" type="button" class="btn btn-default">검색</button>
+				   <button id="searchBtn" type="button" class="btn btn-default" >검색</button>
 				   <button type="button" class="btn btn-default" style="visibility:hidden;"></button>
-				   <button id="writeBtn" type="button" class="btn btn-default">글쓰기</button>
+				   <button id="writeBtn" type="button" class="btn btn-default" onclick="self.location='shareBoardwriteView.do'">글쓰기</button>
 				   </span>
 				  </div>
 				 </div>

@@ -189,7 +189,7 @@ function readAjax(){
     				}else{
     					$(".msg_history").append(
     						"<div class='incoming_msg'>"+
-  				              "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+data[i].member_id+
+  				              "<div class='incoming_msg_img'> <img src='"+data[i].member_photo+"' alt='sunil'> </div>"+data[i].member_id+
   				              "<div class='received_msg'>"+
   				                "<div class='received_withd_msg'>"+
   				                  "<p>"+data[i].content+"</p>"+
@@ -278,7 +278,7 @@ function CloseWindow(){
             		
             		<c:otherwise>
             			<div class="incoming_msg">
-			              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> <c:out value="${chatList.member_id}"></c:out>
+			              <div class="incoming_msg_img"> <img src="${chatList.member_photo }" alt="sunil"> </div> <c:out value="${chatList.member_id}"></c:out>
 			              <div class="received_msg">
 			                <div class="received_withd_msg">
 			                  <p><c:out value="${chatList.content}"></c:out></p>
