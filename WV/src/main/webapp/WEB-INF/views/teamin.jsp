@@ -83,6 +83,12 @@
     			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
     			return false;
     		}
+    		<c:if item="${teamInfo.team_no == null}">
+	    		else if(true){
+    			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+				return false;	    			
+	    		}
+    		</c:if>
     		
     		if(textcon == "팀메인"){
     			sidePost('team.do','${member.member_no}');
@@ -91,7 +97,7 @@
     		} else if(textcon == "시트"){
     			location.href="shareDocumentList.do";
     		} else if(textcon == "코드"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			
     		} else if(textcon == "저장소"){
     			location.href="shareBoardList.do";
     		}

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wv.root.model.biz.ExcelBiz;
 import com.wv.root.model.dto.ExcelDto;
 import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 /**
  * Handles requests for the application home page.
@@ -230,7 +231,7 @@ public class ExcelController {
 		
 		HttpSession session = httpServletRequest.getSession();
 		
-		int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		int team_no= ((TeamMemberDto)session.getAttribute("teamInfo")).getTeam_no();
 		
 		model.addAttribute("request", httpServletRequest); 
 		biz.downExcel(biz.selectCol(team_no), model);

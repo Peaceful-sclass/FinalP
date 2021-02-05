@@ -208,7 +208,7 @@
 		else if(cmd == "/root/comunity.do"||cmd == "/root/comunitywrite.do"){
 			for(let i=0; i<ulnav.length; i++){
 				ulnav[i].classList.remove('active');
-				ulnav[3].classList.add('active');
+				ulnav[2].classList.add('active');
 			}
 		}
 		else if(cmd == "/root/home.do"){
