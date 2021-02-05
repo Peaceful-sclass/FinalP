@@ -32,12 +32,17 @@
 	        WHERE MEMBER_ID = #{member_id}
 	          AND MEMBER_PW = #{member_pw}
 	</delete>
+	
 	<!-- 탈퇴비번체크 --><!-- 아이디 비번 조건걸고 조건맞는 갯수 카운트 -->
 	<select id="passChk" resultType="int">
 	        SELECT COUNT(*) FROM MYMEMBER
 	        WHERE MEMBER_ID = #{member_id}
 	          AND MEMBER_PW = #{member_pw}   
-	</select>      
-	
-	
+	</select>    
+	  
+	<!-- 아이디 중복체크 --><!--아이디를 조건으로 카운트하는데 아이디가 이미있으면1 없으면0 조회결과타입을 int로 -->
+	<select id="idChk" parameterType="memberDto" resultType="int">
+	       SELECT COUNT(*) FROM MYMEMBER
+	       WHERE MEMBER_ID = #{member_id} 
+	</select>
 </mapper>

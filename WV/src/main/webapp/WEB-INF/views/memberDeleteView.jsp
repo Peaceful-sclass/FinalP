@@ -86,7 +86,7 @@
 }
 
 .col-8 {
-	left: 240px;
+	left: 220px;
 }
 </style>
 </head>

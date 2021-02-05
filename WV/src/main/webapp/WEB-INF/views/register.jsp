@@ -69,6 +69,12 @@
 	border-radius: 2px;
 }
 
+#idChk:hover {
+	background: #DB631F;
+	color: white;
+	border-radius: 2px;
+}
+
 #userId {
 	width: 200px;
 	border-radius: 2px;
@@ -117,14 +123,21 @@
 	border-style: solid;
 	border-radius: 2px;
 }
-
+#idChk{
+    background-color: white;
+	color: #DB631F;   
+	font-weight: bold;
+	border-style: solid;
+	border-color: #DB631F;
+	border-radius: 2px;
+}
 #f {
 	color: #DB631F;
 	font-weight: bold;
 }
 
 .col-8 {
-	left: 240px;
+	left: 220px;
 }
 </style>
 
@@ -176,6 +189,14 @@
 					$("dm").focus();
 					return false;
 				}
+				//아이디 중복확인
+				var idChkVal = $("#idChk").val();
+				if(idChkVal == "N"){
+					alert("중복확인을 해주세요.");
+					return false;
+				}else if(idChkVal == "Y"){
+					$("#regForm").submit();
+				}
 			});
 		})
 
@@ -189,6 +210,25 @@
 				return false;
 			}
 		}
+		
+		function fn_idChk(){
+			$.ajax({
+				url : "idChk.do",
+				type : "post",
+				data : {"member_id" : $("#userId").val()},    //data{"member-mapper해당이름": $("해당부분").val()}
+				success : function(data){
+					if(data == 1){
+						alert("중복된 아이디입니다.");
+					}else if(data == 0){
+						$("#idChk").attr("value", "Y");
+						alert("사용가능한 아이디입니다.");
+					}
+				}
+			});
+		}
+		
+		
+		
 	</script>
 
 
@@ -198,7 +238,7 @@
 
 
 			<form action="register.do" onsubmit="return tocheckpw()"
-				data-ajax="false" method="post">
+				data-ajax="false" method="post" id="regForm">
 				<!-- onsubmit="return tocheckpw()" data-ajax="false" 해당function이 맞으면 submit 아니면 페이지그대로-->
 
 				<div class="row">
@@ -207,10 +247,12 @@
 						<h1>회원가입</h1>
 						<br>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_id" id="f">아이디</label>
-							<!-- for는 member-mapper부분 -->
-							<input class="form-control" type="text" id="userId"
-								name="member_id" maxlength="8" placeholder="8자이내 입력">
+							<label class="control-label" for="member_id" id="f">아이디</label><!-- for는 member-mapper부분 -->
+							<div>
+							<input class="form-control" type="text" id="userId" style="display:inline-block"
+								name="member_id" maxlength="8" placeholder="8자이내 입력" required> <!-- required : 반드시입력되어야한다는 필드 -->
+						    <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>  
+						    </div>  
 						</div>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_pw" id="f">패스워드</label>
@@ -225,8 +267,9 @@
 						</div>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_email" id="f">이메일</label> 
+							<div>
 							<input class="form-control" type="text" id="userEmail"
-								name="member_email" placeholder="이메일 입력" />@
+								name="member_email" placeholder="이메일 입력" style="display:inline-block;"/>@
 							 <select class="select" id="dm" title="이메일 도메인 주소 선택" onclick="setEmailDomain(this.value);return false;">
 								<option value="">-선택-</option>
 								<option value="naver.com">naver.com</option>
@@ -237,7 +280,7 @@
 								<option value="nate.com">nate.com</option>
 								<option value="yahoo.com">yahoo.com</option>
 							</select>
-
+                             </div>
 
 						</div>
 						<div class="form-group has-feedback" style="display: none">
