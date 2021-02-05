@@ -4,8 +4,7 @@
 <html>
 <head>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
  	<title>게시판</title>
 </head>
@@ -110,21 +109,17 @@
             <div class="table table-responsive">
                       <table class="table table-striped">
             <tr>
-                <td class="danger">작성자</td>
                 
                 <td><input type="hidden" id="writer" name="writer" value="${dto.writer }">${dto.writer}</td>
-                <td class="danger">작성일</td>
                 <td><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd" /></td>
             </tr>
             <tr>
-                <td class="danger">제목</td>
                 <td colspan="3"><input type="text"  class="form-control" id="title" name="title" value="${dto.title}" ></td>
             </tr>
              
             
              
             <tr>
-                <td class="danger">내용</td>
                 <td colspan="3"><textarea id="content" name="content" class="form-control" >${dto.content}</textarea></td>
             </tr>
             

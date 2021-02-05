@@ -6,8 +6,6 @@
 <title>게시판</title>
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <style>
 	.clearfix::after{clear:both;content:'';display:block;}
@@ -26,6 +24,7 @@
 			fn_addFile();
 			
 			CKEDITOR.replace('content', {width:'800px',height: '500px'});
+			
 		})
 		function fn_valiChk(){
 			var regForm = $("form[name='writeForm'] .chk").length;
@@ -47,6 +46,7 @@
 				
 			});
 		}
+		
 		
 		
 		
@@ -79,13 +79,13 @@
             <div class="table table-responsive">
                       <table class="table table-striped">
             <tr>
-                <td class="danger"><h3 class="text-center">제목</h3></td>
-                <td colspan="3"><input type="text" id="title" name="title" class="form-control"></td>
+                
+                <td colspan="3"><input type="text" placeholder="제목을 입력해 주세요" id="title" name="title" class="form-control"></td>
             </tr>
              
             <tr>
-                <td class="danger"><h3 class="text-center">내용</h3></td>
-                <td colspan="3"><textarea  id="content" name="content" class="form-control"></textarea></td>
+                
+                <td colspan="3"><textarea id="content" name="content" class="form-control"></textarea></td>
             </tr>
             
             <tr>
@@ -96,6 +96,7 @@
             <tr>  
                 <td colspan="4"  class="text-center">
                     <button class="write_btn btn btn-warning" type="submit" >작성</button>
+                    <input type="button" id="list_btn" onclick="location.href='shareBoardList.do'" class="list_btn btn btn-primary" value="목록">
                 </td>
             </tr>
           </table>

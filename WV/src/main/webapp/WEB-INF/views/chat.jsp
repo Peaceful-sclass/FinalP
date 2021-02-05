@@ -167,7 +167,7 @@ function readAjax(){
     		//console.log("chatting_no: "+ chatting_no);
     		//console.log("team_no:"+data[0].team_no);
     		
-    		if(chatting_no != data[0].team_no){
+    		if(loginid != data[0].member_id){
     			CloseWindow();
     		}
     		
