@@ -52,13 +52,10 @@ public class ShareBoardController {
 		HttpSession session = request.getSession();
 		
 		//지금들어온 팀의 팀번호를 넘겨줘야함
-		if(session.getAttribute("teamInfo") instanceof String) {
-			System.out.println("[con:ShareBoard] team_no:  "+(String)session.getAttribute("teamInfo"));
-			
-		}
 		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
-		int team_no= tdto.getMember_no(); 
+		int team_no= tdto.getTeam_no(); 
 		System.out.println("[con:ShareBoard] team_no:  "+team_no);
+		System.out.println("[con:ShareBoard] team_no:  "+tdto);
 		scri.setTeam_no(team_no);
 		
 		model.addAttribute("list", biz.list(scri));
