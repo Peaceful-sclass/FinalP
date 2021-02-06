@@ -100,6 +100,12 @@ public class TeamDaoImpl implements TeamDao {
 		int res = 0;
 		try {
 			res = session.selectOne(NameSpace+"chkteamLD",edto);
+			
+			int manager = session.selectOne(NameSpace+"chkteamLD2",edto);
+			if(manager==1) {
+				return res = 2; //매니저라면 2번 신호로 바꿔서 진행.
+			}
+			 
 		} catch (Exception e) {
 			System.out.println("[DAO:chkteamLD] fail load");
 			e.printStackTrace();
@@ -131,6 +137,25 @@ public class TeamDaoImpl implements TeamDao {
 			System.out.println("[DAO:emailConfirm] fail load");
 			e.printStackTrace();
 		}
+		return res;
+	}
+
+	@Override
+	public int teamManageConfirm(List list) {
+		int res = 0;
+		List<TeamMemberDto> dtoG = (List<TeamMemberDto>)list.get(0);
+		List<TeamMemberDto> dtoD = (List<TeamMemberDto>)list.get(1);
+		try { 
+			res = session.update(NameSpace+"teamManageConfirm1", dtoG);
+			if(dtoD.isEmpty()) {
+				return res;
+			}
+			res = session.delete(NameSpace+"teamManageConfirm2", dtoD);
+		} catch (Exception e) {
+			System.out.println("[dao: teamManageConfirm] fail..");
+			e.printStackTrace();
+		}
+		
 		return res;
 	}
     

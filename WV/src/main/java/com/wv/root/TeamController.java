@@ -3,6 +3,7 @@ package com.wv.root;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -22,8 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.TeamBiz;
-import com.wv.root.model.dto.MemberDto;
-import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
@@ -70,9 +69,19 @@ public class TeamController {
 		//return "teamin";
 	}
 	
+	@RequestMapping(value = "team.do", method = RequestMethod.GET)
+	public String getTeamIN(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		logger.info("[team.do get]");
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("requestinfo1 ="+request.getRequestURI());
+		PrintWriter pw = response.getWriter();
+		pw.println("<script>alert('팀을 먼저 선택해주세요.');</script>");
+		pw.flush();
+		return "teamin";
+	}
 	@RequestMapping(value = "team.do", method = RequestMethod.POST)
-	public String teamIN(Model model, TeamMemberDto dto, HttpServletRequest request) {
-		logger.info("[Team Inner]");
+	public String postTeamIN(Model model, TeamMemberDto dto, HttpServletRequest request) {
+		logger.info("[team.do post]");
 		//팀원초대 신청(팀넘버/초대할아이디) - mail컨트롤러(조회:보낼 이메일주소,)
 		//- 코드발송 - 코드확인 - 코드입력(팀메뉴초기생성메뉴에서 코드로 팀가입)
 		//- 코드가 저장될 테이블이 필요?(pk, id[받은파람:input], mailcode, 해당팀no[받은파람]
@@ -143,12 +152,15 @@ public class TeamController {
 	@ResponseBody
     public int invite(Email edto, HttpServletRequest request){
 		logger.info("[Invite Email]");//edto.getMember_id:초대받는ID
-		if(request.getSession().getAttribute("teamInfo") instanceof TeamDto ) {
-			TeamDto currentTeam = (TeamDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
-			edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
-		} else if(request.getSession().getAttribute("teamInfo") instanceof Integer) {
-			edto.setTeam_no((int)request.getSession().getAttribute("teamInfo"));//현재선택된Team
-		}
+		System.out.println("[con: invite.do] edto: "+edto);
+//		Email dto = new Email();
+//		if(request.getSession().getAttribute("teamInfo") instanceof TeamMemberDto ) {
+//			TeamMemberDto currentTeam = (TeamMemberDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
+//			edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
+//		} else if(request.getSession().getAttribute("teamInfo") instanceof Integer) {
+//			edto.setTeam_no((int)request.getSession().getAttribute("teamInfo"));//현재선택된Team
+//		}
+//		System.out.println("[con: invite.do] edto-setTeam_no후 : "+edto);
 		
 		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
         try {
@@ -174,10 +186,12 @@ public class TeamController {
         res = teambiz.emailConfirm(edto);
         if(res == 0) {
             rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
-            System.out.println("[ct:eamilConfirm] 초대실패");
-            return "redirect:/";
+            System.out.println("[con:emailConfirm] 초대실패");
+            return "redirect:rehome.do";
         }
-        return "home";
+        
+        rttr.addFlashAttribute("msg" , "초대 인증되었습니다. ");
+        return "redirect:rehome.do";
     }
 
     //팀정보누를시 팀원 목록
@@ -188,6 +202,21 @@ public class TeamController {
     	List<TeamMemberDto> list = teambiz.getTeamMember(tmdto);
     	
     	return list;
+    }
+    
+    //팀정보에서 팀장의 변경 반영
+    @RequestMapping(value= "teamManageConfirm.do", method= RequestMethod.POST)
+    @ResponseBody
+    public int teamManageConfirm(@RequestBody List list){
+    	logger.info("[con:teamManageConfirm.do]");				//memid,teamno
+    	System.out.println(list);
+    	//System.out.println(list.get(0));
+    	//System.out.println(list.get(1));
+    	List<TeamMemberDto> list2  = (List<TeamMemberDto>) list.get(0);
+    	System.out.println(list2);
+    	int res = teambiz.teamManageConfirm(list);
+    	
+    	return res;
     }
 		
 	

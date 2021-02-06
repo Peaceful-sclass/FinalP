@@ -1,6 +1,7 @@
 package com.wv.root.model.biz;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,7 +12,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dao.TeamDao;
-import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 import com.wv.root.model.util.MailHandler;
@@ -42,7 +42,7 @@ public class TeamBizImpl implements TeamBiz {
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("WV 팀초대 인증메일");
 		sendMail.setText(
-		new StringBuffer().append("<h1>WV 팀초대 이메일 인증</h1>").
+		new StringBuffer().append("<h1>").append(dto.getMember_id()).append("님에 대한 WV 팀초대 이메일 인증</h1>").
 		append("<a href='http://localhost:8787/root/emailConfirm.do?member_id=").
 		append(dto.getMember_id()).append("&code=").append(key).append("&team_no=").append(dto.getTeam_no()).
 		append("' target='_blank'>이메일 인증 확인</a>").toString());
@@ -82,6 +82,12 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public int emailConfirm(Email edto) {
 		return dao.emailConfirm(edto);
+	}
+
+	@Override
+	public int teamManageConfirm(List list) {
+		
+		return dao.teamManageConfirm(list);
 	}
 
 

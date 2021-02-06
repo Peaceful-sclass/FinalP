@@ -53,7 +53,10 @@ public class ShareBoardController {
 		
 		//지금들어온 팀의 팀번호를 넘겨줘야함
 		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
-		int team_no= tdto.getTeam_no(); 
+		if(tdto==null ) {
+			return "redirect:team.do";
+		}
+		int team_no= tdto.getTeam_no();
 		System.out.println("[con:ShareBoard] team_no:  "+team_no);
 		System.out.println("[con:ShareBoard] team_no:  "+tdto);
 		scri.setTeam_no(team_no);

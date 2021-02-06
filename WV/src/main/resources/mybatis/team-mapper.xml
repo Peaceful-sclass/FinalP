@@ -14,6 +14,7 @@
 		where m.member_no = #{member_no}
 	</select>
 	
+	<!-- 팀이름 중복체크 -->
 	<select id="redundantvalidation" parameterType="String" resultType="int">
 		select count(team_name)
 		from team where team_name = #{team_name}
@@ -25,9 +26,10 @@
 		from teammember tm join team t  ON tm.team_no = t.team_no
 		join mymember m  ON m.member_no = tm.member_no
 		where tm.team_no = #{team_no}
+		order by decode(substr(grade_inteam,0,2),'팀장',grade_inteam), decode(substr(grade_inteam,0,2),'매니',grade_inteam)
 	</select>
 	
-		
+	<!-- 팀생성 -->	
 	<insert id="createTeam" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		insert all
 		into team values(teamseq.nextval, #{team_name}, #{team_intro})
@@ -57,6 +59,12 @@
 		select count(*)
 		from teammember tm join mymember m ON tm.member_no = m.member_no 
 		where grade_inteam = '팀장' and member_id = #{member_id} and team_no = #{team_no}
+	</select>
+	<!-- 팀장체크2 매니저인지 체크 -->
+	<select id="chkteamLD2" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teammember tm join mymember m ON tm.member_no = m.member_no 
+		where grade_inteam = '매니저' and member_id = #{member_id} and team_no = #{team_no}
 	</select>
 	
 	<!-- 초대할 사람 email주소 얻기 -->
@@ -92,8 +100,24 @@
 	
 	
 	
+<!-- 팀정보 팀 변경 관련 -->
+	<!-- 등급조정 -->	
+ 	<update id="teamManageConfirm1" parameterType="list">
+		<foreach collection="list" item="dtoG" index="index" open="DECLARE BEGIN" separator=";" close="; END;">
+			update teammember set grade_inteam = #{dtoG.grade_inteam}
+			where team_no= #{dtoG.team_no} and member_no = #{dtoG.member_no} 
+		</foreach>
+	</update>
 
-	
-	
+	<!-- 팀원제외 -->
+	<delete id="teamManageConfirm2" parameterType="list">
+		<foreach collection="list" item="dtoD" index="index" open="DECLARE BEGIN" separator=";" close="; END;">
+			delete from teammember
+			where team_no= #{dtoD.team_no} and member_no in 
+				<foreach collection="list" item="dtoD2" index="index2" open="(" separator="," close=")">
+				 	#{dtoD2.member_no}
+				</foreach>
+		</foreach>
+	</delete>
 	
 </mapper>

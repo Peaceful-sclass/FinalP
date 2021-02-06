@@ -7,6 +7,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.wv.root.model.dto.TeamDto.TeamMemberDto" %>
+
+
 <%-- %@ page session="false" %> --%>
 
 <!DOCTYPE html>
@@ -60,6 +63,7 @@
     		/*let currteamno = sessionStorage.getItem("teamInfo");
     		if(currteamno == null||currteamno == ""||currteamno == undefined){
 	    		sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
+	    		sessionStorage.setItem("teamInfo","${teamInfo.team_no}");
     		}
 	    		sessionStorage.setItem("teamName","${teamInfo.team_name}");
     		*/
@@ -76,13 +80,24 @@
     		let textcon = $(param).text();
     		console.log("textcon: "+ textcon);
     		console.log("sessionTeamInfo: "+ window.sessionTeamInfo);
+    		console.log("TeamInfo.team_no: ${teamInfo.team_no}");
+    		
+    		
     		
     		if(session == null || session == "" ||session == undefined ){
     			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
     		}else if(sessionTeamInfo == null||sessionTeamInfo == ""||sessionTeamInfo == undefined){
     			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
     			return false;
-    		}
+    		}//ajax로 다시 세션의 갱신된 값을 가져오기. 로그아웃시 css초기화 <== 로그아웃시 세션번호값 초기화 하면 ajax작업안해도된다!
+    		
+/*     		<c:if test="${teamInfo.team_no == null }">
+	    		else if(true){
+				toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+				return false;	    			
+	    		}
+			</c:if> */
+
     		
     		if(textcon == "팀메인"){
     			sidePost('team.do','${member.member_no}');
@@ -91,7 +106,7 @@
     		} else if(textcon == "시트"){
     			location.href="shareDocumentList.do";
     		} else if(textcon == "코드"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			
     		} else if(textcon == "저장소"){
     			location.href="shareBoardList.do";
     		}
@@ -127,17 +142,17 @@
 							<div class="row justify-content-end">
 								<div class="team-main">
 									<div class="team-main-top" style="position:absolute; left:20px;">
-										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamManageBT(this); return false;">팀정보</a>
+										<a class="btn btn-primary" href="#" data-mid="${member.member_id}" onclick="teamManageBT(this); return false;"  style="padding: 5px 15px;background: #DB631F;color: white;">팀정보</a>
 									</div>
 								</div>
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamCreateBT(this); return false;">팀만들기</a>
+										<a class="btn btn-primary" href="#" data-mid="${member.member_id}" onclick="teamCreateBT(this); return false;"  style="padding: 5px 15px;background: #DB631F;color: white;">팀만들기</a>
 									</div>
 								</div>
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="team-main-top-create" href="#" data-mid="${member.member_id}" onclick="teamInviteBT(this); return false;">팀초대</a>
+										<a class="btn btn-primary" href="#" data-mid="${member.member_id}" onclick="teamInviteBT(this); return false;" style="padding: 5px 15px;background: #DB631F;color: white;">팀초대</a>
 									</div>
 								</div>
 							</div><!-- 팀관리줄 End -->
@@ -238,7 +253,7 @@
 						
                 </div>
                 <div class="modal-footer justify-content-center" style="border-top: 0px; padding: 7px 20px;" >
-                	<button type='button' class="btn btn-sm btn-primary" id="mmCdbt" data-mid="${member.member_id}" onclick="teamInviteSend(this)">변경</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="mmCdbt" data-mid="${member.member_id}" onclick="teamManageConfirm(this)">변경</button>
                 	<button type='button' class="btn btn-sm btn-primary" id="mmCcbt" data-dismiss="modal" onclick="(()=>{$('#managemodal').val('');$('body').css('overflow', 'scroll');})();">취소</button>
                 </div>
             </div>

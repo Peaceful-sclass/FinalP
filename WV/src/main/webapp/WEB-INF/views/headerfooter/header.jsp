@@ -180,6 +180,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#outBtn").on("click", function(){
+			teamSeSinfoRemove();
 			location.href="logout.do";
 
 		})
@@ -208,7 +209,7 @@
 		else if(cmd == "/root/comunity.do"||cmd == "/root/comunitywrite.do"){
 			for(let i=0; i<ulnav.length; i++){
 				ulnav[i].classList.remove('active');
-				ulnav[3].classList.add('active');
+				ulnav[2].classList.add('active');
 			}
 		}
 		else if(cmd == "/root/home.do"){
@@ -242,7 +243,10 @@
 		console.log("formAction: "+ form.action);
 		form.submit();
 	}
-
+	
+	function teamSeSinfoRemove(){ //로그아웃 시 팀세션의 번호 정보를 초기화.
+		window.sessionStorage.setItem("teamInfo","");
+	}
 
 
 </script>
