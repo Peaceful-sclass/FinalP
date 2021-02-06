@@ -1,7 +1,9 @@
 package com.wv.root.model.biz;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 
@@ -17,6 +19,7 @@ public interface TeamBiz {
 	public int chkISidinTeam(Email edto);
 	public int chkteamLD(Email edto);
 	public int emailConfirm(Email edto);
+	public int teamManageConfirm(List list);
 	
 	
 	

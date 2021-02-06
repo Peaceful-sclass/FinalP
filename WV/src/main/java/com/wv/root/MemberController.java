@@ -31,6 +31,14 @@ private static final Logger logger = LoggerFactory.getLogger(MemberController.cl
 @Inject
 MemberBiz biz;
 
+
+@RequestMapping(value = "rehome.do", method = RequestMethod.GET)
+public String reHome() throws Exception {
+	logger.info("rehome.do");
+	return "redi";
+}
+
+
 // 회원가입 get 회원가입폼으로 이동할때
 @RequestMapping(value = "register.do", method = RequestMethod.GET)
 public void getRegister() throws Exception {
@@ -85,6 +93,7 @@ public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, Redi
 		rttr.addFlashAttribute("msg", false);    //컨트롤러값 header로 뿌리기
 	}else {
 		session.setAttribute("member", login);
+		session.setAttribute("teamInfo", null);
 		List<TeamMemberDto> team = biz.teamInfo(login.getMember_no()).getTmlist();
 		session.setAttribute("team", team); //로그인하면서 팀정보 추가
 	}
