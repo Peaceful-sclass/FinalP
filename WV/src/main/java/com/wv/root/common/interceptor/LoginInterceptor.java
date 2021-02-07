@@ -23,6 +23,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 				request.getRequestURI().contains("/register.do") ||
 				request.getRequestURI().contains("/login.do") ||
 				request.getRequestURI().contains("/emailConfirm.do") ||
+				request.getRequestURI().contains("/placeselect.do") ||
+				request.getRequestURI().contains("/placedetail.do") ||
+				request.getRequestURI().contains("/pcommentlist.do") ||
 				request.getSession().getAttribute("member") != null ) { //login된 유저만 login되도록 처리(controller로 넘어가도록).
 			return true;
 		}

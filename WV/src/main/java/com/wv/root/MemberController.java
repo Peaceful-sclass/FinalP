@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.wv.root.common.interceptor.SessionConfig;
 import com.wv.root.model.biz.MemberBiz;
 import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
@@ -96,6 +97,10 @@ public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, Redi
 		session.setAttribute("teamInfo", null);
 		List<TeamMemberDto> team = biz.teamInfo(login.getMember_no()).getTmlist();
 		session.setAttribute("team", team); //로그인하면서 팀정보 추가
+		System.out.println("[member]  "+session.getId());
+		
+		//OnlineTM 설정
+		SessionConfig.setOnlineTM(session.getId(), login.getMember_id());
 	}
 	
 	return "redirect:/";
@@ -105,9 +110,10 @@ public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, Redi
 
 
 @RequestMapping(value = "logout.do", method = RequestMethod.GET)
-public String logout(HttpSession session) throws Exception{
+public String logout(HttpSession session, HttpServletRequest request) throws Exception{
 	
 	session.invalidate();
+	request.getSession(true); //세션을 제거 후 새로운 세션적용
 	
 	return "redirect:/";
 }

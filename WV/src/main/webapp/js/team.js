@@ -95,6 +95,7 @@ let sidePost = (url, memberno) => {
 };
 
 
+
 let teamInviteBT = (param) => { //팀메인의 버튼
 	let currTeam = sessionStorage.getItem("teamInfo");
 	console.log("currTeam: " + currTeam);
@@ -236,7 +237,7 @@ let teamManageBT = (param) => {
 };
 
 
-//팀장체크 rt=1 :팀장
+//팀장체크 rt=1 :팀장   2 :매니저
 let chkteamLD = (currid, teamno) => {
 	let rt2;
 	$.ajax({ //currId,teamno
@@ -254,6 +255,7 @@ let chkteamLD = (currid, teamno) => {
 };
 
 
+//팀 정보 변경 버튼실행 함수
 let teamManageConfirm = (param) => {
 	//멤버일시 목록만.. - 되어있는 듯
 	//팀장,매니저 확인메소드 - 삭제,등급변경  <-- 이것.

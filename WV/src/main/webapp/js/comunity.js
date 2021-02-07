@@ -246,7 +246,7 @@ let deleteContent = (param) =>{
 	});
 };
 
-
+//수정하는 창으로 가기 
 let updateContent = (param)=>{
 	location.href = "cmupdateform.do?cno="+param.dataset['cno'];
 };
@@ -287,7 +287,7 @@ let cmtLoad = (param, rt)=>{//해당글의 댓글로드 rt에서 댓글까지 �
 	
 };
 
-
+//댓글의 답변함수
 let cmtReply = (param)=>{
 	let answeredID = param.dataset['mid']; //댓글쓴 ID
 	let cmtData = {

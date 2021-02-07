@@ -77,6 +77,27 @@
 			console.log("formAction: "+ form.action);
 			form.submit();
 		}
+		
+		function unload() {
+		    if (self.screenTop > 9000) {
+		      // 브라우저 닫힘
+		      $("#outBtn").click();
+		      location.href="logout.do";
+		      window.open ( "google.com" )
+		    } else {
+		        if (document.readyState == "complete") {
+		            // 새로고침
+		        } else  if (document.readyState == "loading") {
+		           // 다른 사이트로 이동
+		        }
+		    }
+		}
+		window.onbeforeunload = function(e) {
+			$("#outBtn").click();
+		      location.href="logout.do";
+		      window.open ( "google.com" )
+		}; 
+
 	</script>	
 
 
@@ -250,7 +271,7 @@
 
 
 </script>
-<body>
+<body onunload="unload();">
 	<!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
