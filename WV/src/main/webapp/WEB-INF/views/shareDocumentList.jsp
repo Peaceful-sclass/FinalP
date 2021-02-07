@@ -449,8 +449,8 @@ table tr td input {
 														<td colspan="11" align="right">
 														
 															<!-- 팀 번호를 받아서 넘기는 곳 -->
-															<input type="submit" value="저장">	
-															<input type="button" value="취소" onclick="location.href='shareDocumentList.do'">	
+															<input type="submit" value="저장" style="color: #DB631F">	
+															<input type="button" value="취소" onclick="location.href='shareDocumentList.do'" style="color: #DB631F">	
 														</td>
 													</tr>
 													</tbody>
@@ -740,7 +740,7 @@ table tr td input {
 														<td colspan="11" align="right">
 														
 															<!-- 팀 번호를 받아서 넘기는 곳 -->
-															<input type="submit" value="저장">		
+															<input type="submit" value="저장" style="color: #DB631F">		
 														</td>
 													</tr>
 												</table>
@@ -800,8 +800,8 @@ table tr td input {
 													<td colspan="11" align="right">
 														<form action="shareDocumentUpdateForm.do">
 															<!-- 팀번호 받아넘김 -->
-															<input type="button" id="btnExcelDown" name="btnExcelDown" value="엑셀다운" onclick="location.href='excelDown.do'">	
-															<input type="submit" name="checkVal"value="문서작성">	
+															<input type="button" id="btnExcelDown" name="btnExcelDown" value="엑셀다운" onclick="location.href='excelDown.do'" style="color: #DB631F">	
+															<input type="submit" name="checkVal"value="문서작성" style="color: #DB631F">	
 														</form>
 													</td>
 												</tr>
