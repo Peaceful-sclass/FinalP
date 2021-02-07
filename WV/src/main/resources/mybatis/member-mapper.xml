@@ -42,5 +42,10 @@
 	          AND MEMBER_PW = #{member_pw}   
 	</select>      
 	
+	<select id="findid" parameterType="String" resultType="String">
+		SELECT MEMBER_ID
+		FROM MYMEMBER
+		WHERE MEMBER_EMAIL = #{value}
+	</select>
 	
 </mapper>

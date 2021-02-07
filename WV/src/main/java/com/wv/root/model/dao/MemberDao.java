@@ -1,5 +1,7 @@
 package com.wv.root.model.dao;
 
+import java.util.List;
+
 import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
 
@@ -22,6 +24,10 @@ public interface MemberDao {
 	
 	// 탈퇴 비번 체크
 	public int passChk(MemberDto dto) throws Exception;
+
+	public List <String> findid(String member_email);
+	
+	
 
 
 }

@@ -1,5 +1,7 @@
 package com.wv.root.model.biz;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.wv.root.model.dto.MemberDto;
@@ -15,9 +17,11 @@ public interface MemberBiz {
 	
 	public void memberDelete(MemberDto dto) throws Exception;
 
-  public TeamDto teamInfo(int member_no);
+	public TeamDto teamInfo(int member_no);
 
 	public int passChk(MemberDto dto) throws Exception;
+
+	public List <String> findid(String member_email);
 	
 
 }
