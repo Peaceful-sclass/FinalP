@@ -56,6 +56,12 @@ public class MemberBizImpl implements MemberBiz{
 		List <String> res = dao.findid(member_email);
 		return res;
 	}
+
+	@Override
+	public String findpw(MemberDto dto) {
+		String res = dao.findpw(dto);
+ 		return res;
+	}
 	
 
 }

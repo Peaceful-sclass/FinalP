@@ -48,4 +48,10 @@
 		WHERE MEMBER_EMAIL = #{value}
 	</select>
 	
+	<select id="findpw" parameterType="memberDto" resultType="String">
+		SELECT MEMBER_PW
+		FROM MYMEMBER
+		WHERE MEMBER_EMAIL = #{member_email}
+		AND MEMBER_ID = #{member_id}
+	</select>
 </mapper>

@@ -74,6 +74,18 @@ public class MemberDaoImpl implements MemberDao {
 		return res;
 	}
 
+	@Override
+	public String findpw(MemberDto dto) {
+		String res = null;
+		try {
+			res = sql.selectOne("findpw", dto);
+		} catch (Exception e) {
+			System.out.println("findpw error");
+			e.printStackTrace();
+		}	
+		return res;
+	}
+
 }
 
 

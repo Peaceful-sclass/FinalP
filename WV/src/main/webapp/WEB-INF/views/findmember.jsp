@@ -64,6 +64,10 @@
 <script type="text/javascript">
 	function findid() {
 		var member_email = $("#userEmail").val();
+		if(!member_email){
+			alert("이메일을 입력해주세요");
+			return;
+		}
 		console.log(member_email);
 		$.ajax({
 			type:"post",					
@@ -81,7 +85,31 @@
 		});
 	}
 	function findpw() {
-		
+		var member_email2 = $("#userEmail2").val();
+		var member_id = $("#userId").val();
+		if(!member_id){
+			alert("아이디를 입력해주세요");
+			return;
+		}
+		if(!member_email2){
+			alert("이메일을 입력해주세요");
+			return;
+		}
+		$.ajax({
+			type:"post",					
+			url:"findpw.do",
+			data: {"member_id" : member_id, "member_email": member_email2},
+			success:function(msg2){
+				if(msg2){
+					alert(member_email2+" 으로 비밀번호가 발송되었습니다.");
+				}else{
+					alert("아이디 또는 이메일이 잘못되었습니다.");
+				}
+			},
+			error:function(){
+				alert("통신실패");
+			}
+		});
 	}
 </script>
 </head>
@@ -139,8 +167,11 @@
 		<!-- container -->
 	</div>
 	<!-- 메뉴박스 -->
+	
 	<jsp:include page="/WEB-INF/views/headerfooter/footer.jsp"
 		flush="false"></jsp:include>
+		
+		
 </body>
 
 </html>
