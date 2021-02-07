@@ -118,6 +118,26 @@ td, th {
     text-align: left; 
     font-size: 18px;
     }
+input {
+	background-color: white;
+    color: #DB631F;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #DB631F;
+    border-radius: 2px;
+
+}
+
+table tr td input {
+	background-color: white;
+	color: #666666;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #f57b36;
+    border-radius: 2px;
+
+}
+
 
 </style>
 

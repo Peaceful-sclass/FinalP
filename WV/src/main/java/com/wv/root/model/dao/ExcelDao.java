@@ -14,6 +14,6 @@ public interface ExcelDao {
 	public int insertExcel(ExcelDto dto);
 	public ExcelDto selectRow(ExcelDto dto);
 	public int updateExcel (ExcelDto dto);
-	public int downExcel (List<ExcelDto> dto, Model model);
+	public int downExcel (List<ExcelDto> dto, Model model, int team_no);
 
 }
