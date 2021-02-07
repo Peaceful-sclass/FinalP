@@ -99,6 +99,7 @@
 			</c:if> */
 
     		
+    		
     		if(textcon == "팀메인"){
     			sidePost('team.do','${member.member_no}');
     		} else if(textcon == "일정"){

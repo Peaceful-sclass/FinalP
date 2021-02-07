@@ -5,23 +5,24 @@
 <head>
 		<title>게시판</title>
 <style type="text/css">
-	li {list-style: none; float: left; padding: 6px;}
+	.pagination{width: 400px;
+  				margin-left: auto;
+ 				margin-right: auto;}
+	.page-item {list-style: none; float: left; padding: 8px;}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script type="text/javascript">
 
-$(function(){
-	$('#searchBtn').click(function() {
-		self.location = "shareBoardList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" +j $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-    });
+//$(function(){
+	//$('#searchBtn').click(function() {
+		//self.location = "shareBoardList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" +j $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+    //});
 	
 
-	$('#writeBtn').click(function(){
-		self.location = "shareBoardwriteView.do";
-	});
-}); 
+	//$('#writeBtn').click(function(){
+		//self.location = "shareBoardwriteView.do";
+	//});
+//}); 
 
 
 </script>
@@ -36,11 +37,11 @@ $(function(){
 			<div class="row inner-menu-box">
 				<div class="col-3">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
+						<a class="nav-link" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
 						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="teamSide(this); return false;">일정</a>
 						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="teamSide(this); return false;">시트</a>
 						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="teamSide(this); return false;">코드</a>
-						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
+						<a class="nav-link active" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
 					</div>
 				</div>
 				
@@ -48,18 +49,22 @@ $(function(){
 					<section id="container">
 			<form role="form" method="get">
 				<table class="table table-hover">
-					<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th></tr>
+					<tr><th scope="col" style="width: 5%; text-align: center;">번호</th>
+					<th scope="col" style="width: 30%; text-align: center;">제목</th>
+					<th scope="col" style="width: 10%; text-align: center;">작성자</th>
+					<th scope="col" style="width: 10%; text-align: center;">등록일</th>
+					<th scope="col" style="width: 10%; text-align: center;">조회수</th></tr>
 					<c:if test="${empty list }">
 						<tr><td colspan="10" class="cm-txt-center"><p>작성된 글이 없습니다.</p></td></tr>
 					</c:if>
 					
 					<c:forEach items="${list}" var = "list">
 						<tr>
-							<td><c:out value="${list.bno}" /></td>
-							<td><a href="shareBoardDetail.do?bno=${list.bno}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}"><c:out value="${list.title}" /></a></td>
-							<td><c:out value="${list.writer}" /></td>
-							<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
-							<td><c:out value="${list.views }"></c:out> </td>
+							<td style="text-align: center;"><c:out value="${list.bno}" /></td>
+							<td ><a href="shareBoardDetail.do?bno=${list.bno}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">&nbsp;&nbsp;<c:out value="${list.title}" /></a></td>
+							<td style="text-align: center;"><c:out value="${list.writer}" /></td>
+							<td style="text-align: center;"><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
+							<td style="text-align: center;"><c:out value="${list.views }"></c:out> </td>
 						</tr>
 					</c:forEach>
 						
@@ -75,13 +80,20 @@ $(function(){
 				  </select>
 				 </div>
 				 
-				 <div class="col-xs-5 col-sm-5">
+				 <div class="col-xs-9 col-sm-9">
 				  <div class="input-group">
-				   <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}" class="form-control"/>
+				   <input type="text" name="keyword" id="keywordInput" size="20" value="${scri.keyword}" class="form-control"/>
 				   <span class="input-group-btn">
-				   <button id="searchBtn" type="button" class="btn btn-default" >검색</button>
+				   <button id="searchBtn" type="button" class="btn btn-primary" >검색</button>
+				   <script>
+				      $(function(){
+				        $('#searchBtn').click(function() {
+				          self.location = "shareBoardList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+				        });
+				      });   
+				   </script>
 				   <button type="button" class="btn btn-default" style="visibility:hidden;"></button>
-				   <button id="writeBtn" type="button" class="btn btn-default" onclick="self.location='shareBoardwriteView.do'">글쓰기</button>
+				   <button id="writeBtn" type="button" class="btn btn-primary" onclick="self.location='shareBoardwriteView.do'">글쓰기</button>
 				   </span>
 				  </div>
 				 </div>

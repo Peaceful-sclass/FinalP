@@ -54,7 +54,7 @@
  		function fn_addFile(){
 			var fileIndex = 1;
 			$(".fileAdd_btn").on("click", function(){
-				$("#fileIndex").append("<div class='clearfix'><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+				$("#fileIndex").append("<div class='clearfix'><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-primary' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 			});
 			$(document).on("click","#fileDelBtn", function(){
 				$(this).parent().remove();
@@ -83,11 +83,11 @@
 			<div class="row inner-menu-box">
 				<div class="col-3">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
+						<a class="nav-link" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
 						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="teamSide(this); return false;">일정</a>
 						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="teamSide(this); return false;">시트</a>
 						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="teamSide(this); return false;">코드</a>
-						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
+						<a class="nav-link active" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
 					</div>
 				</div>
 				
@@ -124,22 +124,22 @@
             </tr>
             
             <tr>
-                <td class="danger"><button type="button" class="fileAdd_btn">파일추가</button></td>
+                <td class="danger"><button type="button" class="fileAdd_btn btn btn-primary">파일추가</button></td>
                 <td colspan="3" id="fileIndex">
 					<c:forEach var="file" items="${file}" varStatus="var">
 					<div>
 						<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO }">
 						<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
 						<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)
-						<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+						<button id="fileDel" class='btn btn-primary' onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
 					</div>
 					</c:forEach>
 				</td>
             </tr>
             <tr>  
                 <td colspan="4"  class="text-center">
-                    <button type="submit" class="update_btn">저장</button>
-					<button type="submit" class="cancel_btn">취소</button>
+                    <button type="submit" class="update_btn btn btn-primary">저장</button>
+					<button type="submit" class="cancel_btn btn btn-primary">취소</button>
                 </td>
             </tr>
           </table>
