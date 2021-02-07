@@ -1,5 +1,7 @@
 package com.wv.root.model.biz;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -47,6 +49,12 @@ public class MemberBizImpl implements MemberBiz{
 		int result = dao.passChk(dto);
 		return result;
 
+	}
+
+	@Override
+	public List <String> findid(String member_email) {
+		List <String> res = dao.findid(member_email);
+		return res;
 	}
 	
 

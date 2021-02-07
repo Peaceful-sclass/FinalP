@@ -304,7 +304,7 @@
 			}
 			//모임장소 디테일 페이지에서 좋아요 누른글 취소시 실행될 함수
 			function likeCancel(pno){
-				var memberno = $("#pmemberno").val();;
+				var memberno = $("#pmemberno").val();
 				var likeval= {"pno" : pno, "memberno" : memberno};
 				var img = $("#likeimg");
 				var plike = Number($("#plike").text());

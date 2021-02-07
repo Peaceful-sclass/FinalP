@@ -1,5 +1,6 @@
 package com.wv.root.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -59,6 +60,18 @@ public class MemberDaoImpl implements MemberDao {
 	public int passChk(MemberDto dto) throws Exception {
         int result = sql.selectOne("passChk", dto);
 		return result;
+	}
+
+	@Override
+	public List <String> findid(String member_email) {
+		List <String> res = new ArrayList<String>();
+		try {
+			res = sql.selectList("findid", member_email);
+		} catch (Exception e) {
+			System.out.println("findid error");
+			e.printStackTrace();
+		}		
+		return res;
 	}
 
 }
