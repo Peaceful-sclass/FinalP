@@ -26,6 +26,8 @@ public interface MemberDao {
 	public int passChk(MemberDto dto) throws Exception;
 
 	public List <String> findid(String member_email);
+
+	public String findpw(MemberDto dto);
 	
 	
 
