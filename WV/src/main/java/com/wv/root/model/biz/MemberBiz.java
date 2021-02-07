@@ -1,6 +1,9 @@
 package com.wv.root.model.biz;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,10 @@ public interface MemberBiz {
 	public List <String> findid(String member_email);
 
 	public String findpw(MemberDto dto);
+
+	public void sendid(String member_email, List<String> res) throws MessagingException, UnsupportedEncodingException;
+
+	public void sendpw(MemberDto dto, String pw) throws MessagingException, UnsupportedEncodingException;
 	
 
 }
