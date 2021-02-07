@@ -92,11 +92,11 @@
 		        }
 		    }
 		}
-		window.onbeforeunload = function(e) {
+/* 		window.onbeforeunload = function(e) {
 			$("#outBtn").click();
 		      location.href="logout.do";
 		      window.open ( "google.com" )
-		}; 
+		};  */
 
 	</script>	
 
@@ -271,7 +271,7 @@
 
 
 </script>
-<body onunload="unload();">
+<body><!-- onunload="unload();" -->
 	<!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
