@@ -91,7 +91,7 @@ public class ExcelDaoImpl implements ExcelDao{
 
 	
 	@Override
-	public int downExcel(List<ExcelDto> dto, Model model) {
+	public int downExcel(List<ExcelDto> dto, Model model, int team_no) {
 		@SuppressWarnings("resource")
 		Workbook wb = new XSSFWorkbook();
 		Sheet sheet = wb.createSheet();
@@ -99,7 +99,7 @@ public class ExcelDaoImpl implements ExcelDao{
 		sheet.setColumnWidth(0, 2560);
 		sheet.setColumnWidth(1, 2560);
 		
-		for(int i=0; i<10; i++) {
+		for(int i=0; i<20; i++) {
 			Row row = sheet.createRow(i);
 			row.createCell(0).setCellValue(dto.get(i).getColA());
 			row.createCell(1).setCellValue(dto.get(i).getColB());
@@ -113,9 +113,7 @@ public class ExcelDaoImpl implements ExcelDao{
 			row.createCell(9).setCellValue(dto.get(i).getColJ());
 		}
 		
-		
-		
-		File file = new File("C:\\Users\\user\\Desktop\\excel.xlsx");
+		File file = new File("C:\\Users\\user\\Desktop\\No"+team_no+"_ShareDocument.xlsx");
 		try {
 			file.createNewFile();
 			FileOutputStream outputStream = new FileOutputStream(file, false);

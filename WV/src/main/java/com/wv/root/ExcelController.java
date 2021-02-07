@@ -149,25 +149,30 @@ public class ExcelController {
 		
 		ExcelDto row18 = new ExcelDto(0, team_no, 18, httpServletRequest.getParameter("A18"), httpServletRequest.getParameter("B18"), 
 				httpServletRequest.getParameter("C18"),httpServletRequest.getParameter("D18"), httpServletRequest.getParameter("E18"),
-				httpServletRequest.getParameter("F10"),httpServletRequest.getParameter("G10"), httpServletRequest.getParameter("H10"),
-				httpServletRequest.getParameter("I10"),httpServletRequest.getParameter("J10"));
-		ExcelDto row19 = new ExcelDto(0, team_no, 19, httpServletRequest.getParameter("A10"), httpServletRequest.getParameter("B10"), 
-				httpServletRequest.getParameter("C10"),httpServletRequest.getParameter("D10"), httpServletRequest.getParameter("E10"),
-				httpServletRequest.getParameter("F10"),httpServletRequest.getParameter("G10"), httpServletRequest.getParameter("H10"),
-				httpServletRequest.getParameter("I10"),httpServletRequest.getParameter("J10"));
-		ExcelDto row20 = new ExcelDto(0, team_no, 20, httpServletRequest.getParameter("A10"), httpServletRequest.getParameter("B10"), 
-				httpServletRequest.getParameter("C10"),httpServletRequest.getParameter("D10"), httpServletRequest.getParameter("E10"),
-				httpServletRequest.getParameter("F10"),httpServletRequest.getParameter("G10"), httpServletRequest.getParameter("H10"),
-				httpServletRequest.getParameter("I10"),httpServletRequest.getParameter("J10"));
+				httpServletRequest.getParameter("F18"),httpServletRequest.getParameter("G18"), httpServletRequest.getParameter("H18"),
+				httpServletRequest.getParameter("I18"),httpServletRequest.getParameter("J18"));
+		
+		ExcelDto row19 = new ExcelDto(0, team_no, 19, httpServletRequest.getParameter("A19"), httpServletRequest.getParameter("B19"), 
+				httpServletRequest.getParameter("C19"),httpServletRequest.getParameter("D19"), httpServletRequest.getParameter("E19"),
+				httpServletRequest.getParameter("F19"),httpServletRequest.getParameter("G19"), httpServletRequest.getParameter("H19"),
+				httpServletRequest.getParameter("I19"),httpServletRequest.getParameter("J19"));
+		
+		ExcelDto row20 = new ExcelDto(0, team_no, 20, httpServletRequest.getParameter("A20"), httpServletRequest.getParameter("B20"), 
+				httpServletRequest.getParameter("C20"),httpServletRequest.getParameter("D20"), httpServletRequest.getParameter("E20"),
+				httpServletRequest.getParameter("F20"),httpServletRequest.getParameter("G20"), httpServletRequest.getParameter("H20"),
+				httpServletRequest.getParameter("I20"),httpServletRequest.getParameter("J20"));
 		
 		
 		list.add(row1);list.add(row2);list.add(row3);list.add(row4);list.add(row5);
 		list.add(row6);list.add(row7);list.add(row8);list.add(row9);list.add(row10);
-		
+		list.add(row11);list.add(row12);list.add(row13);list.add(row14);list.add(row15);
+		list.add(row16);list.add(row17);list.add(row18);list.add(row19);list.add(row20);
 		
 		biz.insertExcel(list.get(0));biz.insertExcel(list.get(1));biz.insertExcel(list.get(2));biz.insertExcel(list.get(3));biz.insertExcel(list.get(4));
 		biz.insertExcel(list.get(5));biz.insertExcel(list.get(6));biz.insertExcel(list.get(7));biz.insertExcel(list.get(8));biz.insertExcel(list.get(9));
-
+		
+		biz.insertExcel(list.get(10));biz.insertExcel(list.get(11));biz.insertExcel(list.get(12));biz.insertExcel(list.get(13));biz.insertExcel(list.get(14));
+		biz.insertExcel(list.get(15));biz.insertExcel(list.get(16));biz.insertExcel(list.get(17));biz.insertExcel(list.get(18));biz.insertExcel(list.get(19));
 
 		return "redirect:shareDocumentList.do";
 	}
@@ -195,7 +200,17 @@ public class ExcelController {
 		ExcelDto row8 = new ExcelDto(0,team_no, 8, null,null,null,null,null,null,null,null,null,null);
 		ExcelDto row9 = new ExcelDto(0,team_no, 9, null,null,null,null,null,null,null,null,null,null);
 		ExcelDto row10 = new ExcelDto(0,team_no, 10, null,null,null,null,null,null,null,null,null,null);
-
+		
+		ExcelDto row11 = new ExcelDto(0,team_no, 11, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row12 = new ExcelDto(0,team_no, 12, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row13 = new ExcelDto(0,team_no, 13, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row14 = new ExcelDto(0,team_no, 14, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row15 = new ExcelDto(0,team_no, 15, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row16 = new ExcelDto(0,team_no, 16, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row17 = new ExcelDto(0,team_no, 17, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row18 = new ExcelDto(0,team_no, 18, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row19 = new ExcelDto(0,team_no, 19, null,null,null,null,null,null,null,null,null,null);
+		ExcelDto row20 = new ExcelDto(0,team_no, 20, null,null,null,null,null,null,null,null,null,null);
 		
 		
 		model.addAttribute("row1",biz.selectRow(row1));
@@ -208,7 +223,18 @@ public class ExcelController {
 		model.addAttribute("row8",biz.selectRow(row8));
 		model.addAttribute("row9",biz.selectRow(row9));
 		model.addAttribute("row10",biz.selectRow(row10));		
-
+		
+		model.addAttribute("row11",biz.selectRow(row11));
+		model.addAttribute("row12",biz.selectRow(row12));
+		model.addAttribute("row13",biz.selectRow(row13));
+		model.addAttribute("row14",biz.selectRow(row14));
+		model.addAttribute("row15",biz.selectRow(row15));
+		model.addAttribute("row16",biz.selectRow(row16));
+		model.addAttribute("row17",biz.selectRow(row17));
+		model.addAttribute("row18",biz.selectRow(row18));
+		model.addAttribute("row19",biz.selectRow(row19));
+		model.addAttribute("row20",biz.selectRow(row20));	
+		
 		return "shareDocumentList";
 	}
 	
@@ -271,13 +297,64 @@ public class ExcelController {
 				httpServletRequest.getParameter("F10"),httpServletRequest.getParameter("G10"), httpServletRequest.getParameter("H10"),
 				httpServletRequest.getParameter("I10"),httpServletRequest.getParameter("J10"));
 		
+		ExcelDto row11 = new ExcelDto(0, team_no, 11, httpServletRequest.getParameter("A11"), httpServletRequest.getParameter("B11"), 
+				httpServletRequest.getParameter("C11"),httpServletRequest.getParameter("D11"), httpServletRequest.getParameter("E11"),
+				httpServletRequest.getParameter("F11"),httpServletRequest.getParameter("G11"), httpServletRequest.getParameter("H11"),
+				httpServletRequest.getParameter("I11"),httpServletRequest.getParameter("J11"));
+		
+		ExcelDto row12 = new ExcelDto(0, team_no, 12, httpServletRequest.getParameter("A12"), httpServletRequest.getParameter("B12"), 
+				httpServletRequest.getParameter("C12"),httpServletRequest.getParameter("D12"), httpServletRequest.getParameter("E12"),
+				httpServletRequest.getParameter("F12"),httpServletRequest.getParameter("G12"), httpServletRequest.getParameter("H12"),
+				httpServletRequest.getParameter("I12"),httpServletRequest.getParameter("J12"));
+		
+		ExcelDto row13 = new ExcelDto(0, team_no, 13, httpServletRequest.getParameter("A13"), httpServletRequest.getParameter("B13"), 
+				httpServletRequest.getParameter("C13"),httpServletRequest.getParameter("D13"), httpServletRequest.getParameter("E13"),
+				httpServletRequest.getParameter("F13"),httpServletRequest.getParameter("G13"), httpServletRequest.getParameter("H13"),
+				httpServletRequest.getParameter("I13"),httpServletRequest.getParameter("J13"));
+		
+		ExcelDto row14 = new ExcelDto(0, team_no, 14, httpServletRequest.getParameter("A14"), httpServletRequest.getParameter("B14"), 
+				httpServletRequest.getParameter("C14"),httpServletRequest.getParameter("D14"), httpServletRequest.getParameter("E14"),
+				httpServletRequest.getParameter("F14"),httpServletRequest.getParameter("G14"), httpServletRequest.getParameter("H14"),
+				httpServletRequest.getParameter("I14"),httpServletRequest.getParameter("J14"));
+		
+		ExcelDto row15 = new ExcelDto(0, team_no, 15, httpServletRequest.getParameter("A15"), httpServletRequest.getParameter("B15"), 
+				httpServletRequest.getParameter("C15"),httpServletRequest.getParameter("D15"), httpServletRequest.getParameter("E15"),
+				httpServletRequest.getParameter("F15"),httpServletRequest.getParameter("G15"), httpServletRequest.getParameter("H15"),
+				httpServletRequest.getParameter("I15"),httpServletRequest.getParameter("J15"));
+		
+		ExcelDto row16 = new ExcelDto(0, team_no, 16, httpServletRequest.getParameter("A16"), httpServletRequest.getParameter("B16"), 
+				httpServletRequest.getParameter("C16"),httpServletRequest.getParameter("D16"), httpServletRequest.getParameter("E16"),
+				httpServletRequest.getParameter("F16"),httpServletRequest.getParameter("G16"), httpServletRequest.getParameter("H16"),
+				httpServletRequest.getParameter("I16"),httpServletRequest.getParameter("J16"));
+		
+		ExcelDto row17 = new ExcelDto(0, team_no, 17, httpServletRequest.getParameter("A17"), httpServletRequest.getParameter("B17"), 
+				httpServletRequest.getParameter("C17"),httpServletRequest.getParameter("D17"), httpServletRequest.getParameter("E17"),
+				httpServletRequest.getParameter("F17"),httpServletRequest.getParameter("G17"), httpServletRequest.getParameter("H17"),
+				httpServletRequest.getParameter("I17"),httpServletRequest.getParameter("J17"));
+		
+		ExcelDto row18 = new ExcelDto(0, team_no, 18, httpServletRequest.getParameter("A18"), httpServletRequest.getParameter("B18"), 
+				httpServletRequest.getParameter("C18"),httpServletRequest.getParameter("D18"), httpServletRequest.getParameter("E18"),
+				httpServletRequest.getParameter("F18"),httpServletRequest.getParameter("G18"), httpServletRequest.getParameter("H18"),
+				httpServletRequest.getParameter("I18"),httpServletRequest.getParameter("J18"));
+		
+		ExcelDto row19 = new ExcelDto(0, team_no, 19, httpServletRequest.getParameter("A19"), httpServletRequest.getParameter("B19"), 
+				httpServletRequest.getParameter("C19"),httpServletRequest.getParameter("D19"), httpServletRequest.getParameter("E19"),
+				httpServletRequest.getParameter("F19"),httpServletRequest.getParameter("G19"), httpServletRequest.getParameter("H19"),
+				httpServletRequest.getParameter("I19"),httpServletRequest.getParameter("J19"));
+		
+		ExcelDto row20 = new ExcelDto(0, team_no, 20, httpServletRequest.getParameter("A20"), httpServletRequest.getParameter("B20"), 
+				httpServletRequest.getParameter("C20"),httpServletRequest.getParameter("D20"), httpServletRequest.getParameter("E20"),
+				httpServletRequest.getParameter("F20"),httpServletRequest.getParameter("G20"), httpServletRequest.getParameter("H20"),
+				httpServletRequest.getParameter("I20"),httpServletRequest.getParameter("J20"));
 		
 		
 		System.out.println(row1.getColB());
 		
 		biz.updateExcel(row1);biz.updateExcel(row2);biz.updateExcel(row3);biz.updateExcel(row4);biz.updateExcel(row5);
 		biz.updateExcel(row6);biz.updateExcel(row7);biz.updateExcel(row8);biz.updateExcel(row9);biz.updateExcel(row10);
-
+		
+		biz.updateExcel(row11);biz.updateExcel(row12);biz.updateExcel(row13);biz.updateExcel(row14);biz.updateExcel(row15);
+		biz.updateExcel(row16);biz.updateExcel(row17);biz.updateExcel(row18);biz.updateExcel(row19);biz.updateExcel(row20);
 
 		return "redirect:shareDocumentList.do";
 
@@ -292,8 +369,9 @@ public class ExcelController {
 		
 		int team_no= ((TeamMemberDto)session.getAttribute("teamInfo")).getTeam_no();
 		
+		model.addAttribute("teamNo",team_no);
 		model.addAttribute("request", httpServletRequest); 
-		biz.downExcel(biz.selectCol(team_no), model);
+		biz.downExcel(biz.selectCol(team_no), model, team_no);
 		
 		return "redirect:shareDocumentList.do";
 	}

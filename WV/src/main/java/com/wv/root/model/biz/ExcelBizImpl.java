@@ -39,8 +39,8 @@ public class ExcelBizImpl implements ExcelBiz{
 	}
 
 	@Override
-	public int downExcel(List<ExcelDto> dto, Model model){
-		return dao.downExcel(dto, model);
+	public int downExcel(List<ExcelDto> dto, Model model, int team_no){
+		return dao.downExcel(dto, model, team_no);
 	}
 
 
