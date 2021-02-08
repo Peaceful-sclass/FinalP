@@ -107,6 +107,7 @@
 				$("#pcomments").hide();
 				$("#pdbutton").remove();
 				$("#pubutton").remove();
+				$("#placecomment").val("");
 				placeformreset();				
 			}
 			
@@ -186,6 +187,7 @@
 			}
 			//모임장소 글수정폼
 			function updatepform(pno, lat, lng){
+				$("#placecomment").val("");
 				var keyword = $("#modal-title").text();
 				var pcontent = $("#pct").text();
 				var htmlcode = "";
@@ -398,6 +400,7 @@
 					$("#pcomments").hide();
 					$("#pdbutton").remove();
 					$("#pubutton").remove();
+					$("#placecomment").val("");
 	                relayout();
 					searchPlaces();	
 				}                
@@ -457,6 +460,7 @@
 				$("#pcomments").hide();
 				$("#pdbutton").remove();
 				$("#pubutton").remove();
+				$("#placecomment").val("");
 				placeformreset();
 			}
 			//글등록 함수

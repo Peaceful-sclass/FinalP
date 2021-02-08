@@ -318,10 +318,14 @@ input[type="file"] {
 
 			  });
 
-			});
+
 
 			
 		
+
+			});	
+
+
 	</script>
 
 

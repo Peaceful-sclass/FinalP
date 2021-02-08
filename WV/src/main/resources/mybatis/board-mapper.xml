@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mycode">
+	
+	<resultMap type="codeDto" id="codeMap">
+		<result property="myno" column="MYNO" />
+		<result property="myco" column="MYCO" />
+		<result property="myteam" column="MYTEAM" />
+		<result property="myname" column="MYNAME" />
+		<result property="mytitle" column="MYTITLE" />
+		<result property="mycoment" column="MYCOMENT" />
+		<result property="mycontent" column="MYCONTENT" />
+		<result property="mydate" column="MYDATE" />
+	</resultMap>
+	
+	<select id="selectList" resultMap="codeMap">
+		SELECT MYNO, MYCO,MYTEAM, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
+		FROM MYCO
+		WHERE MYTEAM = #{myteam}
+		ORDER BY MYNO DESC
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="codeDto">
+		SELECT MYNO, MYCO, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
+		FROM MYCO
+		WHERE MYNO = #{myno}
+	</select>
+	
+	<select id="selectGroup" resultMap="codeMap" parameterType="com.wv.root.model.dao.mypara">
+		SELECT MYNO, MYCO,MYTEAM, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
+		FROM MYCO
+		WHERE MYCO = #{myco} AND MYTEAM = #{myteam}
+	</select>
+	
+	<insert id="insert" parameterType="codeDto">
+		INSERT INTO MYCO
+		VALUES(MYCODE.NEXTVAL,#{myco},#{myteam}, #{myname}, #{mytitle}, #{mycoment}, #{mycontent}, SYSDATE) 
+	
+	</insert>
+	
+	<update id="update">
+		UPDATE MYCO
+		SET MYTITLE=#{mytitle}, MYCOMENT=#{mycoment}, MYCONTENT=#{mycontent}
+		WHERE MYNO = #{myno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM MYCO
+		WHERE MYNO=#{myno}
+	</delete>
+	
+</mapper>
+
+
+
+
+

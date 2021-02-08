@@ -25,7 +25,7 @@
 				alert(email);
 			}
 		</c:if>
-		alert("로그인 세션이 만료되어 홈으로 이동합니다.");
+		alert("로그인을 위해 홈으로 이동합니다.");
 		sessionStorage.setItem("teamInfo","");
 		window.sessionStorage.clear();
 		location.href="homeClist.do";

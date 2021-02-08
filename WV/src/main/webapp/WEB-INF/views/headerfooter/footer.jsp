@@ -32,7 +32,8 @@
 			<script type="text/javascript">
 			
 			function openchat(){
-				window.open("Chatting.do","testchat","width=500, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+				window.sessionTeamName = window.sessionStorage.getItem("teamName");
+				window.open("Chatting.do",window.sessionTeamName,"width=500, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no");
 			}
 
 			</script>
@@ -43,7 +44,7 @@
 				
 				<c:if test="${not empty teamInfo }">
 					<div style="position: fixed; right: 30px; bottom:100px">
-					<img src="images/chat.png" width="70px" height="70px" alt="chat" onclick="openchat();">
+					<img src="images/chat.png" width="70px" height="70px" style="cursor:pointer;" alt="chat" onclick="openchat();">
 					</div>
 				</c:if>
 				

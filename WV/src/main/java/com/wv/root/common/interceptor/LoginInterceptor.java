@@ -23,6 +23,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 				request.getRequestURI().contains("/register.do") ||
 				request.getRequestURI().contains("/login.do") ||
 				request.getRequestURI().contains("/emailConfirm.do") ||
+				request.getRequestURI().contains("/placeselect.do") ||
+				request.getRequestURI().contains("/placedetail.do") ||
+				request.getRequestURI().contains("/pcommentlist.do") ||
 				request.getRequestURI().contains("/findform.do") ||
 				request.getRequestURI().contains("/findid.do") ||
 				request.getRequestURI().contains("/findpw.do") ||
