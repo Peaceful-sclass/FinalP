@@ -305,7 +305,7 @@ input[type="file"] {
 
 			});
 
-		}	
+		
 		
 	</script>
 
