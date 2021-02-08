@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.wv.root.common.interceptor.SessionConfig;
 import com.wv.root.model.biz.TeamBiz;
 import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
@@ -216,6 +217,16 @@ public class TeamController {
     	System.out.println(list2);
     	int res = teambiz.teamManageConfirm(list);
     	
+    	return res;
+    }
+    
+    @RequestMapping(value= "getOnlineTM.do", method= RequestMethod.GET)
+    @ResponseBody
+    public Boolean getOnlineTM(String member_id, HttpServletRequest request){
+    	logger.info("[con:getOnlineTM.do]");				//memid
+    	System.out.println("[con:getOnlineTM.do]:  "+member_id);
+    	Boolean res = SessionConfig.getOnlineTM(request.getSession().getId(), member_id);
+    	System.out.println("[con:getOnlineTM.do res]:  "+res);
     	return res;
     }
 		
