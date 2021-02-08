@@ -227,7 +227,32 @@ body {
 						  	<c:forEach var="dto" items="${listcode}">
 							    <tr>
 							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
-							      <td class="cm-txt-center">Java</td>
+							      <c:choose>
+							      	<c:when test="${dto.myco eq '1'}">
+							      		<td class="cm-txt-center">Dao</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '2'}">
+							      		<td class="cm-txt-center">Dto</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '3'}">
+							      		<td class="cm-txt-center">Biz</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '4'}">
+							      		<td class="cm-txt-center">Controller</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '5'}">
+							      		<td class="cm-txt-center">Sql</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '6'}">
+							      		<td class="cm-txt-center">Js</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '7'}">
+							      		<td class="cm-txt-center">Css</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '8'}">
+							      		<td class="cm-txt-center">Views</td>
+							      	</c:when>
+							      </c:choose>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
 							      <td class="cm-txt-center"><fmt:formatDate value="${dto.mydate}" pattern="yyyy.MM.dd" /></td>
