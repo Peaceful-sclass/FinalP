@@ -47,6 +47,8 @@
 	<select id="idChk" parameterType="memberDto" resultType="int">
 	       SELECT COUNT(*) FROM MYMEMBER
 	       WHERE MEMBER_ID = #{member_id} 
+	</select>
+	
 	<select id="findid" parameterType="String" resultType="String">
 		SELECT MEMBER_ID
 		FROM MYMEMBER
