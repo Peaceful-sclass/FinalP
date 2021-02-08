@@ -229,8 +229,9 @@
 						  <thead>
 						    <tr>
 						      <th scope="col" style="width:30%;">F</th>
-						      <th scope="col" style="width:50%;">팀원</th>
+						      <th scope="col" style="width:40%;">팀원</th>
 						      <th scope="col">등급</th>
+						      <th scope="col" style="width:30%;">현재</th>
 						    </tr>
 						  </thead>
 						  <tbody>

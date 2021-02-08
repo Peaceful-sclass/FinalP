@@ -95,6 +95,7 @@ let sidePost = (url, memberno) => {
 };
 
 
+
 let teamInviteBT = (param) => { //팀메인의 버튼
 	let currTeam = sessionStorage.getItem("teamInfo");
 	console.log("currTeam: " + currTeam);
@@ -167,6 +168,7 @@ let teamManageBT = (param) => {
 		dataType: "json",
 		success: function(rt) { //팀멤버로드
 			//$(form).append($('<input/>', {type: 'hidden', name: 'title', value:$(title).val() }));
+			
 			let LD = chkteamLD(teamdata.member_id, currTeamno);
 			if (LD == 0) {//팀원
 				$("thead>tr>th:eq(0)").hide();
@@ -174,7 +176,8 @@ let teamManageBT = (param) => {
 				let code;
 				for (let i = 0; i < rt.length; i++) {
 					code += '<tr><td>' + rt[i].member_id + '</td>';
-					code += '<td>' + rt[i].grade_inteam + '</td></tr>';
+					code += '<td>' + rt[i].grade_inteam + '</td>';
+					code += '<td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>';
 				}
 				$("tbody").html(code);
 
@@ -186,15 +189,15 @@ let teamManageBT = (param) => {
 					if (rt[i].grade_inteam == "팀장") {
 						code += '<tr> <td> </td>';
 						code += '<td>' + rt[i].member_id + '</td>';
-						code += '<td>팀장</td></tr>';
+						code += '<td>팀장</td><td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>';
 					} else if (rt[i].grade_inteam == "매니저") {
 						code += '<tr> <td> </td>';
 						code += '<td>' + rt[i].member_id + '</td>';
-						code += '<td>매니저</td></tr>'; 
+						code += '<td>매니저</td><td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>'; 
 					} else {
 						code += '<tr> <td><input type="checkbox" name="tmchkbox" value=' + rt[i].member_no + ' /></td>';
 						code += '<td>' + rt[i].member_id + '</td>';
-						code += '<td>팀원</td></tr>'; 
+						code += '<td>팀원</td><td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>'; 
 					}
 				}
 				$("tbody").html(code);
@@ -207,19 +210,19 @@ let teamManageBT = (param) => {
 					if (rt[i].grade_inteam == "팀장") {
 						code += '<tr> <td> </td>';
 						code += '<td>' + rt[i].member_id + '</td>';
-						code += '<td>팀장</td></tr>';
+						code += '<td>팀장</td><td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>';
 					} else if (rt[i].grade_inteam == "매니저") {
 						code += '<tr> <td> <input type="checkbox" name="tmchkbox" value=' + rt[i].member_no + ' /> </td>';
 						code += '<td>' + rt[i].member_id + '</td>';
 						code += '<td> <select name="grade_inteam" data-mno=' + rt[i].member_no + '>';
 						code += '<option value="매니저" selected="selected">매니저</option>';
-						code += '<option value="팀원">팀원</option> </select></td></tr>';
+						code += '<option value="팀원">팀원</option> </select></td><td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>';
 					} else {
 						code += '<tr> <td> <input type="checkbox" name="tmchkbox" value=' + rt[i].member_no + ' /> </td>';
 						code += '<td>' + rt[i].member_id + '</td>';
 						code += '<td> <select name="grade_inteam" data-mno=' + rt[i].member_no + '>';
 						code += '<option value="매니저">매니저</option>';
-						code += '<option value="팀원" selected="selected">팀원</option> </select></td></tr>';
+						code += '<option value="팀원" selected="selected">팀원</option> </select></td><td>'+((getOnlineTM(rt[i].member_id))? "접속중":"미접속")+'</td></tr>';
 					}
 				}
 				$("tbody").html(code);
@@ -230,13 +233,37 @@ let teamManageBT = (param) => {
 		},
 		error: function() {
 			toastr.error("인터넷상태를 확인해주세요.", "인터넷에러!", { tiemOut: 5000 });
+		},complete: function(){
+			let onlinecss = document.querySelectorAll("tr > td:last-child");
+			for(let e of onlinecss){
+				if(e.innerText == "접속중"){
+					e.style.color = "green";
+				}
+			}
 		}
 	});
 
 };
 
+let getOnlineTM = (rt)=>{
+	console.log("getOnlineTM rt is : "+ rt);
+	
+	$.ajax({
+		type: "get",
+		url: "getOnlineTM.do?member_id="+rt,
+		async: false,
+		success: function(bool){
+			console.log("bool is : "+ bool);
+			rt2 = bool;
+		},error: function(){
+			toastr.error("인터넷연결을 확인해주세요.", "통신에러!", { tiemOut: 5000 });
+		}
+	});
+	return rt2;
+};
 
-//팀장체크 rt=1 :팀장
+
+//팀장체크 rt=1 :팀장   2 :매니저
 let chkteamLD = (currid, teamno) => {
 	let rt2;
 	$.ajax({ //currId,teamno
@@ -254,6 +281,7 @@ let chkteamLD = (currid, teamno) => {
 };
 
 
+//팀 정보 변경 버튼실행 함수
 let teamManageConfirm = (param) => {
 	//멤버일시 목록만.. - 되어있는 듯
 	//팀장,매니저 확인메소드 - 삭제,등급변경  <-- 이것.

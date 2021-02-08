@@ -59,8 +59,8 @@
 		}
 		
 		//페이지 로드시 기본팀 선택
-		let basicTeamNo = "${teamInfo.team_no}";
-		teamSelectionCSS(basicTeamNo);
+		//let basicTeamNo = "${teamInfo.team_no}";
+		//teamSelectionCSS();
 		
 	}
 	
@@ -80,7 +80,7 @@
 		}
 		
 		if(textcon == "팀메인"){
-			sidePost('team.do','${member.member_no}');
+			$("<form></form>").attr("method","post").attr("action","team.do").append($('<input/>',{type:'hidden',name:'member_no',value:'${member.member_no}'})).appendTo('body').submit();
 		} else if(textcon == "일정"){
 			location.href="shareCalendarList.do";
 		} else if(textcon == "시트"){
