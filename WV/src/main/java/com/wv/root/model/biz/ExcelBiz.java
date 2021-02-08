@@ -13,4 +13,5 @@ public interface ExcelBiz {
 	public ExcelDto selectRow(ExcelDto dto);
 	public int updateExcel (ExcelDto dto);
 	public int downExcel (List<ExcelDto> dto, Model model, int team_no);
+	public String downresult();
 }
