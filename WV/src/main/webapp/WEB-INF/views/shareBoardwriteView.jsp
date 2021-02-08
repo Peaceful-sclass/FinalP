@@ -55,7 +55,7 @@
 			});
 			fn_addFile();
 			
-			CKEDITOR.replace('content', {width:'800px',height: '500px'});
+			CKEDITOR.replace('content', {width:'800px',height: '500px',filebrowserUploadUrl:'SBImageUpload.do'});
 			
 		})
 		function changename(index) {
