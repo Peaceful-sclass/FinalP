@@ -85,19 +85,19 @@ public class CodeController {
 		return null;
 	}
 	
-	@RequestMapping("/code.do")
-	public String code(Model model, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("[SELECT GROUP]");
-		HttpSession session = request.getSession();
-		MemberDto member = (MemberDto) session.getAttribute("member");
-		if(member != null) {
-		System.out.println(member.getMember_id());
-		return "codecate";
-		}
+	//@RequestMapping("/code.do")
+	//public String code(Model model, HttpServletRequest request, HttpServletResponse response) {
+	//	logger.info("[SELECT GROUP]");
+	//	HttpSession session = request.getSession();
+	//	MemberDto member = (MemberDto) session.getAttribute("member");
+	//	if(member != null) {
+	//	System.out.println(member.getMember_id());
+	//	return "codecate";
+	//	}
 		
-		return "home";
+	//	return "home";
 		
-	}
+	//}
 	
 	@RequestMapping("/insertform.do")
 	public String insertForm(Model model,int mycode,HttpServletRequest request, HttpServletResponse response) {
