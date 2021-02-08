@@ -47,8 +47,7 @@
 				</li>
 				<li class="dday-area">
 					<span class="tit">접수기간</span>
-					${contest.conteststart} ~ ${contest.contestend}					
-					<span class="cil-dday">D-1</span>
+					${contest.conteststart} ~ ${contest.contestend}
 				</li>
 				<li>
 					<span class="tit">총 상금</span>${contest.contestreward }
