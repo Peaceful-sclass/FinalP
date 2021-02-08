@@ -263,7 +263,7 @@ input[type="file"] {
 				}
 			});
 		}
-		}		
+		
 		
 	</script>
 
