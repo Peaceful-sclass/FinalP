@@ -15,9 +15,9 @@ public class CodeBizImpl implements CodeBiz{
 	private CodeDao dao;
 	
 	@Override
-	public List<CodeDto> selectList() {
+	public List<CodeDto> selectList(int myteam) {
 		
-		return dao.selectList();
+		return dao.selectList(myteam);
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public class CodeBizImpl implements CodeBiz{
 	}
 
 	@Override
-	public List<CodeDto> selectGroup(int myco) {
-		return dao.selectGroup(myco);
+	public List<CodeDto> selectGroup(int myco, int myteam) {
+		return dao.selectGroup(myco, myteam);
 	}
 
 }

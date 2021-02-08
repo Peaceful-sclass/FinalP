@@ -43,6 +43,12 @@ public class ExcelBizImpl implements ExcelBiz{
 		return dao.downExcel(dto, model, team_no);
 	}
 
+	@Override
+	public String downresult() {
+		
+		return "success";
+	}
+
 
 
 
