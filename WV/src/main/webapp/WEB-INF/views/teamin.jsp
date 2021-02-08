@@ -101,7 +101,7 @@
     		
     		
     		if(textcon == "팀메인"){
-    			$("<form></form>").attr("method","post").attr("action","team.do").append($('<input/>',{type:'hidden',name:'member_no',value:'${member.member_no}'})).appendTo('body').submit();
+    			 $("<form></form>").attr("method","post").attr("action","team.do").append($('<input/>',{type:'hidden',name:'member_no',value:'${member.member_no}'})).appendTo('body').submit();
     		} else if(textcon == "일정"){
     			location.href="shareCalendarList.do";
     		} else if(textcon == "시트"){
@@ -228,9 +228,9 @@
 						<table class="table-sm table-hover" style="width: 100%;">
 						  <thead>
 						    <tr>
-						      <th scope="col" style="width:30%;">F</th>
-						      <th scope="col" style="width:40%;">팀원</th>
-						      <th scope="col">등급</th>
+						      <th scope="col" style="width:20%;">F</th>
+						      <th scope="col" style="width:30%;">팀원</th>
+						      <th scope="col" style="width:30%;">등급</th>
 						      <th scope="col" style="width:30%;">현재</th>
 						    </tr>
 						  </thead>
