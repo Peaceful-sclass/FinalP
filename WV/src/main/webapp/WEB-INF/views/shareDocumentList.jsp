@@ -59,6 +59,15 @@
     		//페이지 로드시 기본팀 선택
     		let basicTeamNo = "${teamInfo.team_no}";
     		teamSelectionCSS(basicTeamNo);
+    		let result = "${result}";
+    		if(result == "success"){
+    			toastr.success("엑셀 파일 다운 성공", "바탕화면을 확인해 주세요", {tiemOut: 3000});
+    		}else if(result == "fail"){ 
+    			toastr.error("다운이 실패하였습니다", "다시 시도해 주세요", {tiemOut: 3000});
+    		}
+    		
+    		
+    		console.log("${result}");
     		
     	}
     	
@@ -84,10 +93,12 @@
     		} else if(textcon == "시트"){
     			location.href="shareDocumentList.do";
     		} else if(textcon == "코드"){
-    			location.href="team.do?member_no="+${member.member_no};
+    			location.href="codemain.do";
     		} else if(textcon == "저장소"){
     			location.href="shareBoardList.do";
     		}
+    		
+    		
     		
     	}
 

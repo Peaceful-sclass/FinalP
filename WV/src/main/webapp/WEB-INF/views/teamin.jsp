@@ -107,7 +107,7 @@
     		} else if(textcon == "시트"){
     			location.href="shareDocumentList.do";
     		} else if(textcon == "코드"){
-    			
+    			location.href="codemain.do";
     		} else if(textcon == "저장소"){
     			location.href="shareBoardList.do";
     		}

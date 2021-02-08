@@ -303,9 +303,9 @@ input[type="file"] {
 
 			  });
 
-		});
-	
-		
+
+			});	
+
 	</script>
 
 
