@@ -33,6 +33,7 @@ private static final Logger logger = LoggerFactory.getLogger(MemberController.cl
 MemberBiz biz;
 
 
+
 @RequestMapping(value = "rehome.do", method = RequestMethod.GET)
 public String reHome() throws Exception {
 	logger.info("rehome.do");
@@ -51,28 +52,38 @@ public void getRegister() throws Exception {
 public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, MemberDto dto) throws Exception {
 	logger.info("post register");
 	MultipartFile pfimg = mtfRequest.getFile("member_pfimg");	
-	if(pfimg.isEmpty()==false) {//이미지 있는지 확인
-		String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); //경로설정
-		String uid = UUID.randomUUID().toString().replaceAll("-", ""); //이미지이름 중복방지
-		String oriFileName = pfimg.getOriginalFilename(); //이미지 원래이름
-		String svaeFileName = uid +"_"+ oriFileName; //db에 경로저장할 이름
-		File uploadFile = new File(path+File.separator+svaeFileName);
-		try {
-			pfimg.transferTo(uploadFile);
-			dto.setMember_photo("images/"+svaeFileName); //객체에 이미지 경로 담아줌
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+	int result = biz.idChk(dto);
+	try {
+		if(result == 1) {
+			return "register.do";
+		}else if(result == 0) {
+			if(pfimg.isEmpty()==false) {//이미지 있는지 확인
+				String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); //경로설정
+				String uid = UUID.randomUUID().toString().replaceAll("-", ""); //이미지이름 중복방지
+				String oriFileName = pfimg.getOriginalFilename(); //이미지 원래이름
+				String svaeFileName = uid +"_"+ oriFileName; //db에 경로저장할 이름
+				File uploadFile = new File(path+File.separator+svaeFileName);
+				try {
+					pfimg.transferTo(uploadFile);
+					dto.setMember_photo("images/"+svaeFileName); //객체에 이미지 경로 담아줌
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else {
+				String defaultimg = "images/user-profile.png";
+				dto.setMember_photo(defaultimg); // 디폴트이미지 설정
+				System.out.println(dto.getMember_photo());
+			}
+			biz.register(dto);
 		}
-	}else {
-		String defaultimg = "images/user-profile.png";
-		dto.setMember_photo(defaultimg); // 디폴트이미지 설정
-		System.out.println(dto.getMember_photo());
+		// 요기에서~ 입력된 아이디가 존재한다면 -> 다시 회원가입 페이지로 돌아가기 
+		// 존재하지 않는다면 -> register
+	} catch (Exception e) {
+		throw new RuntimeException();
 	}
-	biz.register(dto);
-
-	return "home";
+	return "redirect:/";
 }
 
 //로그인
@@ -187,6 +198,41 @@ public String memberDelete(MemberDto dto, HttpSession session, RedirectAttribute
 		return result;
 	
    }
+
+ //아이디 중복체크
+   @ResponseBody
+   @RequestMapping(value="idChk.do", method = RequestMethod.POST)
+   public int idChk(MemberDto dto) throws Exception {
+   	int result = biz.idChk(dto);
+   	return result;
+   }   
+   //아이디 비번찾기 화면
+   @RequestMapping(value="findform.do", method = RequestMethod.GET)
+   public String findform() throws Exception{   	
+	   return "findmember";
+   }
    
+   @RequestMapping(value="findid.do", method = RequestMethod.POST)
+   @ResponseBody
+   	public Boolean findid(String member_email) throws Exception{
+	   	List <String> res = biz.findid(member_email);
+		if(res.isEmpty()) {
+			return false;
+		}else {
+			biz.sendid(member_email, res);		
+			return true;
+		}
+   }
+   @RequestMapping(value="findpw.do", method = RequestMethod.POST)
+   @ResponseBody
+   public Boolean findpw(MemberDto dto) throws Exception {
+	   String pw = biz.findpw(dto);
+	   if(pw==null || pw=="") {
+		   return false;
+	   }else {
+		   biz.sendpw(dto, pw);		   
+		   return true;
+	   }
+   }
 
 }

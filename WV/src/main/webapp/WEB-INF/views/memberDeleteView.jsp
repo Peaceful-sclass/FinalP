@@ -86,7 +86,7 @@
 }
 
 .col-8 {
-	left: 240px;
+	left: 220px;
 }
 </style>
 </head>
@@ -139,7 +139,7 @@
 		})	
 			
 		
-				       //비밀번호확인
+			  //비밀번호확인
 				function tocheckpw(){
 					var member_pw=document.getElementById("userPass").value;
 					var member_pwC=document.getElementById("userPassC").value;
@@ -150,7 +150,22 @@
 				}
 				}
 		
+		 //한글입력 안되게 처리
+		$(document).ready(function(){
 
+			  $("input[class=form-control]").keyup(function(event){ 
+
+			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+
+			    var inputVal = $(this).val();
+
+			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+
+			   }
+
+			  });
+
+			});
 	</script>
 
 	<div class="menu-box">
