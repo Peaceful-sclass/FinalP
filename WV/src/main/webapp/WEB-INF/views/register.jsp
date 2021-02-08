@@ -41,7 +41,15 @@
 	color: white;
 }
 
-#userEmail:hover {
+#userEmail1:hover {
+	background: #DB631F;
+	color: white;
+}
+#userEmail2:hover {
+	background: #DB631F;
+	color: white;
+}
+#emailSelection:hover {
 	background: #DB631F;
 	color: white;
 }
@@ -89,7 +97,7 @@
 	border-radius: 2px;
 }
 
-#userEmail {
+#userEmail1 {
 	width: 200px;
 	border-radius: 2px;
 }
@@ -212,12 +220,19 @@ input[type="file"] {
 					return false;
 				}				
 				//이메일입력확인
-				if ($("#userEmail").val() == "") {
+				if ($("#userEmail1").val() == "") {
 					alert("이메일을 입력해주세요.");
 					$("#userEmail").focus();
 					return false;
 				}
-				
+				if ($("#userEmail2").val() == "") {
+					alert("이메일을 입력해주세요.");
+					$("#userEmail").focus();
+					return false;
+					}else{
+						//console.log($(userEmail2).val());  
+					$("#userEmail").val($("#userEmail1").val()+"@"+$("#userEmail2").val());
+					}        
 				//도메인선택확인
 				if ($("#dm").val() == "") {
 					alert("도메인을 선택해주세요.");
@@ -304,7 +319,12 @@ input[type="file"] {
 			  });
 
 
+
+			
+		
+
 			});	
+
 
 	</script>
 
@@ -345,10 +365,10 @@ input[type="file"] {
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_email" id="f">이메일</label> 
 							<div>
-							<input class="form-control" type="text" id="userEmail"
-								name="member_email" placeholder="이메일 입력" style="display:inline-block;"/>@
+							<input class="form-control" type="text" id="userEmail1"
+								name="member_email1" placeholder="이메일 입력" style="display:inline-block;"/>@
 							<input class="form-control" type="text" id="userEmail2"
-								name="member_email" placeholder="도메인" style="display:inline-block;"/>							 
+								name="member_email2" placeholder="도메인" style="display:inline-block;"/>							 
                                  <select id="emailSelection" name="emailSelection">
 	                      	    	<option value="1" selected="selected">직접입력</option>
 	                    	 	    <option value="gmail.com">gmail.com</option>
@@ -360,7 +380,7 @@ input[type="file"] {
 		                         	<option value="dreamwiz.com">dreamwiz.com</option>
 	                          	</select>
                             </div>
-                            
+			                     	<input type="hidden" name="member_email" id="userEmail" value="">
 						</div>
 						<div class="form-group has-feedback">
 							<div class="control-label" id="f" style="margin-bottom: .5rem;">프로필사진</div> 

@@ -9,11 +9,10 @@ public class MemberDto {
     private String member_email;
     private String member_grade;
     private Date member_regdate;
-    private String member_is;            //sql이랑 mapper에 추가해야댐
-    private String member_photo;         //sql이랑 mapper에 추가해야댐
+    private String member_is;            
+    private String member_photo;        
 	public MemberDto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public MemberDto(int member_no, String member_id, String member_pw, String member_email, String member_grade,
 			Date regdate, String is, String member_photo) {

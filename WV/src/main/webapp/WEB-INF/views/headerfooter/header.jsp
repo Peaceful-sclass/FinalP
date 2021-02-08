@@ -344,7 +344,7 @@
 		     <script type="text/javascript">
 		     toastr.warning("아이디 비번 확인해주세요", {tiemOut: 5000});
 		     </script>
-		</c:if>
+		 </c:if>
 
 	</form>
 			</div>
