@@ -23,7 +23,46 @@
 		//self.location = "shareBoardwriteView.do";
 	//});
 //}); 
+//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
+    	function teamSide(param){
+    		let session = "${member.member_id}"; //session login 확인
+    		window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
+    		let textcon = $(param).text();
+    		console.log("textcon: "+ textcon);
+    		console.log("sessionTeamInfo: "+ window.sessionTeamInfo);
+    		console.log("TeamInfo.team_no: ${teamInfo.team_no}");
+    		
+    		
+    		
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
+    		}else if(sessionTeamInfo == null||sessionTeamInfo == ""||sessionTeamInfo == undefined){
+    			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+    			return false;
+    		}//ajax로 다시 세션의 갱신된 값을 가져오기. 로그아웃시 css초기화 <== 로그아웃시 세션번호값 초기화 하면 ajax작업안해도된다!
+    		
+/*     		<c:if test="${teamInfo.team_no == null }">
+	    		else if(true){
+				toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+				return false;	    			
+	    		}
+			</c:if> */
 
+    		
+    		
+    		if(textcon == "팀메인"){
+    			$("<form></form>").attr("method","post").attr("action","team.do").append($('<input/>',{type:'hidden',name:'member_no',value:'${member.member_no}'})).appendTo('body').submit();
+    		} else if(textcon == "일정"){
+    			location.href="shareCalendarList.do";
+    		} else if(textcon == "시트"){
+    			location.href="shareDocumentList.do";
+    		} else if(textcon == "코드"){
+    			
+    		} else if(textcon == "저장소"){
+    			location.href="shareBoardList.do";
+    		}
+    		
+    	}
 
 </script>
 </head>
