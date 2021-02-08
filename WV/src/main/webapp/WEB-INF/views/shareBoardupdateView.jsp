@@ -69,7 +69,7 @@
 				}
 			})
 			
-			CKEDITOR.replace('content', {width:'800px',height: '500px'});
+			CKEDITOR.replace('content', {width:'800px',height: '500px',filebrowserUploadUrl:'SBImageUpload.do'});
 		})
 		function changename(index) {
 			var cur=$("#file_"+index+"").val().split('/').pop().split('\\').pop();
