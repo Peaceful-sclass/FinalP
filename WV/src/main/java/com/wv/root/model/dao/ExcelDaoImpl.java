@@ -112,8 +112,9 @@ public class ExcelDaoImpl implements ExcelDao{
 			row.createCell(8).setCellValue(dto.get(i).getColI());
 			row.createCell(9).setCellValue(dto.get(i).getColJ());
 		}
-		
-		File file = new File("C:\\Users\\user\\Desktop\\No"+team_no+"_ShareDocument.xlsx");
+		System.out.println("경로"+System.getProperty ( "user.home" ) );
+
+		File file = new File(System.getProperty ( "user.home" )+"\\Desktop\\No"+team_no+"_ShareDocument.xlsx");
 		try {
 			file.createNewFile();
 			FileOutputStream outputStream = new FileOutputStream(file, false);

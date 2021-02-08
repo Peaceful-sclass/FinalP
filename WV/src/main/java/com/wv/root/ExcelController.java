@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.ExcelBiz;
 import com.wv.root.model.dto.ExcelDto;
@@ -34,7 +36,7 @@ public class ExcelController {
 	//공유 문서 값 가져오기
 	@RequestMapping(value = "/shareDocumentList.do", method = RequestMethod.GET)
 	public String shareDocumentList(Locale locale, Model model,HttpServletRequest httpServletRequest) {
-		logger.info("Excel List");
+		logger.info("Excel List"); 
 		
 		HttpSession session = httpServletRequest.getSession();
 		
@@ -362,7 +364,7 @@ public class ExcelController {
 	
 	//엑셀 다운
 	@RequestMapping(value = "/excelDown.do", method = RequestMethod.GET)
-	public String excelDown(HttpServletRequest httpServletRequest, Locale locale, Model model) {
+	public String excelDown(HttpServletRequest httpServletRequest, Locale locale, Model model, RedirectAttributes redi) {
 		logger.info("Excel Down");
 		
 		HttpSession session = httpServletRequest.getSession();
@@ -372,8 +374,18 @@ public class ExcelController {
 		model.addAttribute("teamNo",team_no);
 		model.addAttribute("request", httpServletRequest); 
 		biz.downExcel(biz.selectCol(team_no), model, team_no);
+
 		
-		return "redirect:shareDocumentList.do";
+		System.out.println("팀넘버"+team_no);
+		
+		//팀 넘버가 team_no일 경우
+		model.addAttribute("list", biz.selectCol(team_no));
+		model.addAttribute("result", biz.downresult());
+		System.out.println("값:"+biz.downresult());
+		
+		return "shareDocumentList";
+		
+		
 	}
 	
 	

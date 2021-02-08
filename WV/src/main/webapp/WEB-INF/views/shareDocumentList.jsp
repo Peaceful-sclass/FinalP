@@ -59,6 +59,15 @@
     		//페이지 로드시 기본팀 선택
     		let basicTeamNo = "${teamInfo.team_no}";
     		teamSelectionCSS(basicTeamNo);
+    		let result = "${result}";
+    		if(result == "success"){
+    			toastr.success("엑셀 파일 다운 성공", "바탕화면을 확인해 주세요", {tiemOut: 3000});
+    		}else if(result == "fail"){ 
+    			toastr.error("다운이 실패하였습니다", "다시 시도해 주세요", {tiemOut: 3000});
+    		}
+    		
+    		
+    		console.log("${result}");
     		
     	}
     	
@@ -78,7 +87,7 @@
     		}
     		
     		if(textcon == "팀메인"){
-    			sidePost('team.do','${member.member_no}');
+    			$("<form></form>").attr("method","post").attr("action","team.do").append($('<input/>',{type:'hidden',name:'member_no',value:'${member.member_no}'})).appendTo('body').submit();
     		} else if(textcon == "일정"){
     			location.href="shareCalendarList.do";
     		} else if(textcon == "시트"){
@@ -88,6 +97,8 @@
     		} else if(textcon == "저장소"){
     			location.href="shareBoardList.do";
     		}
+    		
+    		
     		
     	}
 
