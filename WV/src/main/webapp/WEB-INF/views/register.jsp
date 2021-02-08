@@ -230,7 +230,7 @@
 				}
 			});
 		}
-		//이메일형식
+		//이메일도메인가져오기
 		$(function(){	
 
 			$(document).ready(function(){
@@ -250,6 +250,24 @@
 				});
 			});
 		});
+		
+		 //한글입력 안되게 처리
+		$(document).ready(function(){
+
+			  $("input[class=form-control]").keyup(function(event){ 
+
+			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+
+			    var inputVal = $(this).val();
+
+			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+
+			   }
+
+			  });
+
+			});
+
 	</script>
 
 
@@ -271,19 +289,19 @@
 							<label class="control-label" for="member_id" id="f">아이디</label><!-- for는 member-mapper부분 -->
 							<div>
 							<input class="form-control" type="text" id="userId" style="display:inline-block"
-								name="member_id" maxlength="8" placeholder="8자이내 입력" required> <!-- required : 반드시입력되어야한다는 필드 -->
+								name="member_id" maxlength="8" placeholder="8자이내 영문,숫자 입력" required> <!-- required : 반드시입력되어야한다는 필드 -->
 						    <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>  
 						    </div>  
 						</div>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_pw" id="f">패스워드</label>
 							<input class="form-control" type="password" id="userPass"
-								name="member_pw" placeholder="패스워드" />
+								name="member_pw" maxlength="8" placeholder="8자이내 영문,숫자 입력" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pwC" id="f">패스워드
-								확인</label> <input class="form-control" type="password" id="userPassC"
-								name="member_pw2" placeholder="패스워드확인" />
+							<label class="control-label" for="member_pwC" id="f">패스워드확인
+								</label> <input class="form-control" type="password" id="userPassC"
+								name="member_pw2" maxlength="8"  placeholder="8자이내 영문,숫자 입력" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
 						<div class="form-group has-feedback">
