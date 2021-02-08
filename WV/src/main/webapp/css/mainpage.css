@@ -1,0 +1,156 @@
+@charset "UTF-8";
+.card-img-top {
+    height: 330px;
+}
+.carousel-multi-item {
+    margin-bottom: 5rem;
+}
+.carousel {
+    position: relative;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+div {
+    display: block;
+}
+.carousel-multi-item .controls-top {
+    text-align: center;
+    margin-bottom: 1.88rem;
+}
+.carousel-multi-item .controls-top .btn-floating {
+    background: #d65106;
+}
+a.waves-effect, a.waves-light {
+    display: inline-block;
+}
+.btn-floating {
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    width: 47px;
+    height: 47px;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin: 10px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    padding: 0;
+}
+.btn-fb.focus, .btn-fb:focus, .btn-floating {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+.btn-floating, .card .card-reveal .card-title, .card-wrapper .card-rotating .card-title {
+    cursor: pointer;
+}
+.btn-floating, .card-wrapper .card-up img, .picker .picker__box, .product-table td, .switch label .lever, table.table.btn-table td {
+    vertical-align: middle;
+}
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    -moz-user-select: none;
+    user-select: none;
+}
+.pswp__container, .pswp__img, .waves-effect {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.view, .view .mask, .waves-effect {
+    overflow: hidden;
+}
+
+.carousel-multi-item .controls-top {
+    text-align: center;
+    margin-bottom: 1.88rem;
+}
+.btn-floating i {
+    font-size: 1.25rem;
+    line-height: 47px;
+    display: inline-block;
+    width: inherit;
+    text-align: center;
+    color: #fff;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.carousel-multi-item .carousel-indicators {
+    margin-bottom: -2em;
+}
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+}
+ol{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.carousel-multi-item .carousel-indicators .active {
+    height: 1.56rem;
+    width: 1.56rem;
+    max-width: 1.56rem;
+    background-color: #d65106;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.carousel-multi-item .carousel-indicators li {
+    height: 1.25rem;
+    width: 1.25rem;
+    max-width: 1.25rem;
+    background-color: #d65106;
+    margin-bottom: -3.75rem;
+}
+
+@media only screen and (max-width: 992px)
+.carousel-multi-item .carousel-indicators li {
+    margin-bottom: -1.88rem;
+}
+
+.carousel .carousel-indicators li {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-indicators li {
+    position: relative;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: rgba(255,255,255,.5);
+}
+
+button {
+	float: right;
+}

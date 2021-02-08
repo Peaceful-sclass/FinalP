@@ -25,99 +25,117 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-	
+	   	<link rel="stylesheet" href="css/team.css">
+   	<script type="text/javascript" src="js/team.js"></script>
+    <script>
+    	var sessionTeamInfo;
+    	window.onload = function(){
+    		let session = "${member.member_id}"; //session login 확인
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do";
+    		}
+    		//팀아이콘배경랜덤
+    		let tmiconbg = document.getElementsByClassName("why-text");
+    		let bgcolor = {
+    			1:"background: rgba(207, 166, 113, 0.9);",
+    			2:"background: rgba(222, 255, 222, 0.9);",
+    			3:"background: rgba(255, 222, 239, 0.9);",
+    			4:"background: rgba(239, 222, 255, 0.9);",
+    			5:"background: rgba(255, 255, 227, 0.9);",
+    			6:"background: rgba(222, 222, 239, 0.9);",
+    			7:"background: rgba(222, 255, 255, 0.9);",
+    			8:"background: rgba(255, 222, 255, 0.9);",
+    			9:"background: rgba(255, 255, 222, 0.9);",
+    			10:"background: rgba(222, 222, 255, 0.9);",
+    			11:"background: rgba(239, 222, 239, 0.9);",
+    			12:"background: rgba(239, 239, 222, 0.9);"
+    		}
+    		for(let i=0; i<tmiconbg.length; i++){
+    			let r = Math.floor(Math.random()*Object.keys(bgcolor).length)+1;
+    			tmiconbg[i].setAttribute("style",bgcolor[r]);
+    			//tmiconbg[i].style.background = bgcolor[r];
+    		}
+    		
+    		//페이지 로드시 기본팀 선택
+    		let basicTeamNo = "${teamInfo.team_no}";
+    		teamSelectionCSS(basicTeamNo);
+    		
+    	}
+    	
+    	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
+    	function teamSide(param){
+    		let session = "${member.member_id}"; //session login 확인
+    		window.sessionTeamInfo = window.sessionStorage.getItem("teamInfo");
+    		let textcon = $(param).text();
+    		console.log("textcon: "+ textcon);
+    		console.log("sessionTeamInfo: "+ window.sessionTeamInfo);
+    		
+    		if(session == null || session == "" ||session == undefined ){
+    			location.href = "home.do"; //<<<공모전홈 이름 설정필요.
+    		}else if(sessionTeamInfo == null||sessionTeamInfo == ""||sessionTeamInfo == undefined){
+    			toastr.error("팀을 선택해주세요.", "팀선택 필요!", {tiemOut: 5000});
+    			return false;
+    		}
+    		
+    		if(textcon == "팀메인"){
+    			sidePost('team.do','${member.member_no}');
+    		} else if(textcon == "일정"){
+    			location.href="shareCalendarList.do";
+    		} else if(textcon == "시트"){
+    			location.href="shareDocumentList.do";
+    		} else if(textcon == "코드"){
+    			location.href="team.do?member_no="+${member.member_no};
+    		} else if(textcon == "저장소"){
+    			location.href="shareBoardList.do";
+    		}
+    		
+    	}
+
+    	
+    	
+    </script>
 	<!-- calendar -->
 	<link href="fullcalendar/main.css" rel="stylesheet" />
 	<script src="fullcalendar/main.js"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var calendarEl = document.getElementById('calendar');
-	
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				
-				editable : true,
-				selectable : true,
-			      selectMirror: true,
-			      select: function(arg) {
-			        var title = prompt('일정을 입력하세요:');
-			        if (title) {
-			          calendar.addEvent({
-			            title: title,
-			            start: arg.start
-			          }),
-			          location.href='shareCalendarInsert.do?title='+title+'&start='+arg.start;
-			          
-			        }
-			        calendar.unselect()
-			      },
-			      eventClick: function(arg) {
-			        if (confirm('일정을 지우시겠습니까??')) {
-			        	location.href='shareCalendarDelete.do?start='+arg.event.title
-			        }
-			        
-			      },
-			      editable: true,
-				businessHours : true,
-				dayMaxEvents : true, // allow "more" link when too many events
-				events : [ {
-					title : 'All Day Event',
-					start : '2020-09-01'
-				}
-				<c:forEach items="${callist }" var="caldto">
-				,{
-					title :	"${caldto.calTitle }",
-					start : "${caldto.calStart }"
-				}
-				</c:forEach>
-				]
-			});
-	
-			calendar.render();
-		});
-	</script>
 <style>
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
+table { 
+    width: 750px; 
+    border-collapse: collapse; 
+    margin:50px auto;
+    }
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+    background: #eee; 
+    }
+th { 
+    background: #f57936; 
+    color: white; 
+    font-weight: bold; 
+    }
+td, th { 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+    font-size: 18px;
+    }
+input {
+	background-color: white;
+    color: #DB631F;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #DB631F;
+    border-radius: 2px;
+
 }
 
-#calendar {
-	max-width: 1100px;
-	margin: 0 auto;
-}
-table.document {
-  border-collapse: collapse;
-  text-align: left;
-  line-height: 1.5;
-  border-left: 1px solid #ccc;
-  margin: 20px 10px;
-}
+table tr td input {
+	background-color: white;
+	color: #666666;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #f57b36;
+    border-radius: 2px;
 
-table.document thead th {
-  padding: 10px;
-  font-weight: bold;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 2px solid #c00;
-  background: #dcdcd1;
-}
-table.document tbody th {
-  width: 150px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  background: #ececec;
-}
-table.document td {
-  width: 350px;
-  padding: 10px;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
 }
 
 
@@ -135,21 +153,23 @@ table.document td {
 			<div class="row inner-menu-box">
 				<div class="col-3">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						<a class="nav-link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">달력</a>
-						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">코드협업</a>
-						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">문서협업</a>
-						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">공유</a>
+						<a class="nav-link" id="team-main-tab" data-toggle="pill" href="#" role="tab" aria-controls="team-pills-main" aria-selected="true" onclick="teamSide(this); return false;">팀메인</a>
+						<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="teamSide(this); return false;">일정</a>
+						<a class="nav-link  active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="teamSide(this); return false;">시트</a>
+						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="teamSide(this); return false;">코드</a>
+						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="teamSide(this); return false;">저장소</a>
 					</div>
 				</div>
 				
 				<div class="col-9">
 					<div class="tab-content" id="v-pills-tabContent">
-						<div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+						<div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 							<div class="row">
 									<c:choose>
 										<c:when test="${!empty check}">
 											<form action="shareDocumentUpdate.do"  method="post">
-												<table border="1" class="document">
+												<table class="styled-table">
+													<thead>
 													<tr>
 														<th colspan="3" align="center">update</th>
 														<th colspan="3" align="center">A</th>
@@ -163,6 +183,8 @@ table.document td {
 														<th colspan="3" align="center">I</th>
 														<th colspan="3" align="center">J</th>
 													</tr>
+													</thead>
+													<tbody>
 													<tr>
 														<td colspan="3" align="center">1</td>
 														<td colspan="3" align="center"><input type="text" name="A1" value="${row1.colA }"></td>
@@ -294,14 +316,144 @@ table.document td {
 														<td colspan="3" align="center"><input type="text" name="J10" value="${row10.colJ }"></td>
 													</tr>
 													<tr>
+														<td colspan="3" align="center">11</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row11.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row11.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row11.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row11.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row11.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row11.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row11.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row11.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row11.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row11.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">12</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row12.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row12.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row12.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row12.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row12.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row12.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row12.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row12.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row12.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row12.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">13</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row13.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row13.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row13.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row13.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row13.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row13.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row13.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row13.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row13.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row13.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">14</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row14.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row14.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row14.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row14.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row14.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row14.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row14.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row14.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row14.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row14.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">15</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row15.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row15.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row15.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row15.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row15.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row15.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row15.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row15.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row15.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row15.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">16</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row16.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row16.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row16.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row16.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row16.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row16.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row16.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row16.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row16.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row16.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">17</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row16.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row16.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row16.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row16.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row16.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row16.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row16.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row16.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row16.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row16.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">18</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row18.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row18.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row18.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row18.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row18.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row18.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row18.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row18.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row18.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row18.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">19</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row19.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row19.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row19.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row19.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row19.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row19.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row19.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row19.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row19.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row19.colJ }"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">20</td>
+														<td colspan="3" align="center"><input type="text" name="A10" value="${row20.colA }"></td>
+														<td colspan="3" align="center"><input type="text" name="B10" value="${row20.colB }"></td>
+														<td colspan="3" align="center"><input type="text" name="C10" value="${row20.colC }"></td>
+														<td colspan="3" align="center"><input type="text" name="D10" value="${row20.colD }"></td>
+														<td colspan="3" align="center"><input type="text" name="E10" value="${row20.colE }"></td>
+														<td colspan="3" align="center"><input type="text" name="F10" value="${row20.colF }"></td>
+														<td colspan="3" align="center"><input type="text" name="G10" value="${row20.colG }"></td>
+														<td colspan="3" align="center"><input type="text" name="H10" value="${row20.colH }"></td>
+														<td colspan="3" align="center"><input type="text" name="I10" value="${row20.colI }"></td>
+														<td colspan="3" align="center"><input type="text" name="J10" value="${row20.colJ }"></td>
+													</tr>													
+													<tr>
 														<td colspan="11" align="right">
 														
 															<!-- 팀 번호를 받아서 넘기는 곳 -->
-															<input name="teamNo" value="1" hidden="true">
-															<input type="submit" value="저장">	
-															<input type="button" value="취소" onclick="location.href='shareDocumentList.do'">	
+															<input type="submit" value="저장" style="color: #DB631F">	
+															<input type="button" value="취소" onclick="location.href='shareDocumentList.do'" style="color: #DB631F">	
 														</td>
 													</tr>
+													</tbody>
 												</table>
 											</form>										
 										</c:when>
@@ -310,7 +462,7 @@ table.document td {
 									
 										<c:when test="${empty list }">
 											<form action="shareDocumentInsert.do"  method="post">
-												<table border="1" class="document">
+												<table class="styled-table">
 													<tr>
 														<th colspan="3" align="center">insert</th>
 														<th colspan="3" align="center">A</th>
@@ -455,11 +607,140 @@ table.document td {
 														<td colspan="3" align="center"><input type="text" name="J10"></td>
 													</tr>
 													<tr>
+														<td colspan="3" align="center">11</td>
+														<td colspan="3" align="center"><input type="text" name="A11"></td>
+														<td colspan="3" align="center"><input type="text" name="B11"></td>
+														<td colspan="3" align="center"><input type="text" name="C11"></td>
+														<td colspan="3" align="center"><input type="text" name="D11"></td>
+														<td colspan="3" align="center"><input type="text" name="E11"></td>
+														<td colspan="3" align="center"><input type="text" name="F11"></td>
+														<td colspan="3" align="center"><input type="text" name="G11"></td>
+														<td colspan="3" align="center"><input type="text" name="H11"></td>
+														<td colspan="3" align="center"><input type="text" name="I11"></td>
+														<td colspan="3" align="center"><input type="text" name="J11"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">12</td>
+														<td colspan="3" align="center"><input type="text" name="A12"></td>
+														<td colspan="3" align="center"><input type="text" name="B12"></td>
+														<td colspan="3" align="center"><input type="text" name="C12"></td>
+														<td colspan="3" align="center"><input type="text" name="D12"></td>
+														<td colspan="3" align="center"><input type="text" name="E12"></td>
+														<td colspan="3" align="center"><input type="text" name="F12"></td>
+														<td colspan="3" align="center"><input type="text" name="G12"></td>
+														<td colspan="3" align="center"><input type="text" name="H12"></td>
+														<td colspan="3" align="center"><input type="text" name="I12"></td>
+														<td colspan="3" align="center"><input type="text" name="J12"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">13</td>
+														<td colspan="3" align="center"><input type="text" name="A13"></td>
+														<td colspan="3" align="center"><input type="text" name="B13"></td>
+														<td colspan="3" align="center"><input type="text" name="C13"></td>
+														<td colspan="3" align="center"><input type="text" name="D13"></td>
+														<td colspan="3" align="center"><input type="text" name="E13"></td>
+														<td colspan="3" align="center"><input type="text" name="F13"></td>
+														<td colspan="3" align="center"><input type="text" name="G13"></td>
+														<td colspan="3" align="center"><input type="text" name="H13"></td>
+														<td colspan="3" align="center"><input type="text" name="I13"></td>
+														<td colspan="3" align="center"><input type="text" name="J13"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">14</td>
+														<td colspan="3" align="center"><input type="text" name="A14"></td>
+														<td colspan="3" align="center"><input type="text" name="B14"></td>
+														<td colspan="3" align="center"><input type="text" name="C14"></td>
+														<td colspan="3" align="center"><input type="text" name="D14"></td>
+														<td colspan="3" align="center"><input type="text" name="E14"></td>
+														<td colspan="3" align="center"><input type="text" name="F14"></td>
+														<td colspan="3" align="center"><input type="text" name="G14"></td>
+														<td colspan="3" align="center"><input type="text" name="H14"></td>
+														<td colspan="3" align="center"><input type="text" name="I14"></td>
+														<td colspan="3" align="center"><input type="text" name="J14"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">15</td>
+														<td colspan="3" align="center"><input type="text" name="A15"></td>
+														<td colspan="3" align="center"><input type="text" name="B15"></td>
+														<td colspan="3" align="center"><input type="text" name="C15"></td>
+														<td colspan="3" align="center"><input type="text" name="D15"></td>
+														<td colspan="3" align="center"><input type="text" name="E15"></td>
+														<td colspan="3" align="center"><input type="text" name="F15"></td>
+														<td colspan="3" align="center"><input type="text" name="G15"></td>
+														<td colspan="3" align="center"><input type="text" name="H15"></td>
+														<td colspan="3" align="center"><input type="text" name="I15"></td>
+														<td colspan="3" align="center"><input type="text" name="J15"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">16</td>
+														<td colspan="3" align="center"><input type="text" name="A16"></td>
+														<td colspan="3" align="center"><input type="text" name="B16"></td>
+														<td colspan="3" align="center"><input type="text" name="C16"></td>
+														<td colspan="3" align="center"><input type="text" name="D16"></td>
+														<td colspan="3" align="center"><input type="text" name="E16"></td>
+														<td colspan="3" align="center"><input type="text" name="F16"></td>
+														<td colspan="3" align="center"><input type="text" name="G16"></td>
+														<td colspan="3" align="center"><input type="text" name="H16"></td>
+														<td colspan="3" align="center"><input type="text" name="I16"></td>
+														<td colspan="3" align="center"><input type="text" name="J16"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">17</td>
+														<td colspan="3" align="center"><input type="text" name="A17"></td>
+														<td colspan="3" align="center"><input type="text" name="B17"></td>
+														<td colspan="3" align="center"><input type="text" name="C17"></td>
+														<td colspan="3" align="center"><input type="text" name="D17"></td>
+														<td colspan="3" align="center"><input type="text" name="E17"></td>
+														<td colspan="3" align="center"><input type="text" name="F17"></td>
+														<td colspan="3" align="center"><input type="text" name="G17"></td>
+														<td colspan="3" align="center"><input type="text" name="H17"></td>
+														<td colspan="3" align="center"><input type="text" name="I17"></td>
+														<td colspan="3" align="center"><input type="text" name="J17"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">18</td>
+														<td colspan="3" align="center"><input type="text" name="A18"></td>
+														<td colspan="3" align="center"><input type="text" name="B18"></td>
+														<td colspan="3" align="center"><input type="text" name="C18"></td>
+														<td colspan="3" align="center"><input type="text" name="D18"></td>
+														<td colspan="3" align="center"><input type="text" name="E18"></td>
+														<td colspan="3" align="center"><input type="text" name="F18"></td>
+														<td colspan="3" align="center"><input type="text" name="G18"></td>
+														<td colspan="3" align="center"><input type="text" name="H18"></td>
+														<td colspan="3" align="center"><input type="text" name="I18"></td>
+														<td colspan="3" align="center"><input type="text" name="J18"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">19</td>
+														<td colspan="3" align="center"><input type="text" name="A19"></td>
+														<td colspan="3" align="center"><input type="text" name="B19"></td>
+														<td colspan="3" align="center"><input type="text" name="C19"></td>
+														<td colspan="3" align="center"><input type="text" name="D19"></td>
+														<td colspan="3" align="center"><input type="text" name="E19"></td>
+														<td colspan="3" align="center"><input type="text" name="F19"></td>
+														<td colspan="3" align="center"><input type="text" name="G19"></td>
+														<td colspan="3" align="center"><input type="text" name="H19"></td>
+														<td colspan="3" align="center"><input type="text" name="I19"></td>
+														<td colspan="3" align="center"><input type="text" name="J19"></td>
+													</tr>
+													<tr>
+														<td colspan="3" align="center">20</td>
+														<td colspan="3" align="center"><input type="text" name="A20"></td>
+														<td colspan="3" align="center"><input type="text" name="B20"></td>
+														<td colspan="3" align="center"><input type="text" name="C20"></td>
+														<td colspan="3" align="center"><input type="text" name="D20"></td>
+														<td colspan="3" align="center"><input type="text" name="E20"></td>
+														<td colspan="3" align="center"><input type="text" name="F20"></td>
+														<td colspan="3" align="center"><input type="text" name="G20"></td>
+														<td colspan="3" align="center"><input type="text" name="H20"></td>
+														<td colspan="3" align="center"><input type="text" name="I20"></td>
+														<td colspan="3" align="center"><input type="text" name="J20"></td>
+													</tr>
+													<tr>
 														<td colspan="11" align="right">
 														
 															<!-- 팀 번호를 받아서 넘기는 곳 -->
-															<input name="teamNo" value="1" hidden="true">
-															<input type="submit" value="저장">		
+															<input type="submit" value="저장" style="color: #DB631F">		
 														</td>
 													</tr>
 												</table>
@@ -469,7 +750,7 @@ table.document td {
 										
 										
 										<c:otherwise>
-											<table border="1" class="document">
+											<table class="styled-table">
 												<colgroup>
 													<col width="50">
 													<col width="300">
@@ -483,6 +764,7 @@ table.document td {
 													<col width="300">
 													<col width="300">
 												</colgroup>
+												<thead>
 												<tr>
 													<th></th>
 													<th>A</th>
@@ -496,6 +778,8 @@ table.document td {
 													<th>I</th>
 													<th>J</th>
 												</tr>
+												</thead>
+												<tbody>
 											<c:forEach items="${list }" var="dto" varStatus="status">
 												<tr>
 													<td>${status.count }</td>
@@ -511,17 +795,17 @@ table.document td {
 													<td>${dto.colJ }</td>
 												</tr>
 											</c:forEach>
+												</tbody>
 												<tr>
 													<td colspan="11" align="right">
 														<form action="shareDocumentUpdateForm.do">
 															<!-- 팀번호 받아넘김 -->
-															<input name="teamNo" value="1" hidden="true">
-															<input type="button" value="달력" onclick="location.href='shareCalendar.do'">	
-															<input type="button" id="btnExcelDown" name="btnExcelDown" value="엑셀다운" onclick="location.href='excelDown.do'">	
-															<input type="submit" name="checkVal"value="문서작성">	
+															<input type="button" id="btnExcelDown" name="btnExcelDown" value="엑셀다운" onclick="location.href='excelDown.do'" style="color: #DB631F">	
+															<input type="submit" name="checkVal"value="문서작성" style="color: #DB631F">	
 														</form>
 													</td>
 												</tr>
+												
 										</table>
 										</c:otherwise>
 									</c:choose>
@@ -530,27 +814,23 @@ table.document td {
 						
 						
 						
-						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-							<div class="row">
-								
-							</div>
+						<div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
 						</div>
 						
-						<div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
+						<div class="ab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
 							
-						
-								<div id='calendar'></div>
-						
 							
 						</div>
-						
 						
 						
 						<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-							<div class="row">
-								
+						
+						</div>
+					</div>
+					</div>		
 			</div>
-			
+			</div>
 		</div>
 	</div>
 	<!-- End Menu -->

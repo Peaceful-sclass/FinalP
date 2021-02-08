@@ -91,7 +91,12 @@
 	          background:#DB631F;
 	          color: white;
 	          border-radius: 2px;
-	      }	   
+	      }
+	      #findbt:hover{
+	          background:#DB631F;
+	          color: white;
+	          border-radius: 2px;
+	      }		   
 	      #userId:hover{
 	          background:#DB631F;
 	          color: white;
@@ -151,6 +156,15 @@
 		         border-style:none;
 		         background-color:  #f8f9fa;
 		   }
+		   
+		   #findbt{
+		         width:70px;
+		         height: 25px;		
+		         font-size: 5px;
+		         border-style:none;
+		         background-color:  #f8f9fa;
+		         
+		   }
 		   #memberUpdateBtn{
 		         width:60px;
 		         height: 25px;	
@@ -180,6 +194,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#outBtn").on("click", function(){
+			teamSeSinfoRemove();
 			location.href="logout.do";
 
 		})
@@ -208,7 +223,7 @@
 		else if(cmd == "/root/comunity.do"||cmd == "/root/comunitywrite.do"){
 			for(let i=0; i<ulnav.length; i++){
 				ulnav[i].classList.remove('active');
-				ulnav[3].classList.add('active');
+				ulnav[2].classList.add('active');
 			}
 		}
 		else if(cmd == "/root/home.do"){
@@ -242,7 +257,10 @@
 		console.log("formAction: "+ form.action);
 		form.submit();
 	}
-
+	
+	function teamSeSinfoRemove(){ //로그아웃 시 팀세션의 번호 정보를 초기화.
+		window.sessionStorage.setItem("teamInfo","");
+	}
 
 
 </script>
@@ -262,7 +280,6 @@
 					     
 						<li class="nav-item"><a class="nav-link" href="home.do">홈</a></li>
 						<li class="nav-item" id="navTeam"><a class="nav-link" href="#" onclick="chkHasTeam(); return false;">팀메뉴</a></li>
-						<li class="nav-item"><a class="nav-link" href="shareDocumentList.do">팀메뉴2</a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="tab_click('comunity'); return false;">커뮤니티</a></li>
 						<!-- <li class="nav-item"><a class="nav-link" href="out.do">의뢰</a></li> -->
 						<li class="nav-item"><a class="nav-link" onclick="placemodalshow()">모임장소</a></li>
@@ -276,14 +293,15 @@
 		<c:if test="${member == null}">
 			<div>
 				<label for="member_id"></label>
-				<input style="position: fixed; top: 5px; right: 233px;" type="text" id="uId" name="member_id" placeholder="ID">
+				<input style="position: fixed; top: 5px; right: 303px;" type="text" id="uId" name="member_id" placeholder="ID">
 			</div>
 			<div>
 				<label for="member_pw"></label>
-				<input style="position: fixed; top: 5px; right: 150px;" type="password" id="uPass" name="member_pw" placeholder="PW">
+				<input style="position: fixed; top: 5px; right: 218px;" type="password" id="uPass" name="member_pw" placeholder="PW">
 			</div>
 			<div>
-				      <span style="position: fixed; top: 5px; right: 77px;"><a href="login.do"><button type="submit" id="logbt"  >로그인</button></a></span>
+				      <span style="position: fixed; top: 5px; right: 145px;"><a href="login.do"><button type="submit" id="logbt"  >로그인</button></a></span>
+				      <span style="position: fixed; top: 5px; right: 75px;"><a href="findform.do"><button type="button" id="findbt"  >ID/PW 찾기</button></a></span>
 				      <span style="position: fixed; top: 5px; right: 10px;"><a href="register.do"><button type="button" id="regibt">회원가입</button></a></span>  
 				<!--<button type="submit">로그인</button>
 				<button id="registerBtn" type="button">회원가입</button>-->
@@ -349,7 +367,7 @@
 					        <div id="pagination"></div>
 					    </div>					    
 					</div>
-					<div id="placeformup" style="float: right; display:none;"></div>
+					<div id="placeformup" style="float: right; display:none; margin-right: 25px;"></div>
 					<div id="placeform" style="float: right; margin-right: 25px;">
 						<h4>장소명</h4>
 						<div class="input-group">

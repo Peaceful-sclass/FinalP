@@ -87,6 +87,36 @@
 .col-8 {
 	left: 220px;
 }
+.filelabel{
+	display: inline-block;
+    padding: 1px 6px;
+    vertical-align: middle;
+    cursor: pointer;    
+    background-color: white;
+    color: #DB631F;
+    font-weight: bold;
+    border: 2px solid #DB631F;
+    border-radius: 2px;
+    margin: 1% 0px 0px 1%;
+}
+.filelabel:hover {
+	background: #DB631F;
+	color: white;
+	border-radius: 2px;
+}
+input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+#member_pfname {
+	width: 200px;
+	border-radius: 2px;
+	float: left;
+}
 </style>
 </head>
 
@@ -124,6 +154,12 @@
 
 			});
 			
+			//프로필 이미지 변경
+			$("#member_pfimg").on('change', function(){ 
+				var imgname = $("#member_pfimg").val().split('/').pop().split('\\').pop();
+			    $("#member_pfname").val(imgname);
+			});
+			
 		})
 
 				//비밀번호확인
@@ -142,7 +178,7 @@
 	<div class="menu-box">
 
 		<div class="container">
-			<form action="memberUpdate.do" method="post">
+			<form action="memberUpdate.do" method="post" enctype="multipart/form-data">
 
 				<div class="row">
 					<div class="col-2"></div>
@@ -172,9 +208,17 @@
 								placeholder="바꾸실 이메일 입력" />
 						</div>
 						<div class="form-group has-feedback">
+							<div class="control-label" id="f" style="margin-bottom: .5rem;">프로필사진</div> 
+							<input type="text" class="form-control" id="member_pfname" value="" readonly="readonly">
+							<label for="member_pfimg" class="filelabel">파일선택</label> 
+  							<input type="file" name="member_pfimg" id="member_pfimg"  accept="image/*">  
+						</div>
+						<div class="form-group has-feedback">
 							<button type="submit" id="submit">회원정보수정</button>
 							<button type="button" id="cc">취소</button>
 						</div>
+						
+
 
 					</div>
 					<!-- col-8 end -->

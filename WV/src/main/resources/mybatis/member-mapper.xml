@@ -7,7 +7,7 @@
 <mapper namespace="wvmember">
     	<!-- 회원가입 -->
    <insert id="register" parameterType="memberDto">
-        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_email}, #{member_grade}, SYSDATE)
+        INSERT INTO MYMEMBER VALUES(MEMBERSEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_email}, #{member_grade}, SYSDATE, #{member_photo} )
    </insert>	 
 
 	<!-- 로그인 -->
@@ -23,6 +23,9 @@
       UPDATE MYMEMBER SET
       MEMBER_PW = #{member_pw},
       MEMBER_EMAIL = #{member_email}
+      <if test="member_photo != null">
+      	, MEMBER_PHOTO = #{member_photo}
+      </if>
       WHERE MEMBER_ID = #{member_id}
     </update>  
 	
@@ -44,6 +47,16 @@
 	<select id="idChk" parameterType="memberDto" resultType="int">
 	       SELECT COUNT(*) FROM MYMEMBER
 	       WHERE MEMBER_ID = #{member_id} 
+	<select id="findid" parameterType="String" resultType="String">
+		SELECT MEMBER_ID
+		FROM MYMEMBER
+		WHERE MEMBER_EMAIL = #{value}
 	</select>
 	
+	<select id="findpw" parameterType="memberDto" resultType="String">
+		SELECT MEMBER_PW
+		FROM MYMEMBER
+		WHERE MEMBER_EMAIL = #{member_email}
+		AND MEMBER_ID = #{member_id}
+	</select>
 </mapper>

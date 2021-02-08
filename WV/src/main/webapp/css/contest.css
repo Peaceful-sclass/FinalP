@@ -1,10 +1,13 @@
 @charset "UTF-8";
+.cat li a.on {
+    color: #d65106;
+}
 .aside {
     position: absolute;
-    width: 160px;
-    left: 0;
+    width: 70%;
+    left: 0px;
     margin-bottom: 20px;
-    margin-left: 40px;
+    margin-top: 40px;
     z-index: 2;
 }
 .aside-cat {
@@ -63,25 +66,12 @@
 .cat li a {
     font-size: 12px;
     line-height: 22px;
+    padding-left: 10px;
 }
 /*---------------*/
 .ms-menu {
+	float: right;
 	margin-top: 10px;
-    overflow: hidden;
-    position: relative;
-    height: 40px;
-    background: #d65106;
-    border-radius: 5px;
-    width: 200px;
-    margin-left: 80%;
-    cursor: pointer;
-}
-.ms-menu .ms-tit {
-    margin-left: 16%;
-    font-size: 18px;
-    font-weight: normal;
-    color: #fff;
-    padding-top: 10px;
 }
 .write-list {
     position: relative;
@@ -101,7 +91,7 @@
     color: #111;
 }
 .write-list > li .need {
-    color: #54c5cf;
+    color: #d65106;
 }
 .write-list > li .long {
     width: 57.4%;
@@ -109,7 +99,7 @@
 .write-list > li .long input[type=text] {
     width: 95%;
 }
-input[type=text] {
+span input[type=text] {
     padding-left: 5px;
     border: 1px solid #ddd;
     vertical-align: top;
@@ -378,7 +368,7 @@ p {
 .event-notice {
     margin-top: 30px;
     padding: 24px 10px 24px 210px;
-    background: url(../images/we.png) no-repeat 60px 10px;
+    background: url(../images/logof.png) no-repeat 32px 10px;
     background-color: #fff;
     border: 1px solid #c0bfbf;
     border-radius: 3px;
@@ -404,17 +394,20 @@ p {
     background: #d65106;
 }
 .main-section {
-	margin-top: 10px;
+	margin-top: 40px;
     margin-bottom: 20px;
 }
 .list {
     border-top: 1px solid #e8e8e8;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #333;    
+    border-left: solid 1px #e8e8e8;
+    border-right: solid 1px #e8e8e8;
 }
 .list li.top {
     height: 35px;
     padding: 0 275px 0 0;
     line-height: 35px;
+    border-bottom: 2px solid #333;
 }
 .list li {
     position: relative;

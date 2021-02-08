@@ -3,7 +3,7 @@
     
 <%	request.setCharacterEncoding("UTF-8"); %>
 <% 	response.setContentType("text/html; charset=UTF-8"); %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
@@ -18,14 +18,7 @@
             event.returnValue=false;
          }
 	}
-	function insert() {
-		if(!$("input:radio[name='agree']").is(":checked")){
-			alert("개인정보 수집 및 이용에 대한 안내를 확인해주세요");
-			return;
-		}else if($('input[name="agree"]:checked').val()=='N'){
-			alert("약관에 동의해 주세요");
-			return;
-		}
+	function update() {
 		if(!$('input[name=contestname]').val().trim()){
 			alert("공모전명: 필수 입력항목 입니다");
 			$('input[name=contestname]').focus();
@@ -172,7 +165,7 @@
 	<div class="menu-box">
 	<div class="container">
 	<div class="contest-insert">
-	<form action="insertContest.do" method="post" id="frm" enctype="multipart/form-data">
+	<form action="updateContest.do" method="post" id="frm" enctype="multipart/form-data">
 	<sup><span style="color: #d65106; font-size: 14px; font-weight: 600;">*</span> 필수 입력항목</sup>
 	<ul class="write-list">
 		<li>
@@ -181,7 +174,7 @@
 				<span class="need">*</span>
 			</span>
 			<span class="ipt long">
-				<input type="text" name="contestname">
+				<input type="text" name="contestname" value="${contest.contestname }">
 			</span>
 		</li>
 		<li>
@@ -190,19 +183,19 @@
 				<span class="need">*</span>
 			</span>
 			<span class="ipt">
-				<input type="text" name="contestagent">
+				<input type="text" name="contestagent" value="${contest.contestagent }">
 			</span>
 			<span class="ipt bold">
 				주관사
 			</span>
 			<span class="ipt">
-				<input type="text" name="contestsupervision">
+				<input type="text" name="contestsupervision" value="${contest.contestsupervision }">
 			</span>
 			<span class="ipt bold">
 				후원/협찬
 			</span>
 			<span class="ipt">
-				<input type="text" name="contesupport">
+				<input type="text" name="contesupport" value="${contest.contesupport }">
 			</span>
 		</li>
 		<li>
@@ -274,13 +267,13 @@
 				<span class="need">*</span>
 			</span>
 			<span class="ipt">
-				<input type="date" name="conteststart">
+				<input type="date" name="conteststart" value="${contest.conteststart }">
 			</span>
 			<span class="ipt"> 
 				 ~ 
 			</span>
 			<span class="ipt">
-				<input type="date" name="contestend">
+				<input type="date" name="contestend" value="${contest.contestend }">
 			</span>
 		</li>
 		<li>
@@ -289,7 +282,7 @@
 				<span class="need">*</span>
 			</span>
 			<div class="ta-area">
-				<textarea name="contestcontent" id="smartEditor"></textarea>
+				<textarea name="contestcontent" id="smartEditor">${contest.contestcontent }</textarea>
 				<script type="text/javascript">
 					var oEditors = []; 
 					nhn.husky.EZCreator.createInIFrame({ 
@@ -300,8 +293,9 @@
 							bUseToolbar : true,
 							bUseVerticalResizer : true,  
 							bUseModeChanger : false 
-						} 
+						}
 					});
+					
 				</script>
 			</div>
 		</li>
@@ -310,7 +304,7 @@
 				포스터
 			</span>
 			<span class="filebox">
-				<input type="text" class="upload-name" id="postername" value="" readonly="readonly">
+				<input type="text" class="upload-name" id="postername" value="">
   				<label for="poster">파일선택</label> 
   				<input type="file" name="poster" id="poster"  accept="image/*">  				
 			</span>
@@ -320,7 +314,7 @@
 				첨부파일
 			</span>
 			<span class="filebox">
-				<input type="text" class="upload-name" id="filename" value="" readonly="readonly">
+				<input type="text" class="upload-name" id="filename" value="">
   				<label for="file">파일선택</label> 
   				<input type="file" name="file" id="file">  				
 			</span>
@@ -330,7 +324,7 @@
 				홈페이지
 			</span>
 			<span class="ipt long">
-				<input type="text" name="contestpage">
+				<input type="text" name="contestpage" value="${contest.contestpage }">
 			</span>
 		</li>
 		<li class="line">
@@ -339,7 +333,7 @@
 				<span class="need">*</span>                        
 			</span>
 			<span class="ipt">
-				<input type="text" name="contestperson">
+				<input type="text" name="contestperson" value="${contest.contestperson }">
 			</span>
 		</li>
 		<li>
@@ -382,10 +376,11 @@
 			</select>
 			</span> -
 			<span class="ipt">
-				<input type="text" class="short" name="phone2" id="phone2" maxlength="4" onkeypress="onlyNumber();">
+				<c:set var="TextValue" value="${fn:split(contest.contestphone, '-')}"/>
+				<input type="text" class="short" name="phone2" id="phone2" maxlength="4" onkeypress="onlyNumber();" value="${TextValue[1]}">
 			</span> -
 			<span class="ipt">
-				<input type="text" class="short" name="phone3" id="phone3" maxlength="4" onkeypress="onlyNumber();"><input type="hidden" name="contestphone" id="contestphone" value="">
+				<input type="text" class="short" name="phone3" id="phone3" maxlength="4" onkeypress="onlyNumber();" value="${TextValue[2]}"><input type="hidden" name="contestphone" id="contestphone" value="">
 			</span>
 		</li>
 		<li>
@@ -394,11 +389,12 @@
 				<span class="need">*</span>   
 			</span>
 			<span class="ipt">
-				<input type="text" name="email1" id="email1" style="ime-mode:disabled">
+			<c:set var="emailValue" value="${fn:split(contest.contestemail, '@')}"/>
+				<input type="text" name="email1" id="email1" style="ime-mode:disabled" value="${emailValue[0] }">
 			</span>
 			@
 			<span class="ipt">
-				<input type="text" name="email2" id="email2" style="ime-mode:disabled ">				
+				<input type="text" name="email2" id="email2" style="ime-mode:disabled " value="${emailValue[1] }">				
 			</span>
 			<span class="ipt">
 				<select name="email_domain" id="email_domain" class="selectbox" onchange="selectemail()">
@@ -423,34 +419,15 @@
 				} catch (e) { }
 				</script>
 				<input name="ct_m_email" type="hidden" value="">
-				<!--
-				<select name="email_domain" id="email_domain">
-					<option value="naver.com">naver.com</option>
-				</select>
-				-->
 				<input type="hidden" name="contestemail" id="contestemail" value="">
+				<input type="hidden" name="contestnum" value="${contest.contestnum }">
 			</span>
 		</li>
 		
-	</ul>
-	<div class="agree-area">
-		<div class="tit">개인정보 수집 및 이용에 대한 안내</div>
-		<div class="agree-content">
-			1. 수집 개인정보 항목 : 담당자명, 메일 주소, 전화번호<div>2. 개인정보의 수집 및 이용목적 : 컨텐츠 등록에 따른 본인확인 및 원활한 의사소통 경로 확보</div><div>3. 개인정보의 이용기간 : 공모전 기간 및 이용자의 조회를 위하여 보관되며 요청시 즉시 파기합니다.</div><div>※ 공모전, 대외활동, 이벤트 등 등록은 무료이며 관리자 검수, 수정, 승인 후 등록됩니다.(<span style="font-size: 9pt;">내부 규정에 따라 등록되지 않을 수 있습니다.)</span></div>
-		</div>
-		<div class="agree-check">
-			<span class="ipt">
-				<input type="radio" name="agree" value="Y"> 동의
-			</span>                
-			<span class="ipt">
-				<input type="radio" name="agree" value="N"> 동의하지 않음
-			</span>                
-		</div>
-		<input type="hidden" name="memberno" value="${member.member_no}">
-	</div></form>
+	</ul></form>
 	<div class="agree-btn">		
-		<input type="button" class="btn btn-sm btn-primary" value="등록" onclick="insert();">
-		<input type="button" class="btn btn-sm btn-primary" value="취소" onClick="location.href='contestlist.do'"></div>
+		<input type="button" class="btn btn-sm btn-primary" value="수정" onclick="update();">
+		<input type="button" class="btn btn-sm btn-primary" value="취소" onClick="location.href='contestDetail.do?contestnum=${contest.contestnum }'"></div>
 		</div>
 
 		</div></div>

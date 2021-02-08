@@ -28,7 +28,8 @@
     <script>
     	window.onload = function(){ //팀만들기 결과창 확인 후 팀화면이동
     		let res = '${createTeamRes}';
-    		if(res!=null && res != "" && res!=undefined){
+    		console.log("res: "+res);
+    		if(res == '22'){ //res!=null && res != "" && res!=undefined
     			toastr.success("팀을 만들었습니다.","팀생성",{timeOut:1000});
     			setTimeout(()=>{
     				let form = document.createElement("form");
@@ -47,7 +48,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/headerfooter/header.jsp" flush="false" />
 	<!-- Start Menu -->
-	<div class="menu-box">
+	<div class="menu-box" style="margin-bottom:150px;">
 		<div class="container">
 			
 			
