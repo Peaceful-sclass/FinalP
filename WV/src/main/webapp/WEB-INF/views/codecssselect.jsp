@@ -18,12 +18,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
    
 <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+<link rel="stylesheet" href="http://codemirror.net/addon/hint/show-hint.css">
 
 <script src="http://codemirror.net/lib/codemirror.js"></script>
-<script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
-<script src="http://codemirror.net/addon/comment/continuecomment.js"></script>
-<script src="http://codemirror.net/addon/comment/comment.js"></script>
-<script src="http://codemirror.net/mode/javascript/javascript.js"></script>
+<script src="http://codemirror.net/addon/hint/css-hint.js"></script>
+<script src="http://codemirror.net/addon/hint/show-hint.js"></script>
+<script src="http://codemirror.net/mode/css/css.js"></script>
 <link rel="stylesheet" href="css/comunity.css">
    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -75,10 +75,6 @@
 						<div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
 							<div class="menu-box" style="padding: 0px 0 0px 0px;">
 		<!-- write container Start -->
-		<form action="insertres.do" method="post">
-		<input type="hidden" name="myco" value="${myco }">
-		<input type="hidden" name="myname" value="${member.getMember_id() }">
-		<input type="hidden" name="myteam" value="${tno }">
 		<div class="container">
 			<div class="row">
 				<!-- 본문 상단 내용 -->
@@ -93,23 +89,24 @@
 					<div class="dv-header">
 						<div class="dv-subject2">
 							<span> </span> &nbsp; 
-							<span>${member.getMember_id() }</span> &nbsp;| &nbsp;
-							
+							<span>${dto.myname }</span> &nbsp;| &nbsp;
+							<span><fmt:formatDate value="${dto.mydate}" pattern="yyyy.MM.dd" /></span> &nbsp;| &nbsp;
 						</div>
 					<div class="dv-category">
 						<a>Title:</a>
-						<input class="dv-subject" type="text" name="mytitle" style="border: 1px solid rgba(239, 204, 135, 1); width: 45%;"/>
+						<input class="dv-subject" type="text" name="title" value="${dto.mytitle }" readonly="readonly" style="border: 1px solid rgba(239, 204, 135, 1); width: 45%;"/>
 					</div>
 					<!-- 내용 입력-->
 					<div class="dv-middle">
 						<div class="dv-content">
+							
 								  
-								  <div><textarea rows="10" cols="68" name="mycoment" style="border: 1px solid rgb(201, 169, 31);"></textarea> </div>
-								  <div><textarea id="code" name="mycontent"></textarea> </div>
+								  <div><textarea rows="10" cols="68" style="border: 1px solid rgb(201, 169, 31);" readonly="readonly">${dto.mycoment }</textarea> </div>
+								  <div><textarea id="code">${dto.mycontent }</textarea> </div>
 							</div>
-	
-							<input class="bt-write" type="button" value="취소" onclick="location.href='codemain.do'">
-							<input class="bt-write" type="submit" value="완료">						
+						<input class="bt-write" type="button" value="목록" onclick="location.href='codemain.do'">
+						<input class="bt-write" type="button" value="수정" onclick="location.href='updateform.do?myno=${dto.myno}&&myco=${dto.myco}'">
+						<input class="bt-write" type="button" value="삭제" onclick="location.href='delete.do?myno=${dto.myno}&&myco=${dto.myco}'">
 						</div>
 						
 						<!-- <textarea class="dv-textarea" name="dv-content-ta" cols="300" rows="900"></textarea> -->
@@ -125,9 +122,8 @@
 		</div>
 		<!-- write container End -->
 			
-			</form>
-	</div>	
 			
+	</div>			
 						</div>
 						
 						
@@ -207,13 +203,11 @@
 		
 	}	
 		
-	 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-	        lineNumbers: true,
-	        matchBrackets: true,
-	        continueComments: "Enter",
-	        extraKeys: {"Ctrl-Q": "toggleComment"},
-	        readOnly: true
-	      });
+	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+        lineNumbers: true,
+        readOnly: true
+      });
      
       hljs.configure({
 		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
@@ -226,7 +220,8 @@
 		      toolbar: '#toolbar-container'
 		    },
 		    contant: '내용을 입력해 주세요.',
-		    theme: 'snow'
+		    theme: 'snow',
+	        readOnly: true
 		});
 
 		

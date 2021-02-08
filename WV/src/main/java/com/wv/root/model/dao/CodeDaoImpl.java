@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.wv.root.model.dto.CodeDto;
+import com.wv.root.model.dao.mypara;
 
 @Repository
 public class CodeDaoImpl implements CodeDao{
@@ -16,11 +17,11 @@ public class CodeDaoImpl implements CodeDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<CodeDto> selectList() {
+	public List<CodeDto> selectList(int myteam) {
 		List<CodeDto> list = new ArrayList<CodeDto>();
 		
 		try {
-			list = sqlSession.selectList(NAMESPACE+"selectList");
+			list = sqlSession.selectList(NAMESPACE+"selectList",myteam);
 		} catch (Exception e) {
 			System.out.println("[error]: select list");
 			e.printStackTrace();
@@ -81,11 +82,11 @@ public class CodeDaoImpl implements CodeDao{
 	}
 
 	@Override
-	public List<CodeDto> selectGroup(int myco) {
+	public List<CodeDto> selectGroup(int myco,int myteam) {
 		List<CodeDto> list = new ArrayList<CodeDto>();
-		
+		mypara para = new mypara(myco, myteam);
 		try {
-			list = sqlSession.selectList(NAMESPACE+"selectGroup",myco);
+			list = sqlSession.selectList(NAMESPACE+"selectGroup",para);
 		} catch (Exception e) {
 			System.out.println("[error]: select Group");
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import java.util.Date;
 public class CodeDto {
 	private int myno;
 	private int myco;
+	private int myteam;
 	private String myname;
 	private String mytitle;
 	private String mycoment;
@@ -14,10 +15,11 @@ public class CodeDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CodeDto(int myno, int myco, String myname, String mytitle, String mycoment, String mycontent, Date mydate) {
+	public CodeDto(int myno, int myco,int myteam, String myname, String mytitle, String mycoment, String mycontent, Date mydate) {
 		super();
 		this.myno = myno;
 		this.myco = myco;
+		this.myteam = myteam;
 		this.myname = myname;
 		this.mytitle = mytitle;
 		this.mycoment = mycoment;
@@ -29,6 +31,12 @@ public class CodeDto {
 	}
 	public void setMyno(int myno) {
 		this.myno = myno;
+	}
+	public int getMyteam() {
+		return myteam;
+	}
+	public void setMyteam(int myteam) {
+		this.myteam = myteam;
 	}
 	public int getMyco() {
 		return myco;
