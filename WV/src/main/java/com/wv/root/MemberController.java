@@ -2,7 +2,6 @@ package com.wv.root;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +24,6 @@ import com.wv.root.model.biz.MemberBiz;
 import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
-import com.wv.root.model.util.MailHandler;
 
 @Controller
 public class MemberController {
@@ -53,11 +50,31 @@ public void getRegister() throws Exception {
 @RequestMapping(value = "register.do", method = RequestMethod.POST)
 public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, MemberDto dto) throws Exception {
 	logger.info("post register");
+	MultipartFile pfimg = mtfRequest.getFile("member_pfimg");	
 	int result = biz.idChk(dto);
 	try {
 		if(result == 1) {
 			return "register.do";
 		}else if(result == 0) {
+			if(pfimg.isEmpty()==false) {//이미지 있는지 확인
+				String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); //경로설정
+				String uid = UUID.randomUUID().toString().replaceAll("-", ""); //이미지이름 중복방지
+				String oriFileName = pfimg.getOriginalFilename(); //이미지 원래이름
+				String svaeFileName = uid +"_"+ oriFileName; //db에 경로저장할 이름
+				File uploadFile = new File(path+File.separator+svaeFileName);
+				try {
+					pfimg.transferTo(uploadFile);
+					dto.setMember_photo("images/"+svaeFileName); //객체에 이미지 경로 담아줌
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else {
+				String defaultimg = "images/user-profile.png";
+				dto.setMember_photo(defaultimg); // 디폴트이미지 설정
+				System.out.println(dto.getMember_photo());
+			}
 			biz.register(dto);
 		}
 		// 요기에서~ 입력된 아이디가 존재한다면 -> 다시 회원가입 페이지로 돌아가기 
@@ -66,29 +83,6 @@ public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, 
 		throw new RuntimeException();
 	}
 	return "redirect:/";
-	MultipartFile pfimg = mtfRequest.getFile("member_pfimg");	
-	if(pfimg.isEmpty()==false) {//이미지 있는지 확인
-		String path = mtfRequest.getSession().getServletContext().getRealPath("/images"); //경로설정
-		String uid = UUID.randomUUID().toString().replaceAll("-", ""); //이미지이름 중복방지
-		String oriFileName = pfimg.getOriginalFilename(); //이미지 원래이름
-		String svaeFileName = uid +"_"+ oriFileName; //db에 경로저장할 이름
-		File uploadFile = new File(path+File.separator+svaeFileName);
-		try {
-			pfimg.transferTo(uploadFile);
-			dto.setMember_photo("images/"+svaeFileName); //객체에 이미지 경로 담아줌
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}else {
-		String defaultimg = "images/user-profile.png";
-		dto.setMember_photo(defaultimg); // 디폴트이미지 설정
-		System.out.println(dto.getMember_photo());
-	}
-	biz.register(dto);
-
-	return "home";
 }
 
 //로그인
