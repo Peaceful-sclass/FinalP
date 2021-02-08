@@ -78,7 +78,7 @@
     		}
     		
     		if(textcon == "팀메인"){
-    			sidePost('team.do','${member.member_no}');
+    			 $("<form></form>").attr("method","post").attr("action","team.do").append($('<input/>',{type:'hidden',name:'member_no',value:'${member.member_no}'})).appendTo('body').submit();
     		} else if(textcon == "일정"){
     			location.href="shareCalendarList.do";
     		} else if(textcon == "시트"){

@@ -303,8 +303,8 @@ input[type="file"] {
 
 			  });
 
-			});
-}	
+		});
+	
 		
 	</script>
 
