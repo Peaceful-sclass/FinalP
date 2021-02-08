@@ -78,6 +78,7 @@
 		<form action="insertres.do" method="post">
 		<input type="hidden" name="myco" value="${myco }">
 		<input type="hidden" name="myname" value="${member.getMember_id() }">
+		<input type="hidden" name="myteam" value="${tno }">
 		<div class="container">
 			<div class="row">
 				<!-- 본문 상단 내용 -->
