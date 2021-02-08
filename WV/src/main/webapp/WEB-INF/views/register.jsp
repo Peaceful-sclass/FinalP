@@ -93,6 +93,10 @@
 	width: 200px;
 	border-radius: 2px;
 }
+#userEmail2 {
+	width: 200px;
+	border-radius: 2px;
+}
 
 #userGrade {
 	width: 140px;
@@ -226,6 +230,26 @@
 				}
 			});
 		}
+		//이메일형식
+		$(function(){	
+
+			$(document).ready(function(){
+
+				$('select[name=emailSelection]').change(function() {
+
+					if($(this).val()=="1"){
+
+						$('#userEmail2').val("");
+
+					} else {
+
+						$('#userEmail2').val($(this).val());
+
+						$("#userEmail2").attr("readonly", true);
+					}
+				});
+			});
+		});
 	</script>
 
 
@@ -267,18 +291,20 @@
 							<div>
 							<input class="form-control" type="text" id="userEmail"
 								name="member_email" placeholder="이메일 입력" style="display:inline-block;"/>@
-							 <select class="select" id="dm" title="이메일 도메인 주소 선택" onclick="setEmailDomain(this.value);return false;">
-								<option value="">-선택-</option>
-								<option value="naver.com">naver.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="hotmail.com">hotmail.com</option>
-								<option value="korea.com">korea.com</option>
-								<option value="nate.com">nate.com</option>
-								<option value="yahoo.com">yahoo.com</option>
-							</select>
+							<input class="form-control" type="text" id="userEmail2"
+								name="member_email" placeholder="도메인" style="display:inline-block;"/>							 
+                                 <select id="emailSelection" name="emailSelection">
+	                      	    	<option value="1" selected="selected">직접입력</option>
+	                    	 	    <option value="gmail.com">gmail.com</option>
+	                      		    <option value="naver.com">naver.com</option>
+		                         	<option value="hanmail.net">hanmail.net</option>
+		                         	<option value="yahoo.com">yahoo.com</option>
+		                         	<option value="daum.net">daum.net</option>
+		                         	<option value="nate.com">nate.com</option>
+		                         	<option value="dreamwiz.com">dreamwiz.com</option>
+	                          	</select>
                             </div>
-
+                            
 						</div>
 						<div class="form-group has-feedback" style="display: none">
 							<!-- 아직 사용안하는부분이라 숨김 -->

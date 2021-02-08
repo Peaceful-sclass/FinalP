@@ -150,23 +150,23 @@
                              <h1>회원수정</h1>
                              <br>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_id" id="f">아이디</label> <input
+							<label class="control-label" for="member_id" id="f" style="ime-mode:disabled">아이디</label> <input
 								class="form-control" type="text" id="userId" name="member_id"
 								value="${member.member_id}" readonly="readonly" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pw" id="f">패스워드 수정</label> <input
+							<label class="control-label" for="member_pw" id="f" style="ime-mode:disabled">패스워드 수정</label> <input
 								class="form-control" type="password" id="userPass"
 								name="member_pw" placeholder="바꾸실 패스워드 입력" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pwC" id="f">패스워드 확인</label> <input
+							<label class="control-label" for="member_pwC" id="f" style="ime-mode:disabled">패스워드 확인</label> <input
 								class="form-control" type="password" id="userPassC"
 								name="member_pw2" placeholder="패스워드확인" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
 						<div class="form-group has-feedback" style="display:none">
-							<label class="control-label" for="member_email" id="f" >이메일 수정</label> <input
+							<label class="control-label" for="member_email" id="f" style="ime-mode:disabled">이메일 수정</label> <input
 								class="form-control" type="text" id="userEmail"
 								name="member_email" value="${member.member_email}"
 								placeholder="바꾸실 이메일 입력" />
