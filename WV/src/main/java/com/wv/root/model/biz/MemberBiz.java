@@ -20,7 +20,7 @@ public interface MemberBiz {
 	
 	public void memberDelete(MemberDto dto) throws Exception;
 
-	public TeamDto teamInfo(int member_no);
+  public TeamDto teamInfo(int member_no);
 
 	public int passChk(MemberDto dto) throws Exception;
 
@@ -32,5 +32,5 @@ public interface MemberBiz {
 
 	public void sendpw(MemberDto dto, String pw) throws MessagingException, UnsupportedEncodingException;
 	
-
+    public int idChk(MemberDto dto) throws Exception;   
 }

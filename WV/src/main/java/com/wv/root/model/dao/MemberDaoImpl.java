@@ -57,10 +57,20 @@ public class MemberDaoImpl implements MemberDao {
 		return res;
 	}
 
+	//탈퇴 비번체크
+	@Override
 	public int passChk(MemberDto dto) throws Exception {
         int result = sql.selectOne("passChk", dto);
 		return result;
 	}
+  
+	//아이디 중복체크
+		@Override
+		public int idChk(MemberDto dto) throws Exception {
+			System.out.println(dto);
+			int result = sql.selectOne("idChk", dto);
+			return result;
+		}
 
 	@Override
 	public List <String> findid(String member_email) {
