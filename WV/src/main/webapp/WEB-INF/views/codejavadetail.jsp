@@ -101,7 +101,7 @@
 						<div class="dv-content">
 							
 								  
-								  <div><textarea style="border: 1px solid rgb(201, 169, 31); width: 100%; height: 100%;  " readonly="readonly">${dto.mycoment }</textarea> </div>
+								  <div><textarea style="border: 1px solid rgb(201, 169, 31); width: 100%; height: 100%;" readonly="readonly">${dto.mycoment }</textarea> </div>
 								  <div><textarea id="java-code">${dto.mycontent }</textarea> </div>
 							</div>
 						<input class="bt-write" type="button" value="목록" onclick="location.href='codemain.do'">
@@ -185,16 +185,6 @@
 		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
 		});
 		
-		var quill = new Quill('#editor-container', {
-		    modules: {
-		      formula: true,
-		      syntax: true,
-		      toolbar: '#toolbar-container'
-		    },
-		    contant: '내용을 입력해 주세요.',
-		    theme: 'snow',
-	        readOnly: true
-		});
 
 		
 	</script>
