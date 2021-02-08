@@ -93,6 +93,10 @@
 	width: 200px;
 	border-radius: 2px;
 }
+#userEmail2 {
+	width: 200px;
+	border-radius: 2px;
+}
 
 #member_pfname {
 	width: 200px;
@@ -263,7 +267,45 @@ input[type="file"] {
 				}
 			});
 		}
+		//이메일도메인가져오기
+		$(function(){	
+
+			$(document).ready(function(){
+
+				$('select[name=emailSelection]').change(function() {
+
+					if($(this).val()=="1"){
+
+						$('#userEmail2').val("");
+
+					} else {
+
+						$('#userEmail2').val($(this).val());
+
+						$("#userEmail2").attr("readonly", true);
+					}
+				});
+			});
+		});
 		
+		 //한글입력 안되게 처리
+		$(document).ready(function(){
+
+			  $("input[class=form-control]").keyup(function(event){ 
+
+			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+
+			    var inputVal = $(this).val();
+
+			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+
+			   }
+
+			  });
+
+			});
+
+		}	
 		
 	</script>
 
@@ -286,19 +328,19 @@ input[type="file"] {
 							<label class="control-label" for="member_id" id="f">아이디</label><!-- for는 member-mapper부분 -->
 							<div>
 							<input class="form-control" type="text" id="userId" style="display:inline-block"
-								name="member_id" maxlength="8" placeholder="8자이내 입력" required> <!-- required : 반드시입력되어야한다는 필드 -->
+								name="member_id" maxlength="8" placeholder="8자이내 영문,숫자 입력" required> <!-- required : 반드시입력되어야한다는 필드 -->
 						    <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>  
 						    </div>  
 						</div>
 						<div class="form-group has-feedback">
 							<label class="control-label" for="member_pw" id="f">패스워드</label>
 							<input class="form-control" type="password" id="userPass"
-								name="member_pw" placeholder="패스워드" />
+								name="member_pw" maxlength="8" placeholder="8자이내 영문,숫자 입력" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pwC" id="f">패스워드
-								확인</label> <input class="form-control" type="password" id="userPassC"
-								name="member_pw2" placeholder="패스워드확인" />
+							<label class="control-label" for="member_pwC" id="f">패스워드확인
+								</label> <input class="form-control" type="password" id="userPassC"
+								name="member_pw2" maxlength="8"  placeholder="8자이내 영문,숫자 입력" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
 						<div class="form-group has-feedback">
@@ -306,18 +348,20 @@ input[type="file"] {
 							<div>
 							<input class="form-control" type="text" id="userEmail"
 								name="member_email" placeholder="이메일 입력" style="display:inline-block;"/>@
-							 <select class="select" id="dm" title="이메일 도메인 주소 선택" onclick="setEmailDomain(this.value);return false;">
-								<option value="">-선택-</option>
-								<option value="naver.com">naver.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="hotmail.com">hotmail.com</option>
-								<option value="korea.com">korea.com</option>
-								<option value="nate.com">nate.com</option>
-								<option value="yahoo.com">yahoo.com</option>
-							</select>
+							<input class="form-control" type="text" id="userEmail2"
+								name="member_email" placeholder="도메인" style="display:inline-block;"/>							 
+                                 <select id="emailSelection" name="emailSelection">
+	                      	    	<option value="1" selected="selected">직접입력</option>
+	                    	 	    <option value="gmail.com">gmail.com</option>
+	                      		    <option value="naver.com">naver.com</option>
+		                         	<option value="hanmail.net">hanmail.net</option>
+		                         	<option value="yahoo.com">yahoo.com</option>
+		                         	<option value="daum.net">daum.net</option>
+		                         	<option value="nate.com">nate.com</option>
+		                         	<option value="dreamwiz.com">dreamwiz.com</option>
+	                          	</select>
                             </div>
-
+                            
 						</div>
 						<div class="form-group has-feedback">
 							<div class="control-label" id="f" style="margin-bottom: .5rem;">프로필사진</div> 
