@@ -2,8 +2,11 @@ package com.wv.root;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wv.root.model.biz.TeamBiz;
-import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.Email;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Controller
@@ -47,16 +50,17 @@ public class TeamController {
 		response.setContentType("text/html; charset=UTF-8;");
 		PrintWriter pw = response.getWriter();
 		int res = teambiz.createTeam(dto);
-		if(res == 11) {
-			pw.println("<script>toastr.success('같은 팀명이 있습니다.','팀이름 중복',{timeOut:5000});</script>");
+		model.addAttribute("createTeamRes", res);
+		if(res == 11) { //팀명중복.
+//			pw.println("<script>toastr.success('같은 팀명이 있습니다.','팀이름 중복',{timeOut:5000});</script>");
+			pw.println("<script>alert('같은 팀명이 있습니다.');</script>");
 			pw.flush();
 			return "teamcreate";
 		}
 		
-		if(res == 22) {
+		if(res == 22) { //팀생성됨.
 			request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
 		}
-		model.addAttribute("createTeamRes", res);
 //		pw.println("<script>alert('팀을 만들었습니다.');</script>");
 		//pw.println("<script>toastr.success('팀을 만들었습니다.','팀생성',{timeOut:5000});</script>");
 		//pw.flush();
@@ -65,9 +69,19 @@ public class TeamController {
 		//return "teamin";
 	}
 	
+	@RequestMapping(value = "team.do", method = RequestMethod.GET)
+	public String getTeamIN(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		logger.info("[team.do get]");
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("requestinfo1 ="+request.getRequestURI());
+		PrintWriter pw = response.getWriter();
+		pw.println("<script>alert('팀을 먼저 선택해주세요.');</script>");
+		pw.flush();
+		return "teamin";
+	}
 	@RequestMapping(value = "team.do", method = RequestMethod.POST)
-	public String teamIN(Model model, TeamMemberDto dto, HttpServletRequest request) {
-		logger.info("[Team Inner]");
+	public String postTeamIN(Model model, TeamMemberDto dto, HttpServletRequest request) {
+		logger.info("[team.do post]");
 		//팀원초대 신청(팀넘버/초대할아이디) - mail컨트롤러(조회:보낼 이메일주소,)
 		//- 코드발송 - 코드확인 - 코드입력(팀메뉴초기생성메뉴에서 코드로 팀가입)
 		//- 코드가 저장될 테이블이 필요?(pk, id[받은파람:input], mailcode, 해당팀no[받은파람]
@@ -81,10 +95,20 @@ public class TeamController {
 		
 		//멤버의 팀리스트를 갱신/로드(member_no필요)
 		request.getSession().setAttribute("team", teambiz.getTeamInfo(dto));//만든팀까지 합해서 갱신
+		/*
+		 * //첫페이지 진입시 필요한 기본 팀넘버,이름(멤버의 첫번째 팀을 강제로 선택) TeamMemberDto tmdto =
+		 * teambiz.getTeamInfo(dto).get(0); if(tmdto != null) {
+		 * request.getSession().setAttribute("teamInfo", tmdto);
+		 * System.out.println("[con:team]teamInfo.team_no: "+tmdto.getTeam_no());
+		 * //request.getSession().setAttribute("teamMember",
+		 * teambiz.getTeamMember(tmdto));//기본팀의 멤버리스트(tema_no) 또한 같이 추가 } else {
+		 * request.getSession().setAttribute("teamInfo", ""); }
+		 */
 		
 		return "teamin";
 	}
 	
+	//팀메인의 버튼
 	@RequestMapping(value ="teamcreateBT.do", method = RequestMethod.GET)
 	public String teamcreateBT(Model model, @RequestParam("member_id")String member_id) {
 		logger.info("[TEAM MAIN: Team Create BTClick]");
@@ -92,54 +116,108 @@ public class TeamController {
 		return "teamcreate";
 	}
 	
-	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
-	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
-		
-		
-		return "teamin";
-	}
+//	@RequestMapping(value ="teaminvite.do", method = RequestMethod.POST)
+//	public String teamInvite(Model model, @RequestParam("member_id")String member_id, @RequestParam("email")String email) {
+//		return "teamin";
+//	}
 	
 	//팀아이콘 클릭시 session에 전달해줄 정보(멤버리스트,팀번호/이름)
 	@RequestMapping(value ="teamicon.do", method = RequestMethod.POST)
 	@ResponseBody
-	public void teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
-		System.out.println("[dto]: "+dto);
+	public TeamMemberDto teamIcon(Model model, @RequestBody TeamMemberDto dto, HttpServletRequest request) {
+		System.out.println("[dto]: "+dto);			//team_no,team_name
 		List<TeamMemberDto> tmdto = teambiz.getTeamMember(dto);
-		TeamDto tmdtoinfo = new TeamDto();
+		TeamMemberDto tmdtoinfo = new TeamMemberDto();
 		tmdtoinfo.setTeam_no(dto.getTeam_no());
 		tmdtoinfo.setTeam_name(dto.getTeam_name());
 		request.getSession().setAttribute("teamMember", tmdto);//팀멤버리스트
 		request.getSession().setAttribute("teamInfo", tmdtoinfo);//팀번호/이름
-		//return "통신성공";
+		System.out.println("[teamicon.do] "+tmdtoinfo);
+		return tmdtoinfo;
 	}
 
+	//초대시 자신이 팀장인지 체크
+	@RequestMapping(value = "/chkteamLD.do", method = RequestMethod.GET)
+	@ResponseBody
+	public int chkteamLD(String member_id, int team_no){ //currId,teamno
+		logger.info("[Invite chkteamLD]");
+		Email edto = new Email();
+		edto.setMember_id(member_id);
+		edto.setTeam_no(team_no);
+		int res = teambiz.chkteamLD(edto); //팀장 체크
+		return res;
+	}
 	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String RegisterPost(TeamDto team,Model model,RedirectAttributes rttr) throws Exception{
-//    
-//        System.out.println("regesterPost 진입 ");
-//        teambiz.regist(team);
-//        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
-//        return "redirect:/";
-//    }
-//
-//    //이메일 인증 코드 검증
-//    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-//    public String emailConfirm(TeamDto team,Model model,RedirectAttributes rttr) throws Exception { 
-//        
-//        System.out.println("cont get user"+team);
-//        TeamDto dto = null;
-//        dto = teambiz.userAuth(team);
-//        if(dto == null) {
-//            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
-//            return "redirect:/";
-//        }
-//        //System.out.println("usercontroller vo =" +vo);
-//        model.addAttribute("login",dto);
-//        return "/user/emailConfirm";
-//    }
+	@RequestMapping(value = "invite.do", method = RequestMethod.POST)
+	@ResponseBody
+    public int invite(Email edto, HttpServletRequest request){
+		logger.info("[Invite Email]");//edto.getMember_id:초대받는ID
+		System.out.println("[con: invite.do] edto: "+edto);
+//		Email dto = new Email();
+//		if(request.getSession().getAttribute("teamInfo") instanceof TeamMemberDto ) {
+//			TeamMemberDto currentTeam = (TeamMemberDto)request.getSession().getAttribute("teamInfo");//현재 선택팀
+//			edto.setTeam_no(currentTeam.getTeam_no());//현재선택된Team
+//		} else if(request.getSession().getAttribute("teamInfo") instanceof Integer) {
+//			edto.setTeam_no((int)request.getSession().getAttribute("teamInfo"));//현재선택된Team
+//		}
+//		System.out.println("[con: invite.do] edto-setTeam_no후 : "+edto);
+		
+		int res = teambiz.chkISidinTeam(edto); //member_id,team_no //팀초대장 중복확인
+        try {
+        	if(res > 0) { //1이상이면 중복초대
+        		return res;
+        	}
+			teambiz.invite(edto); //member_id,team_no
+		} catch (UnsupportedEncodingException e) {
+			System.out.println("[invite.do:mail] 잘못된 인코딩 오류");
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			System.out.println("[invite.do:mail] 메세징오류");
+			e.printStackTrace();
+		}
+        return res;
+    }
 
+    //이메일 인증 코드 검증
+    @RequestMapping(value = "emailConfirm.do", method = RequestMethod.GET)
+    public String emailConfirm(Email edto,Model model,RedirectAttributes rttr) throws Exception { 
+    	logger.info("[emailConfirm]");
+        int res = 0;
+        res = teambiz.emailConfirm(edto);
+        if(res == 0) {
+            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
+            System.out.println("[con:emailConfirm] 초대실패");
+            return "redirect:rehome.do";
+        }
+        
+        rttr.addFlashAttribute("msg" , "초대 인증되었습니다. ");
+        return "redirect:rehome.do";
+    }
 
+    //팀정보누를시 팀원 목록
+    @RequestMapping(value= "teamManage.do", method= RequestMethod.POST)
+    @ResponseBody
+    public List<TeamMemberDto> teamManage(@RequestBody TeamMemberDto tmdto){
+    	logger.info("[con:teamManage]");				//memid,teamno
+    	List<TeamMemberDto> list = teambiz.getTeamMember(tmdto);
+    	
+    	return list;
+    }
+    
+    //팀정보에서 팀장의 변경 반영
+    @RequestMapping(value= "teamManageConfirm.do", method= RequestMethod.POST)
+    @ResponseBody
+    public int teamManageConfirm(@RequestBody List list){
+    	logger.info("[con:teamManageConfirm.do]");				//memid,teamno
+    	System.out.println(list);
+    	//System.out.println(list.get(0));
+    	//System.out.println(list.get(1));
+    	List<TeamMemberDto> list2  = (List<TeamMemberDto>) list.get(0);
+    	System.out.println(list2);
+    	int res = teambiz.teamManageConfirm(list);
+    	
+    	return res;
+    }
 		
 	
 }

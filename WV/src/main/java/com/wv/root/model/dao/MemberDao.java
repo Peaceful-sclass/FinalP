@@ -1,5 +1,7 @@
 package com.wv.root.model.dao;
 
+import java.util.List;
+
 import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto;
 
@@ -26,5 +28,9 @@ public interface MemberDao {
 
 	//아이디 중복체크
 		public int idChk(MemberDto dto) throws Exception;
+	public List <String> findid(String member_email);
+
+	public String findpw(MemberDto dto);
+	
 
 }

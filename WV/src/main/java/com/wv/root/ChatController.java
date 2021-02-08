@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.wv.root.model.biz.ChatBiz;
 import com.wv.root.model.dto.ChatDto;
 import com.wv.root.model.dto.MemberDto;
+import com.wv.root.model.dto.TeamDto;
+import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 import com.wv.root.model.util.chatajax;
 import com.wv.root.model.util.chatajaxres;
 
@@ -33,13 +35,19 @@ public class ChatController {
 	@Autowired
 	private ChatBiz biz;
 	@RequestMapping(value = "Chatting.do", method = RequestMethod.GET)
-	public String chatting(Model model) {
+	public String chatting(Model model,HttpServletRequest request) {
 		logger.info("chat");
 		
-		//지금 클릭한 채팅방 번호 넘겨줘야함
-		int chatting_no = 1;
+		HttpSession session = request.getSession();
 		
-		model.addAttribute("chatList", biz.chatList(chatting_no));
+		//지금들어온 팀의 팀번호를 넘겨줘야함
+		//int team_no= ((TeamDto)session.getAttribute("teamInfo")).getTeam_no();
+		
+		TeamMemberDto tdto = (TeamMemberDto)session.getAttribute("teamInfo");
+		int team_no= tdto.getTeam_no();
+		
+		
+		model.addAttribute("chatList", biz.chatList(team_no));
 		
 		
 		return "chat";
@@ -64,12 +72,14 @@ public class ChatController {
 	public JSONArray read_ajax(@RequestBody Map<String, Object> map,HttpServletRequest request){
 		logger.info("read_ajax");
 		
+		
 		HttpSession session = request.getSession();
-		String id = null;
+		
+		String member_id;
 		try {
-			id = ((MemberDto) session.getAttribute("member")).getMember_id();
+			member_id= ((MemberDto)session.getAttribute("member")).getMember_id();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			member_id = "";
 		}
 		
 		
@@ -80,9 +90,11 @@ public class ChatController {
 		List<chatajaxres> rlist = biz.chatajax(tmp);
 
 		JSONArray jlist = new JSONArray();
+		
 		JSONObject tmp2 = new JSONObject();
-		tmp2.put("session_id", id);
+		tmp2.put("member_id", member_id);
 		jlist.add(tmp2);
+
 		if(rlist.size()==0) {
 			return jlist;
 		}else {
@@ -91,6 +103,7 @@ public class ChatController {
 				ojt.put("member_id", rlist.get(i).getMember_id());
 				ojt.put("content", rlist.get(i).getContent());
 				ojt.put("regdate", rlist.get(i).getRegdate());
+				ojt.put("member_photo", rlist.get(i).getMember_photo());
 				
 				jlist.add(ojt);
 			}

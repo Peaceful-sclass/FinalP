@@ -6,6 +6,7 @@
   
 <mapper namespace="wvteam">
 	
+	<!-- 멤버가 속한 팀들 -->
 	<select id="memberSteam" parameterType="int" resultType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		select * 
 		from teammember tm join team t  ON tm.team_no = t.team_no
@@ -13,35 +14,110 @@
 		where m.member_no = #{member_no}
 	</select>
 	
+	<!-- 팀이름 중복체크 -->
 	<select id="redundantvalidation" parameterType="String" resultType="int">
 		select count(team_name)
 		from team where team_name = #{team_name}
 	</select>
 	
+	<!-- 팀의 멤버목록을 불러옴 -->
 	<select id="teamMember" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto" resultType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		select * 
 		from teammember tm join team t  ON tm.team_no = t.team_no
 		join mymember m  ON m.member_no = tm.member_no
 		where tm.team_no = #{team_no}
+		order by decode(substr(grade_inteam,0,2),'팀장',grade_inteam), decode(substr(grade_inteam,0,2),'매니',grade_inteam)
 	</select>
 	
+	<!-- 팀생성 -->	
 	<insert id="createTeam" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
 		insert all
 		into team values(teamseq.nextval, #{team_name}, #{team_intro})
 		into teammember values(teammemberseq.nextval, #{member_no}, teamseq.currval, '팀장')
 		select * from dual
 	</insert>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+
+
+<!-- 팀초대 관련 query -->
+	<!-- 멤버인지 확인 -->
+	<select id="chkISmemberInTeam" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teammember
+		where member_no = (select member_no from mymember where member_id = #{member_id}) and team_no = #{team_no}
+	</select>
+	
+	<!-- 팀초대시 회원에게 해당팀 초대장이 db에 있는지 확인.(초대장을 이미 보냈는지?) -->
+	<select id="chkISidinTeam" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teamcode
+		where teammember_id = #{member_id} and team_no = #{team_no}
+	</select>
+	
+	<!-- 팀장체크 -->
+	<select id="chkteamLD" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teammember tm join mymember m ON tm.member_no = m.member_no 
+		where grade_inteam = '팀장' and member_id = #{member_id} and team_no = #{team_no}
+	</select>
+	<!-- 팀장체크2 매니저인지 체크 -->
+	<select id="chkteamLD2" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*)
+		from teammember tm join mymember m ON tm.member_no = m.member_no 
+		where grade_inteam = '매니저' and member_id = #{member_id} and team_no = #{team_no}
+	</select>
+	
+	<!-- 초대할 사람 email주소 얻기 -->
+	<select id="ivEmailone" parameterType="String" resultType="String">
+		select member_email
+		from mymember where member_id = #{member_id}
+	</select>
+	
+	<!-- email초대장 검증confirm -->
+	<select id="emailConfirm" parameterType="com.wv.root.model.dto.TeamDto$Email" resultType="int">
+		select count(*) from teamcode
+		where  teammember_id = #{member_id} and team_no = #{team_no} and code = #{code}	
+	</select>
+	
+	<!-- 팀초대장 정보 생성 -->
+	<insert id="createCode" parameterType="hashmap">
+		insert into
+		teamcode values(teamcodenoseq.nextval, #{email.member_id}, #{email.team_no}, #{code}, sysdate)
+	</insert>
+	
+	<!-- 팀탈퇴시 초대장 수동 삭제 -->
+	<delete id="delcode" parameterType="com.wv.root.model.dto.TeamDto$Email">
+		delete from teamcode
+		where member_id = #{teammember_id} and team_no = #{team_no}
+	</delete>
+	
+	<!-- 초대장 인증시 팀원으로 추가 -->
+	<insert id="teamMemberConfirm" parameterType="com.wv.root.model.dto.TeamDto$Email">
+		insert into teammember
+		values(teammemberseq.nextval, (select member_no from mymember where member_id = #{member_id}),
+		 #{team_no}, '팀원')
+	</insert>
 	
 	
+	
+<!-- 팀정보 팀 변경 관련 -->
+	<!-- 등급조정 -->	
+ 	<update id="teamManageConfirm1" parameterType="list">
+		<foreach collection="list" item="dtoG" index="index" open="DECLARE BEGIN" separator=";" close="; END;">
+			update teammember set grade_inteam = #{dtoG.grade_inteam}
+			where team_no= #{dtoG.team_no} and member_no = #{dtoG.member_no} 
+		</foreach>
+	</update>
+
+	<!-- 팀원제외 -->
+	<delete id="teamManageConfirm2" parameterType="list">
+		<foreach collection="list" item="dtoD" index="index" open="DECLARE BEGIN" separator=";" close="; END;">
+			delete from teammember
+			where team_no= #{dtoD.team_no} and member_no in 
+				<foreach collection="list" item="dtoD2" index="index2" open="(" separator="," close=")">
+				 	#{dtoD2.member_no}
+				</foreach>
+		</foreach>
+	</delete>
 	
 </mapper>

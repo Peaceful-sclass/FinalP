@@ -28,7 +28,7 @@
 	
 	<insert id="insert" parameterType="ContestDto">
 		INSERT INTO CONTEST
-		VALUES(CONTESTSEQ.NEXTVAL, #{contestname}, #{contestagent}, #{contestsupervision}, #{contesupport}, #{contestfield}, #{contesttarget}, #{contestcompany}, #{contestreward}, #{conteststart}, #{contestend}, #{contestcontent}, #{contestposter}, #{contestsvaefilename}, #{contestorifilename}, #{contestpage}, #{contestperson}, #{contestphone}, #{contestemail}, #{memberno})
+		VALUES(CONTESTSEQ.NEXTVAL, #{contestname}, #{contestagent}, #{contestsupervision, jdbcType = VARCHAR}, #{contesupport, jdbcType = VARCHAR}, #{contestfield}, #{contesttarget}, #{contestcompany}, #{contestreward}, #{conteststart}, #{contestend}, #{contestcontent}, #{contestposter, jdbcType = VARCHAR}, #{contestsvaefilename, jdbcType = VARCHAR}, #{contestorifilename, jdbcType = VARCHAR}, #{contestpage, jdbcType = VARCHAR}, #{contestperson}, #{contestphone}, #{contestemail}, #{memberno})
 	</insert>
 	
 	<select id="selectOne" parameterType="int" resultType="ContestDto">
@@ -125,5 +125,20 @@
 					)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-
+	
+	<select id="homeclist" resultMap="ContestMap">
+		SELECT * FROM CONTEST WHERE ROWNUM &lt;=12
+		ORDER BY CONTESTNUM DESC
+	</select>
+	
+	<delete id="contestdelete" parameterType="int">
+		DELETE FROM CONTEST WHERE CONTESTNUM = #{contestnum}
+	</delete>
+	
+	<update id="updatecontest" parameterType="ContestDto">
+		UPDATE CONTEST
+		SET CONTESTNAME = #{contestname}, CONTESTAGENT =  #{contestagent}, CONTESTSUPERVISION = #{contestsupervision, jdbcType = VARCHAR}, CONTESUPPORT =  #{contesupport, jdbcType = VARCHAR}, CONTESTFIELD = #{contestfield}, CONTESTTARGET = #{contesttarget}, CONTESTCOMPANY = #{contestcompany}, CONTESTREWARD = #{contestreward}, CONTESTSTART = #{conteststart}, CONTESTEND = #{contestend}, CONTESTCONTENT = #{contestcontent}, CONTESTPOSTER = #{contestposter, jdbcType = VARCHAR}, CONTESTSVAEFILENAME = #{contestsvaefilename, jdbcType = VARCHAR}, CONTESTORIFILENAME = #{contestorifilename, jdbcType = VARCHAR}, CONTESTPAGE = #{contestpage, jdbcType = VARCHAR}, CONTESTPERSON = #{contestperson}, CONTESTPHONE = #{contestphone}, CONTESTEMAIL = #{contestemail}
+		WHERE CONTESTNUM = #{contestnum}
+	</update>
+	
 </mapper>

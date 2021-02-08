@@ -1,5 +1,6 @@
 package com.wv.root.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -70,6 +71,30 @@ public class MemberDaoImpl implements MemberDao {
 			int result = sql.selectOne("idChk", dto);
 			return result;
 		}
+
+	@Override
+	public List <String> findid(String member_email) {
+		List <String> res = new ArrayList<String>();
+		try {
+			res = sql.selectList("findid", member_email);
+		} catch (Exception e) {
+			System.out.println("findid error");
+			e.printStackTrace();
+		}		
+		return res;
+	}
+
+	@Override
+	public String findpw(MemberDto dto) {
+		String res = null;
+		try {
+			res = sql.selectOne("findpw", dto);
+		} catch (Exception e) {
+			System.out.println("findpw error");
+			e.printStackTrace();
+		}	
+		return res;
+	}
 
 }
 

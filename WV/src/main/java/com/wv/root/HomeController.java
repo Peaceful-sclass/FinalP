@@ -32,8 +32,8 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
-
-		return "home";
+		
+		return "redirect:homeClist.do";
 	}
 
 	@RequestMapping(value = "sidemenuex.do", method = RequestMethod.GET)

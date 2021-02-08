@@ -8,18 +8,27 @@ public class SBCommentDto {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private String member_photo;
 	public SBCommentDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SBCommentDto(int rno, int bno, String content, String writer, Date regdate) {
+	public String getMember_photo() {
+		return member_photo;
+	}
+	public void setMember_photo(String member_photo) {
+		this.member_photo = member_photo;
+	}
+	public SBCommentDto(int rno, int bno, String content, String writer, Date regdate, String member_photo) {
 		super();
 		this.rno = rno;
 		this.bno = bno;
 		this.content = content;
 		this.writer = writer;
 		this.regdate = regdate;
+		this.member_photo = member_photo;
 	}
+	
 	public int getRno() {
 		return rno;
 	}
