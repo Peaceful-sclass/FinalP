@@ -102,9 +102,8 @@ public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, Redi
 	
 	if(login == null) {
 		session.setAttribute("member", null);
-		session.setAttribute("msg", false); //컨트롤러값 header로 뿌리기
+		rttr.addFlashAttribute("msg", false); //컨트롤러값 header로 뿌리기
 	}else {
-		session.setAttribute("msg", true);
 		session.setAttribute("member", login);
 		session.setAttribute("teamInfo", null);
 		List<TeamMemberDto> team = biz.teamInfo(login.getMember_no()).getTmlist();
@@ -114,8 +113,9 @@ public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, Redi
 		//OnlineTM 설정
 		SessionConfig.setOnlineTM(session.getId(), login.getMember_id());
 	}
+	String referer = req.getHeader("Referer"); //원래 페이지로 이동
 	
-	return "redirect:/";
+	return "redirect:"+referer;
 	// "redirect:/" /로 돌아가기
 }
 
