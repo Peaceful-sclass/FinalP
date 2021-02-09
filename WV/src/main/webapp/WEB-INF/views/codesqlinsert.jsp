@@ -200,15 +200,7 @@
 		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
 		});
 		
-		var quill = new Quill('#editor-container', {
-		    modules: {
-		      formula: true,
-		      syntax: true,
-		      toolbar: '#toolbar-container'
-		    },
-		    contant: '내용을 입력해 주세요.',
-		    theme: 'snow'
-		});
+		
 
 	</script>
 	
