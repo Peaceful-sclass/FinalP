@@ -65,7 +65,7 @@
 	function findid() {
 		var member_email = $("#userEmail").val();
 		if(!member_email){
-			alert("이메일을 입력해주세요");
+			toastr.warning("이메일을 입력해 주세요.", "Error",{tiemOut:5000});
 			return;
 		}
 		console.log(member_email);
@@ -74,9 +74,9 @@
 			url:"findid.do?member_email="+member_email,
 			success:function(msg){
 				if(msg){
-					alert(member_email+" 으로 아이디가 발송되었습니다.");
+					toastr.success(member_email+" 으로<br> 아이디가 발송되었습니다.", "아이디 찾기",{tiemOut:5000});
 				}else{
-					alert(member_email+" 으로 가입된 아이디가 없습니다.")
+					toastr.warning(member_email+" 으로<br> 가입된 아이디가 없습니다.", {tiemOut:5000});
 				}
 			},
 			error:function(){
@@ -88,11 +88,11 @@
 		var member_email2 = $("#userEmail2").val();
 		var member_id = $("#userId").val();
 		if(!member_id){
-			alert("아이디를 입력해주세요");
+			toastr.warning("아이디를 입력해 주세요.", {tiemOut:5000});
 			return;
 		}
 		if(!member_email2){
-			alert("이메일을 입력해주세요");
+			toastr.warning("이메일을 입력해 주세요.", {tiemOut:5000});
 			return;
 		}
 		$.ajax({
@@ -101,9 +101,9 @@
 			data: {"member_id" : member_id, "member_email": member_email2},
 			success:function(msg2){
 				if(msg2){
-					alert(member_email2+" 으로 비밀번호가 발송되었습니다.");
+					toastr.success(member_email+" 으로<br> 비밀번호가 발송되었습니다.", "비밀번호 찾기",{tiemOut:5000});
 				}else{
-					alert("아이디 또는 이메일이 잘못되었습니다.");
+					toastr.warning("아이디 또는 이메일이 잘못되었습니다.", {tiemOut:5000});
 				}
 			},
 			error:function(){
