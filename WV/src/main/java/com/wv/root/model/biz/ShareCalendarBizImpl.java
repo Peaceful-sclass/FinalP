@@ -29,4 +29,9 @@ public class ShareCalendarBizImpl implements ShareCalendarBiz{
 		return dao.delete(dto);
 	}
 
+	@Override
+	public String selectTeamGrade(CalendarDto dto) {
+		return dao.selectTeamGrade(dto);
+	}
+
 }

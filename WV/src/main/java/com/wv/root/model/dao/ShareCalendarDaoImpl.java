@@ -15,13 +15,28 @@ public class ShareCalendarDaoImpl implements ShareCalendarDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	@Override
+	public String selectTeamGrade(CalendarDto dto) {
+		String result=null;
+		
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"gradeCheck", dto);
+		} catch (Exception e) {
+			System.out.println("[error]: selectEvent");
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	
 	@Override
 	public List<CalendarDto> selectEvent(int teamno) {
 		
 		List<CalendarDto> list = new ArrayList<CalendarDto>();
-		
 		try {
+			//result = sqlSession.selectOne(NAMESPACE+"gradeCheck", teamno);
+					//sqlSession.selectList(NAMESPACE+"gradeCheck", teamno);
 			list = sqlSession.selectList(NAMESPACE+"selectEvent", teamno);
 		} catch (Exception e) {
 			System.out.println("[error]: selectEvent");
@@ -61,5 +76,8 @@ public class ShareCalendarDaoImpl implements ShareCalendarDao{
 		
 		return res;
 	}
+
+
+
 
 }
