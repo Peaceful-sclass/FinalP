@@ -192,9 +192,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode}">
+						  	<c:forEach var="dto" items="${listcode}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.current } </th>
 							      <c:choose>
 							      	<c:when test="${dto.myco eq '1'}">
 							      		<td class="cm-txt-center">Dao</td>
