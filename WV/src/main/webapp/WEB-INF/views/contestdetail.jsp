@@ -82,7 +82,7 @@
 			<div class="tit">상세내용</div>
 			<div class="comm-desc" id="viewContents">
 				<p>${contest.contestcontent }</p>
-				<p><c:if test="${null ne contest.contestposter}"><img src="images/${contest.contestposter}" style="width: 50%; margin-left: 10%; margin-right: 10%"><br style="clear:both;">&nbsp;</c:if></p></div>
+				<p><c:if test="${null ne contest.contestposter}"><img src="images/${contest.contestposter}" style="width: 60%; margin-left: 10%; margin-right: 10%"><br style="clear:both;">&nbsp;</c:if></p></div>
 		</div>
 		<div class="event-notice conte">
 			<div>
