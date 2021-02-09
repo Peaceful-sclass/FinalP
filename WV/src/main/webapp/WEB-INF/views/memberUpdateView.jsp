@@ -28,11 +28,13 @@
 	color: white;
 	border-radius: 2px;
 }
+
 #cc:hover {
 	background: #bebebe;
 	color: #f8f9fa;
 	border-radius: 2px;
 }
+
 #userPassC:hover {
 	background: #DB631F;
 	color: white;
@@ -46,6 +48,12 @@
 #userGrade:hover {
 	background: #DB631F;
 	color: white;
+}
+
+#memberDeleteBtn:hover {
+	background: #DB631F;
+	color: white;
+	border-radius: 2px;
 }
 
 #userId {
@@ -63,20 +71,31 @@
 #userEmail {
 	width: 200px;
 }
+
 #submit {
-      background-color: white;
-      color: #DB631F;
-      font-weight: bold;
-      border-style:solid;
-      border-color: #DB631F;
-      border-radius: 2px;
+	background-color: white;
+	color: #DB631F;
+	font-weight: bold;
+	border-style: solid;
+	border-color: #DB631F;
+	border-radius: 2px;
 }
+
+#memberDeleteBtn {
+	background-color: white;
+	color: #DB631F;
+	font-weight: bold;
+	border-style: solid;
+	border-color: #DB631F;
+	border-radius: 2px;
+}
+
 #cc {
-      border-style: #DB631F;
-      background-color: #f8f9fa;
-      font-weight: bold;
-      border-style:solid;
-      border-radius: 2px;
+	border-style: #DB631F;
+	background-color: #f8f9fa;
+	font-weight: bold;
+	border-style: solid;
+	border-radius: 2px;
 }
 
 #f {
@@ -87,31 +106,35 @@
 .col-8 {
 	left: 220px;
 }
-.filelabel{
+
+.filelabel {
 	display: inline-block;
-    padding: 1px 6px;
-    vertical-align: middle;
-    cursor: pointer;    
-    background-color: white;
-    color: #DB631F;
-    font-weight: bold;
-    border: 2px solid #DB631F;
-    border-radius: 2px;
-    margin: 1% 0px 0px 1%;
+	padding: 1px 6px;
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: white;
+	color: #DB631F;
+	font-weight: bold;
+	border: 2px solid #DB631F;
+	border-radius: 2px;
+	margin: 1% 0px 0px 1%;
 }
+
 .filelabel:hover {
 	background: #DB631F;
 	color: white;
 	border-radius: 2px;
 }
+
 input[type="file"] {
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
 }
+
 #member_pfname {
 	width: 200px;
 	border-radius: 2px;
@@ -189,51 +212,62 @@ input[type="file"] {
 			  });
 
 			});
+		 //회원탈퇴 이동
+		$("#memberDeleteBtn").on("click", function(){
+			location.href="dest.do";
+		})
 		</script>
 
 	<div class="menu-box">
 
 		<div class="container">
-			<form action="memberUpdate.do" method="post" enctype="multipart/form-data">
+			<form action="memberUpdate.do" method="post"
+				enctype="multipart/form-data">
 
 				<div class="row">
 					<div class="col-2"></div>
 					<div class="col-8">
-                             <h1>회원수정</h1>
-                             <br>
+						<h1>회원수정</h1>
+						<br>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_id" id="f" style="ime-mode:disabled">아이디</label> <input
+							<label class="control-label" for="member_id" id="f"
+								style="ime-mode: disabled">아이디</label> <input
 								class="form-control" type="text" id="userId" name="member_id"
 								value="${member.member_id}" readonly="readonly" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pw" id="f" style="ime-mode:disabled">패스워드 수정</label> <input
+							<label class="control-label" for="member_pw" id="f"
+								style="ime-mode: disabled">패스워드 수정</label> <input
 								class="form-control" type="password" id="userPass"
 								name="member_pw" maxlength="8" placeholder="8자이내 영문,숫자 입력" />
 						</div>
 						<div class="form-group has-feedback">
-							<label class="control-label" for="member_pwC" id="f" style="ime-mode:disabled">패스워드 확인</label> <input
+							<label class="control-label" for="member_pwC" id="f"
+								style="ime-mode: disabled">패스워드 확인</label> <input
 								class="form-control" type="password" id="userPassC"
 								name="member_pw2" maxlength="8" placeholder="8자이내 영문,숫자 입력" />
 							<p id="pwsame" style="color: red;"></p>
 						</div>
-						<div class="form-group has-feedback" style="display:none">
-							<label class="control-label" for="member_email" id="f" style="ime-mode:disabled">이메일 수정</label> <input
+						<div class="form-group has-feedback" style="display: none">
+							<label class="control-label" for="member_email" id="f"
+								style="ime-mode: disabled">이메일 수정</label> <input
 								class="form-control" type="text" id="userEmail"
 								name="member_email" value="${member.member_email}"
 								placeholder="바꾸실 이메일 입력" />
 						</div>
 						<div class="form-group has-feedback">
-							<div class="control-label" id="f" style="margin-bottom: .5rem;">프로필사진</div> 
-							<input type="text" class="form-control" id="member_pfname" value="" readonly="readonly">
-							<label for="member_pfimg" class="filelabel">파일선택</label> 
-  							<input type="file" name="member_pfimg" id="member_pfimg"  accept="image/*">  
+							<div class="control-label" id="f" style="margin-bottom: .5rem;">프로필사진</div>
+							<input type="text" class="form-control" id="member_pfname"
+								value="" readonly="readonly"> <label for="member_pfimg"
+								class="filelabel">파일선택</label> <input type="file"
+								name="member_pfimg" id="member_pfimg" accept="image/*">
 						</div>
 						<div class="form-group has-feedback">
 							<button type="submit" id="submit">회원정보수정</button>
+							<button type="button" id="memberDeleteBtn">회원탈퇴</button>
 							<button type="button" id="cc">취소</button>
 						</div>
-						
+
 
 
 					</div>

@@ -131,13 +131,6 @@
 	          color: white;
 	          border-radius: 2px;
 	      }
-	      
-	      #memberDeleteBtn:hover{
-	          background:#DB631F;
-	          color: white;
-	          border-radius: 2px;
-	      }	
-	      
 	      #outBtn:hover{
 	          background:#DB631F;
 	          color: white;
@@ -193,13 +186,7 @@
 		         border-style:none;	
 		         background-color:  #f8f9fa;
 		   }
-		   #memberDeleteBtn{
-		         width:60px;
-		         height: 25px;	
-		         font-size: 5px;	
-		         border-style:none;
-		         background-color:  #f8f9fa;
-		   }		   		   
+	   		   
 		   #outBtn{
 		         width:60px;
 		         height: 25px;	
@@ -217,9 +204,7 @@
 		$("#outBtn").on("click", function(){
 			teamSeSinfoRemove();
 			location.href="logout.do";
-
 		})
-		
 		$("#registerBtn").on("click", function(){
 			location.href="register.do";
 		})
@@ -231,6 +216,13 @@
 		$("#memberDeleteBtn").on("click", function(){
 			location.href="dest.do";
 		})
+		
+		
+		
+		
+		
+		
+		
 		
 		//NAV BAR 선택CSS
 		let cmd = window.location.pathname;
@@ -253,7 +245,7 @@
 				ulnav[0].classList.add('active');
 			}
 		}
-	});
+	});//위에괄호
 
 	
 	//팀
@@ -329,16 +321,36 @@
 			</div>
 		</c:if>
 		<c:if test="${member != null }">
+		    
 			<div>
-			<p style="position: fixed; top: 5px; right: 210px; font-size: 13; ">${member.member_id}님 환영합니다 </p>
-				<button style="position: fixed; top: 5px; right: 140px;" id="memberUpdateBtn" type="button">회원수정</button>
-				<!-- function빼고 해보기 
-				<span><a href="memberUpdateView"><button type="button">회원정보수정</button></a></span>-->
-				<button  style="position: fixed; top: 5px; right: 75px;" id="memberDeleteBtn" type="button">회원탈퇴</button>
+			<p style="position: fixed; top: 5px; right: 140px; font-size: 13; ">${member.member_id}님 환영합니다 </p>
+				<button style="position: fixed; top: 5px; right: 75px;" id="memberUpdateBtn" type="button">내정보</button>
+				<!-- <button  style="position: fixed; top: 5px; right: 75px;" id="memberDeleteBtn" type="button">회원탈퇴</button> -->
 				<button style="position: fixed; top: 5px; right: 10px;" id="outBtn" type="button">로그아웃</button>
 			</div>
 		</c:if>
-              
+		<!-- select로 바꿔서 버튼 지움 -->
+           <!-- <div>
+			<p style="position: fixed; top: 5px; right: 210px; font-size: 13; ">${member.member_id}님 환영합니다 </p>
+				<button style="position: fixed; top: 5px; right: 140px;" id="memberUpdateBtn" type="button">회원수정</button>
+				<button  style="position: fixed; top: 5px; right: 75px;" id="memberDeleteBtn" type="button">회원탈퇴</button>
+				<button style="position: fixed; top: 5px; right: 10px;" id="outBtn" type="button">로그아웃</button>
+			</div>  -->
+			<!-- 셀렉트 안하고 페이지이동으로 바꿔서 지움 
+        			<div>
+			<p style="position: fixed; top: 5px; right: 170px; font-size: 13; ">${member.member_id}님 환영합니다 </p>
+			    <select id="sel" onchange="window.open(value,'_self');" style="position: fixed; top: 5px; right: 80px; appearance:none; font-size: 5; border:none; width: 60; height: 25;  text-align-last: center;
+                       text-align: center;
+                       -ms-text-align-last: center;
+                       -moz-text-align-last: center;">
+	                      	    	<option selected="selected" style="display: none">내정보</option>
+	                    	 	    <option value="test.do">회원수정</option>
+	                      		    <option value="dest.do">회원탈퇴</option>
+	                          	</select>
+
+				<button style="position: fixed; top: 5px; right: 10px;" id="outBtn" type="button">로그아웃</button>
+			</div>
+			-->
                
 		  <c:if test="${msg == false}">     <!-- 컨트롤러값 아이디 패스워드 틀릴시-->
 		     <script type="text/javascript">
