@@ -78,7 +78,7 @@
 				$("#fileIndex").append("<div class='clearfix'><a href='#' id='filename_"+(++fileIndex)+"' onclick='return false;'><a><label for='file_"+(fileIndex)+"'>파일선택</label><input id='file_"+(fileIndex)+"' type='file' style='float:left;' name='file_"+(fileIndex)+"' onchange='changename("+fileIndex+")'>"+"<button type='button' class='btn btn-primary' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 			});
 			$(document).on("click","#fileDelBtn", function(){
-				$(this).parent().remove();
+				$(this).parent().parent().remove();
 				
 			});
 		}
