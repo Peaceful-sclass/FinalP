@@ -1,5 +1,6 @@
 package com.wv.root.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,6 +191,26 @@ public class ComunityDaoimpl implements ComunityDao {
 		}
 		return res;
 		
+	}
+
+	@Override
+	public List cmtCount(List cnolist) {
+		List res = new ArrayList<Integer>();
+		
+		try {
+			System.out.println("[DAO:cmtCount] param: "+cnolist);
+			for(int i=0; i<cnolist.size(); i++) {
+				int jj = (int)cnolist.get(i);
+				res.add(session.selectOne(NameSpace+"comunitysubview", jj ));
+				
+			}
+			System.out.println("[DAO:cmtCount] res: "+res);
+		} catch (Exception e) {
+			System.out.println("[DAO:cmtCount] fail load");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 	
 	
