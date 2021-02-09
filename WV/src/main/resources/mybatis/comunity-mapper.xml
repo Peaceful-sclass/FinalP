@@ -72,6 +72,8 @@
 		on m.member_no = c.member_no
 		where cno = #{cno}
 	</select>
+	
+	
 	<update id="viewsUp" parameterType="int">
 		update comunity set views = ( select views from comunity where cno = #{cno} )+1 
 		where cno = #{cno}
@@ -98,6 +100,12 @@
 		from comcomment c join mymember m	on c.member_no = m.member_no 
 		where cno = #{cno}
 		order by comcmtgroupno desc, comcmtgrpno
+	</select>
+	
+	<select id="comunitysubview" parameterType="int" resultType="int">
+			select count(comcmtno)
+			from comcomment
+			where cno = #{int} 
 	</select>
 	
 	<insert id="comcmtinsert" parameterType="comcommentDto">

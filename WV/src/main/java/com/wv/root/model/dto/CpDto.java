@@ -34,6 +34,7 @@ public class CpDto {
 	public CpDto(int totalData, CpDto cpdto) {
 		super();
 		this.totalData = totalData;
+		this.dataPerPage = cpdto.getDataPerPage();
 		this.totalPage = (int)(Math.ceil((double)totalData/dataPerPage));
 		this.currentPage = cpdto.getCurrentPage();
 		this.pageGroup = (int)(Math.ceil((double)currentPage/pagePerscreen));

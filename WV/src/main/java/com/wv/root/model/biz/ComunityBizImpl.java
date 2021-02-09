@@ -1,5 +1,6 @@
 package com.wv.root.model.biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,10 @@ public class ComunityBizImpl implements ComunityBiz {
 	@Override
 	public int cmtAnswer(ComCommentDto comcmtdto) {
 		return comdao.cmtAnswer(comcmtdto);
+	}
+	@Override
+	public List cmtCount(List cnolist) {
+		return comdao.cmtCount(cnolist);
 	}
 	
 
