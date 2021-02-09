@@ -31,39 +31,7 @@
 	<link href="fullcalendar/main.css" rel="stylesheet" />
 	<script src="fullcalendar/main.js"></script>
 	<script>
-	var sessionTeamInfo;
-	window.onload = function(){
-		let session = "${member.member_id}"; //session login 확인
-		if(session == null || session == "" ||session == undefined ){
-			location.href = "home.do";
-		}
-		//팀아이콘배경랜덤
-		let tmiconbg = document.getElementsByClassName("why-text");
-		let bgcolor = {
-			1:"background: rgba(207, 166, 113, 0.9);",
-			2:"background: rgba(222, 255, 222, 0.9);",
-			3:"background: rgba(255, 222, 239, 0.9);",
-			4:"background: rgba(239, 222, 255, 0.9);",
-			5:"background: rgba(255, 255, 227, 0.9);",
-			6:"background: rgba(222, 222, 239, 0.9);",
-			7:"background: rgba(222, 255, 255, 0.9);",
-			8:"background: rgba(255, 222, 255, 0.9);",
-			9:"background: rgba(255, 255, 222, 0.9);",
-			10:"background: rgba(222, 222, 255, 0.9);",
-			11:"background: rgba(239, 222, 239, 0.9);",
-			12:"background: rgba(239, 239, 222, 0.9);"
-		}
-		for(let i=0; i<tmiconbg.length; i++){
-			let r = Math.floor(Math.random()*Object.keys(bgcolor).length)+1;
-			tmiconbg[i].setAttribute("style",bgcolor[r]);
-			//tmiconbg[i].style.background = bgcolor[r];
-		}
-		
-		//페이지 로드시 기본팀 선택
-		let basicTeamNo = "${teamInfo.team_no}";
-		teamSelectionCSS(basicTeamNo);
-		
-	}
+	
 	
 	//팀 사이드 메뉴 클릭 시 동작 설정  << 각자 적기 
 	function teamSide(param){
@@ -227,7 +195,32 @@ body {
 						  	<c:forEach var="dto" items="${listcode}">
 							    <tr>
 							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
-							      <td class="cm-txt-center">Java</td>
+							      <c:choose>
+							      	<c:when test="${dto.myco eq '1'}">
+							      		<td class="cm-txt-center">Dao</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '2'}">
+							      		<td class="cm-txt-center">Dto</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '3'}">
+							      		<td class="cm-txt-center">Biz</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '4'}">
+							      		<td class="cm-txt-center">Controller</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '5'}">
+							      		<td class="cm-txt-center">Sql</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '6'}">
+							      		<td class="cm-txt-center">Js</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '7'}">
+							      		<td class="cm-txt-center">Css</td>
+							      	</c:when>
+							      	<c:when test="${dto.myco eq '8'}">
+							      		<td class="cm-txt-center">Views</td>
+							      	</c:when>
+							      </c:choose>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
 							      <td class="cm-txt-center"><fmt:formatDate value="${dto.mydate}" pattern="yyyy.MM.dd" /></td>

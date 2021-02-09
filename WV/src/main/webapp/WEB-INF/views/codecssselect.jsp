@@ -75,9 +75,6 @@
 						<div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" >
 							<div class="menu-box" style="padding: 0px 0 0px 0px;">
 		<!-- write container Start -->
-		<form action="updateres.do" method="post">
-		<input type="hidden" name="myco" value="${dto.myco }">
-		<input type="hidden" name="myno" value="${dto.myno }">
 		<div class="container">
 			<div class="row">
 				<!-- 본문 상단 내용 -->
@@ -92,23 +89,24 @@
 					<div class="dv-header">
 						<div class="dv-subject2">
 							<span> </span> &nbsp; 
-							<span>${member.getMember_id() }</span> &nbsp;| &nbsp;
-							
+							<span>${dto.myname }</span> &nbsp;| &nbsp;
+							<span><fmt:formatDate value="${dto.mydate}" pattern="yyyy.MM.dd" /></span> &nbsp;| &nbsp;
 						</div>
 					<div class="dv-category">
 						<a>Title:</a>
-						<input class="dv-subject" type="text" name="mytitle" value="${dto.mytitle }" style="border: 1px solid rgba(239, 204, 135, 1); width: 45%;"/>
+						<input class="dv-subject" type="text" name="title" value="${dto.mytitle }" readonly="readonly" style="border: 1px solid rgba(239, 204, 135, 1); width: 45%;"/>
 					</div>
 					<!-- 내용 입력-->
 					<div class="dv-middle">
 						<div class="dv-content">
+							
 								  
-								  <div><textarea style="border: 1px solid rgb(201, 169, 31); width: 100%; height: 100%;" name="mycoment" >${dto.mycoment }</textarea> </div>
-								  <div><textarea id="code" name="mycontent">${dto.mycontent }</textarea> </div>
+								  <div><textarea style="border: 1px solid rgb(201, 169, 31); width: 100%; height: 100%;"  readonly="readonly">${dto.mycoment }</textarea> </div>
+								  <div><textarea id="code">${dto.mycontent }</textarea> </div>
 							</div>
-	
-							<input class="bt-write" type="button" value="취소" onclick="location.href='codemain.do'">
-							<input class="bt-write" type="submit" value="완료">						
+						<input class="bt-write" type="button" value="목록" onclick="location.href='codemain.do'">
+						<input class="bt-write" type="button" value="수정" onclick="location.href='updateform.do?myno=${dto.myno}&&myco=${dto.myco}'">
+						<input class="bt-write" type="button" value="삭제" onclick="location.href='delete.do?myno=${dto.myno}&&myco=${dto.myco}'">
 						</div>
 						
 						<!-- <textarea class="dv-textarea" name="dv-content-ta" cols="300" rows="900"></textarea> -->
@@ -124,9 +122,8 @@
 		</div>
 		<!-- write container End -->
 			
-			</form>
-	</div>	
 			
+	</div>			
 						</div>
 						
 						
@@ -176,8 +173,10 @@
 		
 	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         extraKeys: {"Ctrl-Space": "autocomplete"},
-        lineNumbers: true
+        lineNumbers: true,
+        readOnly: true
       });
+     
       hljs.configure({
 		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
 		});

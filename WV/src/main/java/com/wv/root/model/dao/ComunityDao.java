@@ -1,5 +1,6 @@
 package com.wv.root.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wv.root.model.dto.ComCommentDto;
@@ -22,6 +23,7 @@ public interface ComunityDao {
 	int cmtUpdate(ComCommentDto comcmtdto);
 	int cmtDelete(int comcmtno);
 	int cmtAnswer(ComCommentDto comcmtdto);
+	List cmtCount(List cnolist);
 	
 	
 	

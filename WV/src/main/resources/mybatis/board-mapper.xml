@@ -8,6 +8,7 @@
 	<resultMap type="codeDto" id="codeMap">
 		<result property="myno" column="MYNO" />
 		<result property="myco" column="MYCO" />
+		<result property="myteam" column="MYTEAM" />
 		<result property="myname" column="MYNAME" />
 		<result property="mytitle" column="MYTITLE" />
 		<result property="mycoment" column="MYCOMENT" />
@@ -16,8 +17,9 @@
 	</resultMap>
 	
 	<select id="selectList" resultMap="codeMap">
-		SELECT MYNO, MYCO, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
+		SELECT MYNO, MYCO,MYTEAM, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
 		FROM MYCO
+		WHERE MYTEAM = #{myteam}
 		ORDER BY MYNO DESC
 	</select>
 	
@@ -27,15 +29,15 @@
 		WHERE MYNO = #{myno}
 	</select>
 	
-	<select id="selectGroup" resultMap="codeMap">
-		SELECT MYNO, MYCO, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
+	<select id="selectGroup" resultMap="codeMap" parameterType="com.wv.root.model.dao.mypara">
+		SELECT MYNO, MYCO,MYTEAM, MYNAME, MYTITLE,MYCOMENT, MYCONTENT, MYDATE
 		FROM MYCO
-		WHERE MYCO = #{myco}
+		WHERE MYCO = #{myco} AND MYTEAM = #{myteam}
 	</select>
 	
 	<insert id="insert" parameterType="codeDto">
 		INSERT INTO MYCO
-		VALUES(MYCODE.NEXTVAL,#{myco}, #{myname}, #{mytitle}, #{mycoment}, #{mycontent}, SYSDATE) 
+		VALUES(MYCODE.NEXTVAL,#{myco},#{myteam}, #{myname}, #{mytitle}, #{mycoment}, #{mycontent}, SYSDATE) 
 	
 	</insert>
 	
