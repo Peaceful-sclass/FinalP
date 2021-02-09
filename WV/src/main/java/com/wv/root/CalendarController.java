@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wv.root.model.biz.ShareCalendarBiz;
 import com.wv.root.model.dto.CalendarDto;
+import com.wv.root.model.dto.MemberDto;
 import com.wv.root.model.dto.TeamDto.TeamMemberDto;
 
 @Controller
@@ -30,14 +31,26 @@ public class CalendarController {
 	public String shareCalendarList(Locale locale, Model model, HttpServletRequest httpServletRequest) {
 		logger.info("Calendar List");
 		HttpSession session = httpServletRequest.getSession();
-		
+		int mem_no = ((MemberDto) session.getAttribute("member")).getMember_no();
 		int team_no= ((TeamMemberDto)session.getAttribute("teamInfo")).getTeam_no();
+		
+		CalendarDto dto = new CalendarDto(team_no, mem_no);
+		
+		String result = biz.selectTeamGrade(dto);
+		
+		System.out.println("등급"+result);
+		
+		if(result.equals("팀장")) {
+			model.addAttribute("list", biz.selectEvent(team_no));
+			return "shareCalendar";
+		}else {
+			model.addAttribute("list", biz.selectEvent(team_no));
+			return "shareCalendar2";
+		}
 		
 		
 		//팀 넘버가 1일 경우
-		model.addAttribute("list", biz.selectEvent(team_no));
 
-		return "shareCalendar";
 	}
 	
 	//일정 추가하기

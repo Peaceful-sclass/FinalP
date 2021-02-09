@@ -6,6 +6,8 @@ public class CalendarDto {
 	private String calTitle;
 	private String calStart;
 	
+	private int memNo;
+	
 	public CalendarDto() {
 		super();
 	}
@@ -17,6 +19,19 @@ public class CalendarDto {
 		this.calStart = calStart;
 	}
 	
+	public CalendarDto(int teamNo, int memNo) {
+		super();
+		this.teamNo = teamNo;
+		this.memNo = memNo;
+	}
+	
+	
+	public int getMemNo() {
+		return memNo;
+	}
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
 	public int getTeamNo() {
 		return teamNo;
 	}

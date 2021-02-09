@@ -9,5 +9,5 @@ public interface ShareCalendarBiz {
 	public List<CalendarDto> selectEvent(int teamno);
 	public int insert(CalendarDto dto);
 	public int delete(CalendarDto dto);
-	
+	public String selectTeamGrade(CalendarDto dto);
 }

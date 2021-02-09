@@ -9,7 +9,12 @@
 		<result property="calTitle" column="CALTITLE"/>
 		<result property="calStart" column="CALSTART"/>
 	</resultMap>
-
+	
+	<select id="gradeCheck" parameterType="CalendarDto" resultType="String">
+		SELECT GRADE_INTEAM
+		FROM TEAMMEMBER 
+		WHERE MEMBER_NO = #{memNo} AND TEAM_NO = #{teamNo}
+	</select>
 
 	<select id="selectEvent" resultMap="CalendarMap">
 		SELECT CALENDARNO, TEAMNO, CALTITLE, CALSTART
