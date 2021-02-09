@@ -194,7 +194,9 @@ body {
 							
 						  	<c:forEach var="dto" items="${listcode}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${status.current } </th>
+
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
+
 							      <c:choose>
 							      	<c:when test="${dto.myco eq '1'}">
 							      		<td class="cm-txt-center">Dao</td>
@@ -263,9 +265,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode1}">
+						  	<c:forEach var="dto" items="${listcode1}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Dao</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -312,9 +314,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode2}">
+						  	<c:forEach var="dto" items="${listcode2}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Dto</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -359,9 +361,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode3}">
+						  	<c:forEach var="dto" items="${listcode3}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Biz</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -406,9 +408,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode4}">
+						  	<c:forEach var="dto" items="${listcode4}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Controller</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -453,9 +455,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode5}">
+						  	<c:forEach var="dto" items="${listcode5}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Sql</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -500,9 +502,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode6}">
+						  	<c:forEach var="dto" items="${listcode6}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Js</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -547,9 +549,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode7}">
+						  	<c:forEach var="dto" items="${listcode7}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Css</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
@@ -594,9 +596,9 @@ body {
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${listcode8}">
+						  	<c:forEach var="dto" items="${listcode8}" varStatus="status">
 							    <tr>
-							      <th scope="row" class="cm-txt-center">${dto.myno} </th>
+							      <th scope="row" class="cm-txt-center">${status.count } </th>
 							      <td class="cm-txt-center">Views</td>
 							      <td class="cm-title"><a href="detail.do?myno=${dto.myno}&&myco=${dto.myco}">${dto.mytitle }</a></td>
 							      <td class="cm-txt-center">${dto.myname}</td>
