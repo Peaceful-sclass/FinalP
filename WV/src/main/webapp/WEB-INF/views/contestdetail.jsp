@@ -40,7 +40,7 @@
 					<span class="tit">응모대상</span>${contest.contesttarget }
 				</li>
 				<li>
-					<span class="tit">주최/주관</span>${contest.contestagent } ${contest.contestsupervision }
+					<span class="tit">주최/주관</span>${contest.contestagent } / ${contest.contestsupervision }
 				</li>
 				<li>
 					<span class="tit">후원/협찬</span>${contest.contesupport }
@@ -68,7 +68,7 @@
 						<input type="hidden" name="name" value="${contest.contestsvaefilename }">
 						<input type="submit" value="Download" class="btn btn-sm btn-primary" style="padding: 0px 5px;font-size: 14px;font-weight: 300; text-transform: none; margin-left: 5px;">
 					</form>
-					</c:if>
+					</c:if><c:if test="${ null eq contest.contestorifilename}">파일없음</c:if>
 				</li>
 				<li class="sns">
 					<span class="tit"></span>
@@ -82,8 +82,7 @@
 			<div class="tit">상세내용</div>
 			<div class="comm-desc" id="viewContents">
 				<p>${contest.contestcontent }</p>
-				<c:set var="posterValue" value="${fn:split(contest.contestposter, '-')}"/>
-				<p><c:if test="${null ne posterValue[1]}"><img src="images/${contest.contestposter}" style="width: 80%; margin-left: 10%; margin-right: 10%"><br style="clear:both;">&nbsp;</c:if></p></div>
+				<p><c:if test="${null ne contest.contestposter}"><img src="images/${contest.contestposter}" style="width: 50%; margin-left: 10%; margin-right: 10%"><br style="clear:both;">&nbsp;</c:if></p></div>
 		</div>
 		<div class="event-notice conte">
 			<div>
