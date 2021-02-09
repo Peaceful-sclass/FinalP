@@ -12,11 +12,13 @@
 <script type="text/javascript">
 	window.onload = function(){
 		var aon = document.getElementsByClassName('${catTitle }');
-		for (var i = 0; i < aon.length; i++) {
-			if (aon[i].innerText==${paging.category }) {
-				aon[i].className = "on";
+		<c:if test="${null ne paging.category}">		
+			for (var i = 0; i < aon.length; i++) {
+				if (aon[i].innerText==${paging.category }) {
+					aon[i].className = "on";
+				}
 			}
-		}
+		</c:if>
 	}
 </script>
 </head>
