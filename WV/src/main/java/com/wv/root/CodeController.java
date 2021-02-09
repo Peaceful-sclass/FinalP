@@ -52,7 +52,7 @@ public class CodeController {
 	public String lis111t(Model model, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		TeamMemberDto team = (TeamMemberDto) session.getAttribute("teamInfo");
-		model.addAttribute("listcode",biz.selectList(2));
+		model.addAttribute("listcode",biz.selectList(team.getTeam_no()));
 		model.addAttribute("listcode1",biz.selectGroup(1,team.getTeam_no()));
 		model.addAttribute("listcode2",biz.selectGroup(2,team.getTeam_no()));
 		model.addAttribute("listcode3",biz.selectGroup(3,team.getTeam_no()));
