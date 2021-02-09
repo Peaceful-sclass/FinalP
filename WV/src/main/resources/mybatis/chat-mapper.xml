@@ -15,7 +15,7 @@
 <!-- 채팅방 클릭시 -->
 <select id="chatList" resultType="ChatDto">
 	SELECT CHAT.CHATTING_NO, CHAT.MEMBER_ID, CHAT.CONTENT, CHAT.REGDATE, MYMEMBER.MEMBER_PHOTO FROM CHAT 
-	JOIN MYMEMBER ON CHAT.MEMBER_ID = MYMEMBER.MEMBER_ID  WHERE CHATTING_NO=#{chatting_no} ORDER BY REGDATE
+	FULL OUTER JOIN MYMEMBER ON CHAT.MEMBER_ID = MYMEMBER.MEMBER_ID  WHERE CHATTING_NO=#{chatting_no} ORDER BY REGDATE
 </select>
 
 <select id="chatajax" parameterType="chatajax" resultType="chatajaxres">
