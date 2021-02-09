@@ -158,8 +158,7 @@
 													<a href="contestDetail.do?contestnum=${contest.contestnum }">${contest.contestname }</a>
 													<div class="sub-tit">분야 : ${contest.contestfield }</div>
 												</div>
-												<div class="organ">${contest.contestagent }
-													${contest.contestsupervision }</div>
+												<div class="organ">${contest.contestagent }</div>
 												<div class="day">
 													<c:choose>
 														<c:when test="${today - endday > 0}">    								
