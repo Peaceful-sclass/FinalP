@@ -102,7 +102,7 @@ public String login(MemberDto dto, TeamDto teamdto, HttpServletRequest req, Redi
 	
 	if(login == null) {
 		session.setAttribute("member", null);
-		session.setAttribute("msg", true); //컨트롤러값 header로 뿌리기
+		session.setAttribute("msg", false); //컨트롤러값 header로 뿌리기
 	}else {
 		session.setAttribute("msg", true);
 		session.setAttribute("member", login);
