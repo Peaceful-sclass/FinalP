@@ -101,25 +101,7 @@
 				
 				editable : true,
 				selectable : true,
-			      selectMirror: true,
-			      select: function(arg) {
-			        var title = prompt('일정을 입력하세요:');
-			        if (title) {
-			          calendar.addEvent({
-			            title: title,
-			            start: arg.start
-			          }),
-			          location.href='shareCalendarInsert.do?title='+title+'&start='+arg.start;
-			          
-			        }
-			        calendar.unselect()
-			      },
-			      eventClick: function(arg) {
-			        if (confirm('일정을 지우시겠습니까??')) {
-			        	location.href='shareCalendarDelete.do?start='+arg.event.title
-			        }
-			        
-			      },
+			    selectMirror: true,
 			    editable: true,
 				businessHours : true,
 				dayMaxEvents : true, // allow "more" link when too many events

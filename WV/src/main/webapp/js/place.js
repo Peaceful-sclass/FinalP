@@ -1,3 +1,4 @@
+
 			function selectresetlist(){
 				$("input:radio[name='listsoket']:radio[value='있음']").prop('checked', true);
 				$("input:radio[name='listsoket']:radio[value='있음']").prop('checked', false);
@@ -295,6 +296,7 @@
 							placemodalshow();
 							$("#pdbutton").remove();
 							$("#pubutton").remove();
+							toastr.success("작성 글이 삭제되었습니다.", "성공",{tiemOut:5000});
 						}else{
 							alert("글 삭제에 실패했습니다.");
 						}
@@ -356,7 +358,7 @@
 			function likeinsert(pno){
 				var memberno = $("#pmemberno").val();
 				if(!memberno){
-					alert("로그인 후 가능합니다.");
+					toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
 				}else{
 					var likeval= {"pno" : pno, "memberno" : memberno};
 					var img = $("#likeimg");
@@ -386,7 +388,7 @@
             $("#placeinsertform").click(function() {
 				var memberno = $("#pmemberno").val();
 				if(!memberno){
-					alert("로그인 후 이용가능합니다.");
+					toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
 				}else{
 					$("#modal-title").text("모임장소글쓰기");
 					$("#placeinsertform").hide();
@@ -565,7 +567,7 @@
 			function editPcomment(pcno,pcwriter,pccontent,pno,memberno){
 				var pmemberno = $("#pmemberno").val();
 				if(pmemberno != memberno){
-					alert("작성자만 수정할 수 있습니다!");
+					toastr.warning("작성자만 수정할 수 있습니다.", {tiemOut:5000});					
 				}else{
 					var htmlcode = "";
 					htmlcode += '<div class="media text-muted pt-3" id="pcs'+pcno+'">';
@@ -592,7 +594,7 @@
 			function deletePcomment(pcno, pno, memberno){
 				var pmemberno = $("#pmemberno").val();
 				if(pmemberno != memberno){
-					alert("작성자만 삭제할 수 있습니다!");
+					toastr.warning("작성자만 삭제할 수 있습니다.", {tiemOut:5000});
 				}else{
 					if(confirm("삭제하시겠습니까?")){
 						$.ajax({
@@ -645,7 +647,7 @@
 				var memberno = $("#pmemberno").val();
 				var memberid = $("#pmemberid").val();
 				if(!memberno){
-					alert("로그인 후 등록 가능합니다.");
+					toastr.warning("로그인이 필요합니다.", "로그인",{tiemOut:5000});
 					$("#placecomment").val("");
 				}else{
 					var placecomment = $("#placecomment").val();
@@ -878,7 +880,7 @@
 			var content = '<div class="customoverlay">' +
 			    '  <div class="pmcs">'+
 			    '    <span>'+title+'</span>' +
-				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px; border: 1px solid #c0bfbf;" onclick="placeselect();">선택</button>'+
+				'	 <button type="button" class="btn btn-sm btn-primary" style="width:40px; height:30px; margin-bottom:5px; border: 1px solid #c0bfbf; float: revert;" onclick="placeselect();">선택</button>'+
 			    '  </div>'+latlng+
 			    '</div>';
 			customOverlay.setPosition(marker.getPosition());

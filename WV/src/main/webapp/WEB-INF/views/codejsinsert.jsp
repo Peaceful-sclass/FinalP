@@ -179,8 +179,7 @@
 	        lineNumbers: true,
 	        matchBrackets: true,
 	        continueComments: "Enter",
-	        extraKeys: {"Ctrl-Q": "toggleComment"},
-	        readOnly: true
+	        extraKeys: {"Ctrl-Q": "toggleComment"}
 	      });
      
       hljs.configure({
