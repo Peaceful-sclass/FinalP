@@ -1,6 +1,7 @@
 package com.wv.root;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,12 @@ public class ComunityController {
 		System.out.println("Test schdto값 >>> "+schdto);
 		
 		list = combiz.selectAll(cpdto);
+		List cnolist = new ArrayList(); 
+		for(int i=0; i<list.size(); i++) {
+			cnolist.add(list.get(i).getCno()); 
+		}
+		model.addAttribute("cnolist",combiz.cmtCount(cnolist));
+		
 		model.addAttribute("cpdto", cpdto );
 		model.addAttribute("list", list );
 		model.addAttribute("res", request.getParameter("res"));

@@ -12,11 +12,13 @@
 <script type="text/javascript">
 	window.onload = function(){
 		var aon = document.getElementsByClassName('${catTitle }');
-		for (var i = 0; i < aon.length; i++) {
-			if (aon[i].innerText==${paging.category }) {
-				aon[i].className = "on";
+		<c:if test="${null ne paging.category}">		
+			for (var i = 0; i < aon.length; i++) {
+				if (aon[i].innerText==${paging.category }) {
+					aon[i].className = "on";
+				}
 			}
-		}
+		</c:if>
 	}
 </script>
 </head>
@@ -158,8 +160,7 @@
 													<a href="contestDetail.do?contestnum=${contest.contestnum }">${contest.contestname }</a>
 													<div class="sub-tit">분야 : ${contest.contestfield }</div>
 												</div>
-												<div class="organ">${contest.contestagent }
-													${contest.contestsupervision }</div>
+												<div class="organ">${contest.contestagent }</div>
 												<div class="day">
 													<c:choose>
 														<c:when test="${today - endday > 0}">    								

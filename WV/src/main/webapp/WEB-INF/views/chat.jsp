@@ -279,7 +279,20 @@ function CloseWindow(){
             		
             		<c:otherwise>
             			<div class="incoming_msg">
-			              <div class="incoming_msg_img"> <img src="${chatList.member_photo }" alt="sunil"> </div> <c:out value="${chatList.member_id}"></c:out>
+            			
+            			
+            			
+			              <div class="incoming_msg_img">
+			              <c:choose>
+			              <c:when test="${empty chatList.member_photo }">
+			              <img alt="sunil" src="images/user-profile.png">
+			              </c:when>
+			              <c:otherwise>
+			               <img src="${chatList.member_photo }" alt="sunil"> 
+			               </c:otherwise>
+			               </c:choose>
+			               </div> 
+			               <c:out value="${chatList.member_id}"></c:out>
 			              <div class="received_msg">
 			                <div class="received_withd_msg">
 			                  <p><c:out value="${chatList.content}"></c:out></p>

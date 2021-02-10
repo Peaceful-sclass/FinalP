@@ -20,6 +20,7 @@ public interface TeamBiz {
 	public int chkteamLD(Email edto);
 	public int emailConfirm(Email edto);
 	public int teamManageConfirm(List list);
+	public Boolean teamWithdraw(TeamMemberDto dto);
 	
 	
 	

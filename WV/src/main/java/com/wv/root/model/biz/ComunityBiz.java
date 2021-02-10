@@ -1,5 +1,6 @@
 package com.wv.root.model.biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wv.root.model.dto.ComCommentDto;
@@ -20,6 +21,7 @@ public interface ComunityBiz {
 	int cmtUpdate(ComCommentDto comcmtdto);
 	int cmtDelete(int comcmtno);
 	int cmtAnswer(ComCommentDto comcmtdto);
+	List cmtCount(List cnolist);
 	
 	
 	

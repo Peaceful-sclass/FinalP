@@ -194,7 +194,9 @@ body {
 							
 						  	<c:forEach var="dto" items="${listcode}" varStatus="status">
 							    <tr>
+
 							      <th scope="row" class="cm-txt-center">${status.count } </th>
+
 							      <c:choose>
 							      	<c:when test="${dto.myco eq '1'}">
 							      		<td class="cm-txt-center">Dao</td>

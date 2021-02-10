@@ -438,24 +438,25 @@ button:focus{
 .why-text h4{
 	border-bottom: 1px dashed #010101;
 	color: #ffffff;
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: 500;
 	font-family: 'Rubik', sans-serif;
 }
 /* 팀아이콘 스타일 설정 */
 .why-text p{
-	color: #ffffff;
-	font-size: 13px;
+	color: black;
+	font-size: 16px;
 	margin: 0px;
 	padding-bottom: 15px;
 	margin-top: 0px;
 	margin-bottom: 15px;
 	
+	word-wrap: break-word;
 	height: 111px;
 	overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
 .why-text h5{

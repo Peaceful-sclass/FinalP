@@ -104,7 +104,7 @@
 					<div class="dv-middle">
 						<div class="dv-content">
 								  
-								  <div><<textarea style="border: 1px solid rgb(201, 169, 31); width: 100%; height: 100%;" name="mycoment">${dto.mycoment }</textarea> </div>
+								  <div><textarea style="border: 1px solid rgb(201, 169, 31); width: 100%; height: 100%;" name="mycoment">${dto.mycoment }</textarea> </div>
 								  <div><textarea id="java-code" name="mycontent">${dto.mycontent }</textarea> </div>
 							</div>
 	

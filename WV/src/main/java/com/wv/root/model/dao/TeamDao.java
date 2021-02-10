@@ -17,6 +17,7 @@ public interface TeamDao {
 	public String getIvEmail(Email dto);
 	public int emailConfirm(Email edto);
 	public int teamManageConfirm(List list);
+	public Boolean teamWithdraw(TeamMemberDto dto);
 	
 	
 	

@@ -162,18 +162,25 @@
 					
 				</div>
 			</div>
+					<form action="comunity.do" method="get" name="selectform1">
 			<div class="row">
 				<div class="col-2 offset-md-1" style="margin-bottom: 1rem;">
-					<form action="comunity.do" method="get" name="selectform1">
 						<input type="hidden" name="currentPage" value="1">
 						<select name="category" onchange="cmpageChange(this.form);">
 							<option value="전체">전체</option>
 							<option value="자유">자유</option>
 							<option value="Q&A">Q&A</option>
 						</select>
-					</form>
+				</div>
+				<div class="col-8" style="margin-bottom: 1rem;text-align: right;">
+					<select name="dataPerPage" id="bogi" onchange="cmpageChange(this.form);" >
+						<option value="10" ${cpdto.dataPerPage eq 10 ? 'selected' : ''}>10줄보기</option>
+						<option value="20" ${cpdto.dataPerPage eq 20 ? 'selected' : ''}>20줄보기</option>
+						<option value="30" ${cpdto.dataPerPage eq 30 ? 'selected' : ''}>30줄보기</option>
+					</select>
 				</div>
 			</div>
+					</form>
 			
 			<div class="row inner-menu-box justify-content-center">
 				<div class="col-1">
@@ -197,11 +204,11 @@
 								<tr><td colspan="12" class="cm-txt-center"><p>글이 없습니다.</p></td></tr>
 							</c:if>
 							
-						  	<c:forEach var="dto" items="${list}">
+						  	<c:forEach var="dto" items="${list}" varStatus="cnol">
 							    <tr>
 							      <th scope="row" class="cm-txt-center">${dto.cno} </th>
 							      <td class="cm-txt-center">${dto.category}</td>
-							      <td class="cm-title"><a href="#" name="cno" value="${dto.cno}" data-cno="${dto.cno}" data-mid="${member.member_id}"  data-mno="${member.member_no}" onclick="titleClick(this); return false;">${dto.title}</a></td>
+							      <td class="cm-title"><a href="#" name="cno" value="${dto.cno}" data-cno="${dto.cno}" data-mid="${member.member_id}"  data-mno="${member.member_no}" onclick="titleClick(this); return false;">${dto.title}&nbsp;&nbsp;<c:if test="${cnolist[cnol.index] > 0}">[${cnolist[cnol.index]}]</c:if></a></td>
 							      <td class="cm-txt-center">${dto.member_id}</td>
 							      <td class="cm-txt-center"><fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd" /></td>
 							      <td class="cm-txt-center">${dto.views}</td>
@@ -240,6 +247,7 @@
 				<div>
 					<form action="comunity.do" method="get" name="cmpagechange">
 						<input type="hidden" name="category" value="${cpdto.category }" />
+						<input type="hidden" name="dataPerPage" value="${cpdto.dataPerPage }" />
 						<input type="hidden" name="currentPage" value="${cpdto.currentPage}" /><!-- currentPage[1]번 -->
 						<input type="hidden" name="searchsel" value="${schdto.searchsel}" />
 						<!-- paging 필요변수 준비 -->

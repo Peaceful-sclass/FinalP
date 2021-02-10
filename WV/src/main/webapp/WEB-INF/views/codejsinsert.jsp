@@ -182,6 +182,7 @@
 	        continueComments: "Enter",
 	        extraKeys: {"Ctrl-Q": "toggleComment"},
 	        theme : 'ayu-dark'
+
 	      });
      
       hljs.configure({
