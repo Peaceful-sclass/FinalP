@@ -439,7 +439,7 @@ button:focus{
 	border-bottom: 1px dashed #010101;
 	color: #ffffff;
 	font-size: 17px;
-	font-weight: 500;
+	font-weight: bold;
 	font-family: 'Rubik', sans-serif;
 }
 /* 팀아이콘 스타일 설정 */
