@@ -84,6 +84,11 @@ public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, 
 		throw new RuntimeException();
 	}
 	return "redirect:/";
+	//redirect와 forward차이점
+	//redirect:redirect를 사용하여 응답 페이지를 부르면 사용자가 실수 혹은 고의로 글쓰기 응답 페이지에서 새로고침을 누른다고 하더라도, 처음의 요청 정보는 존재하지 않으므로 게시물이 여러 번 등록되지 않습니다. 
+	// 그렇기 때문에 시스템에 변화가 생기는 요청(회원가입, 글쓰기 등)의 경우에는 redirection을 사용
+	//forward:Foward는 다음으로 이동 할 URL로 요청정보를 그대로 전달합니다. 그렇기 때문에 사용자가 최초로 요청한 요청정보는 다음 URL에서도 유효합니다.
+	//시판을 제작하는 과정에서는 시스템에 변화가 생기지 않는 단순 조회 요청(글 목록 보기, 검색)의 경우 forward로 응답
 }
 
 //로그인
