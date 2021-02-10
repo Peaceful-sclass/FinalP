@@ -176,6 +176,7 @@ public class TeamDaoImpl implements TeamDao {
 				res = session.delete(NameSpace+"teamWithdraw1", dto);
 			} else {
 				res = session.delete(NameSpace+"teamWithdraw2", dto);
+				session.delete(NameSpace+"teamWithdraw3", dto);
 			}
 			
 		} catch (Exception e) {
