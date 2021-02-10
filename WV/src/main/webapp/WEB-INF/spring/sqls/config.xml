@@ -12,8 +12,6 @@
 		<typeAlias type="com.wv.root.model.dto.ComunityDto" alias="comunityDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ComCommentDto" alias="comcommentDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.CpDto" alias="cpDto"></typeAlias>
-		<typeAlias type="com.wv.root.model.dto.OutsourcingDto" alias="outsourcingDto"></typeAlias>
-		<typeAlias type="com.wv.root.model.dto.OutexDto" alias="outexDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ShareBoardDto" alias="shareboardDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.ContestDto" alias="contestDto"></typeAlias>
 		<typeAlias type="com.wv.root.model.dto.PlaceDto" alias="placeDto"></typeAlias>
@@ -34,7 +32,6 @@
 		<mapper resource="/mybatis/team-mapper.xml"></mapper>
 		<mapper resource="/mybatis/member-mapper.xml"></mapper>
 		<mapper resource="/mybatis/comunity-mapper.xml"></mapper>
-		<mapper resource="/mybatis/outsourcing-mapper.xml"></mapper>
 		<mapper resource="/mybatis/shareboard-mapper.xml"></mapper>
 		<mapper resource="/mybatis/contest-mapper.xml"></mapper>
 		<mapper resource="/mybatis/place-mapper.xml"></mapper>
