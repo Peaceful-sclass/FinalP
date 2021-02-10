@@ -19,6 +19,7 @@
    
 <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="http://codemirror.net/addon/hint/show-hint.css">
+<link rel="stylesheet" href="http://codemirror.net/theme/ayu-dark.css">
 
 <script src="http://codemirror.net/lib/codemirror.js"></script>
 <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
@@ -187,6 +188,7 @@
 		    indentWithTabs: true,
 		    smartIndent: true,
 		    lineNumbers: true,
+	        theme : 'ayu-dark',
 		    matchBrackets : true,
 		    autofocus: true,
 		    extraKeys: {"Ctrl-Space": "autocomplete"},
@@ -196,19 +198,9 @@
 		    }}
 		  });
 		};
-      hljs.configure({
-		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
-		});
+    
 		
-		var quill = new Quill('#editor-container', {
-		    modules: {
-		      formula: true,
-		      syntax: true,
-		      toolbar: '#toolbar-container'
-		    },
-		    contant: '내용을 입력해 주세요.',
-		    theme: 'snow'
-		});
+	
 
 	</script>
 	

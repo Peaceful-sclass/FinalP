@@ -19,6 +19,8 @@
    
    <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="http://codemirror.net/addon/hint/show-hint.css">
+<link rel="stylesheet" href="http://codemirror.net/theme/ayu-dark.css">
+
 
 <script src="http://codemirror.net/lib/codemirror.js"></script>
 <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
@@ -175,7 +177,8 @@
         lineNumbers: true,
         matchBrackets: true,
         mode: "text/x-java",
-        readOnly: true
+        readOnly: true,
+        theme : 'ayu-dark'
       });
       
       var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
