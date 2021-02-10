@@ -132,7 +132,8 @@ public String logout(HttpSession session, HttpServletRequest request) throws Exc
 	session.invalidate();
 	request.getSession(true); //세션을 제거 후 새로운 세션적용
 	
-	return "redirect:home.do";
+	String referer = request.getHeader("Referer"); //원래 페이지로 이동
+	return "redirect:"+referer;
 }
 
 //수정
