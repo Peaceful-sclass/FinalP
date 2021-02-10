@@ -227,7 +227,30 @@
 		//NAV BAR 선택CSS
 		let cmd = window.location.pathname;
 		let ulnav = document.querySelectorAll(".navbar-nav > .nav-item");
-		if(cmd == "/root/team.do"||cmd == "/root/teamin.do"||cmd == "/root/teamcreate.do"){
+		if(cmd == "/root/team.do"||cmd == "/root/teamin.do"||cmd == "/root/teamcreate.do"
+			||cmd == "/root/shareBoardList.do"
+			||cmd == "/root/shareBoardDetail.do"
+			||cmd == "/root/shareBoardwriteView.do"
+			||cmd == "/root/shareBoardWrite.do"
+			||cmd == "/root/shareBoardupdateView.do"
+			||cmd == "/root/shareBoardupdate.do"
+			||cmd == "/root/shareBoardDelete.do"
+			||cmd == "/root/SBCommentWrite.do"
+			||cmd == "/root/SBCommentDelete.do"
+				||cmd == "/root/shareCalendarList.do"
+					||cmd == "/root/shareCalendarInsert.do"
+					||cmd == "/root/shareCalendarDelete.do"
+					||cmd == "/root/shareDocumentList.do"
+					||cmd == "/root/shareDocumentInsert.do"
+					||cmd == "/root/shareDocumentUpdateForm.do"
+					||cmd == "/root/shareDocumentUpdate.do"
+					||cmd == "/root/codemain.do"
+						||cmd == "/root/detail.do"
+							||cmd == "/root/insertform.do"
+								||cmd == "/root/insertres.do"
+									||cmd == "/root/updateform.do"
+										||cmd == "/root/updateres.do"
+											||cmd == "/root/delete.do"){
 			for(let i=0; i<ulnav.length; i++){
 				ulnav[i].classList.remove('active');
 				ulnav[1].classList.add('active');
