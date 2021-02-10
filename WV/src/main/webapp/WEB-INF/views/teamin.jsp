@@ -115,7 +115,23 @@
     	}
 
     </script>
+	<style>
+	.tbt:hover {
+	background: #DB631F;
+	color: white;
+	border-radius: 2px;
+     }
 	
+	.tbt{
+	background-color: white;
+	color: #DB631F; 
+    font-weight: bold; 
+	border-style: solid;
+	border-color: #DB631F;
+	border-radius: 2px;
+	padding: 5px 15px;
+	  }
+	</style>
 </head>
 
 <body>
@@ -143,17 +159,17 @@
 							<div class="row justify-content-end">
 								<div class="team-main">
 									<div class="team-main-top" style="position:absolute; left:20px;">
-										<a class="btn btn-primary" href="#" data-mid="${member.member_id}" onclick="teamManageBT(this); return false;"  style="padding: 5px 15px;background: #DB631F;color: white;">팀정보</a>
+										<a class="tbt" href="#" data-mid="${member.member_id}" onclick="teamManageBT(this); return false;" >팀정보</a>
 									</div>
 								</div>
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="btn btn-primary" href="#" data-mid="${member.member_id}" onclick="teamCreateBT(this); return false;"  style="padding: 5px 15px;background: #DB631F;color: white;">팀만들기</a>
+										<a class="tbt" href="#" data-mid="${member.member_id}" onclick="teamCreateBT(this); return false;" >팀만들기</a>
 									</div>
 								</div>
 								<div class="team-main">
 									<div class="team-main-top">
-										<a class="btn btn-primary" href="#" data-mid="${member.member_id}" onclick="teamInviteBT(this); return false;" style="padding: 5px 15px;background: #DB631F;color: white;">팀초대</a>
+										<a class="tbt" href="#" data-mid="${member.member_id}" onclick="teamInviteBT(this); return false;" >팀초대</a>
 									</div>
 								</div>
 							</div><!-- 팀관리줄 End -->
