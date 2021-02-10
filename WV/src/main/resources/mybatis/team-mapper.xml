@@ -131,6 +131,11 @@
 		where team_no = #{team_no} and member_no = 
 		(select distinct m.member_no from teammember tm join mymember m ON tm.member_no = m.member_no where member_id = #{member_id})
 	</delete>
+	<!-- 팀원 탈퇴 후 팀 초대장 정보도 같이 삭제 -->
+	<delete id="teamWithdraw3" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
+		delete from teamcode
+		where team_no = #{team_no} and teammember_id = #{member_id}
+	</delete>
 	
 	
 </mapper>
