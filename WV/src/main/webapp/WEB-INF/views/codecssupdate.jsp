@@ -19,6 +19,7 @@
    
 <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="http://codemirror.net/addon/hint/show-hint.css">
+<link rel="stylesheet" href="http://codemirror.net/theme/ayu-dark.css">
 
 <script src="http://codemirror.net/lib/codemirror.js"></script>
 <script src="http://codemirror.net/addon/hint/css-hint.js"></script>
@@ -176,7 +177,8 @@
 		
 	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         extraKeys: {"Ctrl-Space": "autocomplete"},
-        lineNumbers: true
+        lineNumbers: true,
+        theme : 'ayu-dark'
       });
       hljs.configure({
 		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']

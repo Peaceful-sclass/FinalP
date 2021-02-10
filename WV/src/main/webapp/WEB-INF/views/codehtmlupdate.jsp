@@ -18,6 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
    
 <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+<link rel="stylesheet" href="http://codemirror.net/theme/ayu-dark.css">
 
 <script src="http://codemirror.net/lib/codemirror.js"></script>
 <script src="http://codemirror.net/addon/mode/multiplex.js"></script>
@@ -180,7 +181,8 @@
         lineNumbers: true,
         mode: "application/x-ejs",
         indentUnit: 4,
-        indentWithTabs: true
+        indentWithTabs: true,
+        theme : 'ayu-dark'
       });
       
       var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;

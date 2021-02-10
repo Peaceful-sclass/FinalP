@@ -19,6 +19,7 @@
    
 <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="http://codemirror.net/addon/hint/show-hint.css">
+<link rel="stylesheet" href="http://codemirror.net/theme/ayu-dark.css">
 
 <script src="http://codemirror.net/lib/codemirror.js"></script>
 <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
@@ -179,26 +180,21 @@
 		    mime = window.location.href.substr(window.location.href.indexOf('mime=') + 5);
 		  }
 		  window.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-		    mode: mime,
-		    indentWithTabs: true,
-		    smartIndent: true,
-		    lineNumbers: true,
-		    matchBrackets : true,
-		    autofocus: true,
-		    extraKeys: {"Ctrl-Space": "autocomplete"},
-		    hintOptions: {tables: {
-		      users: ["name", "score", "birthDate"],
-		      countries: ["name", "population", "size"],
-		      readOnly: true
-		    }}
-		  });
-		};
-     
-      hljs.configure({
-		  languages: ['javascript', 'ruby', 'python', 'java', 'html', 'css', 'cpp']
-		});
-	
-		
+			    mode: mime,
+			    indentWithTabs: true,
+			    smartIndent: true,
+			    lineNumbers: true,
+		        theme : 'ayu-dark',
+			    matchBrackets : true,
+			    autofocus: true,
+			    extraKeys: {"Ctrl-Space": "autocomplete"},
+			    hintOptions: {tables: {
+			      users: ["name", "score", "birthDate"],
+			      countries: ["name", "population", "size"]
+			    }}
+			  });
+			};
+   
 	</script>
 	
 <jsp:include page="/WEB-INF/views/headerfooter/footer.jsp" flush="false"></jsp:include>
