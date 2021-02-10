@@ -40,7 +40,7 @@ public class CalendarController {
 		
 		System.out.println("등급"+result);
 		
-		if(result.equals("팀장")) {
+		if(result.equals("팀장") || result.equals("매니저")) {
 			model.addAttribute("list", biz.selectEvent(team_no));
 			return "shareCalendar";
 		}else {
