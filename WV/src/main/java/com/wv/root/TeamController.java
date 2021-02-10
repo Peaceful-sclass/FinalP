@@ -220,6 +220,7 @@ public class TeamController {
     	return res;
     }
     
+    //접속현황
     @RequestMapping(value= "getOnlineTM.do", method= RequestMethod.GET)
     @ResponseBody
     public Boolean getOnlineTM(String member_id, HttpServletRequest request){
@@ -227,6 +228,17 @@ public class TeamController {
     	System.out.println("[con:getOnlineTM.do]:  "+member_id);
     	Boolean res = SessionConfig.getOnlineTM(request.getSession().getId(), member_id);
     	System.out.println("[con:getOnlineTM.do res]:  "+res);
+    	return res;
+    }
+    
+    //팀 탈퇴
+    @RequestMapping(value= "teamWithdraw.do", method= RequestMethod.POST)
+    @ResponseBody
+    public Boolean teamWithdraw(@RequestBody TeamMemberDto dto, HttpServletRequest request){
+    	logger.info("[con:teamWithdraw.do]");				//memid,currteamno
+    	System.out.println("[con:teamWithdraw.do]:  "+dto);
+    	Boolean res = teambiz.teamWithdraw(dto);
+    	System.out.println("[con:teamWithdraw.do res]:  "+res);
     	return res;
     }
 		

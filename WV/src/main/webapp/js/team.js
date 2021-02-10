@@ -336,4 +336,45 @@ let teamManageConfirm = (param) => {
 };
 
 
+//팀 탈퇴
+let teamWithdraw = (param)=>{
+	let currteamno = sessionStorage.getItem("teamInfo"); 
+	let res  = chkteamLD(param.dataset['mid'], currteamno);
+	if(res==1){
+		const confirm1 = confirm("팀장이 탈퇴하면 팀이 해체됩니다. 계속 하시겠습니까??");
+		if(!confirm1){
+			return false;
+		}
+	}
+	let data ={member_id: param.dataset['mid'],team_no:currteamno};
+	$.ajax({
+		type: 'post',
+		url: 'teamWithdraw.do',
+		data : JSON.stringify(data),
+		contentType: 'application/json',
+		dataType: 'json',
+		success: function(rt){
+			console.log("temaWithdraw rt: "+rt);
+			if(rt){
+				toastr.info("팀을 탈퇴하였습니다.", "탈퇴", { tiemOut: 5000 });
+				setTimeout(()=>{
+					location.href="home.do";
+				},1500);
+				sessionStorage.clear();
+			}else{
+				toastr.error("서버에러!!.", "실패!", { tiemOut: 5000 });
+			}
+		},error: function(){
+			toastr.error("인터넷연결을 확인해주세요.", "Fail!", { tiemOut: 5000 });
+		}
+	});
+	
+};
+	
+
+
+
+
+
+
 

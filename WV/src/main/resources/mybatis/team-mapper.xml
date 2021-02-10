@@ -120,4 +120,17 @@
 		</foreach>
 	</delete>
 	
+	<!-- 팀장 탈퇴 -->
+	<delete id="teamWithdraw1" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
+		delete from team
+		where team_no = #{team_no}
+	</delete>
+	<!-- 팀원 탈퇴 -->
+	<delete id="teamWithdraw2" parameterType="com.wv.root.model.dto.TeamDto$TeamMemberDto">
+		delete from teammember
+		where team_no = #{team_no} and member_no = 
+		(select distinct m.member_no from teammember tm join mymember m ON tm.member_no = m.member_no where member_id = #{member_id})
+	</delete>
+	
+	
 </mapper>
