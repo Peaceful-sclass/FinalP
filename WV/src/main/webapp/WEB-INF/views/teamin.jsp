@@ -220,7 +220,7 @@
             <div class="modal-content">
                 <div class="modal-header" style="justify-content: center;">
                  	<!-- <h4 id="modal-title" class="modal-title"></h4> -->
-                	<button type='button' class="btn btn-sm btn-primary" id="mmTeamNamebt" data-mid="${member.member_id}">팀의 이름입니다.</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="mmTeamNamebt" data-mid="${member.member_id}" onclick="teamWithdraw(this);">팀의 이름입니다.</button>
                  	                 	             	
                 </div> 
                 <div class="modal-body">

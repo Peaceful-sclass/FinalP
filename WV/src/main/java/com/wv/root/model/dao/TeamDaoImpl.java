@@ -140,6 +140,8 @@ public class TeamDaoImpl implements TeamDao {
 		return res;
 	}
 
+	
+	//팀 권한 변경
 	@Override
 	public int teamManageConfirm(List list) {
 		int res = 0;
@@ -157,6 +159,33 @@ public class TeamDaoImpl implements TeamDao {
 		}
 		
 		return res;
+	}
+
+	//팀탈퇴
+	@Override
+	public Boolean teamWithdraw(TeamMemberDto dto) {
+		int res =0;
+		try {
+			Email edto = new Email();
+			edto.setMember_id(dto.getMember_id());
+			edto.setTeam_no(dto.getTeam_no());
+			
+			int tmp = session.selectOne(NameSpace+"chkteamLD", edto);
+			if(tmp == 1) { //팀장인 경우
+				System.out.println("[DAO:teamWithdraw 팀장이네] "+dto);
+				res = session.delete(NameSpace+"teamWithdraw1", dto);
+			} else {
+				res = session.delete(NameSpace+"teamWithdraw2", dto);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("[DAO:teamWithdraw res]: fail... "+res);
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println("[DAO:teamWithdraw res]: "+res);
+		return (res>0)? true:false;
 	}
     
     

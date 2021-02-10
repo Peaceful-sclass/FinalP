@@ -216,6 +216,11 @@ public class TeamBizImpl implements TeamBiz {
 		return dao.teamManageConfirm(list);
 	}
 
+	@Override
+	public Boolean teamWithdraw(TeamMemberDto dto) {
+		return dao.teamWithdraw(dto);
+	}
+
 
 
 
