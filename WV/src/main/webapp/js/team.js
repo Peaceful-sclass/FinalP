@@ -344,7 +344,9 @@ let teamWithdraw = (param)=>{
 		const confirm1 = confirm("팀장이 탈퇴하면 팀이 해체됩니다. 계속 하시겠습니까??");
 		if(!confirm1){
 			return false;
-		}
+		} 
+	} else{
+		const confirm1 = confirm("탈퇴합니다. 계속 하시겠습니까??");
 	}
 	let data ={member_id: param.dataset['mid'],team_no:currteamno};
 	$.ajax({
