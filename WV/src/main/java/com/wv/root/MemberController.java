@@ -83,7 +83,7 @@ public String postRegister(MultipartHttpServletRequest mtfRequest, Model model, 
 	} catch (Exception e) {
 		throw new RuntimeException();
 	}
-	return "redirect:/";
+	return "redirect:home.do";
 	//redirect와 forward차이점
 	//redirect:redirect를 사용하여 응답 페이지를 부르면 사용자가 실수 혹은 고의로 글쓰기 응답 페이지에서 새로고침을 누른다고 하더라도, 처음의 요청 정보는 존재하지 않으므로 게시물이 여러 번 등록되지 않습니다. 
 	// 그렇기 때문에 시스템에 변화가 생기는 요청(회원가입, 글쓰기 등)의 경우에는 redirection을 사용
@@ -132,7 +132,7 @@ public String logout(HttpSession session, HttpServletRequest request) throws Exc
 	session.invalidate();
 	request.getSession(true); //세션을 제거 후 새로운 세션적용
 	
-	return "redirect:/";
+	return "redirect:home.do";
 }
 
 //수정
@@ -165,7 +165,7 @@ public String registerUpdate(MultipartHttpServletRequest mtfRequest, Model model
 	
 	session.invalidate();
 	
-	return "redirect:/";
+	return "redirect:home.do";
 }
 
 // 회원 탈퇴 get
@@ -193,7 +193,7 @@ public String memberDelete(MemberDto dto, HttpSession session, RedirectAttribute
 	}
 	biz.memberDelete(dto);
 	session.invalidate();
-	return "redirect:/";
+	return "redirect:home.do";
 }
 
 //탈퇴 비번확인
