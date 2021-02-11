@@ -93,4 +93,9 @@ public class PlaceBizImpl implements PlaceBiz{
 		return dao.updatePlace(dto);
 	}
 
+	@Override
+	public List<PlaceDto> placecate(PlaceDto dto) {
+		return dao.placecate(dto);
+	}
+
 }

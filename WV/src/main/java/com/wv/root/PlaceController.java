@@ -143,4 +143,15 @@ public class PlaceController {
 		return biz.commentdelete(pcno);		
 	}
 	
+	@RequestMapping(value="/placecate.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<PlaceDto> placecate(@RequestBody PlaceDto dto) {
+		System.out.println(dto.getSoket()+"콘센트");
+		System.out.println(dto.getCom()+"컴퓨터");
+		System.out.println(dto.getPeople()+"사람");
+		System.out.println(biz.placecate(dto));
+		return biz.placecate(dto);		
+	}
+
+	
 }

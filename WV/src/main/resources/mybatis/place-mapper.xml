@@ -50,4 +50,13 @@
 		SET LNG = #{lng}, LAT = #{lat}, PTITLE = #{ptitle}, PCONTENT = #{pcontent}, SOKET = #{soket}, COM = #{com}, PEOPLE = #{people}
 		WHERE PNO = #{pno}
 	</update>
+	
+	<select id="placecate" parameterType="placeDto" resultType="int">
+		SELECT PNO
+		FROM PLACE
+		WHERE <if test="soket != null">SOKET LIKE '%'||#{soket}||'%' <if test="com != null">AND</if></if>
+		<if test="com != null"> COM LIKE '%'||#{com}||'%' <if test="people != null">AND</if></if>
+		<if test="people != null"><if test="soket != null and people == null">AND</if> PEOPLE LIKE '%'||#{people}||'%'</if>
+
+	</select>
 </mapper>
