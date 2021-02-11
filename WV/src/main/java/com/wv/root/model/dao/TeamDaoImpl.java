@@ -141,18 +141,26 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	
-	//팀 권한 변경
+	//팀 권한 및 내용 변경
 	@Override
 	public int teamManageConfirm(List list) {
 		int res = 0;
 		List<TeamMemberDto> dtoG = (List<TeamMemberDto>)list.get(0);
 		List<TeamMemberDto> dtoD = (List<TeamMemberDto>)list.get(1);
+		List<TeamMemberDto> dtoT = (List<TeamMemberDto>)list.get(2);
+		Map<String,Object> dto = (Map<String,Object>)dtoT.get(0);
 		try { 
-			res = session.update(NameSpace+"teamManageConfirm1", dtoG);
+			if(!dtoG.isEmpty()) { //팀등급 변경
+				res = session.update(NameSpace+"teamManageConfirm1", dtoG);
+			}
+			if(!dtoT.isEmpty()) { //팀소개 변경
+				session.update(NameSpace+"teamManageConfirm3", dto);
+				res = 3;
+			}
 			if(dtoD.isEmpty()) {
 				return res;
-			}
-			res = session.delete(NameSpace+"teamManageConfirm2", dtoD);
+			}//팀원 제외
+			session.delete(NameSpace+"teamManageConfirm2", dtoD);
 		} catch (Exception e) {
 			System.out.println("[dao: teamManageConfirm] fail..");
 			e.printStackTrace();

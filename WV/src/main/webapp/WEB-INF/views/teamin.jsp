@@ -234,10 +234,10 @@
     <div class="modal" id="managemodal" role="dialog" data-backdrop="false">
         <div class="modal-dialog" id="mmdialog">
             <div class="modal-content">
-                <div class="modal-header" style="justify-content: center;">
+                <div class="modal-header" style="justify-content: center;flex-wrap: wrap;">
                  	<!-- <h4 id="modal-title" class="modal-title"></h4> -->
                 	<button type='button' class="btn btn-sm btn-primary" id="mmTeamNamebt" data-mid="${member.member_id}" onclick="teamWithdraw(this);">팀의 이름입니다.</button>
-                 	                 	             	
+                 	<div><textarea class="teamintro" name="team_intro" id="teamintro" cols="30" rows="2"></textarea></div>                 	             	
                 </div> 
                 <div class="modal-body">
 					<div class="justify-content-center" id="mmC">
@@ -271,7 +271,7 @@
 						
                 </div>
                 <div class="modal-footer justify-content-center" style="border-top: 0px; padding: 7px 20px;" >
-                	<button type='button' class="btn btn-sm btn-primary" id="mmCdbt" data-mid="${member.member_id}" onclick="teamManageConfirm(this)">변경</button>
+                	<button type='button' class="btn btn-sm btn-primary" id="mmCdbt" data-mid="${member.member_id}" data-mno="${member.member_no}" onclick="teamManageConfirm(this)">변경</button>
                 	<button type='button' class="btn btn-sm btn-primary" id="mmCcbt" data-dismiss="modal" onclick="(()=>{$('#managemodal').val('');$('body').css('overflow', 'scroll');})();">취소</button>
                 </div>
             </div>

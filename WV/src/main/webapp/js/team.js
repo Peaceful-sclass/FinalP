@@ -171,6 +171,7 @@ let teamManageBT = (param) => {
 			
 			let LD = chkteamLD(teamdata.member_id, currTeamno);
 			if (LD == 0) {//팀원
+				$("#teamintro").hide();
 				$("thead>tr>th:eq(0)").hide();
 				$("#mmCdbt").hide();
 				let code;
@@ -182,6 +183,7 @@ let teamManageBT = (param) => {
 				$("tbody").html(code);
 
 			} else if (LD == 2) { //매니저일 경우 ui
+				$("#teamintro").hide();
 				$("thead>tr>th:eq(0)").show();
 				$("#mmCdbt").show();
 				let code;
@@ -205,6 +207,11 @@ let teamManageBT = (param) => {
 			} else {//팀장일경우 ui추가변경
 				$("thead>tr>th:eq(0)").show();
 				$("#mmCdbt").show();
+				//$("#teamintro").show();
+				let teamintro = document.getElementById("teamintro");
+				teamintro.style.display = "inline-block";
+				teamintro.value = rt[0].team_intro;
+				
 				let code;
 				for (let i = 0; i < rt.length; i++) {
 					if (rt[i].grade_inteam == "팀장") {
@@ -288,9 +295,15 @@ let teamManageConfirm = (param) => {
 	let currTeamno = sessionStorage.getItem("teamInfo");
 	let gradeModify = document.getElementsByName("grade_inteam");
 	let fireMember = document.getElementsByName("tmchkbox"); //제외할 member_no 체크목록
+	let teamintro ={ 
+		team_intro:document.getElementById("teamintro").value,
+		team_no: currTeamno,
+	}
 	let voarr = new Array();
 	var dtoGarr = new Array();
 	var dtoDarr = new Array();
+	var dtoTarr = new Array();
+	dtoTarr.push(teamintro);
 
 	for (let i = 0; i < gradeModify.length; i++) {
 		let dtoG = { member_no: 0, grade_inteam: "", team_no: 0 }//new Object를 구성해야한다.
@@ -315,6 +328,7 @@ let teamManageConfirm = (param) => {
 	console.log(dtoDarr);
 	voarr.push(dtoGarr);
 	voarr.push(dtoDarr);
+	voarr.push(dtoTarr);
 	console.log(voarr);
 	//alert(voMap.get("gradeModify"));
 	$.ajax({
@@ -326,6 +340,8 @@ let teamManageConfirm = (param) => {
 		success: function(rt) {
 			toastr.success("팀정보가 변경되었습니다.", "SUCCESS!", { tiemOut: 5000 });
 			$("#mmCcbt").click();
+			let teamintroUP = document.querySelector("[data-tno=\'"+currTeamno+"\']"); 
+			teamintroUP.children[1].lastElementChild.innerText = teamintro.team_intro; 
 		},
 		error: function() {
 			toastr.error("인터넷연결을 확인해주세요.", "통신에러!", { tiemOut: 5000 });
