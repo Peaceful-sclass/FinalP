@@ -108,6 +108,11 @@
 			where team_no= #{dtoG.team_no} and member_no = #{dtoG.member_no} 
 		</foreach>
 	</update>
+	<!-- 팀소개 변경 -->	
+ 	<update id="teamManageConfirm3" parameterType="hashmap">
+		update team set team_intro = #{team_intro}
+		where team_no= #{team_no} 
+	</update>
 
 	<!-- 팀원제외 -->
 	<delete id="teamManageConfirm2" parameterType="list">
