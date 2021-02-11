@@ -362,7 +362,10 @@ let teamWithdraw = (param)=>{
 			return false;
 		} 
 	} else{
-		const confirm1 = confirm("탈퇴합니다. 계속 하시겠습니까??");
+		let confirm2 = confirm("탈퇴합니다. 계속 하시겠습니까??");
+		if(!confirm2){
+			return false;
+		}
 	}
 	let data ={member_id: param.dataset['mid'],team_no:currteamno};
 	$.ajax({
