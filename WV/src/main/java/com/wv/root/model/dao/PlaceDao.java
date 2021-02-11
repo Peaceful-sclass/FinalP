@@ -42,6 +42,8 @@ public interface PlaceDao {
 
 	public int updatePlace(PlaceDto dto);
 
+	public List<PlaceDto> placecate(PlaceDto dto);
+
 	
 
 }

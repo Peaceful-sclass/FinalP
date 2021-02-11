@@ -20,4 +20,5 @@ public interface PlaceBiz {
 	public int commentdelete(int pcno);
 	public int deletePlace(int pno);
 	public int updatePlace(PlaceDto dto);
+	public List<PlaceDto> placecate(PlaceDto dto);
 }

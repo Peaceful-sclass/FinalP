@@ -396,7 +396,7 @@
 
 	<!-- 모임장소 Modal -->
     <div class="modal fade" id="placeModal" role="dia">
-        <div class="modal-dialog" style="max-width: 100%; width: 60%; ">
+        <div class="modal-dialog" style="max-width: 100%; width: 70%; ">
             <div class="modal-content">
                 <div class="modal-header">
                  	<h4 id="modal-title" class="modal-title"></h4>                 	             	

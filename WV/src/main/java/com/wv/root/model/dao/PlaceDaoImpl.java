@@ -203,4 +203,16 @@ public class PlaceDaoImpl implements PlaceDao{
 		return res;
 	}
 
+	@Override
+	public List<PlaceDto> placecate(PlaceDto dto) {
+		List<PlaceDto> list = new ArrayList<PlaceDto>();
+		try {
+			list = sqlSession.selectList(NAMESPACE+"placecate", dto);
+		} catch (Exception e) {
+			System.out.println("[error]: placecate");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

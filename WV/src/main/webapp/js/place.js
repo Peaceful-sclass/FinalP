@@ -8,77 +8,35 @@
 				$("input:radio[name='listpeople']:radio[value='2~4인']").prop('checked', false);
 				$(".plsall").show();
 			}
-			function soketselect(){
+
+			function cateselect(){
 				// 라디오버튼 클릭시 이벤트 발생
 				var radioVal = $('input[name="listsoket"]:checked').val();
-				console.log(radioVal);
-				var x = "없음";				
-				var y = "있음";
-				var names = document.getElementsByName(x);
-				var names2 = document.getElementsByName(y);				
-				if(radioVal=="없음"){
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().show();
-						$(names2[i]).parent().hide();
-					}		
-				}else{
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().hide();
-						$(names2[i]).parent().show();
-					}	
-				}
-										
-			}
-			function comselect(){
-				// 라디오버튼 클릭시 이벤트 발생
-				var radioVal = $('input[name="listcom"]:checked').val();
-				console.log(radioVal);
-				var x = "사용가능";				
-				var y = "사용불가";
-				var names = document.getElementsByName(x);
-				var names2 = document.getElementsByName(y);				
-				if(radioVal=="사용가능"){
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().show();
-						$(names2[i]).parent().hide();
-					}		
-				}else{
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().hide();
-						$(names2[i]).parent().show();
-					}	
-				}							
-			}
-			function peopleselect(){
-				// 라디오버튼 클릭시 이벤트 발생
-				var radioVal = $('input[name="listpeople"]:checked').val();
-				console.log(radioVal);
-				var x = "2~4인";				
-				var y = "5~8인";				
-				var z = "8인이상";
-				var names = document.getElementsByName(x);
-				var names2 = document.getElementsByName(y);
-				var names3 = document.getElementsByName(z);				
-				if(radioVal=="2~4인"){
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().show();
-						$(names2[i]).parent().hide();
-						$(names3[i]).parent().hide();
-					}		
-				}else if(radioVal=="5~8인"){
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().hide();
-						$(names2[i]).parent().show();
-						$(names3[i]).parent().hide();
-					}	
-				}else if(radioVal=="8인이상"){
-					for(var i=0; i<x.length; i++){
-						$(names[i]).parent().hide();
-						$(names2[i]).parent().hide();
-						$(names3[i]).parent().show();
-					}	
-				}						
-			}    
+				var radioVal2 = $('input[name="listcom"]:checked').val();
+				var radioVal3 = $('input[name="listpeople"]:checked').val();
+				var placeVal = {"soket" : radioVal, "com" : radioVal2, "people" : radioVal3};
+				$.ajax({
+					type:"post",
+					url:"placecate.do",
+					data:JSON.stringify(placeVal),
+					contentType:"application/json",
+					dataType:"json",
+					success:function(result){
+						if(result.length<1){
+							$(".plsall").hide();
+						}else{
+							$(".plsall").hide();	
+							$(result).each(function(){
+								console.log($("#pno_4"));
+								$("#pno_"+this+"").parent().show();
+							});
+						}
+					},
+					error:function(){
+						alert("통신실패");
+					}
+				});						
+			}   
 
 			$('#placeModal').on('hidden.bs.modal', function () {
         	//모달이 닫힐때 부모창 스크롤 방지해제
@@ -124,18 +82,18 @@
 						}else{
 							htmlcode += '<div class="input-group">';
 							htmlcode += '<div class="input-box2"><span class="boxspan">콘센트</span>';
-							htmlcode += '<input type="radio" onclick="soketselect();" name="listsoket" value="있음" id="listsoket1" class="radio"><label for="listsoket1">있음</label>';
-							htmlcode += '<input type="radio" onclick="soketselect();" name="listsoket" value="없음" id="listsoket2" class="radio"><label for="listsoket2">없음</label></div>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listsoket" value="있음" id="listsoket1" class="radio"><label for="listsoket1">있음</label>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listsoket" value="없음" id="listsoket2" class="radio"><label for="listsoket2">없음</label></div>';
 							htmlcode += '<div class="input-box2"><span class="boxspan">컴퓨터 사용여부</span>';
-							htmlcode += '<input type="radio" onclick="comselect();" name="listcom" value="사용가능" id="listcom1" class="radio"><label for="listcom1">사용가능</label>';
-							htmlcode += '<input type="radio" onclick="comselect();" name="listcom" value="사용불가" id="listcom2" class="radio"><label for="listcom2">사용불가</label></div>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listcom" value="사용가능" id="listcom1" class="radio"><label for="listcom1">사용가능</label>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listcom" value="사용불가" id="listcom2" class="radio"><label for="listcom2">사용불가</label></div>';
 							htmlcode += '<div class="input-box2"><span class="boxspan">인원</span>';
-							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
-							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
-							htmlcode += '<input type="radio" onclick="peopleselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();" style="margin-left: 20px; height: 47px;">조건초기화</button></div><hr>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listpeople" value="2~4인" id="listpeople1" class="radio"><label for="listpeople1">2~4인</label>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listpeople" value="5~8인" id="listpeople2" class="radio"><label for="listpeople2" id="lmid">5~8인</label>';
+							htmlcode += '<input type="radio" onclick="cateselect();" name="listpeople" value="8인이상" id="listpeople3" class="radio"><label for="listpeople3">8인이상</label></div><button class="btn btn-sm btn-primary" onclick="selectresetlist();" style="margin-left: 20px; height: 47px;">조건초기화</button></div><hr>';
 							
 							$(result).each(function(){
-								htmlcode += '<div class="plsall"><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><hr></div>';
+								htmlcode += '<div class="plsall"><a class="placetitle" onclick="placeDetailAjax('+this.pno+')">'+this.ptitle+'</a><img src="images/like-img.png" style="width:20px; height:20px; margin-left: 30px;">'+this.plike+'<input type="hidden" name="'+this.soket+'"><input type="hidden" name="'+this.com+'"><input type="hidden" name="'+this.people+'"><input type="hidden" id="pno_'+this.pno+'"><hr></div>';
 							});
 						}
 						$("#placeListAll").html(htmlcode);
@@ -164,7 +122,7 @@
 						var htmlcode = "";
 						htmlcode += '<div class="input-group" style="margin-bottom:0px; padding:0px;"><span class="boxspan" style="padding-left:0px;">콘센트</span><div class="input-box3"><label for="desoket">'+dto.soket+'</label></div><span class="boxspan">컴퓨터</span><div class="input-box3"><label for="decom">'+dto.com+'</label></div><span class="boxspan">수용 가능 인원</span><div class="input-box3"><label for="depeople">'+dto.people+'</label></div></div>';	
 						htmlcode += '<div>장소소개 : <span id="pct">'+dto.pcontent+'</sapn></div><div>위치</div>';	
-						htmlcode += '<div id="detailmap" style="width:95%; height:400px; margin: auto; border: 1px solid #c0bfbf; border-radius: 3px;"></div>';
+						htmlcode += '<div id="detailmap" style="width:85%; height:400px; margin: auto; border: 1px solid #c0bfbf; border-radius: 3px;"></div>';
 						if(likecheck==1){
 							htmlcode += '<div style="text-align: center;"><img id="likeimg" src="images/like-img.png" onclick="likeCancel('+pno+');" style="width:40px; height:40px; margin-left: 30px;"><span id="plike">'+dto.plike+'</span></div><hr>';
 						}else if(likecheck==0){
