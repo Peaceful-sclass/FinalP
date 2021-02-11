@@ -346,7 +346,7 @@
 		<c:if test="${member != null }">
 		    
 			<div>
-			<p style="position: fixed; top: 5px; right: 140px; font-size: 13; ">${member.member_id}님 환영합니다 </p>
+			<p style="position: fixed; top: 5px; right: 140px; font-size: 13px; ">${member.member_id}님 환영합니다 </p>
 				<button style="position: fixed; top: 5px; right: 75px;" id="memberUpdateBtn" type="button">내정보</button>
 				<!-- <button  style="position: fixed; top: 5px; right: 75px;" id="memberDeleteBtn" type="button">회원탈퇴</button> -->
 				<button style="position: fixed; top: 5px; right: 10px;" id="outBtn" type="button">로그아웃</button>
