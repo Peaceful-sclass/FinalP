@@ -34,6 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 				request.getRequestURI().contains("/comunity.do") ||
 				request.getRequestURI().contains("/cmdetail.do") ||
 				request.getRequestURI().contains("/contestlist.do") ||
+				request.getRequestURI().contains("/contestDetail.do") ||
 				request.getSession().getAttribute("member") != null ) { //login된 유저만 login되도록 처리(controller로 넘어가도록).
 			return true;
 		}

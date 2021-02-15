@@ -58,7 +58,7 @@
 				<li>
 					<span class="tit">홈페이지</span>
 					<c:if test="${ null ne contest.contestpage}">
-					<a href="http://${contest.contestpage }" target="_blank">http://${contest.contestpage }</a>
+					<a href="${contest.contestpage }" target="_blank">${contest.contestpage }</a>
 					</c:if>
 				</li>
 				<li>

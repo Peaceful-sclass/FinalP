@@ -118,7 +118,7 @@ public class CodeController {
 		case 7 : return "codecssinsert";
 		case 8 : return "codehtmlinsert";
 		}
-		return null;
+		return "codejavainsert";
 
 	}
 	
@@ -149,7 +149,7 @@ public class CodeController {
 		case 8 : return "codehtmlupdate";
 		case 9 : return "codeupdate";
 		}
-		return null;
+		return "codejavaupdate";
 		
 	}
 	
@@ -171,9 +171,9 @@ public class CodeController {
 		
 		int res= biz.delete(myno);
 		if(res>0) {
-			return "redirect:list.do?myco="+myco;
+			return "redirect:codemain.do";
 		}else {
-			return "redirect:list.do";
+			return "redirect:codemain.do";
 		}
 		
 	}
