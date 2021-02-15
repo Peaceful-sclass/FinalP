@@ -101,7 +101,7 @@
 			data: {"member_id" : member_id, "member_email": member_email2},
 			success:function(msg2){
 				if(msg2){
-					toastr.success(member_email+" 으로<br> 비밀번호가 발송되었습니다.", "비밀번호 찾기",{tiemOut:5000});
+					toastr.success(member_email2+" 으로<br> 비밀번호가 발송되었습니다.", "비밀번호 찾기",{tiemOut:5000});
 				}else{
 					toastr.warning("아이디 또는 이메일이 잘못되었습니다.", {tiemOut:5000});
 				}
